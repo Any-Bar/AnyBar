@@ -1,0 +1,17 @@
+﻿<Application
+    x:Class="Flow.Bar.App"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="clr-namespace:Flow.Bar"
+    xmlns:ui="http://schemas.inkore.net/lib/ui/wpf/modern"
+    ShutdownMode="OnMainWindowClose"
+    Startup="OnStartup">
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ui:ThemeResources />
+                <ui:XamlControlsResources />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>
