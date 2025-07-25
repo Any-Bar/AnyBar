@@ -28,10 +28,9 @@ public partial class App : Application, IDisposable, ISingleInstanceApp
     private void OnStartup(object sender, StartupEventArgs e)
     {
         _mainWindow ??= new MainWindow();
+        _mainWindow.Show();
 
         Current.MainWindow = _mainWindow;
-
-        _mainWindow.Show();
     }
 
     protected virtual void Dispose(bool disposing)
