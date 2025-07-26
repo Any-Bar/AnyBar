@@ -1,4 +1,5 @@
-﻿using Flow.Bar.Models.UserSettings;
+﻿using Flow.Bar.Models.Language;
+using Flow.Bar.Models.UserSettings;
 using Flow.Bar.Plugin;
 using System.Threading;
 
@@ -17,4 +18,6 @@ public class PublicAPIInstance(Settings settings) : IPublicAPI
             _settings.Save();
         }
     }
+
+    public string GetTranslation(string key) => Internationalization.GetTranslation(key);
 }

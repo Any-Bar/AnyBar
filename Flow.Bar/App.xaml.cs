@@ -2,6 +2,7 @@
 using Flow.Bar.Helper;
 using Flow.Bar.Helper.Application;
 using Flow.Bar.Models;
+using Flow.Bar.Models.Language;
 using Flow.Bar.Models.Storage;
 using Flow.Bar.Models.UserSettings;
 using Flow.Bar.Plugin;
@@ -12,6 +13,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
 using System.Diagnostics;
+using System.Reflection.Metadata;
 using System.Text;
 using System.Threading;
 using System.Windows;
@@ -40,6 +42,7 @@ public partial class App : Application, IDisposable, ISingleInstanceApp
     [STAThread]
     public static void Main()
     {
+        // Initialize settings so that we can get language code
         try
         {
             var storage = new FlowBarJsonStorage<Settings>();
@@ -50,6 +53,15 @@ public partial class App : Application, IDisposable, ISingleInstanceApp
         {
             ShowErrorMsgBoxAndFailFast("Cannot load setting storage, please check local data directory", e);
             return;
+        }
+
+        // Initialize system language before changing culture info
+        Internationalization.InitSystemLanguageCode();
+
+        // Change culture info before application creation to localize WinForm windows
+        if (_settings.Language != Constants.SystemLanguageCode)
+        {
+            Internationalization.ChangeCultureInfo(_settings.Language);
         }
 
         // Start the application as a single instance
@@ -74,6 +86,7 @@ public partial class App : Application, IDisposable, ISingleInstanceApp
             .ConfigureServices(services => services
                 .AddSingleton(_ => _settings)
                 .AddSingleton<IPublicAPI, PublicAPIInstance>()
+                .AddSingleton<Internationalization>()
                 .AddTransient<AppBarViewModel>()
             ).Build();
             Ioc.Default.ConfigureServices(host.Services);
@@ -112,9 +125,12 @@ public partial class App : Application, IDisposable, ISingleInstanceApp
 
     #region App Events
 
-    private void OnStartup(object sender, StartupEventArgs e)
+    private async void OnStartup(object sender, StartupEventArgs e)
     {
         ShutdownMode = ShutdownMode.OnExplicitShutdown;
+
+        // Initialize language before portable clean up since it needs translations
+        await Ioc.Default.GetRequiredService<Internationalization>().InitializeLanguageAsync();
 
         RegisterAppDomainExceptions();
         RegisterDispatcherUnhandledException();
@@ -196,7 +212,7 @@ public partial class App : Application, IDisposable, ISingleInstanceApp
     {
         var exitItem = new MenuItem
         {
-            Header = "Exit",
+            Header = API.GetTranslation("TrayIcon.Exit"),
             Icon = new FontIcon { Glyph = "\ue7e8" }
         };
         exitItem.Click += (o, e) =>
