@@ -1,6 +1,8 @@
 ﻿using CommunityToolkit.Mvvm.DependencyInjection;
 using Flow.Bar.Helper;
 using Flow.Bar.Models;
+using Flow.Bar.Models.Storage;
+using Flow.Bar.Models.UserSettings;
 using Flow.Bar.Plugin;
 using Flow.Bar.ViewModels;
 using Flow.Bar.Views;
@@ -16,6 +18,7 @@ public partial class App : Application, IDisposable, ISingleInstanceApp
     public static bool LoadingOrExiting => _mainWindow == null;
 
     private static bool _disposed;
+    private static Settings _settings = null!;
     private static SettingWindow? _mainWindow;
 
     // To prevent two disposals running at the same time.
@@ -24,6 +27,18 @@ public partial class App : Application, IDisposable, ISingleInstanceApp
     [STAThread]
     public static void Main()
     {
+        try
+        {
+            var storage = new FlowBarJsonStorage<Settings>();
+            _settings = storage.Load();
+            _settings.SetStorage(storage);
+        }
+        catch (Exception e)
+        {
+            ShowErrorMsgBoxAndFailFast("Cannot load setting storage, please check local data directory", e);
+            return;
+        }
+
         // Start the application as a single instance
         if (SingleInstance<App>.InitializeAsFirstInstance())
         {
@@ -38,12 +53,22 @@ public partial class App : Application, IDisposable, ISingleInstanceApp
         var host = Host.CreateDefaultBuilder()
             .UseContentRoot(AppContext.BaseDirectory)
             .ConfigureServices(services => services
+                .AddSingleton(_ => _settings)
                 .AddSingleton<IPublicAPI, PublicAPIInstance>()
                 .AddTransient<AppBarViewModel>()
             ).Build();
         Ioc.Default.ConfigureServices(host.Services);
 
         API = Ioc.Default.GetRequiredService<IPublicAPI>();
+    }
+
+    private static void ShowErrorMsgBoxAndFailFast(string message, Exception e)
+    {
+        // Firstly show users the message
+        MessageBox.Show(e.ToString(), message, MessageBoxButton.OK, MessageBoxImage.Error);
+
+        // Flow cannot construct its App instance, so ensure Flow crashes w/ the exception info.
+        Environment.FailFast(message, e);
     }
 
     private void OnStartup(object sender, StartupEventArgs e)
@@ -54,10 +79,12 @@ public partial class App : Application, IDisposable, ISingleInstanceApp
         _mainWindow.Show();
 
         Current.MainWindow = _mainWindow;
-        Current.MainWindow.Title = Constants.FlowBar;
+        Current.MainWindow.Title = Constants.FlowBarFullName;
 
         var barWindow = new AppBarWindow(Ioc.Default.GetRequiredService<AppBarViewModel>());
         barWindow.Show();
+
+        API.SaveAppAllSettings();
     }
 
     protected virtual void Dispose(bool disposing)
