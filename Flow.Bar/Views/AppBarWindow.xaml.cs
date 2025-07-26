@@ -96,7 +96,7 @@ public partial class AppBarWindow : Window
 
     public static readonly DependencyProperty DockedWidthOrHeightProperty =
         DependencyProperty.Register("DockedWidthOrHeight", typeof(int), typeof(AppBarWindow),
-            new FrameworkPropertyMetadata(200, DockLocation_Changed, DockedWidthOrHeight_Coerce));
+            new FrameworkPropertyMetadata(50, DockLocation_Changed, DockedWidthOrHeight_Coerce));
 
     private static object DockedWidthOrHeight_Coerce(DependencyObject d, object baseValue)
     {
