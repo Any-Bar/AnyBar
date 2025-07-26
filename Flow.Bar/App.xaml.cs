@@ -31,6 +31,7 @@ public partial class App : Application, IDisposable, ISingleInstanceApp
         _mainWindow.Show();
 
         Current.MainWindow = _mainWindow;
+        Current.MainWindow.Title = Constants.FlowBar;
     }
 
     protected virtual void Dispose(bool disposing)
