@@ -424,6 +424,19 @@ public partial class AppBarWindow : Window
             clientBounds.right - frameBounds.right,
             clientBounds.bottom - frameBounds.bottom);
     }
+
+    private void BarThumb_DragCompleted(object sender, System.Windows.Controls.Primitives.DragCompletedEventArgs e)
+    {
+        var delta = DockMode switch
+        {
+            AppBarDockMode.Left => e.HorizontalChange,
+            AppBarDockMode.Right => e.HorizontalChange * -1,
+            AppBarDockMode.Top => e.VerticalChange,
+            AppBarDockMode.Bottom => e.VerticalChange * -1,
+            _ => throw new NotSupportedException(),
+        };
+        DockedWidthOrHeight += (int)(delta / VisualTreeHelper.GetDpi(this).PixelsPerDip);
+    }
 }
 
 public enum AppBarDockMode

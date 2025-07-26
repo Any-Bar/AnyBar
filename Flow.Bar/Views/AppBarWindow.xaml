@@ -18,15 +18,44 @@
     DpiChanged="Window_DpiChanged"
     SourceInitialized="Window_SourceInitialized"
     mc:Ignorable="d">
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*" />
-            <RowDefinition Height="1" />
-        </Grid.RowDefinitions>
-        <TextBlock
-            HorizontalAlignment="Right"
-            VerticalAlignment="Center"
-            Text="AAA" />
-        <Grid Grid.Row="1" Background="Gray" />
-    </Grid>
+    <DockPanel>
+        <Thumb
+            x:Name="BarThumb"
+            Background="Gray"
+            DragCompleted="BarThumb_DragCompleted">
+            <Thumb.Style>
+                <Style TargetType="{x:Type Thumb}">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding Path=DockMode}" Value="Left">
+                            <Setter Property="Width" Value="5" />
+                            <Setter Property="DockPanel.Dock" Value="Right" />
+                            <Setter Property="Cursor" Value="SizeWE" />
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding Path=DockMode}" Value="Right">
+                            <Setter Property="Width" Value="5" />
+                            <Setter Property="DockPanel.Dock" Value="Left" />
+                            <Setter Property="Cursor" Value="SizeWE" />
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding Path=DockMode}" Value="Top">
+                            <Setter Property="Height" Value="5" />
+                            <Setter Property="DockPanel.Dock" Value="Bottom" />
+                            <Setter Property="Cursor" Value="SizeNS" />
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding Path=DockMode}" Value="Bottom">
+                            <Setter Property="Height" Value="5" />
+                            <Setter Property="DockPanel.Dock" Value="Top" />
+                            <Setter Property="Cursor" Value="SizeNS" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Thumb.Style>
+        </Thumb>
+
+        <Grid>
+            <TextBlock
+                HorizontalAlignment="Right"
+                VerticalAlignment="Center"
+                Text="AAA" />
+        </Grid>
+    </DockPanel>
 </Window>
