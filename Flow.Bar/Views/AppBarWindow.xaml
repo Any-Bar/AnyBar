@@ -10,6 +10,8 @@
     Height="450"
     ui:ThemeManager.IsThemeAware="True"
     ui:ThemeManager.RequestedTheme="Default"
+    ui:TitleBar.ExtendViewIntoTitleBar="True"
+    ui:TitleBar.Height="0"
     ui:WindowHelper.SystemBackdropType="Mica"
     ui:WindowHelper.UseModernWindowStyle="True"
     Closing="Window_Closing"
@@ -17,6 +19,14 @@
     SourceInitialized="Window_SourceInitialized"
     mc:Ignorable="d">
     <Grid>
-        <TextBlock HorizontalAlignment="Right" Text="AAA" />
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="1" />
+        </Grid.RowDefinitions>
+        <TextBlock
+            HorizontalAlignment="Right"
+            VerticalAlignment="Center"
+            Text="AAA" />
+        <Grid Grid.Row="1" Background="Gray" />
     </Grid>
 </Window>
