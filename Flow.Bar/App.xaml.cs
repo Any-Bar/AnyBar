@@ -9,6 +9,7 @@ using Flow.Bar.Views;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System.Diagnostics;
+using System.Text;
 using System.Windows;
 
 namespace Flow.Bar;
@@ -106,6 +107,9 @@ public partial class App : Application, IDisposable, ISingleInstanceApp
     {
         ShutdownMode = ShutdownMode.OnExplicitShutdown;
 
+        RegisterAppDomainExceptions();
+        RegisterDispatcherUnhandledException();
+
         _mainWindow ??= new SettingWindow();
         _mainWindow.Show();
 
@@ -114,6 +118,10 @@ public partial class App : Application, IDisposable, ISingleInstanceApp
 
         var barWindow = new AppBarWindow(Ioc.Default.GetRequiredService<AppBarViewModel>());
         barWindow.Show();
+
+        Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+
+        RegisterExitEvents();
 
         API.SaveAppAllSettings();
     }
