@@ -1,0 +1,10 @@
+{
+  "ID": "3675a0dd-af3b-412f-b257-5e004dea2bd0",
+  "Name": "Clock",
+  "Description": "Display date and time",
+  "Author": "Jack Ye",
+  "Version": "1.0.0",
+  "Website": "https://github.com/Flow-Bar/Flow.Bar",
+  "ExecuteFileName": "Flow.Bar.Plugin.Clock.dll",
+  "IcoPath": "Images\\icon.png"
+}
