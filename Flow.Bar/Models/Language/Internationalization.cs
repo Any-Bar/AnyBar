@@ -21,7 +21,7 @@ public class Internationalization(Settings settings)
     private readonly Settings _settings = settings;
     private readonly List<string> _languageDirectories = [];
     private readonly List<ResourceDictionary> _oldResources = [];
-    private static string SystemLanguageCode;
+    private static string SystemLanguageCode = null!;
 
     #region Initialization
 
