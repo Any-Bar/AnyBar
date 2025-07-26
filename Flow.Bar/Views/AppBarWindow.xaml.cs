@@ -96,7 +96,7 @@ public partial class AppBarWindow : Window
 
     public static readonly DependencyProperty DockedWidthOrHeightProperty =
         DependencyProperty.Register("DockedWidthOrHeight", typeof(int), typeof(AppBarWindow),
-            new FrameworkPropertyMetadata(50, DockLocation_Changed, DockedWidthOrHeight_Coerce));
+            new FrameworkPropertyMetadata(200, DockLocation_Changed, DockedWidthOrHeight_Coerce));
 
     private static object DockedWidthOrHeight_Coerce(DependencyObject d, object baseValue)
     {
@@ -175,6 +175,7 @@ public partial class AppBarWindow : Window
 
         // set our initial location
         IsAppBarRegistered = true;
+        InitDockHeightOrWidth();
         OnDockLocationChanged();
     }
 
@@ -199,11 +200,43 @@ public partial class AppBarWindow : Window
         }
     }
 
+    private void InitDockHeightOrWidth()
+    {
+        var monitor = MonitorInfo.GetPrimaryDisplayMonitor();
+        if (monitor != null)
+        {
+            var taskBarHeight = monitor.Bounds.Height - monitor.WorkingArea.Height;
+            if (taskBarHeight != 0) // Taskbar is docked at the top or bottom
+            {
+                DockedWidthOrHeight = DesktopDimensionToWpf((int)taskBarHeight);
+            }
+            else
+            {
+                var taskBarWidth = monitor.Bounds.Width - monitor.WorkingArea.Width;
+                if (taskBarWidth != 0) // Taskbar is docked at the left or right
+                {
+                    DockedWidthOrHeight = DesktopDimensionToWpf((int)taskBarWidth);
+                }
+                else
+                {
+                    DockedWidthOrHeight = 200; // Default value if no taskbar is detected
+                }
+            }
+        }
+    }
+
     private int WpfDimensionToDesktop(double dim)
     {
         var dpi = VisualTreeHelper.GetDpi(this);
 
         return (int)Math.Ceiling(dim * dpi.PixelsPerDip);
+    }
+
+    private int DesktopDimensionToWpf(int dim)
+    {
+        var dpi = VisualTreeHelper.GetDpi(this);
+
+        return (int)Math.Round(dim / dpi.PixelsPerDip);
     }
 
     private void OnDockLocationChanged()
@@ -260,7 +293,7 @@ public partial class AppBarWindow : Window
     {
         var monitor = Monitor;
         var allMonitors = MonitorInfo.GetDisplayMonitors();
-        if (monitor == null! || !allMonitors.Contains(monitor))
+        if (monitor == null || !allMonitors.Contains(monitor))
         {
             monitor = allMonitors.First(f => f.IsPrimary);
         }
