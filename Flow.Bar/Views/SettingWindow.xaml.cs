@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using iNKORE.UI.WPF.Modern.Controls;
+using System.Windows;
 
 namespace Flow.Bar.Views;
 
@@ -7,5 +8,29 @@ public partial class SettingWindow : Window
     public SettingWindow()
     {
         InitializeComponent();
+    }
+
+    private void NavigationViewControl_DisplayModeChanged(NavigationView sender, NavigationViewDisplayModeChangedEventArgs args)
+    {
+        Thickness currMargin = AppTitleBar.Margin;
+        if (sender.DisplayMode == NavigationViewDisplayMode.Minimal)
+        {
+            AppTitleBar.Margin = new Thickness((sender.CompactPaneLength * 2), currMargin.Top, currMargin.Right, currMargin.Bottom);
+
+        }
+        else
+        {
+            AppTitleBar.Margin = new Thickness(sender.CompactPaneLength, currMargin.Top, currMargin.Right, currMargin.Bottom);
+        }
+        AppTitleBar.Visibility = sender.PaneDisplayMode == NavigationViewPaneDisplayMode.Top ? Visibility.Collapsed : Visibility.Visible;
+        UpdateAppTitleMargin(sender);
+    }
+
+    private void UpdateAppTitleMargin(NavigationView sender)
+    {
+        const int smallLeftIndent = 2;
+
+        Thickness currMargin = AppTitle.Margin;
+        AppTitle.Margin = new Thickness(smallLeftIndent, currMargin.Top, currMargin.Right, currMargin.Bottom);
     }
 }
