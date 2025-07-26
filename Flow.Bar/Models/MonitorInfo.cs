@@ -1,5 +1,4 @@
 ﻿using System.Runtime.InteropServices;
-using System.Runtime.Versioning;
 using System.Windows;
 using Windows.Win32;
 using Windows.Win32.Foundation;
@@ -12,7 +11,6 @@ namespace Flow.Bar.Models;
 /// Contains full information about a display monitor.
 /// Inspired from: https://github.com/Jack251970/DesktopWidgets3.
 /// </summary>
-[SupportedOSPlatform("windows5.0")]
 public class MonitorInfo : IEquatable<MonitorInfo>
 {
     /// <summary>

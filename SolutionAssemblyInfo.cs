@@ -2,6 +2,7 @@
 
 using System.Reflection;
 using System.Runtime.InteropServices;
+using System.Runtime.Versioning;
 
 [assembly: AssemblyConfiguration("Debug")]
 [assembly: AssemblyDescription("Debug build, https://github.com/Flow-Bar/Flow.Bar")]
@@ -19,3 +20,4 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyVersion("1.0.0")]
 [assembly: AssemblyFileVersion("1.0.0")]
 [assembly: AssemblyInformationalVersion("1.0.0")]
+[assembly: SupportedOSPlatform("windows10.0.19041.0")]
