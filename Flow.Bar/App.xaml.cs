@@ -1,4 +1,5 @@
 ﻿using Flow.Bar.Helper;
+using Flow.Bar.Views;
 using System.Windows;
 
 namespace Flow.Bar;
@@ -8,7 +9,7 @@ public partial class App : Application, IDisposable, ISingleInstanceApp
     public static bool LoadingOrExiting => _mainWindow == null;
 
     private static bool _disposed;
-    private static BarWindow? _mainWindow;
+    private static SettingWindow? _mainWindow;
 
     // To prevent two disposals running at the same time.
     private static readonly Lock _disposingLock = new();
@@ -27,11 +28,14 @@ public partial class App : Application, IDisposable, ISingleInstanceApp
 
     private void OnStartup(object sender, StartupEventArgs e)
     {
-        _mainWindow ??= new BarWindow();
+        _mainWindow ??= new SettingWindow();
         _mainWindow.Show();
 
         Current.MainWindow = _mainWindow;
         Current.MainWindow.Title = Constants.FlowBar;
+
+        var barWindow = new BarWindow();
+        barWindow.Show();
     }
 
     protected virtual void Dispose(bool disposing)
@@ -68,6 +72,6 @@ public partial class App : Application, IDisposable, ISingleInstanceApp
 
     public void OnSecondAppStarted()
     {
-        
+
     }
 }

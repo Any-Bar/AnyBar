@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-namespace Flow.Bar;
+namespace Flow.Bar.Views;
 
 public partial class BarWindow : Window
 {
