@@ -1,7 +1,11 @@
 ﻿using Flow.Bar.Models.Language;
 using Flow.Bar.Models.UserSettings;
 using Flow.Bar.Plugin;
+using System;
+using System.Runtime.CompilerServices;
 using System.Threading;
+using System.Threading.Tasks;
+using System.Windows;
 
 namespace Flow.Bar.Models;
 
@@ -20,4 +24,58 @@ public class PublicAPIInstance(Settings settings) : IPublicAPI
     }
 
     public string GetTranslation(string key) => Internationalization.GetTranslation(key);
+
+    public MessageBoxResult ShowMsgBox(string messageBoxText, string caption = "", MessageBoxButton button = MessageBoxButton.OK, MessageBoxImage icon = MessageBoxImage.None, MessageBoxResult defaultResult = MessageBoxResult.OK)
+    {
+        throw new NotImplementedException();
+    }
+
+    public void LogDebug(string className, string message, [CallerMemberName] string methodName = "")
+    {
+
+    }
+
+    public void LogInfo(string className, string message, [CallerMemberName] string methodName = "")
+    {
+
+    }
+
+    public void LogWarn(string className, string message, [CallerMemberName] string methodName = "")
+    {
+
+    }
+
+    public void LogError(string className, string message, [CallerMemberName] string methodName = "")
+    {
+
+    }
+
+    public void LogException(string className, string message, Exception e, [CallerMemberName] string methodName = "")
+    {
+
+    }
+
+    public long StopwatchLogDebug(string className, string message, Action action, [CallerMemberName] string methodName = "")
+    {
+        action();
+        return 0;
+    }
+
+    public async Task<long> StopwatchLogDebugAsync(string className, string message, Func<Task> action, [CallerMemberName] string methodName = "")
+    {
+        await action();
+        return 0;
+    }
+
+    public long StopwatchLogInfo(string className, string message, Action action, [CallerMemberName] string methodName = "")
+    {
+        action();
+        return 0;
+    }
+
+    public async Task<long> StopwatchLogInfoAsync(string className, string message, Func<Task> action, [CallerMemberName] string methodName = "")
+    {
+        await action();
+        return 0;
+    }
 }
