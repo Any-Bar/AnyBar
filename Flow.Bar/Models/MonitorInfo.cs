@@ -1,4 +1,6 @@
-﻿using System.Runtime.InteropServices;
+﻿using System;
+using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using System.Windows;
 using Windows.Win32;
 using Windows.Win32.Foundation;
@@ -16,8 +18,8 @@ public class MonitorInfo : IEquatable<MonitorInfo>
     /// <summary>
     /// Gets the display monitors (including invisible pseudo-monitors associated with the mirroring drivers).
     /// </summary>
-    /// <returns>A list of display monitors</returns>
-    public static unsafe IList<MonitorInfo> GetDisplayMonitors()
+    /// <returns>An array of display monitors</returns>
+    public static unsafe MonitorInfo[] GetDisplayMonitors()
     {
         var monitorCount = PInvoke.GetSystemMetrics(SYSTEM_METRICS_INDEX.SM_CMONITORS);
         var list = new List<MonitorInfo>(monitorCount);
@@ -33,7 +35,7 @@ public class MonitorInfo : IEquatable<MonitorInfo>
         {
             Marshal.ThrowExceptionForHR(Marshal.GetLastWin32Error());
         }
-        return list;
+        return [.. list];
     }
 
     /// <summary>

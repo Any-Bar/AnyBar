@@ -1,4 +1,7 @@
-﻿using System.IO.Pipes;
+﻿using System;
+using System.IO.Pipes;
+using System.Threading;
+using System.Threading.Tasks;
 
 // http://blogs.microsoft.co.il/arik/2010/05/28/wpf-single-instance-application/
 // modified to allow single instace restart

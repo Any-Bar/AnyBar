@@ -8,8 +8,10 @@ using Flow.Bar.ViewModels;
 using Flow.Bar.Views;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using System;
 using System.Diagnostics;
 using System.Text;
+using System.Threading;
 using System.Windows;
 
 namespace Flow.Bar;

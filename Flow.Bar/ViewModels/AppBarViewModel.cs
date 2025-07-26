@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using Flow.Bar.Models;
+using System.Linq;
 
 namespace Flow.Bar.ViewModels;
 
