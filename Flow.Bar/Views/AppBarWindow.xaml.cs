@@ -18,37 +18,37 @@ namespace Flow.Bar.Views;
 
 public partial class AppBarWindow : Window
 {
-    private HWND HWND;
+    private HWND _hwnd;
     private HwndSource? _hwndSource;
 
-    private bool IsAppBarRegistered;
-    private bool IsInAppBarResize;
-    private bool IsMinimized;
+    private bool _isAppBarRegistered;
+    private bool _isInAppBarResize;
+    private bool _isMinimized;
 
-    private readonly ExplorerWatcher ExplorerWatcher = new();
-    private bool IsExplorerRestarting = false;
+    private readonly ExplorerWatcher _explorerWatcher = new();
+    private bool _isExplorerRestarting = false;
 
-    private readonly AppBarViewModel ViewModel;
+    private readonly AppBarViewModel _viewModel;
 
     public AppBarWindow(AppBarViewModel viewModel)
     {
-        ViewModel = viewModel;
+        _viewModel = viewModel;
         DataContext = viewModel;
         InitializeComponent();
-        ViewModel.PropertyChanged += ViewModel_PropertyChanged;
+        _viewModel.PropertyChanged += ViewModel_PropertyChanged;
         WindowStyle = WindowStyle.None;
         ResizeMode = ResizeMode.NoResize;
         Topmost = true;
-        ExplorerWatcher.ExplorerRestarted += async () =>
+        _explorerWatcher.ExplorerRestarted += async () =>
         {
             await Task.Delay(300);
 
-            if (IsExplorerRestarting) return;
-            IsExplorerRestarting = true;
+            if (_isExplorerRestarting) return;
+            _isExplorerRestarting = true;
 
             Application.Current.Dispatcher.Invoke(() =>
             {
-                if (IsAppBarRegistered)
+                if (_isAppBarRegistered)
                 {
                     var abd = GetAppBarData();
                     PInvoke.SHAppBarMessage(PInvoke.ABM_REMOVE, ref abd);
@@ -60,7 +60,7 @@ public partial class AppBarWindow : Window
                     OnDockLocationChanged();
                 }
 
-                IsExplorerRestarting = false;
+                _isExplorerRestarting = false;
             });
         };
     }
@@ -95,16 +95,16 @@ public partial class AppBarWindow : Window
         // add the hook, setup the appbar
         var handle = new WindowInteropHelper(this).Handle;
         _hwndSource = HwndSource.FromHwnd(handle);
-        HWND = new(handle);
+        _hwnd = new(handle);
 
         if (!ShowInTaskbar)
         {
-            var exStyle = PInvoke.GetWindowLongPtr(HWND, WINDOW_LONG_PTR_INDEX.GWL_EXSTYLE);
+            var exStyle = PInvoke.GetWindowLongPtr(_hwnd, WINDOW_LONG_PTR_INDEX.GWL_EXSTYLE);
 
             // Add TOOLWINDOW style, remove APPWINDOW style
             var newExStyle = ((uint)exStyle | (uint)WINDOW_EX_STYLE.WS_EX_TOOLWINDOW) & ~(uint)WINDOW_EX_STYLE.WS_EX_APPWINDOW;
 
-            PInvoke.SetWindowLongPtr(HWND, WINDOW_LONG_PTR_INDEX.GWL_EXSTYLE, (int)newExStyle);
+            PInvoke.SetWindowLongPtr(_hwnd, WINDOW_LONG_PTR_INDEX.GWL_EXSTYLE, (int)newExStyle);
         }
 
         _hwndSource.AddHook(WndProc);
@@ -113,7 +113,7 @@ public partial class AppBarWindow : Window
         PInvoke.SHAppBarMessage(PInvoke.ABM_NEW, ref abd);
 
         // set our initial location
-        IsAppBarRegistered = true;
+        _isAppBarRegistered = true;
         InitDockHeightOrWidth();
     }
 
@@ -132,14 +132,14 @@ public partial class AppBarWindow : Window
             var taskBarHeight = monitor.Bounds.Height - monitor.WorkingArea.Height;
             if (taskBarHeight != 0) // Taskbar is docked at the top or bottom
             {
-                ViewModel.DockedWidthOrHeight = DesktopDimensionToWpf(this, (int)taskBarHeight);
+                _viewModel.DockedWidthOrHeight = DesktopDimensionToWpf(this, (int)taskBarHeight);
             }
             else
             {
                 var taskBarWidth = monitor.Bounds.Width - monitor.WorkingArea.Width;
                 if (taskBarWidth != 0) // Taskbar is docked at the left or right
                 {
-                    ViewModel.DockedWidthOrHeight = DesktopDimensionToWpf(this, (int)taskBarWidth);
+                    _viewModel.DockedWidthOrHeight = DesktopDimensionToWpf(this, (int)taskBarWidth);
                 }
                 else
                 {
@@ -175,11 +175,11 @@ public partial class AppBarWindow : Window
             _hwndSource.Dispose();
         }
 
-        if (IsAppBarRegistered)
+        if (_isAppBarRegistered)
         {
             var abd = GetAppBarData();
             PInvoke.SHAppBarMessage(PInvoke.ABM_REMOVE, ref abd);
-            IsAppBarRegistered = false;
+            _isAppBarRegistered = false;
         }
     }
 
@@ -191,15 +191,15 @@ public partial class AppBarWindow : Window
     {
         if (msg == PInvoke.WM_SIZE)
         {
-            IsMinimized = ShowInTaskbar && wParam == PInvoke.SIZE_MINIMIZED;
+            _isMinimized = ShowInTaskbar && wParam == PInvoke.SIZE_MINIMIZED;
             OnDockLocationChanged();
         }
-        else if (msg == PInvoke.WM_WINDOWPOSCHANGING && !IsInAppBarResize)
+        else if (msg == PInvoke.WM_WINDOWPOSCHANGING && !_isInAppBarResize)
         {
             var windowPos = Marshal.PtrToStructure<WINDOWPOS>(lParam);
             const SET_WINDOW_POS_FLAGS NOMOVE_NORESIZE = SET_WINDOW_POS_FLAGS.SWP_NOMOVE | SET_WINDOW_POS_FLAGS.SWP_NOSIZE;
             if ((windowPos.flags & NOMOVE_NORESIZE) != NOMOVE_NORESIZE
-                && !IsMinimized
+                && !_isMinimized
                 && !(windowPos.x == -32_000 && windowPos.y == -32_000)) // Location for minimized windows
             {
                 windowPos.flags |= NOMOVE_NORESIZE;
@@ -239,21 +239,21 @@ public partial class AppBarWindow : Window
         {
             case nameof(AppBarViewModel.DockMode):
                 OnDockLocationChanged();
-                switch (ViewModel.DockMode)
+                switch (_viewModel.DockMode)
                 {
                     case AppBarDockMode.Left:
                     case AppBarDockMode.Right:
                         BarThumb.Width = 5;
                         BarThumb.Height = double.NaN;
                         BarThumb.Cursor = Cursors.SizeWE;
-                        DockPanel.SetDock(BarThumb, ViewModel.DockMode == AppBarDockMode.Left ? Dock.Right : Dock.Left);
+                        DockPanel.SetDock(BarThumb, _viewModel.DockMode == AppBarDockMode.Left ? Dock.Right : Dock.Left);
                         break;
                     case AppBarDockMode.Top:
                     case AppBarDockMode.Bottom:
                         BarThumb.Height = 5;
                         BarThumb.Width = double.NaN;
                         BarThumb.Cursor = Cursors.SizeNS;
-                        DockPanel.SetDock(BarThumb, ViewModel.DockMode == AppBarDockMode.Top ? Dock.Bottom : Dock.Top);
+                        DockPanel.SetDock(BarThumb, _viewModel.DockMode == AppBarDockMode.Top ? Dock.Bottom : Dock.Top);
                         break;
                     default:
                         throw new NotSupportedException();
@@ -263,9 +263,9 @@ public partial class AppBarWindow : Window
                 OnDockLocationChanged();
                 break;
             case nameof(AppBarViewModel.IsResizable):
-                if (ViewModel.IsResizable)
+                if (_viewModel.IsResizable)
                 {
-                    BarThumb.Cursor = ViewModel.DockMode switch
+                    BarThumb.Cursor = _viewModel.DockMode switch
                     {
                         AppBarDockMode.Left or AppBarDockMode.Right => Cursors.SizeWE,
                         AppBarDockMode.Top or AppBarDockMode.Bottom => Cursors.SizeNS,
@@ -294,7 +294,7 @@ public partial class AppBarWindow : Window
 
     private void BarThumb_DragCompleted(object sender, System.Windows.Controls.Primitives.DragCompletedEventArgs e)
     {
-        var delta = ViewModel.DockMode switch
+        var delta = _viewModel.DockMode switch
         {
             AppBarDockMode.Left => e.HorizontalChange,
             AppBarDockMode.Right => e.HorizontalChange * -1,
@@ -302,7 +302,7 @@ public partial class AppBarWindow : Window
             AppBarDockMode.Bottom => e.VerticalChange * -1,
             _ => throw new NotSupportedException(),
         };
-        ViewModel.DockedWidthOrHeight += (int)(delta / VisualTreeHelper.GetDpi(this).PixelsPerDip);
+        _viewModel.DockedWidthOrHeight += (int)(delta / VisualTreeHelper.GetDpi(this).PixelsPerDip);
     }
 
     #endregion
@@ -325,16 +325,16 @@ public partial class AppBarWindow : Window
             return value;
         }
 
-        var dockedWidthOrHeight = ViewModel.DockMode switch
+        var dockedWidthOrHeight = _viewModel.DockMode switch
         {
-            AppBarDockMode.Left or AppBarDockMode.Right => BoundIntToDouble(ViewModel.DockedWidthOrHeight, MinWidth, MaxWidth),
-            AppBarDockMode.Top or AppBarDockMode.Bottom => BoundIntToDouble(ViewModel.DockedWidthOrHeight, MinHeight, MaxHeight),
+            AppBarDockMode.Left or AppBarDockMode.Right => BoundIntToDouble(_viewModel.DockedWidthOrHeight, MinWidth, MaxWidth),
+            AppBarDockMode.Top or AppBarDockMode.Bottom => BoundIntToDouble(_viewModel.DockedWidthOrHeight, MinHeight, MaxHeight),
             _ => throw new NotSupportedException(),
         };
 
-        if (ViewModel.DockedWidthOrHeight != dockedWidthOrHeight)
+        if (_viewModel.DockedWidthOrHeight != dockedWidthOrHeight)
         {
-            ViewModel.DockedWidthOrHeight = dockedWidthOrHeight;
+            _viewModel.DockedWidthOrHeight = dockedWidthOrHeight;
             return true;
         }
 
@@ -354,19 +354,19 @@ public partial class AppBarWindow : Window
         {
             return;
         }
-        else if (!IsAppBarRegistered || IsInAppBarResize)
+        else if (!_isAppBarRegistered || _isInAppBarResize)
         {
             return;
         }
 
         var abd = GetAppBarData();
-        var bounds = ViewModel.GetSelectedMonitor().Bounds;
+        var bounds = _viewModel.GetSelectedMonitor().Bounds;
         abd.rc = new RECT((int)bounds.Left, (int)bounds.Top, (int)bounds.Right, (int)bounds.Bottom);
 
         PInvoke.SHAppBarMessage(PInvoke.ABM_QUERYPOS, ref abd);
 
-        var dockedWidthOrHeightInDesktopPixels = IsMinimized ? 0 : WpfDimensionToDesktop(this, ViewModel.DockedWidthOrHeight);
-        switch (ViewModel.DockMode)
+        var dockedWidthOrHeightInDesktopPixels = _isMinimized ? 0 : WpfDimensionToDesktop(this, _viewModel.DockedWidthOrHeight);
+        switch (_viewModel.DockMode)
         {
             case AppBarDockMode.Top:
                 abd.rc.bottom = abd.rc.top + dockedWidthOrHeightInDesktopPixels;
@@ -384,16 +384,16 @@ public partial class AppBarWindow : Window
         }
 
         PInvoke.SHAppBarMessage(PInvoke.ABM_SETPOS, ref abd);
-        if (!IsMinimized)
+        if (!_isMinimized)
         {
-            IsInAppBarResize = true;
+            _isInAppBarResize = true;
             try
             {
                 WindowBounds = abd.rc;
             }
             finally
             {
-                IsInAppBarResize = false;
+                _isInAppBarResize = false;
             }
         }
     }
@@ -407,9 +407,9 @@ public partial class AppBarWindow : Window
         return new APPBARDATA()
         {
             cbSize = (uint)sizeof(APPBARDATA),
-            hWnd = HWND,
+            hWnd = _hwnd,
             uCallbackMessage = AppBarMessageId,
-            uEdge = (uint)ViewModel.DockMode
+            uEdge = (uint)_viewModel.DockMode
         };
     }
 
@@ -470,18 +470,18 @@ public partial class AppBarWindow : Window
             // 2. Get the actual shadow size
             // 3. Move to the position using the actual shadow size
 
-            var frameThickness = GetFrameThickness(HWND);
+            var frameThickness = GetFrameThickness(_hwnd);
             var actualShadow = Inflate(value, frameThickness);
-            PInvoke.SetWindowPos(HWND, HWND.Null, actualShadow.X, actualShadow.Y, actualShadow.Width, actualShadow.Height, 0);
+            PInvoke.SetWindowPos(_hwnd, HWND.Null, actualShadow.X, actualShadow.Y, actualShadow.Width, actualShadow.Height, 0);
 
-            var newFrameThickness = GetFrameThickness(HWND);
+            var newFrameThickness = GetFrameThickness(_hwnd);
             if (frameThickness.left != newFrameThickness.left ||
                 frameThickness.top != newFrameThickness.top ||
                 frameThickness.right != newFrameThickness.right ||
                 frameThickness.bottom != newFrameThickness.bottom)
             {
                 var newActualShadow = Inflate(value, frameThickness);
-                PInvoke.SetWindowPos(HWND, HWND.Null, newActualShadow.X, newActualShadow.Y, newActualShadow.Width, newFrameThickness.Height, 0);
+                PInvoke.SetWindowPos(_hwnd, HWND.Null, newActualShadow.X, newActualShadow.Y, newActualShadow.Width, newFrameThickness.Height, 0);
             }
         }
     }
