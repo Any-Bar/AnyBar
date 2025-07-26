@@ -28,13 +28,15 @@ public partial class App : Application, IDisposable, ISingleInstanceApp
 
     private void OnStartup(object sender, StartupEventArgs e)
     {
+        ShutdownMode = ShutdownMode.OnMainWindowClose;
+
         _mainWindow ??= new SettingWindow();
         _mainWindow.Show();
 
         Current.MainWindow = _mainWindow;
         Current.MainWindow.Title = Constants.FlowBar;
 
-        var barWindow = new BarWindow();
+        var barWindow = new AppBarWindow();
         barWindow.Show();
     }
 
