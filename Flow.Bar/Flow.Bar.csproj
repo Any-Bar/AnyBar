@@ -87,6 +87,10 @@
     <PackageReference Include="TaskScheduler" Version="2.12.2" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Flow.Bar.Plugin\Flow.Bar.Plugin.csproj" />
+  </ItemGroup>
+
   <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
     <Exec Command="taskkill /f /fi &quot;IMAGENAME eq Flow.Bar.exe&quot;" />
   </Target>
