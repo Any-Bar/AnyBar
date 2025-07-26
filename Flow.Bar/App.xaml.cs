@@ -36,7 +36,7 @@ public partial class App : Application, IDisposable, ISingleInstanceApp
         Current.MainWindow = _mainWindow;
         Current.MainWindow.Title = Constants.FlowBar;
 
-        var barWindow = new AppBarWindow();
+        var barWindow = new AppBarWindow(new ViewModels.AppBarViewModel());
         barWindow.Show();
     }
 
