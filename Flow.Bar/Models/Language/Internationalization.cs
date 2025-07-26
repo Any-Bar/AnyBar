@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
+using Flow.Bar.Helper.Plugins;
 using Flow.Bar.Models.UserSettings;
 
 namespace Flow.Bar.Models.Language;
@@ -99,7 +100,7 @@ public class Internationalization(Settings settings)
 
     private void AddPluginLanguageDirectories()
     {
-        /*foreach (var pluginsDir in PluginManager.Directories)
+        foreach (var pluginsDir in PluginManager.Directories)
         {
             if (!Directory.Exists(pluginsDir)) continue;
 
@@ -113,7 +114,7 @@ public class Internationalization(Settings settings)
                 // Check if the language directory contains default language file since it will be checked later
                 _languageDirectories.Add(pluginLanguageDir);
             }
-        }*/
+        }
     }
 
     private void LoadDefaultLanguage()
