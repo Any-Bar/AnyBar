@@ -180,7 +180,7 @@ public class MonitorInfo : IEquatable<MonitorInfo>
     public bool Equals(MonitorInfo? other) => Name == other?.Name;
 
     /// <inheritdoc />
-    public static bool operator ==(MonitorInfo a, MonitorInfo b)
+    public static bool operator ==(MonitorInfo? a, MonitorInfo? b)
     {
         if (ReferenceEquals(a, b))
         {
@@ -196,7 +196,7 @@ public class MonitorInfo : IEquatable<MonitorInfo>
     }
 
     /// <inheritdoc />
-    public static bool operator !=(MonitorInfo a, MonitorInfo b) => !(a == b);
+    public static bool operator !=(MonitorInfo? a, MonitorInfo? b) => !(a == b);
 
     private static unsafe bool GetMonitorInfo(HMONITOR hMonitor, ref MONITORINFOEXW lpmi)
     {
