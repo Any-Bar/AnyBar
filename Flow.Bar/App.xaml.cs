@@ -13,7 +13,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
 using System.Diagnostics;
-using System.Reflection.Metadata;
 using System.Text;
 using System.Threading;
 using System.Windows;
@@ -26,6 +25,8 @@ public partial class App : Application, IDisposable, ISingleInstanceApp
 {
     public static IPublicAPI API { get; private set; } = null!;
     public static bool LoadingOrExiting => _mainWindow == null;
+
+    private static readonly string ClassName = nameof(App);
 
     private static bool _disposed;
     private static Settings _settings = null!;
@@ -161,19 +162,19 @@ public partial class App : Application, IDisposable, ISingleInstanceApp
     {
         AppDomain.CurrentDomain.ProcessExit += (s, e) =>
         {
-            //API.LogInfo(ClassName, "Process Exit");
+            API.LogInfo(ClassName, "Process Exit");
             Dispose();
         };
 
         Current.Exit += (s, e) =>
         {
-            //API.LogInfo(ClassName, "Application Exit");
+            API.LogInfo(ClassName, "Application Exit");
             Dispose();
         };
 
         Current.SessionEnding += (s, e) =>
         {
-            //API.LogInfo(ClassName, "Session Ending");
+            API.LogInfo(ClassName, "Session Ending");
             Dispose();
         };
     }

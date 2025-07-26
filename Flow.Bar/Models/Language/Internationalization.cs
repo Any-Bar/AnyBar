@@ -90,7 +90,7 @@ public class Internationalization(Settings settings)
         var directory = Path.Combine(Constants.ProgramDirectory, Folder);
         if (!Directory.Exists(directory))
         {
-            //App.API.LogError(ClassName, $"Flow Bar language directory can't be found <{directory}>");
+            App.API.LogError(ClassName, $"Flow Bar language directory can't be found <{directory}>");
             return;
         }
 
@@ -159,7 +159,7 @@ public class Internationalization(Settings settings)
             FirstOrDefault(o => o.LanguageCode.Equals(languageCode, StringComparison.OrdinalIgnoreCase));
         if (language == null)
         {
-            //App.API.LogError(ClassName, $"Language code can't be found <{languageCode}>");
+            App.API.LogError(ClassName, $"Language code can't be found <{languageCode}>");
             return AvailableLanguages.English;
         }
         else
@@ -257,7 +257,7 @@ public class Internationalization(Settings settings)
             }
             else
             {
-                //App.API.LogError(ClassName, $"Language path can't be found <{path}>");
+                App.API.LogError(ClassName, $"Language path can't be found <{path}>");
                 var english = Path.Combine(folder, DefaultFile);
                 if (File.Exists(english))
                 {
@@ -265,7 +265,7 @@ public class Internationalization(Settings settings)
                 }
                 else
                 {
-                    //App.API.LogError(ClassName, $"Default English Language path can't be found <{path}>");
+                    App.API.LogError(ClassName, $"Default English Language path can't be found <{path}>");
                     return string.Empty;
                 }
             }
@@ -300,7 +300,7 @@ public class Internationalization(Settings settings)
         }
         else
         {
-            //App.API.LogError(ClassName, $"No Translation for key {key}");
+            App.API.LogError(ClassName, $"No Translation for key {key}");
             return $"No Translation for key {key}";
         }
     }
