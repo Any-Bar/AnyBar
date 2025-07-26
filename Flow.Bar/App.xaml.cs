@@ -8,6 +8,7 @@ using Flow.Bar.ViewModels;
 using Flow.Bar.Views;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using System.Diagnostics;
 using System.Windows;
 
 namespace Flow.Bar;
@@ -23,6 +24,8 @@ public partial class App : Application, IDisposable, ISingleInstanceApp
 
     // To prevent two disposals running at the same time.
     private static readonly Lock _disposingLock = new();
+
+    #region Main
 
     [STAThread]
     public static void Main()
@@ -48,19 +51,43 @@ public partial class App : Application, IDisposable, ISingleInstanceApp
         }
     }
 
+    #endregion
+
+    #region Constructor
+
     public App()
     {
-        var host = Host.CreateDefaultBuilder()
+        try
+        {
+            var host = Host.CreateDefaultBuilder()
             .UseContentRoot(AppContext.BaseDirectory)
             .ConfigureServices(services => services
                 .AddSingleton(_ => _settings)
                 .AddSingleton<IPublicAPI, PublicAPIInstance>()
                 .AddTransient<AppBarViewModel>()
             ).Build();
-        Ioc.Default.ConfigureServices(host.Services);
+            Ioc.Default.ConfigureServices(host.Services);
+        }
+        catch (Exception e)
+        {
+            ShowErrorMsgBoxAndFailFast("Cannot configure dependency injection container, please open new issue in Flow.Bar", e);
+            return;
+        }
 
-        API = Ioc.Default.GetRequiredService<IPublicAPI>();
+        try
+        {
+            API = Ioc.Default.GetRequiredService<IPublicAPI>();
+        }
+        catch (Exception e)
+        {
+            ShowErrorMsgBoxAndFailFast("Cannot initialize api, please open new issue in Flow.Bar", e);
+            return;
+        }
     }
+
+    #endregion
+
+    #region Fail Fast
 
     private static void ShowErrorMsgBoxAndFailFast(string message, Exception e)
     {
@@ -70,6 +97,10 @@ public partial class App : Application, IDisposable, ISingleInstanceApp
         // Flow cannot construct its App instance, so ensure Flow crashes w/ the exception info.
         Environment.FailFast(message, e);
     }
+
+    #endregion
+
+    #region App Events
 
     private void OnStartup(object sender, StartupEventArgs e)
     {
@@ -86,6 +117,61 @@ public partial class App : Application, IDisposable, ISingleInstanceApp
 
         API.SaveAppAllSettings();
     }
+
+    #endregion
+
+    #region Register Events
+
+    private void RegisterExitEvents()
+    {
+        AppDomain.CurrentDomain.ProcessExit += (s, e) =>
+        {
+            //API.LogInfo(ClassName, "Process Exit");
+            Dispose();
+        };
+
+        Current.Exit += (s, e) =>
+        {
+            //API.LogInfo(ClassName, "Application Exit");
+            Dispose();
+        };
+
+        Current.SessionEnding += (s, e) =>
+        {
+            //API.LogInfo(ClassName, "Session Ending");
+            Dispose();
+        };
+    }
+
+    /// <summary>
+    /// Let exception throw as normal is better for Debug
+    /// </summary>
+    [Conditional("RELEASE")]
+    private void RegisterDispatcherUnhandledException()
+    {
+        //DispatcherUnhandledException += ErrorReporting.DispatcherUnhandledException;
+    }
+
+    /// <summary>
+    /// Let exception throw as normal is better for Debug
+    /// </summary>
+    [Conditional("RELEASE")]
+    private static void RegisterAppDomainExceptions()
+    {
+        //AppDomain.CurrentDomain.UnhandledException += ErrorReporting.UnhandledException;
+    }
+
+    /// <summary>
+    /// Let exception throw as normal is better for Debug
+    /// </summary>
+    private static void RegisterTaskSchedulerUnhandledException()
+    {
+        //TaskScheduler.UnobservedTaskException += ErrorReporting.TaskSchedulerUnobservedTaskException;
+    }
+
+    #endregion
+
+    #region IDisposable
 
     protected virtual void Dispose(bool disposing)
     {
@@ -119,8 +205,14 @@ public partial class App : Application, IDisposable, ISingleInstanceApp
         GC.SuppressFinalize(this);
     }
 
+    #endregion
+
+    #region ISingleInstanceApp
+
     public void OnSecondAppStarted()
     {
 
     }
+
+    #endregion
 }
