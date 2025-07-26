@@ -4,7 +4,7 @@
     <OutputType>WinExe</OutputType>
     <TargetFramework>net9.0-windows10.0.19041.0</TargetFramework>
     <UseWPF>true</UseWPF>
-    <UseWindowsForms>false</UseWindowsForms>
+    <UseWindowsForms>true</UseWindowsForms>
     <StartupObject>Flow.Bar.App</StartupObject>
     <ApplicationIcon>Images\app.ico</ApplicationIcon>
     <ApplicationManifest>app.manifest</ApplicationManifest>
