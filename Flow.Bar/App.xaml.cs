@@ -1,5 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.DependencyInjection;
-using Flow.Bar.Helper;
+using Flow.Bar.Helper.Application;
 using Flow.Bar.Models;
 using Flow.Bar.Models.Storage;
 using Flow.Bar.Models.UserSettings;
