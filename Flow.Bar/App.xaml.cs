@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.DependencyInjection;
+using Flow.Bar.Helper;
 using Flow.Bar.Helper.Application;
 using Flow.Bar.Models;
 using Flow.Bar.Models.Storage;
@@ -6,6 +7,7 @@ using Flow.Bar.Models.UserSettings;
 using Flow.Bar.Plugin;
 using Flow.Bar.ViewModels;
 using Flow.Bar.Views;
+using iNKORE.UI.WPF.Modern.Controls;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
@@ -13,6 +15,8 @@ using System.Diagnostics;
 using System.Text;
 using System.Threading;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Interop;
 
 namespace Flow.Bar;
 
@@ -24,6 +28,9 @@ public partial class App : Application, IDisposable, ISingleInstanceApp
     private static bool _disposed;
     private static Settings _settings = null!;
     private static SettingWindow? _mainWindow;
+
+    private System.Windows.Forms.NotifyIcon _notifyIcon = null!;
+    private readonly ContextMenu _contextMenu = new();
 
     // To prevent two disposals running at the same time.
     private static readonly Lock _disposingLock = new();
@@ -95,7 +102,7 @@ public partial class App : Application, IDisposable, ISingleInstanceApp
     private static void ShowErrorMsgBoxAndFailFast(string message, Exception e)
     {
         // Firstly show users the message
-        MessageBox.Show(e.ToString(), message, MessageBoxButton.OK, MessageBoxImage.Error);
+        System.Windows.MessageBox.Show(e.ToString(), message, MessageBoxButton.OK, MessageBoxImage.Error);
 
         // Flow cannot construct its App instance, so ensure Flow crashes w/ the exception info.
         Environment.FailFast(message, e);
@@ -117,6 +124,8 @@ public partial class App : Application, IDisposable, ISingleInstanceApp
 
         Current.MainWindow = _mainWindow;
         Current.MainWindow.Title = Constants.FlowBarFullName;
+
+        InitNotifyIcon();
 
         var barWindow = new AppBarWindow(Ioc.Default.GetRequiredService<AppBarViewModel>());
         barWindow.Show();
@@ -180,6 +189,52 @@ public partial class App : Application, IDisposable, ISingleInstanceApp
     }
 
     #endregion
+
+    #region NotifyIcon
+
+    private void InitNotifyIcon()
+    {
+        var exitItem = new MenuItem
+        {
+            Header = "Exit",
+            Icon = new FontIcon { Glyph = "\ue7e8" }
+        };
+        exitItem.Click += (o, e) =>
+        {
+            _contextMenu.IsOpen = false;
+            Current.Shutdown();
+        };
+        _contextMenu.Items.Add(exitItem);
+        _notifyIcon = new System.Windows.Forms.NotifyIcon
+        {
+            Text = Constants.FlowBarFullName,
+#if DEBUG
+            Icon = Flow.Bar.Properties.Resource.dev,
+#else
+            Icon = Flow.Bar.Properties.Resource.app,
+#endif
+            Visible = true
+        };
+        _notifyIcon.MouseClick += (o, e) =>
+        {
+            switch (e.Button)
+            {
+                case System.Windows.Forms.MouseButtons.Right:
+
+                    _contextMenu.IsOpen = true;
+                    // Get context menu handle and bring it to the foreground at the topmost
+                    if (PresentationSource.FromVisual(_contextMenu) is HwndSource hwndSource)
+                    {
+                        Win32Helper.SetForegroundWindow(hwndSource.Handle);
+                    }
+                    _contextMenu.Focus();
+
+                    break;
+            }
+        };
+    }
+
+#endregion
 
     #region IDisposable
 
