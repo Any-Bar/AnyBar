@@ -55,10 +55,9 @@ namespace Flow.Bar.Plugin
 
         /// <summary>
         /// Plugin assembly name.
-        /// Only available for .Net plugins.
         /// </summary>
         [JsonIgnore]
-        public string AssemblyName { get; internal set; }
+        public string AssemblyName { get; set; }
 
         private string _pluginDirectory;
 
@@ -68,7 +67,7 @@ namespace Flow.Bar.Plugin
         public string PluginDirectory
         {
             get => _pluginDirectory;
-            internal set
+            set
             {
                 _pluginDirectory = value;
                 ExecuteFilePath = Path.Combine(value, ExecuteFileName);
@@ -93,14 +92,14 @@ namespace Flow.Bar.Plugin
         /// When plugin is deleted, FL will ask users whether to keep its settings.
         /// If users do not want to keep, this directory will be deleted.
         /// </summary>
-        public string PluginSettingsDirectoryPath { get; internal set; }
+        public string PluginSettingsDirectoryPath { get; set; }
 
         /// <summary>
         /// The path to the plugin cache directory which is not validated.
         /// It is used to store cache files.
         /// When plugin is deleted, this directory will be deleted as well.
         /// </summary>
-        public string PluginCacheDirectoryPath { get; internal set; }
+        public string PluginCacheDirectoryPath { get; set; }
 
         /// <summary>
         /// Convert <see cref="PluginMetadata"/> to string.

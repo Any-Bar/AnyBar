@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.DependencyInjection;
 using Flow.Bar.Helper;
 using Flow.Bar.Helper.Application;
+using Flow.Bar.Helper.Plugins;
 using Flow.Bar.Models;
 using Flow.Bar.Models.Language;
 using Flow.Bar.Models.Storage;
@@ -128,30 +129,43 @@ public partial class App : Application, IDisposable, ISingleInstanceApp
 
     private async void OnStartup(object sender, StartupEventArgs e)
     {
-        ShutdownMode = ShutdownMode.OnExplicitShutdown;
+        await API.StopwatchLogInfoAsync(ClassName, "Startup cost", async () =>
+        {
+            ShutdownMode = ShutdownMode.OnExplicitShutdown;
 
-        // Initialize language before portable clean up since it needs translations
-        await Ioc.Default.GetRequiredService<Internationalization>().InitializeLanguageAsync();
+            // Initialize language before portable clean up since it needs translations
+            await Ioc.Default.GetRequiredService<Internationalization>().InitializeLanguageAsync();
 
-        RegisterAppDomainExceptions();
-        RegisterDispatcherUnhandledException();
+            API.LogInfo(ClassName, "Begin Flow Bar startup ----------------------------------------------------");
+            API.LogInfo(ClassName, $"Runtime info:{ErrorReporting.RuntimeInfo()}");
 
-        _mainWindow ??= new SettingWindow();
-        _mainWindow.Show();
+            RegisterAppDomainExceptions();
+            RegisterDispatcherUnhandledException();
 
-        Current.MainWindow = _mainWindow;
-        Current.MainWindow.Title = Constants.FlowBarFullName;
+            PluginManager.LoadPlugins();
 
-        InitNotifyIcon();
+            await PluginManager.InitializePluginsAsync();
 
-        var barWindow = new AppBarWindow(Ioc.Default.GetRequiredService<AppBarViewModel>());
-        barWindow.Show();
+            var allPlugins = PluginManager.AllPlugins;
 
-        Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+            _mainWindow ??= new SettingWindow();
+            _mainWindow.Show();
 
-        RegisterExitEvents();
+            Current.MainWindow = _mainWindow;
+            Current.MainWindow.Title = Constants.FlowBarFullName;
 
-        API.SaveAppAllSettings();
+            InitNotifyIcon();
+
+            var barWindow = new AppBarWindow(Ioc.Default.GetRequiredService<AppBarViewModel>());
+            barWindow.Show();
+
+            Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+
+            RegisterExitEvents();
+
+            API.SaveAppAllSettings();
+            API.LogInfo(ClassName, "End Flow Bar startup ------------------------------------------------------");
+        });
     }
 
     #endregion
@@ -185,7 +199,7 @@ public partial class App : Application, IDisposable, ISingleInstanceApp
     [Conditional("RELEASE")]
     private void RegisterDispatcherUnhandledException()
     {
-        //DispatcherUnhandledException += ErrorReporting.DispatcherUnhandledException;
+        DispatcherUnhandledException += ErrorReporting.DispatcherUnhandledException;
     }
 
     /// <summary>
@@ -194,15 +208,7 @@ public partial class App : Application, IDisposable, ISingleInstanceApp
     [Conditional("RELEASE")]
     private static void RegisterAppDomainExceptions()
     {
-        //AppDomain.CurrentDomain.UnhandledException += ErrorReporting.UnhandledException;
-    }
-
-    /// <summary>
-    /// Let exception throw as normal is better for Debug
-    /// </summary>
-    private static void RegisterTaskSchedulerUnhandledException()
-    {
-        //TaskScheduler.UnobservedTaskException += ErrorReporting.TaskSchedulerUnobservedTaskException;
+        AppDomain.CurrentDomain.UnhandledException += ErrorReporting.UnhandledException;
     }
 
     #endregion
