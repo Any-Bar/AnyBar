@@ -2,9 +2,9 @@
 
 namespace Flow.Bar;
 
-public partial class MainWindow : Window
+public partial class BarWindow : Window
 {
-    public MainWindow()
+    public BarWindow()
     {
         InitializeComponent();
     }

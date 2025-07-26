@@ -8,7 +8,7 @@ public partial class App : Application, IDisposable, ISingleInstanceApp
     public static bool LoadingOrExiting => _mainWindow == null;
 
     private static bool _disposed;
-    private static MainWindow? _mainWindow;
+    private static BarWindow? _mainWindow;
 
     // To prevent two disposals running at the same time.
     private static readonly Lock _disposingLock = new();
@@ -27,7 +27,7 @@ public partial class App : Application, IDisposable, ISingleInstanceApp
 
     private void OnStartup(object sender, StartupEventArgs e)
     {
-        _mainWindow ??= new MainWindow();
+        _mainWindow ??= new BarWindow();
         _mainWindow.Show();
 
         Current.MainWindow = _mainWindow;
