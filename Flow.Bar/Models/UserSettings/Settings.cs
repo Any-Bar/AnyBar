@@ -42,13 +42,12 @@ public class Settings
                     MonitorName = null,
                     DockedWidthOrHeight = null,
                     IsResizable = false,
-                    PluginControls =
+                    RightOrBottomPluginControls =
                     [
                         new()
                         {
                             Order = 0,
                             ID = "3675a0dd-af3b-412f-b257-5e004dea2bd0", // Flow.Bar.Plugin.Clock
-                            Location = PluginControlLocation.RightOrBottom,
                         }
                     ]
                 };

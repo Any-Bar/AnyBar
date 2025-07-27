@@ -15,5 +15,9 @@ public class AppBarModel
 
     public bool IsResizable { get; set; } = false;
 
-    public List<PluginControlModel> PluginControls { get; set; } = [];
+    public List<PluginControlModel> LeftOrTopPluginControls { get; set; } = [];
+
+    public List<PluginControlModel> RightOrBottomPluginControls { get; set; } = [];
+
+    public List<PluginControlModel> CenterPluginControls { get; set; } = [];
 }

@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.DependencyInjection;
+using Flow.Bar.Helper.Plugins;
 using Flow.Bar.Models;
 using Flow.Bar.Models.AppBar;
 using Flow.Bar.Models.Enums;
@@ -173,6 +174,59 @@ public partial class AppBarWindow : Window
         }
         _viewModel.DockedWidthOrHeight = _model.DockedWidthOrHeight;
         _viewModel.IsResizable = _model.IsResizable;
+
+        // Init plugin controls
+        LeftOrTopStackPanel.Children.Clear();
+        RightOrBottomStackPanel.Children.Clear();
+        CenterStackPanel.Children.Clear();
+        foreach (var pluginControlModel in _model.LeftOrTopPluginControls.OrderBy(c => c.Order))
+        {
+            var pluginControl = PluginManager.GetBarElement(pluginControlModel.ID);
+            if (pluginControl == null) continue;
+            LeftOrTopStackPanel.Children.Add(pluginControl);
+            if (_viewModel.DockMode == AppBarDockMode.Left)
+            {
+                pluginControl.VerticalAlignment = VerticalAlignment.Top;
+                pluginControl.HorizontalAlignment = HorizontalAlignment.Center;
+            }
+            else
+            {
+                pluginControl.VerticalAlignment = VerticalAlignment.Center;
+                pluginControl.HorizontalAlignment = HorizontalAlignment.Left;
+            }
+        }
+        foreach (var pluginControlModel in _model.RightOrBottomPluginControls.OrderBy(c => c.Order))
+        {
+            var pluginControl = PluginManager.GetBarElement(pluginControlModel.ID);
+            if (pluginControl == null) continue;
+            RightOrBottomStackPanel.Children.Add(pluginControl);
+            if (_viewModel.DockMode == AppBarDockMode.Left)
+            {
+                pluginControl.VerticalAlignment = VerticalAlignment.Top;
+                pluginControl.HorizontalAlignment = HorizontalAlignment.Center;
+            }
+            else
+            {
+                pluginControl.VerticalAlignment = VerticalAlignment.Center;
+                pluginControl.HorizontalAlignment = HorizontalAlignment.Left;
+            }
+        }
+        foreach (var pluginControlModel in _model.CenterPluginControls.OrderBy(c => c.Order))
+        {
+            var pluginControl = PluginManager.GetBarElement(pluginControlModel.ID);
+            if (pluginControl == null) continue;
+            CenterStackPanel.Children.Add(pluginControl);
+            if (_viewModel.DockMode == AppBarDockMode.Left)
+            {
+                pluginControl.VerticalAlignment = VerticalAlignment.Top;
+                pluginControl.HorizontalAlignment = HorizontalAlignment.Center;
+            }
+            else
+            {
+                pluginControl.VerticalAlignment = VerticalAlignment.Center;
+                pluginControl.HorizontalAlignment = HorizontalAlignment.Left;
+            }
+        }
     }
 
     private void Window_DpiChanged(object sender, DpiChangedEventArgs e)
@@ -276,12 +330,12 @@ public partial class AppBarWindow : Window
                         // Set grid
                         PluginControlGrid.Margin = _viewModel.DockMode == AppBarDockMode.Left ? new Thickness(0, 8, 5, 8) : new Thickness(5, 8, 0, 8);
                         // Set stack panel
-                        TopOrLeftStackPanel.Orientation = Orientation.Vertical;
-                        Grid.SetRow(TopOrLeftStackPanel, 0);
-                        Grid.SetColumn(TopOrLeftStackPanel, 0);
-                        Grid.SetRowSpan(TopOrLeftStackPanel, 1);
-                        Grid.SetColumnSpan(TopOrLeftStackPanel, 3);
-                        foreach (var child in TopOrLeftStackPanel.Children)
+                        LeftOrTopStackPanel.Orientation = Orientation.Vertical;
+                        Grid.SetRow(LeftOrTopStackPanel, 0);
+                        Grid.SetColumn(LeftOrTopStackPanel, 0);
+                        Grid.SetRowSpan(LeftOrTopStackPanel, 1);
+                        Grid.SetColumnSpan(LeftOrTopStackPanel, 3);
+                        foreach (var child in LeftOrTopStackPanel.Children)
                         {
                             if (child is FrameworkElement control)
                             {
@@ -324,12 +378,12 @@ public partial class AppBarWindow : Window
                         // Set grid
                         PluginControlGrid.Margin = _viewModel.DockMode == AppBarDockMode.Top ? new Thickness(8, 0, 8, 5) : new Thickness(8, 5, 8, 0);
                         // Set stack panel
-                        TopOrLeftStackPanel.Orientation = Orientation.Horizontal;
-                        Grid.SetRow(TopOrLeftStackPanel, 0);
-                        Grid.SetColumn(TopOrLeftStackPanel, 0);
-                        Grid.SetRowSpan(TopOrLeftStackPanel, 3);
-                        Grid.SetColumnSpan(TopOrLeftStackPanel, 1);
-                        foreach (var child in TopOrLeftStackPanel.Children)
+                        LeftOrTopStackPanel.Orientation = Orientation.Horizontal;
+                        Grid.SetRow(LeftOrTopStackPanel, 0);
+                        Grid.SetColumn(LeftOrTopStackPanel, 0);
+                        Grid.SetRowSpan(LeftOrTopStackPanel, 3);
+                        Grid.SetColumnSpan(LeftOrTopStackPanel, 1);
+                        foreach (var child in LeftOrTopStackPanel.Children)
                         {
                             if (child is FrameworkElement control)
                             {

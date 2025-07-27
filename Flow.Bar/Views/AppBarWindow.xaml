@@ -44,7 +44,7 @@
                 </Grid.ColumnDefinitions>
 
                 <ikw:SimpleStackPanel
-                    x:Name="TopOrLeftStackPanel"
+                    x:Name="LeftOrTopStackPanel"
                     Grid.Row="0"
                     Grid.RowSpan="3"
                     Grid.Column="0"

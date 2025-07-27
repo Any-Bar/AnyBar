@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace Flow.Bar.Helper.Plugins;
 
@@ -106,5 +107,17 @@ public static class PluginManager
                 false
             );*/
         }
+    }
+
+    public static FrameworkElement? GetBarElement(string pluginId)
+    {
+        var plugin = AllPlugins.FirstOrDefault(p => p.Metadata.ID == pluginId);
+        if (plugin == null)
+        {
+            App.API.LogError(ClassName, $"Plugin with ID {pluginId} not found.");
+            return null;
+        }
+
+        return plugin.Plugin.GetBarElement();
     }
 }
