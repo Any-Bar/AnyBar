@@ -20,8 +20,8 @@
     Loaded="Window_Loaded"
     SourceInitialized="Window_SourceInitialized"
     mc:Ignorable="d">
-    <Grid>
-        <DockPanel LastChildFill="False">
+    <Grid Background="Transparent">
+        <DockPanel Background="Transparent" LastChildFill="False">
             <Thumb
                 x:Name="BarThumb"
                 Height="5"
@@ -30,8 +30,13 @@
                 DockPanel.Dock="Bottom" />
         </DockPanel>
 
-        <Grid x:Name="PluginControlGrid" Margin="8 0 8 5">
-            <Grid>
+        <Grid
+            x:Name="PluginControlGrid"
+            Margin="8 0 8 5"
+            Background="Transparent"
+            MouseRightButtonDown="PluginControlGrid_MouseRightButtonUp">
+
+            <Grid Background="Transparent">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="*" />
@@ -48,6 +53,7 @@
                     Grid.Row="0"
                     Grid.RowSpan="3"
                     Grid.Column="0"
+                    Background="Transparent"
                     Orientation="Horizontal"
                     Spacing="8">
                     <TextBlock VerticalAlignment="Center" Text="A" />
@@ -59,6 +65,7 @@
                     Grid.Row="0"
                     Grid.RowSpan="3"
                     Grid.Column="2"
+                    Background="Transparent"
                     Orientation="Horizontal"
                     Spacing="8">
                     <TextBlock VerticalAlignment="Center" Text="EFFF" />
@@ -70,6 +77,7 @@
                 x:Name="CenterStackPanel"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
+                Background="Transparent"
                 Orientation="Horizontal"
                 Spacing="8">
                 <TextBlock VerticalAlignment="Center" Text="C" />

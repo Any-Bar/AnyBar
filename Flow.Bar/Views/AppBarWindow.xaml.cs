@@ -4,6 +4,7 @@ using Flow.Bar.Models;
 using Flow.Bar.Models.AppBar;
 using Flow.Bar.Models.Enums;
 using Flow.Bar.ViewModels;
+using iNKORE.UI.WPF.Modern.Controls;
 using System;
 using System.ComponentModel;
 using System.Linq;
@@ -38,6 +39,8 @@ public partial class AppBarWindow : Window
     private readonly AppBarModel _model;
     private readonly AppBarViewModel _viewModel = Ioc.Default.GetRequiredService<AppBarViewModel>();
 
+    private readonly MenuFlyout _contextMenu = new();
+
     public AppBarWindow(AppBarModel model)
     {
         _model = model;
@@ -71,6 +74,16 @@ public partial class AppBarWindow : Window
                 _isExplorerRestarting = false;
             });
         };
+        var settingItem = new MenuItem
+        {
+            Header = "Appbar settings",
+            Icon = new FontIcon { Glyph = "\ue713" }
+        };
+        settingItem.Click += (o, e) =>
+        {
+            App.API.OpenSettingDialog();
+        };
+        _contextMenu.Items.Add(settingItem);
     }
 
     #region Dependency Properties
@@ -562,6 +575,19 @@ public partial class AppBarWindow : Window
             {
                 _isInAppBarResize = false;
             }
+        }
+    }
+
+    #endregion
+
+    #region Grid Events
+
+    private void PluginControlGrid_MouseRightButtonUp(object sender, MouseButtonEventArgs e)
+    {
+        if (sender is FrameworkElement element)
+        {
+            _contextMenu.ShowAt(element);
+            e.Handled = true;
         }
     }
 
