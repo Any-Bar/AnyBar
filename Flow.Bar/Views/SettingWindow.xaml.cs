@@ -26,11 +26,17 @@ public partial class SettingWindow : Window
         UpdateAppTitleMargin(sender);
     }
 
-    private void UpdateAppTitleMargin(NavigationView sender)
+    private void UpdateAppTitleMargin(NavigationView _)
     {
         const int smallLeftIndent = 2;
 
         Thickness currMargin = AppTitle.Margin;
         AppTitle.Margin = new Thickness(smallLeftIndent, currMargin.Top, currMargin.Right, currMargin.Bottom);
     }
+}
+
+public enum SettingPageTag
+{
+    AppBar,
+    About
 }

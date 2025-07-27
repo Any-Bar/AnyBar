@@ -6,4 +6,9 @@
     <!--  Tray Icon  -->
     <system:String x:Key="TrayIcon.Exit">Exit</system:String>
 
+    <!--  Setting Window  -->
+    <system:String x:Key="SettingWindow.Title">Settings</system:String>
+    <system:String x:Key="SettingWindow.AppBar">Appbar</system:String>
+    <system:String x:Key="SettingWindow.About">Appbar</system:String>
+
 </ResourceDictionary>

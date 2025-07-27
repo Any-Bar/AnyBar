@@ -4,7 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:ikw="http://schemas.inkore.net/lib/ui/wpf"
-    xmlns:local="clr-namespace:Flow.Bar"
+    xmlns:local="clr-namespace:Flow.Bar.Views"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:ui="http://schemas.inkore.net/lib/ui/wpf/modern"
     Width="800"
@@ -46,7 +46,7 @@
                         Margin="0 1 20 0"
                         VerticalAlignment="Center"
                         Style="{DynamicResource CaptionTextBlockStyle}"
-                        Text="Flow Bar"
+                        Text="{DynamicResource SettingWindow.Title}"
                         TextWrapping="NoWrap" />
                 </ikw:SimpleStackPanel>
             </Grid>
@@ -57,12 +57,13 @@
             AlwaysShowHeader="True"
             Canvas.ZIndex="0"
             DisplayModeChanged="NavigationViewControl_DisplayModeChanged"
-            Header=" "
+            Header=""
             IsFooterSeparatorVisible="{x:Null}"
+            IsPaneToggleButtonVisible="False"
             IsSettingsVisible="False"
             IsTabStop="False"
             IsTitleBarAutoPaddingEnabled="False"
-            PaneDisplayMode="Auto">
+            PaneDisplayMode="Left">
             <ui:NavigationView.HeaderTemplate>
                 <DataTemplate>
                     <TextBlock
@@ -74,6 +75,19 @@
                         TextWrapping="NoWrap" />
                 </DataTemplate>
             </ui:NavigationView.HeaderTemplate>
+
+            <ui:NavigationView.MenuItems>
+                <ui:NavigationViewItem Content="{DynamicResource SettingWindow.AppBar}" Tag="{x:Static local:SettingPageTag.AppBar}">
+                    <ui:NavigationViewItem.Icon>
+                        <ui:FontIcon Glyph="&#xE75B;" />
+                    </ui:NavigationViewItem.Icon>
+                </ui:NavigationViewItem>
+                <ui:NavigationViewItem Content="{DynamicResource SettingWindow.About}" Tag="{x:Static local:SettingPageTag.About}">
+                    <ui:NavigationViewItem.Icon>
+                        <ui:FontIcon Glyph="&#xE946;" />
+                    </ui:NavigationViewItem.Icon>
+                </ui:NavigationViewItem>
+            </ui:NavigationView.MenuItems>
 
             <ui:Frame x:Name="rootFrame" />
         </ui:NavigationView>
