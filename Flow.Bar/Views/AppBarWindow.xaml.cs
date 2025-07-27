@@ -248,17 +248,99 @@ public partial class AppBarWindow : Window
                 {
                     case AppBarDockMode.Left:
                     case AppBarDockMode.Right:
+                        // Set thumb
                         BarThumb.Width = 5;
                         BarThumb.Height = double.NaN;
                         BarThumb.Cursor = Cursors.SizeWE;
                         DockPanel.SetDock(BarThumb, _viewModel.DockMode == AppBarDockMode.Left ? Dock.Right : Dock.Left);
+                        // Set grid
+                        PluginControlGrid.Margin = _viewModel.DockMode == AppBarDockMode.Left ? new Thickness(0, 8, 5, 8) : new Thickness(5, 8, 0, 8);
+                        // Set stack panel
+                        TopOrLeftStackPanel.Orientation = Orientation.Vertical;
+                        Grid.SetRow(TopOrLeftStackPanel, 0);
+                        Grid.SetColumn(TopOrLeftStackPanel, 0);
+                        Grid.SetRowSpan(TopOrLeftStackPanel, 1);
+                        Grid.SetColumnSpan(TopOrLeftStackPanel, 3);
+                        foreach (var child in TopOrLeftStackPanel.Children)
+                        {
+                            if (child is FrameworkElement control)
+                            {
+                                control.VerticalAlignment = VerticalAlignment.Top;
+                                control.HorizontalAlignment = HorizontalAlignment.Center;
+                            }
+                        }
+
+                        RightOrBottomStackPanel.Orientation = Orientation.Vertical;
+                        Grid.SetRow(RightOrBottomStackPanel, 2);
+                        Grid.SetColumn(RightOrBottomStackPanel, 0);
+                        Grid.SetRowSpan(RightOrBottomStackPanel, 1);
+                        Grid.SetColumnSpan(RightOrBottomStackPanel, 3);
+                        foreach (var child in RightOrBottomStackPanel.Children)
+                        {
+                            if (child is FrameworkElement control)
+                            {
+                                control.VerticalAlignment = VerticalAlignment.Top;
+                                control.HorizontalAlignment = HorizontalAlignment.Center;
+                            }
+                        }
+
+                        CenterStackPanel.Orientation = Orientation.Vertical;
+                        foreach (var child in CenterStackPanel.Children)
+                        {
+                            if (child is FrameworkElement control)
+                            {
+                                control.VerticalAlignment = VerticalAlignment.Top;
+                                control.HorizontalAlignment = HorizontalAlignment.Center;
+                            }
+                        }
                         break;
                     case AppBarDockMode.Top:
                     case AppBarDockMode.Bottom:
+                        // Set thumb
                         BarThumb.Height = 5;
                         BarThumb.Width = double.NaN;
                         BarThumb.Cursor = Cursors.SizeNS;
                         DockPanel.SetDock(BarThumb, _viewModel.DockMode == AppBarDockMode.Top ? Dock.Bottom : Dock.Top);
+                        // Set grid
+                        PluginControlGrid.Margin = _viewModel.DockMode == AppBarDockMode.Top ? new Thickness(8, 0, 8, 5) : new Thickness(8, 5, 8, 0);
+                        // Set stack panel
+                        TopOrLeftStackPanel.Orientation = Orientation.Horizontal;
+                        Grid.SetRow(TopOrLeftStackPanel, 0);
+                        Grid.SetColumn(TopOrLeftStackPanel, 0);
+                        Grid.SetRowSpan(TopOrLeftStackPanel, 3);
+                        Grid.SetColumnSpan(TopOrLeftStackPanel, 1);
+                        foreach (var child in TopOrLeftStackPanel.Children)
+                        {
+                            if (child is FrameworkElement control)
+                            {
+                                control.VerticalAlignment = VerticalAlignment.Center;
+                                control.HorizontalAlignment = HorizontalAlignment.Left;
+                            }
+                        }
+
+                        RightOrBottomStackPanel.Orientation = Orientation.Horizontal;
+                        Grid.SetRow(RightOrBottomStackPanel, 0);
+                        Grid.SetColumn(RightOrBottomStackPanel, 2);
+                        Grid.SetRowSpan(RightOrBottomStackPanel, 3);
+                        Grid.SetColumnSpan(RightOrBottomStackPanel, 1);
+                        foreach (var child in RightOrBottomStackPanel.Children)
+                        {
+                            if (child is FrameworkElement control)
+                            {
+                                control.VerticalAlignment = VerticalAlignment.Center;
+                                control.HorizontalAlignment = HorizontalAlignment.Left;
+                            }
+                        }
+
+                        CenterStackPanel.Orientation = Orientation.Horizontal;
+                        foreach (var child in CenterStackPanel.Children)
+                        {
+                            if (child is FrameworkElement control)
+                            {
+                                control.VerticalAlignment = VerticalAlignment.Center;
+                                control.HorizontalAlignment = HorizontalAlignment.Left;
+                            }
+                        }
                         break;
                     default:
                         throw new NotSupportedException();
