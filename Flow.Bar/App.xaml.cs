@@ -163,22 +163,7 @@ public partial class App : Application, IDisposable, ISingleInstanceApp
             var appBarKeys = _settings.AppBars.Keys.OrderBy(k => k);
             foreach (var key in appBarKeys)
             {
-                var appBarModel = _settings.AppBars[key];
-                var appBarViewModel = Ioc.Default.GetRequiredService<AppBarViewModel>();
-                appBarViewModel.Order = key;
-                appBarViewModel.DockMode = appBarModel.DockMode;
-                if (appBarModel.MonitorName != null)
-                {
-                    appBarViewModel.Monitor = MonitorInfo.GetDisplayMonitors()
-                        .FirstOrDefault(m => m.Name == appBarModel.MonitorName);
-                }
-                else
-                {
-                    appBarViewModel.Monitor = null;
-                }
-                appBarViewModel.DockedWidthOrHeight = appBarModel.DockedWidthOrHeight;
-                appBarViewModel.IsResizable = appBarModel.IsResizable;
-                var barWindow = new AppBarWindow(appBarViewModel);
+                var barWindow = new AppBarWindow(_settings.AppBars[key]);
                 barWindow.Show();
             }
 

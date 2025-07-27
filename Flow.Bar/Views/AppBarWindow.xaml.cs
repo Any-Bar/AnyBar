@@ -1,8 +1,11 @@
-﻿using Flow.Bar.Models;
+﻿using CommunityToolkit.Mvvm.DependencyInjection;
+using Flow.Bar.Models;
+using Flow.Bar.Models.AppBar;
 using Flow.Bar.Models.Enums;
 using Flow.Bar.ViewModels;
 using System;
 using System.ComponentModel;
+using System.Linq;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using System.Windows;
@@ -33,8 +36,21 @@ public partial class AppBarWindow : Window
 
     private readonly AppBarViewModel _viewModel;
 
-    public AppBarWindow(AppBarViewModel viewModel)
+    public AppBarWindow(AppBarModel model)
     {
+        var viewModel = Ioc.Default.GetRequiredService<AppBarViewModel>();
+        viewModel.Order = model.Order;
+        viewModel.DockMode = model.DockMode;
+        if (model.MonitorName != null)
+        {
+            viewModel.Monitor = MonitorInfo.GetDisplayMonitors().FirstOrDefault(m => m.Name == model.MonitorName);
+        }
+        else
+        {
+            viewModel.Monitor = null;
+        }
+        viewModel.DockedWidthOrHeight = model.DockedWidthOrHeight;
+        viewModel.IsResizable = model.IsResizable;
         _viewModel = viewModel;
         DataContext = viewModel;
         InitializeComponent();
