@@ -12,4 +12,7 @@
     <system:String x:Key="SettingWindow.AppBar">Appbar</system:String>
     <system:String x:Key="SettingWindow.About">About</system:String>
 
+    <!--  Setting Pane About  -->
+    <system:String x:Key="SettingPaneAbout.Version">Version</system:String>
+
 </ResourceDictionary>

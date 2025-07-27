@@ -13,8 +13,15 @@
     mc:Ignorable="d">
 
     <ikw:SimpleStackPanel Orientation="Vertical" Spacing="{StaticResource SettingsCardSpacing}">
-        <TextBlock Style="{StaticResource SettingsSectionHeaderTextBlockStyle}" Text="About" />
-        <ui:SettingsCard Header="{Binding Version}">
+        <TextBlock Style="{StaticResource SettingsSectionHeaderTextBlockStyle}" Text="App" />
+        <ui:SettingsCard Description="{DynamicResource SettingPaneAbout.Version}" Header="{Binding Version}">
+            <ui:SettingsCard.HeaderIcon>
+                <ui:FontIcon Glyph="&#xe946;" />
+            </ui:SettingsCard.HeaderIcon>
+        </ui:SettingsCard>
+
+        <TextBlock Style="{StaticResource SettingsSectionHeaderTextBlockStyle}" Text="Related" />
+        <ui:SettingsCard Header="Click to support">
             <ui:SettingsCard.HeaderIcon>
                 <ui:FontIcon Glyph="&#xe946;" />
             </ui:SettingsCard.HeaderIcon>
