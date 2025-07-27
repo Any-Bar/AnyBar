@@ -28,4 +28,6 @@ public class Settings
     public ConcurrentDictionary<int, AppBarModel> AppBars { get; set; } = new(
         [new KeyValuePair<int, AppBarModel>(0, new AppBarModel() { ID = 0 })]
     );
+
+    public bool HideSettingWindow { get; set; } = false;
 }

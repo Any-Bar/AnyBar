@@ -11,6 +11,11 @@ namespace Flow.Bar.Plugin;
 public interface IPublicAPI
 {
     /// <summary>
+    /// Open setting dialog
+    /// </summary>
+    void OpenSettingDialog();
+
+    /// <summary>
     /// Save everything, all of Flow Bar and plugins' data and settings
     /// </summary>
     void SaveAppAllSettings();

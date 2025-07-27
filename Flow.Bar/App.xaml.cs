@@ -26,13 +26,13 @@ namespace Flow.Bar;
 public partial class App : Application, IDisposable, ISingleInstanceApp
 {
     public static IPublicAPI API { get; private set; } = null!;
-    public static bool LoadingOrExiting => _mainWindow == null;
+    public static bool LoadingOrExiting => _settingWindow == null;
 
     private static readonly string ClassName = nameof(App);
 
     private static bool _disposed;
     private static Settings _settings = null!;
-    private static SettingWindow? _mainWindow;
+    private static SettingWindow? _settingWindow;
 
     private System.Windows.Forms.NotifyIcon _notifyIcon = null!;
     private readonly ContextMenu _contextMenu = new();
@@ -149,10 +149,13 @@ public partial class App : Application, IDisposable, ISingleInstanceApp
 
             var allPlugins = PluginManager.AllPlugins;
 
-            _mainWindow ??= new SettingWindow();
-            _mainWindow.Show();
+            _settingWindow ??= new SettingWindow();
+            if (!_settings.HideSettingWindow)
+            {
+                _settingWindow.Show();
+            }
 
-            Current.MainWindow = _mainWindow;
+            Current.MainWindow = _settingWindow;
             Current.MainWindow.Title = Constants.FlowBarFullName;
 
             InitNotifyIcon();
