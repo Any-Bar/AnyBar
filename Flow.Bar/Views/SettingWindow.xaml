@@ -7,6 +7,7 @@
     xmlns:local="clr-namespace:Flow.Bar.Views"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:ui="http://schemas.inkore.net/lib/ui/wpf/modern"
+    Title="{DynamicResource SettingWindow.Title}"
     Width="800"
     Height="450"
     ui:ThemeManager.IsThemeAware="True"

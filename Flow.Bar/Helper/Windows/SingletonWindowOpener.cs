@@ -1,11 +1,14 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 
 namespace Flow.Bar.Helper.Windows;
 
 public static class SingletonWindowOpener
 {
-    public static void Open<T>(T window) where T : Window
+    public static void Open<T>(Func<T> getWindow) where T : Window
     {
+        var window = getWindow();
+
         // Fix UI bug
         // Add `window.WindowState = WindowState.Normal`
         // If only use `window.Show()`, Settings-window doesn't show when minimized in taskbar 

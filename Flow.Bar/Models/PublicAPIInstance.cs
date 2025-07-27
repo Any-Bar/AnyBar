@@ -19,13 +19,10 @@ public class PublicAPIInstance(Settings settings) : IPublicAPI
 
     public void OpenSettingDialog()
     {
-        if (Application.Current?.MainWindow is SettingWindow settingWindow)
+        Application.Current.Dispatcher.Invoke(() =>
         {
-            Application.Current.Dispatcher.Invoke(() =>
-            {
-                SingletonWindowOpener.Open(settingWindow);
-            });
-        }
+            SingletonWindowOpener.Open(() => new SettingWindow());
+        });
     }
 
     public void SaveAppAllSettings()
