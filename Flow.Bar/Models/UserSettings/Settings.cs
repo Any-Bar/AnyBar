@@ -1,4 +1,7 @@
-﻿using Flow.Bar.Models.Storage;
+﻿using Flow.Bar.Models.AppBar;
+using Flow.Bar.Models.Storage;
+using System.Collections.Concurrent;
+using System.Collections.Generic;
 
 namespace Flow.Bar.Models.UserSettings;
 
@@ -21,4 +24,8 @@ public class Settings
     #endregion
 
     public string Language { get; set; } = Constants.SystemLanguageCode;
+
+    public ConcurrentDictionary<int, AppBarModel> AppBars { get; set; } = new(
+        [new KeyValuePair<int, AppBarModel>(0, new AppBarModel() { ID = 0 })]
+    );
 }

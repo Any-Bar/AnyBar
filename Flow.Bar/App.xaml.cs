@@ -14,6 +14,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
 using System.Diagnostics;
+using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Windows;
@@ -156,8 +157,27 @@ public partial class App : Application, IDisposable, ISingleInstanceApp
 
             InitNotifyIcon();
 
-            var barWindow = new AppBarWindow(Ioc.Default.GetRequiredService<AppBarViewModel>());
-            barWindow.Show();
+            var appBarKeys = _settings.AppBars.Keys.OrderBy(k => k);
+            foreach (var key in appBarKeys)
+            {
+                var appBarModel = _settings.AppBars[key];
+                var appBarViewModel = Ioc.Default.GetRequiredService<AppBarViewModel>();
+                appBarViewModel.ID = key;
+                appBarViewModel.DockMode = appBarModel.DockMode;
+                if (appBarModel.MonitorName != null)
+                {
+                    appBarViewModel.Monitor = MonitorInfo.GetDisplayMonitors()
+                        .FirstOrDefault(m => m.Name == appBarModel.MonitorName);
+                }
+                else
+                {
+                    appBarViewModel.Monitor = null;
+                }
+                appBarViewModel.DockedWidthOrHeight = appBarModel.DockedWidthOrHeight;
+                appBarViewModel.IsResizable = appBarModel.IsResizable;
+                var barWindow = new AppBarWindow(appBarViewModel);
+                barWindow.Show();
+            }
 
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
 

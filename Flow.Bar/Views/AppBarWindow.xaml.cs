@@ -129,6 +129,8 @@ public partial class AppBarWindow : Window
             return (int)Math.Round(dim / dpi.PixelsPerDip);
         }
 
+        if (_viewModel.DockedWidthOrHeight != null) return;
+
         var monitor = MonitorInfo.GetPrimaryDisplayMonitor();
         if (monitor != null)
         {
@@ -146,8 +148,8 @@ public partial class AppBarWindow : Window
                 }
                 else
                 {
-                    // No taskbar detected, set a default value and raise the location change event manually
-                    OnDockLocationChanged();
+                    // No taskbar detected, set a default value
+                    _viewModel.DockedWidthOrHeight = 200;
                 }
             }
         }
@@ -328,10 +330,12 @@ public partial class AppBarWindow : Window
             return value;
         }
 
+        if (_viewModel.DockedWidthOrHeight == null) return false;
+
         var dockedWidthOrHeight = _viewModel.DockMode switch
         {
-            AppBarDockMode.Left or AppBarDockMode.Right => BoundIntToDouble(_viewModel.DockedWidthOrHeight, MinWidth, MaxWidth),
-            AppBarDockMode.Top or AppBarDockMode.Bottom => BoundIntToDouble(_viewModel.DockedWidthOrHeight, MinHeight, MaxHeight),
+            AppBarDockMode.Left or AppBarDockMode.Right => BoundIntToDouble(_viewModel.DockedWidthOrHeight.Value, MinWidth, MaxWidth),
+            AppBarDockMode.Top or AppBarDockMode.Bottom => BoundIntToDouble(_viewModel.DockedWidthOrHeight.Value, MinHeight, MaxHeight),
             _ => throw new NotSupportedException(),
         };
 
@@ -361,6 +365,10 @@ public partial class AppBarWindow : Window
         {
             return;
         }
+        else if (_viewModel.DockedWidthOrHeight == null)
+        {
+            return;
+        }
 
         var abd = GetAppBarData();
         var bounds = _viewModel.GetSelectedMonitor().Bounds;
@@ -368,7 +376,7 @@ public partial class AppBarWindow : Window
 
         PInvoke.SHAppBarMessage(PInvoke.ABM_QUERYPOS, ref abd);
 
-        var dockedWidthOrHeightInDesktopPixels = _isMinimized ? 0 : WpfDimensionToDesktop(this, _viewModel.DockedWidthOrHeight);
+        var dockedWidthOrHeightInDesktopPixels = _isMinimized ? 0 : WpfDimensionToDesktop(this, _viewModel.DockedWidthOrHeight.Value);
         switch (_viewModel.DockMode)
         {
             case AppBarDockMode.Top:

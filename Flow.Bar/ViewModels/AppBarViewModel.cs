@@ -7,14 +7,16 @@ namespace Flow.Bar.ViewModels;
 
 public partial class AppBarViewModel : ObservableObject
 {
+    public int ID { get; set; } = -1;
+
     [ObservableProperty]
     private AppBarDockMode _dockMode = AppBarDockMode.Top;
 
     [ObservableProperty]
-    private MonitorInfo? _monitor;
+    private MonitorInfo? _monitor = null;
 
     [ObservableProperty]
-    private int _dockedWidthOrHeight = 200;
+    private int? _dockedWidthOrHeight = null;
 
     [ObservableProperty]
     private bool _isResizable = false;
