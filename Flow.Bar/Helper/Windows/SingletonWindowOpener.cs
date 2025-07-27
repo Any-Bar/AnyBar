@@ -1,13 +1,16 @@
 ﻿using System;
+using System.Linq;
 using System.Windows;
 
 namespace Flow.Bar.Helper.Windows;
 
 public static class SingletonWindowOpener
 {
-    public static void Open<T>(Func<T> getWindow) where T : Window
+    public static void Open<T>(params object[] args) where T : Window
     {
-        var window = getWindow();
+        var window = (System.Windows.Application.Current.Windows.OfType<Window>().FirstOrDefault(x => x.GetType() == typeof(T))
+            ?? (T?)Activator.CreateInstance(typeof(T), args))
+            ?? throw new ArgumentNullException(null, "Window instance could not be created or found.");
 
         // Fix UI bug
         // Add `window.WindowState = WindowState.Normal`
