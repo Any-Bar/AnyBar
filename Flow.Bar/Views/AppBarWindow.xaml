@@ -17,6 +17,7 @@
     ui:WindowHelper.UseModernWindowStyle="True"
     Closing="Window_Closing"
     DpiChanged="Window_DpiChanged"
+    Loaded="Window_Loaded"
     SourceInitialized="Window_SourceInitialized"
     mc:Ignorable="d">
     <Grid>

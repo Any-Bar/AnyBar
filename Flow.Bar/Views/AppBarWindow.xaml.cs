@@ -34,25 +34,13 @@ public partial class AppBarWindow : Window
     private readonly ExplorerWatcher _explorerWatcher = new();
     private bool _isExplorerRestarting = false;
 
-    private readonly AppBarViewModel _viewModel;
+    private readonly AppBarModel _model;
+    private readonly AppBarViewModel _viewModel = Ioc.Default.GetRequiredService<AppBarViewModel>();
 
     public AppBarWindow(AppBarModel model)
     {
-        var viewModel = Ioc.Default.GetRequiredService<AppBarViewModel>();
-        viewModel.Order = model.Order;
-        viewModel.DockMode = model.DockMode;
-        if (model.MonitorName != null)
-        {
-            viewModel.Monitor = MonitorInfo.GetDisplayMonitors().FirstOrDefault(m => m.Name == model.MonitorName);
-        }
-        else
-        {
-            viewModel.Monitor = null;
-        }
-        viewModel.DockedWidthOrHeight = model.DockedWidthOrHeight;
-        viewModel.IsResizable = model.IsResizable;
-        _viewModel = viewModel;
-        DataContext = viewModel;
+        _model = model;
+        _viewModel.Order = model.Order;
         InitializeComponent();
         _viewModel.PropertyChanged += ViewModel_PropertyChanged;
         WindowStyle = WindowStyle.None;
@@ -169,6 +157,22 @@ public partial class AppBarWindow : Window
                 }
             }
         }
+    }
+
+    private void Window_Loaded(object sender, RoutedEventArgs e)
+    {
+        _viewModel.Order = _model.Order;
+        _viewModel.DockMode = _model.DockMode;
+        if (_model.MonitorName != null)
+        {
+            _viewModel.Monitor = MonitorInfo.GetDisplayMonitors().FirstOrDefault(m => m.Name == _model.MonitorName);
+        }
+        else
+        {
+            _viewModel.Monitor = null;
+        }
+        _viewModel.DockedWidthOrHeight = _model.DockedWidthOrHeight;
+        _viewModel.IsResizable = _model.IsResizable;
     }
 
     private void Window_DpiChanged(object sender, DpiChangedEventArgs e)
