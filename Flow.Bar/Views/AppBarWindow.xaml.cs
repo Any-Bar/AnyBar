@@ -1,4 +1,5 @@
 ﻿using Flow.Bar.Models;
+using Flow.Bar.Models.Enums;
 using Flow.Bar.ViewModels;
 using System;
 using System.ComponentModel;

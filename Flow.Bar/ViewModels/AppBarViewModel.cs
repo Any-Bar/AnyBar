@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using Flow.Bar.Models;
+using Flow.Bar.Models.Enums;
 using System.Linq;
 
 namespace Flow.Bar.ViewModels;
@@ -28,12 +29,4 @@ public partial class AppBarViewModel : ObservableObject
         }
         return monitor;
     }
-}
-
-public enum AppBarDockMode
-{
-    Left = 0,
-    Top,
-    Right,
-    Bottom
 }
