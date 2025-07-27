@@ -10,6 +10,6 @@
     <!--  Setting Window  -->
     <system:String x:Key="SettingWindow.Title">Settings</system:String>
     <system:String x:Key="SettingWindow.AppBar">Appbar</system:String>
-    <system:String x:Key="SettingWindow.About">Appbar</system:String>
+    <system:String x:Key="SettingWindow.About">About</system:String>
 
 </ResourceDictionary>
