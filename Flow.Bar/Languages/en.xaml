@@ -5,6 +5,7 @@
 
     <!--  Tray Icon  -->
     <system:String x:Key="TrayIcon.Exit">Exit</system:String>
+    <system:String x:Key="TrayIcon.Settings">Settings</system:String>
 
     <!--  Setting Window  -->
     <system:String x:Key="SettingWindow.Title">Settings</system:String>

@@ -250,6 +250,16 @@ public partial class App : Application, IDisposable, ISingleInstanceApp
             _contextMenu.IsOpen = false;
             Current.Shutdown();
         };
+        var settingItem = new MenuItem
+        {
+            Header = API.GetTranslation("TrayIcon.Settings"),
+            Icon = new FontIcon { Glyph = "\ue713" }
+        };
+        settingItem.Click += (o, e) =>
+        {
+            API.OpenSettingDialog();
+        };
+        _contextMenu.Items.Add(settingItem);
         _contextMenu.Items.Add(exitItem);
         _notifyIcon = new System.Windows.Forms.NotifyIcon
         {

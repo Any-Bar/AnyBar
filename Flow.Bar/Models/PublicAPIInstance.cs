@@ -1,6 +1,8 @@
-﻿using Flow.Bar.Models.Language;
+﻿using Flow.Bar.Helper.Windows;
+using Flow.Bar.Models.Language;
 using Flow.Bar.Models.UserSettings;
 using Flow.Bar.Plugin;
+using Flow.Bar.Views;
 using System;
 using System.Runtime.CompilerServices;
 using System.Threading;
@@ -17,7 +19,13 @@ public class PublicAPIInstance(Settings settings) : IPublicAPI
 
     public void OpenSettingDialog()
     {
-        Application.Current?.MainWindow?.Show();
+        if (Application.Current?.MainWindow is SettingWindow settingWindow)
+        {
+            Application.Current.Dispatcher.Invoke(() =>
+            {
+                SingletonWindowOpener.Open(settingWindow);
+            });
+        }
     }
 
     public void SaveAppAllSettings()
