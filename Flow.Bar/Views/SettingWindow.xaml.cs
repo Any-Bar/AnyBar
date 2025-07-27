@@ -10,6 +10,17 @@ public partial class SettingWindow : Window
         InitializeComponent();
     }
 
+    #region Window Events
+
+    private void Window_Closed(object sender, System.EventArgs e)
+    {
+        App.API.SaveAppAllSettings();
+    }
+
+    #endregion
+
+    #region Navigation View Events
+
     private void NavigationViewControl_DisplayModeChanged(NavigationView sender, NavigationViewDisplayModeChangedEventArgs args)
     {
         Thickness currMargin = AppTitleBar.Margin;
@@ -33,6 +44,8 @@ public partial class SettingWindow : Window
         Thickness currMargin = AppTitle.Margin;
         AppTitle.Margin = new Thickness(smallLeftIndent, currMargin.Top, currMargin.Right, currMargin.Bottom);
     }
+
+    #endregion
 }
 
 public enum SettingPageTag
