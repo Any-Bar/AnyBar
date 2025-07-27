@@ -28,7 +28,7 @@ public class Settings
     public bool HideSettingWindow { get; set; } = false;
 
     private ConcurrentDictionary<int, AppBarModel>? _appBars = null;
-    public ConcurrentDictionary<int, AppBarModel>? AppBars
+    public ConcurrentDictionary<int, AppBarModel> AppBars
     {
         get
         {
