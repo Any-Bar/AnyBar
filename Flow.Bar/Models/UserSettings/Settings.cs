@@ -1,7 +1,7 @@
 ﻿using Flow.Bar.Models.AppBar;
+using Flow.Bar.Models.Enums;
 using Flow.Bar.Models.Storage;
 using System.Collections.Concurrent;
-using System.Collections.Generic;
 
 namespace Flow.Bar.Models.UserSettings;
 
@@ -25,9 +25,37 @@ public class Settings
 
     public string Language { get; set; } = Constants.SystemLanguageCode;
 
-    public ConcurrentDictionary<int, AppBarModel> AppBars { get; set; } = new(
-        [new KeyValuePair<int, AppBarModel>(0, new AppBarModel() { ID = 0 })]
-    );
-
     public bool HideSettingWindow { get; set; } = false;
+
+    private ConcurrentDictionary<int, AppBarModel>? _appBars = null;
+    public ConcurrentDictionary<int, AppBarModel>? AppBars
+    {
+        get
+        {
+            if (_appBars == null)
+            {
+                _appBars = new();
+                var defaultAppBar = new AppBarModel
+                {
+                    Order = 0,
+                    DockMode = AppBarDockMode.Top,
+                    MonitorName = null,
+                    DockedWidthOrHeight = null,
+                    IsResizable = false,
+                    PluginControls =
+                    [
+                        new()
+                        {
+                            Order = 0,
+                            ID = "3675a0dd-af3b-412f-b257-5e004dea2bd0", // Flow.Bar.Plugin.Clock
+                            Location = PluginControlLocation.RightOrBottom,
+                        }
+                    ]
+                };
+                _appBars.TryAdd(0, defaultAppBar);
+            }
+            return _appBars;
+        }
+        set => _appBars = value;
+    }
 }

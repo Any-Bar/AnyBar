@@ -3,10 +3,9 @@
 namespace Flow.Bar.Models.Enums;
 
 [JsonConverter(typeof(JsonStringEnumConverter))]
-public enum AppBarDockMode
+public enum PluginControlLocation
 {
-    Left = 0,
-    Top,
-    Right,
-    Bottom
+    LeftOrTop,
+    Center,
+    RightOrBottom
 }

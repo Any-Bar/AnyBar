@@ -165,7 +165,7 @@ public partial class App : Application, IDisposable, ISingleInstanceApp
             {
                 var appBarModel = _settings.AppBars[key];
                 var appBarViewModel = Ioc.Default.GetRequiredService<AppBarViewModel>();
-                appBarViewModel.ID = key;
+                appBarViewModel.Order = key;
                 appBarViewModel.DockMode = appBarModel.DockMode;
                 if (appBarModel.MonitorName != null)
                 {

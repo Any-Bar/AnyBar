@@ -1,10 +1,11 @@
 ﻿using Flow.Bar.Models.Enums;
+using System.Collections.Generic;
 
 namespace Flow.Bar.Models.AppBar;
 
 public class AppBarModel
 {
-    public int ID { get; set; } = -1;
+    public int Order { get; set; } = -1;
 
     public AppBarDockMode DockMode { get; set; } = AppBarDockMode.Top;
 
@@ -13,4 +14,6 @@ public class AppBarModel
     public int? DockedWidthOrHeight { get; set; } = null;
 
     public bool IsResizable { get; set; } = false;
+
+    public List<PluginControlModel> PluginControls { get; set; } = [];
 }

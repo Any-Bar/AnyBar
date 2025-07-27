@@ -7,7 +7,7 @@ namespace Flow.Bar.ViewModels;
 
 public partial class AppBarViewModel : ObservableObject
 {
-    public int ID { get; set; } = -1;
+    public int Order { get; set; } = -1;
 
     [ObservableProperty]
     private AppBarDockMode _dockMode = AppBarDockMode.Top;
