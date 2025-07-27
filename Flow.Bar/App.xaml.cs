@@ -8,6 +8,7 @@ using Flow.Bar.Models.Storage;
 using Flow.Bar.Models.UserSettings;
 using Flow.Bar.Plugin;
 using Flow.Bar.ViewModels;
+using Flow.Bar.ViewModels.SettingPages;
 using Flow.Bar.Views;
 using iNKORE.UI.WPF.Modern.Controls;
 using Microsoft.Extensions.DependencyInjection;
@@ -89,6 +90,8 @@ public partial class App : Application, IDisposable, ISingleInstanceApp
                 .AddSingleton<IPublicAPI, PublicAPIInstance>()
                 .AddSingleton<Internationalization>()
                 .AddTransient<AppBarViewModel>()
+                .AddTransient<SettingsPaneAboutViewModel>()
+                .AddTransient<SettingsPaneAppBarViewModel>()
             ).Build();
             Ioc.Default.ConfigureServices(host.Services);
         }

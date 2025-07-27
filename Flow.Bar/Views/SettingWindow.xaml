@@ -17,7 +17,9 @@
     ui:WindowHelper.SystemBackdropType="Mica"
     ui:WindowHelper.UseModernWindowStyle="True"
     Closed="Window_Closed"
+    Loaded="Window_Loaded"
     mc:Ignorable="d">
+
     <Grid>
         <Border
             x:Name="AppTitleBar"
@@ -65,7 +67,10 @@
             IsSettingsVisible="False"
             IsTabStop="False"
             IsTitleBarAutoPaddingEnabled="False"
-            PaneDisplayMode="Left">
+            PaneClosing="NavigationViewControl_PaneClosing"
+            PaneDisplayMode="Left"
+            PaneOpening="NavigationViewControl_PaneOpening"
+            SelectionChanged="NavigationViewControl_SelectionChanged">
             <ui:NavigationView.HeaderTemplate>
                 <DataTemplate>
                     <TextBlock
@@ -79,19 +84,30 @@
             </ui:NavigationView.HeaderTemplate>
 
             <ui:NavigationView.MenuItems>
-                <ui:NavigationViewItem Content="{DynamicResource SettingWindow.AppBar}" Tag="{x:Static local:SettingPageTag.AppBar}">
+                <ui:NavigationViewItem
+                    x:Name="AppBarItem"
+                    Content="{DynamicResource SettingWindow.AppBar}"
+                    Tag="{x:Static local:SettingPageTag.AppBar}">
                     <ui:NavigationViewItem.Icon>
                         <ui:FontIcon Glyph="&#xE75B;" />
                     </ui:NavigationViewItem.Icon>
                 </ui:NavigationViewItem>
-                <ui:NavigationViewItem Content="{DynamicResource SettingWindow.About}" Tag="{x:Static local:SettingPageTag.About}">
+                <ui:NavigationViewItem
+                    x:Name="AboutItem"
+                    Content="{DynamicResource SettingWindow.About}"
+                    Tag="{x:Static local:SettingPageTag.About}">
                     <ui:NavigationViewItem.Icon>
                         <ui:FontIcon Glyph="&#xE946;" />
                     </ui:NavigationViewItem.Icon>
                 </ui:NavigationViewItem>
             </ui:NavigationView.MenuItems>
 
-            <ui:Frame x:Name="rootFrame" />
+            <ui:ScrollViewerEx Padding="20 0">
+                <ui:Frame
+                    x:Name="RootFrame"
+                    Navigated="RootFrame_Navigated"
+                    Navigating="RootFrame_Navigating" />
+            </ui:ScrollViewerEx>
         </ui:NavigationView>
     </Grid>
 </Window>
