@@ -63,12 +63,12 @@
             DisplayModeChanged="NavigationViewControl_DisplayModeChanged"
             Header=""
             IsFooterSeparatorVisible="{x:Null}"
-            IsPaneToggleButtonVisible="False"
+            IsPaneToggleButtonVisible="True"
             IsSettingsVisible="False"
             IsTabStop="False"
             IsTitleBarAutoPaddingEnabled="False"
             PaneClosing="NavigationViewControl_PaneClosing"
-            PaneDisplayMode="Left"
+            PaneDisplayMode="Auto"
             PaneOpening="NavigationViewControl_PaneOpening"
             SelectionChanged="NavigationViewControl_SelectionChanged">
             <ui:NavigationView.HeaderTemplate>
