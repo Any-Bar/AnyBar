@@ -1,9 +1,8 @@
-﻿#if DEBUG
-
-using System.Reflection;
+﻿using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Runtime.Versioning;
 
+#if DEBUG
 [assembly: AssemblyConfiguration("Debug")]
 [assembly: AssemblyDescription("Debug build, https://github.com/Flow-Bar/Flow.Bar")]
 #else
