@@ -1,7 +1,10 @@
 ﻿using Flow.Bar.Views.SettingPages;
+using iNKORE.UI.WPF.Helpers;
 using iNKORE.UI.WPF.Modern.Controls;
 using System;
+using System.Linq;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Navigation;
 
 namespace Flow.Bar.Views;
@@ -9,6 +12,16 @@ namespace Flow.Bar.Views;
 public partial class SettingWindow : Window
 {
     private SettingPageTag? _lastItem = null;
+
+    private TextBlock? _pageHeader = null;
+    public TextBlock? PageHeader
+    {
+        get
+        {
+            return _pageHeader ??= VisualTree.FindDescendants<TextBlock>(NavigationViewControl)
+                .FirstOrDefault(tb => tb.Name == "TitleTextBlock");
+        }
+    }
 
     public SettingWindow()
     {
@@ -102,13 +115,16 @@ public partial class SettingWindow : Window
 
     private void RootFrame_Navigating(object sender, NavigatingCancelEventArgs e)
     {
-
+        if (_lastItem != null)
+        {
+            PageHeader?.SetResourceReference(TextBlock.TextProperty, GetPageHeaderResource((SettingPageTag)_lastItem));
+        }
     }
 
     private void RootFrame_Navigated(object sender, NavigationEventArgs e)
     {
         // Update the selected NavigationViewItem based on the page type
-        NavigationViewItem? newItem = null;
+        NavigationViewItem? newItem;
 
         if (RootFrame.SourcePageType == typeof(SettingsPaneAppBar))
         {
@@ -125,10 +141,21 @@ public partial class SettingWindow : Window
             throw new InvalidOperationException("RootFrame is not navigated to a valid page.");
         }
 
+        PageHeader?.SetResourceReference(TextBlock.TextProperty, GetPageHeaderResource((SettingPageTag)_lastItem));
         if (newItem != null && NavigationViewControl.SelectedItem != newItem)
         {
             NavigationViewControl.SelectedItem = newItem;
         }
+    }
+
+    private static string GetPageHeaderResource(SettingPageTag tag)
+    {
+        return tag switch
+        {
+            SettingPageTag.AppBar => "SettingWindow.AppBar",
+            SettingPageTag.About => "SettingWindow.About",
+            _ => throw new ArgumentOutOfRangeException(nameof(tag), tag, null)
+        };
     }
 
     #endregion

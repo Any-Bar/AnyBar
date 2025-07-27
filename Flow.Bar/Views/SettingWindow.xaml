@@ -75,9 +75,9 @@
                 <DataTemplate>
                     <TextBlock
                         x:Name="TitleTextBlock"
+                        Margin="-34 0 0 0"
                         VerticalAlignment="Center"
                         Style="{DynamicResource TitleTextBlockStyle}"
-                        Text="{Binding Header, ElementName=NavigationViewControl}"
                         TextTrimming="CharacterEllipsis"
                         TextWrapping="NoWrap" />
                 </DataTemplate>
