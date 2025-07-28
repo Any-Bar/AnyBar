@@ -591,7 +591,7 @@ public partial class AppBarWindow : Window
     {
         if (sender is FrameworkElement element)
         {
-            _contextMenu.Placement = _viewModel.DockMode switch
+            var placement = _viewModel.DockMode switch
             {
                 AppBarDockMode.Left => FlyoutPlacementMode.Right,
                 AppBarDockMode.Right => FlyoutPlacementMode.Left,
@@ -599,12 +599,11 @@ public partial class AppBarWindow : Window
                 AppBarDockMode.Bottom => FlyoutPlacementMode.Top,
                 _ => throw new NotSupportedException(),
             };
-            _contextMenu.ShowMode = FlyoutShowMode.Auto;
             _contextMenu.ShowAt(element, new FlyoutShowOptions()
             {
-                Placement = _contextMenu.Placement,
+                Placement = placement,
                 Position = e.GetPosition(element),
-                ShowMode = _contextMenu.ShowMode
+                ShowMode = FlyoutShowMode.Auto
             });
             e.Handled = true;
         }

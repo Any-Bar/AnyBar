@@ -24,7 +24,7 @@ namespace Flow.Bar.Controls.Flyout
             get
             {
                 EnsurePresenter();
-                return m_presenter.Items;
+                return m_presenter!.Items;
             }
         }
 

@@ -107,6 +107,23 @@ namespace Flow.Bar.Controls.Flyout
 
         #endregion
 
+        #region ShowOptions
+
+        public static readonly DependencyProperty ShowOptionsProperty =
+            DependencyProperty.Register(
+                nameof(ShowOptions),
+                typeof(FlyoutShowOptions),
+                typeof(FlyoutBase),
+                new PropertyMetadata(null));
+
+        public FlyoutShowOptions ShowOptions
+        {
+            get => (FlyoutShowOptions)GetValue(ShowOptionsProperty);
+            set => SetValue(ShowOptionsProperty, value);
+        }
+
+        #endregion
+
         internal virtual PopupAnimation DesiredPopupAnimation => PopupAnimation.Fade;
 
         internal PopupEx InternalPopup => m_popup;
@@ -123,6 +140,9 @@ namespace Flow.Bar.Controls.Flyout
             ArgumentNullException.ThrowIfNull(placementTarget);
             ArgumentNullException.ThrowIfNull(showOptions);
 
+            ShowOptions = showOptions;
+            Placement = showOptions.Placement;
+            ShowMode = showOptions.ShowMode;
             ShowAtCore(placementTarget, false);
         }
 
