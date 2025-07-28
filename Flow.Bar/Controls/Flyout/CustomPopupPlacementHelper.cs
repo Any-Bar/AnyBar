@@ -33,7 +33,7 @@ namespace Flow.Bar.Controls.Flyout
             Size popupSize,
             Size targetSize,
             Point offset,
-            FrameworkElement child = null)
+            FrameworkElement? child = null)
         {
             Matrix transformToDevice = default;
             if (child != null)
@@ -52,11 +52,11 @@ namespace Flow.Bar.Controls.Flyout
 
             if (alternativePlacement.HasValue)
             {
-                return new[] { preferredPlacement, alternativePlacement.Value };
+                return [preferredPlacement, alternativePlacement.Value];
             }
             else
             {
-                return new[] { preferredPlacement };
+                return [preferredPlacement];
             }
         }
 
@@ -65,7 +65,7 @@ namespace Flow.Bar.Controls.Flyout
             Size popupSize,
             Size targetSize,
             Point offset,
-            FrameworkElement child = null,
+            FrameworkElement? child = null,
             Matrix transformToDevice = default)
         {
             Point point;
@@ -145,38 +145,24 @@ namespace Flow.Bar.Controls.Flyout
 
         private static CustomPlacementMode? GetAlternativePlacementMode(CustomPlacementMode placement)
         {
-            switch (placement)
+            return placement switch
             {
-                case CustomPlacementMode.Top:
-                    return CustomPlacementMode.Bottom;
-                case CustomPlacementMode.Bottom:
-                    return CustomPlacementMode.Top;
-                case CustomPlacementMode.Left:
-                    return CustomPlacementMode.Right;
-                case CustomPlacementMode.Right:
-                    return CustomPlacementMode.Left;
-                case CustomPlacementMode.Full:
-                    return null;
-                case CustomPlacementMode.TopEdgeAlignedLeft:
-                    return CustomPlacementMode.BottomEdgeAlignedLeft;
-                case CustomPlacementMode.TopEdgeAlignedRight:
-                    return CustomPlacementMode.BottomEdgeAlignedRight;
-                case CustomPlacementMode.BottomEdgeAlignedLeft:
-                    return CustomPlacementMode.TopEdgeAlignedLeft;
-                case CustomPlacementMode.BottomEdgeAlignedRight:
-                    return CustomPlacementMode.TopEdgeAlignedRight;
-                case CustomPlacementMode.LeftEdgeAlignedTop:
-                    return CustomPlacementMode.RightEdgeAlignedTop;
-                case CustomPlacementMode.LeftEdgeAlignedBottom:
-                    return CustomPlacementMode.RightEdgeAlignedBottom;
-                case CustomPlacementMode.RightEdgeAlignedTop:
-                    return CustomPlacementMode.RightEdgeAlignedTop;
-                case CustomPlacementMode.RightEdgeAlignedBottom:
-                    return CustomPlacementMode.LeftEdgeAlignedBottom;
+                CustomPlacementMode.Top => (CustomPlacementMode?)CustomPlacementMode.Bottom,
+                CustomPlacementMode.Bottom => (CustomPlacementMode?)CustomPlacementMode.Top,
+                CustomPlacementMode.Left => (CustomPlacementMode?)CustomPlacementMode.Right,
+                CustomPlacementMode.Right => (CustomPlacementMode?)CustomPlacementMode.Left,
+                CustomPlacementMode.Full => null,
+                CustomPlacementMode.TopEdgeAlignedLeft => (CustomPlacementMode?)CustomPlacementMode.BottomEdgeAlignedLeft,
+                CustomPlacementMode.TopEdgeAlignedRight => (CustomPlacementMode?)CustomPlacementMode.BottomEdgeAlignedRight,
+                CustomPlacementMode.BottomEdgeAlignedLeft => (CustomPlacementMode?)CustomPlacementMode.TopEdgeAlignedLeft,
+                CustomPlacementMode.BottomEdgeAlignedRight => (CustomPlacementMode?)CustomPlacementMode.TopEdgeAlignedRight,
+                CustomPlacementMode.LeftEdgeAlignedTop => (CustomPlacementMode?)CustomPlacementMode.RightEdgeAlignedTop,
+                CustomPlacementMode.LeftEdgeAlignedBottom => (CustomPlacementMode?)CustomPlacementMode.RightEdgeAlignedBottom,
+                CustomPlacementMode.RightEdgeAlignedTop => (CustomPlacementMode?)CustomPlacementMode.RightEdgeAlignedTop,
+                CustomPlacementMode.RightEdgeAlignedBottom => (CustomPlacementMode?)CustomPlacementMode.LeftEdgeAlignedBottom,
                 //case CustomPopupPlacementMode.Auto:
-                default:
-                    return null;
-            }
+                _ => null,
+            };
         }
 
         private static bool TryGetTransformToDevice(Visual visual, out Matrix value)
