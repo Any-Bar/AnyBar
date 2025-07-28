@@ -1,4 +1,5 @@
-﻿using System.Windows.Navigation;
+﻿using System.Windows;
+using System.Windows.Navigation;
 using CommunityToolkit.Mvvm.DependencyInjection;
 using Flow.Bar.ViewModels.SettingPages;
 using iNKORE.UI.WPF.Modern.Controls;
@@ -20,7 +21,31 @@ public partial class SettingsPaneAppBar : Page
         if (!IsInitialized)
         {
             InitializeComponent();
+            RefreshAppBars();
         }
         base.OnNavigatedTo(e);
+    }
+
+    private void RefreshAppBars()
+    {
+        if (_viewModel.AppBars.Capacity == 0)
+        {
+            NoAppBarStackPanel.Visibility = Visibility.Visible;
+            AppBarStackPanel.Visibility = Visibility.Collapsed;
+            return;
+        }
+
+        NoAppBarStackPanel.Visibility = Visibility.Collapsed;
+        AppBarStackPanel.Visibility = Visibility.Visible;
+        AppBarStackPanel.Children.Clear();
+        foreach (var appBar in _viewModel.AppBars)
+        {
+            var appBarControl = new SettingsExpander
+            {
+                Header = "Appbar",
+                Content = new System.Windows.Controls.CheckBox()
+            };
+            AppBarStackPanel.Children.Add(appBarControl);
+        }
     }
 }

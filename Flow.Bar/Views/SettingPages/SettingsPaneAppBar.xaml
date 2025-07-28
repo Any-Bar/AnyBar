@@ -15,17 +15,22 @@
     mc:Ignorable="d">
 
     <Grid>
-        <ListBox
-            x:Name="listView1"
-            IsEnabled="True"
-            ItemsSource="{Binding}"
-            SelectionMode="Single"
-            VirtualizingPanel.VirtualizationMode="Recycling">
-            <ListBox.ItemTemplate>
-                <DataTemplate>
-                    <TextBlock Text="AAA" />
-                </DataTemplate>
-            </ListBox.ItemTemplate>
-        </ListBox>
+        <ikw:SimpleStackPanel
+            x:Name="AppBarStackPanel"
+            Spacing="{StaticResource SettingsCardSpacing}"
+            Visibility="Visible" />
+
+        <ikw:SimpleStackPanel
+            x:Name="NoAppBarStackPanel"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            Spacing="{StaticResource SettingsCardSpacing}"
+            Visibility="Collapsed">
+            <TextBlock Text="There are no appbars yet. Add one appbar to start!" />
+            <Button
+                HorizontalAlignment="Center"
+                Command="{Binding AddAppBarCommand}"
+                Content="Add AppBar" />
+        </ikw:SimpleStackPanel>
     </Grid>
 </ui:Page>
