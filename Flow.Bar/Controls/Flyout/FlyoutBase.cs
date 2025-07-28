@@ -128,10 +128,7 @@ namespace Flow.Bar.Controls.Flyout
         public static void ShowAttachedFlyout(FrameworkElement flyoutOwner)
         {
             var flyout = GetAttachedFlyout(flyoutOwner);
-            if (flyout != null)
-            {
-                flyout.ShowAt(flyoutOwner);
-            }
+            flyout?.ShowAt(flyoutOwner);
         }
 
         #endregion
