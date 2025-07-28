@@ -107,32 +107,6 @@ namespace Flow.Bar.Controls.Flyout
 
         #endregion
 
-        #region AttachedFlyout
-
-        public static readonly DependencyProperty AttachedFlyoutProperty =
-            DependencyProperty.RegisterAttached(
-                "AttachedFlyout",
-                typeof(FlyoutBase),
-                typeof(FlyoutBase));
-
-        public static FlyoutBase GetAttachedFlyout(FrameworkElement element)
-        {
-            return (FlyoutBase)element.GetValue(AttachedFlyoutProperty);
-        }
-
-        public static void SetAttachedFlyout(FrameworkElement element, FlyoutBase value)
-        {
-            element.SetValue(AttachedFlyoutProperty, value);
-        }
-
-        public static void ShowAttachedFlyout(FrameworkElement flyoutOwner)
-        {
-            var flyout = GetAttachedFlyout(flyoutOwner);
-            flyout?.ShowAt(flyoutOwner);
-        }
-
-        #endregion
-
         internal virtual PopupAnimation DesiredPopupAnimation => PopupAnimation.Fade;
 
         internal PopupEx InternalPopup => m_popup;
@@ -144,9 +118,10 @@ namespace Flow.Bar.Controls.Flyout
         public event EventHandler<object?>? Closed;
         public event EventHandler<object?>? Closing;
 
-        public void ShowAt(FrameworkElement placementTarget)
+        public void ShowAt(FrameworkElement placementTarget, FlyoutShowOptions showOptions)
         {
             ArgumentNullException.ThrowIfNull(placementTarget);
+            ArgumentNullException.ThrowIfNull(showOptions);
 
             ShowAtCore(placementTarget, false);
         }

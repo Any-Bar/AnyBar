@@ -600,7 +600,12 @@ public partial class AppBarWindow : Window
                 _ => throw new NotSupportedException(),
             };
             _contextMenu.ShowMode = FlyoutShowMode.Auto;
-            _contextMenu.ShowAt(element);
+            _contextMenu.ShowAt(element, new FlyoutShowOptions()
+            {
+                Placement = _contextMenu.Placement,
+                Position = e.GetPosition(element),
+                ShowMode = _contextMenu.ShowMode
+            });
             e.Handled = true;
         }
     }
