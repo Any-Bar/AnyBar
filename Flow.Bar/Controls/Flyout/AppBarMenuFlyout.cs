@@ -1,14 +1,17 @@
 ﻿using iNKORE.UI.WPF.Modern.Controls.Primitives;
 using System;
+using System.Globalization;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
+using System.Windows.Data;
 using System.Windows.Markup;
+using System.Windows.Threading;
 
 namespace Flow.Bar.Controls.Flyout
 {
     [ContentProperty(nameof(Items))]
-    public class AppBarMenuFlyout : FlyoutBase
+    public class AppBarMenuFlyout : DependencyObject
     {
         public AppBarMenuFlyout()
         {
@@ -58,12 +61,94 @@ namespace Flow.Bar.Controls.Flyout
 
         #endregion
 
-        protected override Control CreatePresenter()
+        #region Placement
+
+        public static readonly DependencyProperty PlacementProperty =
+            DependencyProperty.Register(
+                nameof(Placement),
+                typeof(FlyoutPlacementMode),
+                typeof(AppBarMenuFlyout),
+                new PropertyMetadata(FlyoutPlacementMode.Top));
+
+        public FlyoutPlacementMode Placement
         {
-            throw new InvalidOperationException();
+            get => (FlyoutPlacementMode)GetValue(PlacementProperty);
+            set => SetValue(PlacementProperty, value);
         }
 
-        internal override void ShowAtCore(FrameworkElement placementTarget, bool showAsContextFlyout = false)
+        #endregion
+
+        #region IsOpen
+
+        private static readonly DependencyPropertyKey IsOpenPropertyKey =
+            DependencyProperty.RegisterReadOnly(
+                nameof(IsOpen),
+                typeof(bool),
+                typeof(AppBarMenuFlyout),
+                new PropertyMetadata(false, OnIsOpenChanged));
+
+        public static readonly DependencyProperty IsOpenProperty =
+            IsOpenPropertyKey.DependencyProperty;
+
+        public bool IsOpen
+        {
+            get => (bool)GetValue(IsOpenProperty);
+            internal set => SetValue(IsOpenPropertyKey, value);
+        }
+
+        private static void OnIsOpenChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            ((AppBarMenuFlyout)d).OnIsOpenChanged();
+        }
+
+        #endregion
+
+        #region ShowMode
+
+        public static readonly DependencyProperty ShowModeProperty =
+            DependencyProperty.Register(
+                nameof(ShowMode),
+                typeof(FlyoutShowMode),
+                typeof(AppBarMenuFlyout),
+                new PropertyMetadata(FlyoutShowMode.Standard));
+
+        public FlyoutShowMode ShowMode
+        {
+            get => (FlyoutShowMode)GetValue(ShowModeProperty);
+            set => SetValue(ShowModeProperty, value);
+        }
+
+        #endregion
+
+        #region ShowOptions
+
+        public static readonly DependencyProperty ShowOptionsProperty =
+            DependencyProperty.Register(
+                nameof(ShowOptions),
+                typeof(FlyoutShowOptions),
+                typeof(AppBarMenuFlyout),
+                new PropertyMetadata(null));
+
+        public FlyoutShowOptions ShowOptions
+        {
+            get => (FlyoutShowOptions)GetValue(ShowOptionsProperty);
+            set => SetValue(ShowOptionsProperty, value);
+        }
+
+        #endregion
+
+        public void ShowAt(FrameworkElement placementTarget, FlyoutShowOptions showOptions)
+        {
+            ArgumentNullException.ThrowIfNull(placementTarget);
+            ArgumentNullException.ThrowIfNull(showOptions);
+
+            ShowOptions = showOptions;
+            Placement = showOptions.Placement;
+            ShowMode = showOptions.ShowMode;
+            ShowAtCore(placementTarget, false);
+        }
+
+        internal void ShowAtCore(FrameworkElement placementTarget, bool showAsContextFlyout = false)
         {
             if (showAsContextFlyout)
             {
@@ -75,7 +160,7 @@ namespace Flow.Bar.Controls.Flyout
             }
         }
 
-        internal override void HideCore()
+        internal void HideCore()
         {
             if (m_presenter != null && m_presenter.IsOpen)
             {
@@ -83,11 +168,11 @@ namespace Flow.Bar.Controls.Flyout
             }
         }
 
-        internal override void OnIsOpenChanged()
+        internal void OnIsOpenChanged()
         {
         }
 
-        internal override void UpdateIsOpen()
+        internal void UpdateIsOpen()
         {
             IsOpen = m_presenter != null && m_presenter.IsOpen;
         }
@@ -130,8 +215,8 @@ namespace Flow.Bar.Controls.Flyout
 
         private CustomPopupPlacement[] PositionPopup(Size popupSize, Size targetSize, Point offset)
         {
-            return PositionPopup(popupSize, targetSize, offset, m_presenter!);
-        }
+            return CustomPopupPlacementHelper.PositionPopup((CustomPlacementMode)Placement, popupSize, targetSize, ShowOptions.Monitor, ShowOptions.Position, offset, m_target!, m_presenter!);
+        }   
 
         private void EnsurePresenter()
         {
@@ -178,7 +263,116 @@ namespace Flow.Bar.Controls.Flyout
             UpdateIsOpen();
         }
 
+        internal Rect GetPlacementRectangle(UIElement target)
+        {
+            Rect value = Rect.Empty;
+
+            if (target != null)
+            {
+                Size targetSize = target.RenderSize;
+
+                switch (Placement)
+                {
+                    case FlyoutPlacementMode.Top:
+                    case FlyoutPlacementMode.Bottom:
+                    case FlyoutPlacementMode.TopEdgeAlignedLeft:
+                    case FlyoutPlacementMode.TopEdgeAlignedRight:
+                    case FlyoutPlacementMode.BottomEdgeAlignedLeft:
+                    case FlyoutPlacementMode.BottomEdgeAlignedRight:
+                        value = new Rect(
+                            new Point(0, -Offset),
+                            new Point(targetSize.Width, targetSize.Height + Offset));
+                        break;
+                    case FlyoutPlacementMode.Left:
+                    case FlyoutPlacementMode.Right:
+                    case FlyoutPlacementMode.LeftEdgeAlignedTop:
+                    case FlyoutPlacementMode.LeftEdgeAlignedBottom:
+                    case FlyoutPlacementMode.RightEdgeAlignedTop:
+                    case FlyoutPlacementMode.RightEdgeAlignedBottom:
+                        value = new Rect(
+                            new Point(-Offset, 0),
+                            new Point(targetSize.Width + Offset, targetSize.Height));
+                        break;
+                }
+            }
+
+            return value;
+        }
+
+        internal void BindPlacement(Control presenter)
+        {
+            presenter.SetBinding(
+                CustomPopupPlacementHelper.PlacementProperty,
+                new Binding
+                {
+                    Path = new PropertyPath(PlacementProperty),
+                    Source = this,
+                    Converter = s_placementConverter
+                });
+        }
+
+        internal virtual void OnOpening()
+        {
+            Opening?.Invoke(this, null);
+        }
+
+        internal virtual void OnOpened()
+        {
+            Opened?.Invoke(this, null);
+        }
+
+        internal virtual void OnClosed()
+        {
+            Closed?.Invoke(this, null);
+
+            var pendingShow = m_pendingShow;
+            CancelAsyncShow();
+            if (pendingShow != null)
+            {
+                m_asyncShow = Dispatcher.BeginInvoke(pendingShow);
+            }
+        }
+
+        private void CancelAsyncShow()
+        {
+            m_pendingShow = null;
+
+            if (m_asyncShow != null)
+            {
+                m_asyncShow.Abort();
+                m_asyncShow = null;
+            }
+        }
+
         private MenuFlyoutPresenter? m_presenter;
         private FlyoutPlacementMode? m_currentPlacement;
+
+        private double Offset { get; set; } = s_offset;
+
+        public event EventHandler<object?>? Opening;
+        public event EventHandler<object?>? Opened;
+        public event EventHandler<object?>? Closed;
+        public event EventHandler<object?>? Closing;
+
+        private static readonly IValueConverter s_placementConverter = new PlacementConverter();
+
+        private const double s_offset = 4;
+
+        private FrameworkElement? m_target;
+        private Action? m_pendingShow;
+        private DispatcherOperation? m_asyncShow;
+
+        private class PlacementConverter : IValueConverter
+        {
+            public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+            {
+                return (CustomPlacementMode)value;
+            }
+
+            public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+            {
+                throw new NotImplementedException();
+            }
+        }
     }
 }
