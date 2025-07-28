@@ -15,9 +15,9 @@ public class PopupEx : Popup
 
     internal bool SuppressFadeAnimation { get; set; }
 
-    internal event EventHandler Closing;
+    internal event EventHandler? Closing;
 
-    internal event EventHandler IsOpenChanged;
+    internal event EventHandler? IsOpenChanged;
 
     protected override void OnOpened(EventArgs e)
     {
