@@ -8,9 +8,9 @@ using System.Windows.Markup;
 namespace Flow.Bar.Controls.Flyout
 {
     [ContentProperty(nameof(Items))]
-    public class MenuFlyout : FlyoutBase
+    public class AppBarMenuFlyout : FlyoutBase
     {
-        public MenuFlyout()
+        public AppBarMenuFlyout()
         {
             var contextMenuStyle = (Style)Application.Current.Resources["ContextMenuStyleBase"];
 
@@ -34,7 +34,7 @@ namespace Flow.Bar.Controls.Flyout
             DependencyProperty.Register(
                 nameof(MenuFlyoutPresenterStyle),
                 typeof(Style),
-                typeof(MenuFlyout),
+                typeof(AppBarMenuFlyout),
                 new PropertyMetadata(OnMenuFlyoutPresenterStyleChanged));
 
         public Style MenuFlyoutPresenterStyle
@@ -45,7 +45,7 @@ namespace Flow.Bar.Controls.Flyout
 
         private static void OnMenuFlyoutPresenterStyleChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            ((MenuFlyout)d).OnMenuFlyoutPresenterStyleChanged(e);
+            ((AppBarMenuFlyout)d).OnMenuFlyoutPresenterStyleChanged(e);
         }
 
         private void OnMenuFlyoutPresenterStyleChanged(DependencyPropertyChangedEventArgs e)

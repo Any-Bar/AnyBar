@@ -13,7 +13,7 @@
                 <ui:XamlControlsResources />
                 <ResourceDictionary Source="/Languages/en.xaml" />
                 <ResourceDictionary Source="/Resources/ResourceDictionaries/SettingWindowStyle.xaml" />
-                <ResourceDictionary Source="/Controls/Flyout/MenuFlyout.xaml" />
+                <ResourceDictionary Source="/Controls/Flyout/AppBarMenuFlyout.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

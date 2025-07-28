@@ -63,9 +63,9 @@ namespace Flow.Bar.Controls.Flyout
             }
         }
 
-        internal void SetOwningFlyout(MenuFlyout owningFlyout)
+        internal void SetOwningFlyout(AppBarMenuFlyout owningFlyout)
         {
-            m_owningFlyout = new WeakReference<MenuFlyout>(owningFlyout);
+            m_owningFlyout = new WeakReference<AppBarMenuFlyout>(owningFlyout);
         }
 
         internal void UpdatePopupAnimation()
@@ -120,6 +120,6 @@ namespace Flow.Bar.Controls.Flyout
         }
 
         private Popup? _parentPopup;
-        private WeakReference<MenuFlyout>? m_owningFlyout;
+        private WeakReference<AppBarMenuFlyout>? m_owningFlyout;
     }
 }

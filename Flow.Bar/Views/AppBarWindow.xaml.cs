@@ -41,7 +41,7 @@ public partial class AppBarWindow : Window
     private readonly AppBarModel _model;
     private readonly AppBarViewModel _viewModel = Ioc.Default.GetRequiredService<AppBarViewModel>();
 
-    private readonly MenuFlyout _contextMenu = new();
+    private readonly AppBarMenuFlyout _contextMenu = new();
 
     public AppBarWindow(AppBarModel model)
     {
