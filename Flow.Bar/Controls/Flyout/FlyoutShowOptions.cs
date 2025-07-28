@@ -1,4 +1,5 @@
-﻿using iNKORE.UI.WPF.Modern.Controls.Primitives;
+﻿using Flow.Bar.Models;
+using iNKORE.UI.WPF.Modern.Controls.Primitives;
 using System;
 using System.Windows;
 
@@ -12,6 +13,8 @@ public class FlyoutShowOptions : IEquatable<FlyoutShowOptions>
 
     public FlyoutShowMode ShowMode { get; set; } = FlyoutShowMode.Auto;
 
+    public MonitorInfo Monitor { get; set; } = null!;
+
     public FlyoutShowOptions()
     {
 
@@ -21,7 +24,8 @@ public class FlyoutShowOptions : IEquatable<FlyoutShowOptions>
     {
         return x?.Placement == y?.Placement &&
                x?.Position == y?.Position &&
-               x?.ShowMode == y?.ShowMode;
+               x?.ShowMode == y?.ShowMode &&
+               x?.Monitor == y?.Monitor;
     }
 
     public static bool operator !=(FlyoutShowOptions? x, FlyoutShowOptions? y)
@@ -48,6 +52,7 @@ public class FlyoutShowOptions : IEquatable<FlyoutShowOptions>
     {
         return Placement.GetHashCode() ^
                (Position?.GetHashCode() ?? 0) ^
-               ShowMode.GetHashCode();
+               ShowMode.GetHashCode() ^
+               Monitor.GetHashCode();
     }
 }

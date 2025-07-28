@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Flow.Bar.Models;
+using System;
 using System.Windows;
 using System.Windows.Controls.Primitives;
 using System.Windows.Media;
@@ -32,7 +33,10 @@ namespace Flow.Bar.Controls.Flyout
             CustomPlacementMode placement,
             Size popupSize,
             Size targetSize,
+            MonitorInfo monitor,
+            Point? cursor,
             Point offset,
+            FrameworkElement target,
             FrameworkElement? child = null)
         {
             Matrix transformToDevice = default;
@@ -41,13 +45,13 @@ namespace Flow.Bar.Controls.Flyout
                 TryGetTransformToDevice(child, out transformToDevice);
             }
 
-            CustomPopupPlacement preferredPlacement = CalculatePopupPlacement(placement, popupSize, targetSize, offset, child, transformToDevice);
+            CustomPopupPlacement preferredPlacement = CalculatePopupPlacement(placement, popupSize, targetSize, monitor, cursor, offset, target, child, transformToDevice);
 
             CustomPopupPlacement? alternativePlacement = null;
             var alternativePlacementMode = GetAlternativePlacementMode(placement);
             if (alternativePlacementMode.HasValue)
             {
-                alternativePlacement = CalculatePopupPlacement(alternativePlacementMode.Value, popupSize, targetSize, offset, child, transformToDevice);
+                alternativePlacement = CalculatePopupPlacement(alternativePlacementMode.Value, popupSize, targetSize, monitor, cursor, offset, target, child, transformToDevice);
             }
 
             if (alternativePlacement.HasValue)
@@ -64,7 +68,10 @@ namespace Flow.Bar.Controls.Flyout
             CustomPlacementMode placement,
             Size popupSize,
             Size targetSize,
+            MonitorInfo monitor,
+            Point? cursor,
             Point offset,
+            FrameworkElement target,
             FrameworkElement? child = null,
             Matrix transformToDevice = default)
         {
@@ -130,14 +137,41 @@ namespace Flow.Bar.Controls.Flyout
                     throw new ArgumentOutOfRangeException(nameof(placement));
             }
 
-            if (child != null)
+            if (cursor != null)
             {
-                Vector childOffset = VisualTreeHelper.GetOffset(child);
+                var cursorToScreenOffset = cursor.Value;
                 if (transformToDevice != default)
                 {
-                    childOffset = transformToDevice.Transform(childOffset);
+                    cursorToScreenOffset = transformToDevice.Transform(cursorToScreenOffset);
                 }
-                point -= childOffset;
+                var targetToScreenOffset = target.PointToScreen(new Point());
+                targetToScreenOffset -= new Vector(monitor.Bounds.X, monitor.Bounds.Y);
+                var cursorToTargetOffset = cursorToScreenOffset - targetToScreenOffset;
+                switch (placement)
+                {
+                    case CustomPlacementMode.Top:
+                        point = new Point(cursorToTargetOffset.X - popupSize.Width / 2, point.Y);
+                        break;
+                    case CustomPlacementMode.Bottom:
+                        point = new Point(cursorToTargetOffset.X - popupSize.Width / 2, point.Y);
+                        break;
+                    case CustomPlacementMode.Left:
+                        point = new Point(point.X, cursorToTargetOffset.Y - popupSize.Height / 2);
+                        break;
+                    case CustomPlacementMode.Right:
+                        point = new Point(point.X, cursorToTargetOffset.Y - popupSize.Height / 2);
+                        break;
+                }
+            }
+
+            if (child != null) // Popup Presenter
+            {
+                var childToParentOffset = VisualTreeHelper.GetOffset(child);
+                if (transformToDevice != default)
+                {
+                    childToParentOffset = transformToDevice.Transform(childToParentOffset);
+                }
+                point -= childToParentOffset;
             }
 
             return new CustomPopupPlacement(point, primaryAxis);

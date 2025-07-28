@@ -103,6 +103,7 @@ namespace Flow.Bar.Controls.Flyout
                 return;
             }
 
+            m_target = placementTarget;
             EnsurePresenter();
 
             if (m_presenter!.IsOpen)

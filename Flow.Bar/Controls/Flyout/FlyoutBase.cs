@@ -181,7 +181,6 @@ namespace Flow.Bar.Controls.Flyout
 
             PreparePopup(placementTarget, showAsContextFlyout);
 
-            m_target = placementTarget;
             m_showingAsContextFlyout = showAsContextFlyout;
             OnOpening();
             m_popup!.IsOpen = true;
@@ -260,6 +259,7 @@ namespace Flow.Bar.Controls.Flyout
 
         private void PreparePopup(FrameworkElement placementTarget, bool showAsContextFlyout)
         {
+            m_target = placementTarget;
             EnsurePopup();
 
             if (m_popup.IsOpen)
@@ -429,7 +429,7 @@ namespace Flow.Bar.Controls.Flyout
 
         internal CustomPopupPlacement[] PositionPopup(Size popupSize, Size targetSize, Point offset, FrameworkElement child)
         {
-            return CustomPopupPlacementHelper.PositionPopup((CustomPlacementMode)Placement, popupSize, targetSize, offset, child);
+            return CustomPopupPlacementHelper.PositionPopup((CustomPlacementMode)Placement, popupSize, targetSize, ShowOptions.Monitor, ShowOptions.Position, offset, m_target!, child);
         }
 
         private void CancelAsyncShow()
@@ -451,7 +451,7 @@ namespace Flow.Bar.Controls.Flyout
 
         private Control m_presenter = null!;
         private PopupEx m_popup = null!;
-        private FrameworkElement? m_target;
+        protected FrameworkElement? m_target;
         private bool m_showingAsContextFlyout;
         private WeakReference<IInputElement>? m_weakRefToPreviousFocus;
         private bool m_closing;

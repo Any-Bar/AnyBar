@@ -603,7 +603,8 @@ public partial class AppBarWindow : Window
             {
                 Placement = placement,
                 Position = e.GetPosition(element),
-                ShowMode = FlyoutShowMode.Auto
+                ShowMode = FlyoutShowMode.Auto,
+                Monitor = _viewModel.GetSelectedMonitor()
             });
             e.Handled = true;
         }
