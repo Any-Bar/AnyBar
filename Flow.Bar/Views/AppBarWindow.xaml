@@ -24,8 +24,8 @@
         <DockPanel Background="Transparent" LastChildFill="False">
             <Thumb
                 x:Name="BarThumb"
-                Height="5"
-                Background="Gray"
+                Height="3.5"
+                Background="{DynamicResource AppBarSeparatorForeground}"
                 Cursor="Arrow"
                 DockPanel.Dock="Bottom" />
         </DockPanel>

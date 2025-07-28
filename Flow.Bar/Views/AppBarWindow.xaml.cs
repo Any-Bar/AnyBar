@@ -336,12 +336,12 @@ public partial class AppBarWindow : Window
                     case AppBarDockMode.Left:
                     case AppBarDockMode.Right:
                         // Set thumb
-                        BarThumb.Width = 5;
+                        BarThumb.Width = 3.5;
                         BarThumb.Height = double.NaN;
                         BarThumb.Cursor = Cursors.SizeWE;
                         DockPanel.SetDock(BarThumb, _viewModel.DockMode == AppBarDockMode.Left ? Dock.Right : Dock.Left);
                         // Set grid
-                        PluginControlGrid.Margin = _viewModel.DockMode == AppBarDockMode.Left ? new Thickness(0, 8, 5, 8) : new Thickness(5, 8, 0, 8);
+                        PluginControlGrid.Margin = _viewModel.DockMode == AppBarDockMode.Left ? new Thickness(0, 8, BarThumb.Width, 8) : new Thickness(BarThumb.Width, 8, 0, 8);
                         // Set stack panel
                         LeftOrTopStackPanel.Orientation = Orientation.Vertical;
                         Grid.SetRow(LeftOrTopStackPanel, 0);
@@ -384,12 +384,12 @@ public partial class AppBarWindow : Window
                     case AppBarDockMode.Top:
                     case AppBarDockMode.Bottom:
                         // Set thumb
-                        BarThumb.Height = 5;
+                        BarThumb.Height = 3.5;
                         BarThumb.Width = double.NaN;
                         BarThumb.Cursor = Cursors.SizeNS;
                         DockPanel.SetDock(BarThumb, _viewModel.DockMode == AppBarDockMode.Top ? Dock.Bottom : Dock.Top);
                         // Set grid
-                        PluginControlGrid.Margin = _viewModel.DockMode == AppBarDockMode.Top ? new Thickness(8, 0, 8, 5) : new Thickness(8, 5, 8, 0);
+                        PluginControlGrid.Margin = _viewModel.DockMode == AppBarDockMode.Top ? new Thickness(8, 0, 8, BarThumb.Height) : new Thickness(8, BarThumb.Height, 8, 0);
                         // Set stack panel
                         LeftOrTopStackPanel.Orientation = Orientation.Horizontal;
                         Grid.SetRow(LeftOrTopStackPanel, 0);
