@@ -73,7 +73,7 @@ namespace Flow.Bar.Controls.Flyout
             {
                 if (m_weakRefToPreviousFocus != null)
                 {
-                    if (m_weakRefToPreviousFocus.TryGetTarget(out IInputElement previousFocus))
+                    if (m_weakRefToPreviousFocus.TryGetTarget(out var previousFocus))
                     {
                         previousFocus.Focus();
                     }
@@ -142,10 +142,10 @@ namespace Flow.Bar.Controls.Flyout
 
         internal double Offset { get; set; } = s_offset;
 
-        public event EventHandler<object> Opening;
-        public event EventHandler<object> Opened;
-        public event EventHandler<object> Closed;
-        public event EventHandler<object> Closing;
+        public event EventHandler<object?>? Opening;
+        public event EventHandler<object?>? Opened;
+        public event EventHandler<object?>? Closed;
+        public event EventHandler<object?>? Closing;
 
         public void ShowAt(FrameworkElement placementTarget)
         {
@@ -164,10 +164,7 @@ namespace Flow.Bar.Controls.Flyout
 
         internal void ShowAsContextFlyout(FrameworkElement placementTarget)
         {
-            if (placementTarget is null)
-            {
-                throw new ArgumentNullException(nameof(placementTarget));
-            }
+            ArgumentNullException.ThrowIfNull(placementTarget);
 
             ShowAtCore(placementTarget, true);
         }
@@ -195,7 +192,7 @@ namespace Flow.Bar.Controls.Flyout
             m_target = placementTarget;
             m_showingAsContextFlyout = showAsContextFlyout;
             OnOpening();
-            m_popup.IsOpen = true;
+            m_popup!.IsOpen = true;
         }
 
         internal virtual void HideCore()
@@ -399,18 +396,18 @@ namespace Flow.Bar.Controls.Flyout
             return value;
         }
 
-        private void OnPopupOpened(object sender, EventArgs e)
+        private void OnPopupOpened(object? sender, EventArgs e)
         {
             OnOpened();
         }
 
-        private void OnPopupClosing(object sender, EventArgs e)
+        private void OnPopupClosing(object? sender, EventArgs e)
         {
             Closing?.Invoke(this, e); // TODO: Cancel
             m_closing = true;
         }
 
-        private void OnPopupClosed(object sender, EventArgs e)
+        private void OnPopupClosed(object? sender, EventArgs e)
         {
             m_closing = false;
 
@@ -428,7 +425,7 @@ namespace Flow.Bar.Controls.Flyout
             OnClosed();
         }
 
-        private void OnPopupIsOpenChanged(object sender, EventArgs e)
+        private void OnPopupIsOpenChanged(object? sender, EventArgs e)
         {
             UpdateIsOpen();
         }
@@ -460,14 +457,14 @@ namespace Flow.Bar.Controls.Flyout
 
         private const double s_offset = 4;
 
-        private Control m_presenter;
-        private PopupEx m_popup;
-        private FrameworkElement m_target;
+        private Control m_presenter = null!;
+        private PopupEx m_popup = null!;
+        private FrameworkElement? m_target;
         private bool m_showingAsContextFlyout;
-        private WeakReference<IInputElement> m_weakRefToPreviousFocus;
+        private WeakReference<IInputElement>? m_weakRefToPreviousFocus;
         private bool m_closing;
-        private Action m_pendingShow;
-        private DispatcherOperation m_asyncShow;
+        private Action? m_pendingShow;
+        private DispatcherOperation? m_asyncShow;
 
         private class FullPlacementWidthConverter : IMultiValueConverter
         {
