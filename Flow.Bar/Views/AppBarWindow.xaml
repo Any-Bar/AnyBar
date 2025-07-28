@@ -20,21 +20,43 @@
     Loaded="Window_Loaded"
     SourceInitialized="Window_SourceInitialized"
     mc:Ignorable="d">
-    <Grid Background="Transparent">
+    <Window.Resources>
+        <Style x:Key="NoHoverThumbStyle" TargetType="Thumb">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Thumb">
+                        <Border
+                            Width="{TemplateBinding Width}"
+                            Height="{TemplateBinding Height}"
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}" />
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+
+    <Grid
+        x:Name="MainGrid"
+        Background="Transparent"
+        MouseRightButtonDown="MainGrid_MouseRightButtonUp">
         <DockPanel Background="Transparent" LastChildFill="False">
             <Thumb
                 x:Name="BarThumb"
-                Height="3.5"
+                Height="2"
                 Background="{DynamicResource AppBarSeparatorForeground}"
+                BorderThickness="0"
                 Cursor="Arrow"
-                DockPanel.Dock="Bottom" />
+                DockPanel.Dock="Bottom"
+                Foreground="{DynamicResource AppBarSeparatorForeground}"
+                Style="{StaticResource NoHoverThumbStyle}" />
         </DockPanel>
 
         <Grid
             x:Name="PluginControlGrid"
             Margin="8 0 8 5"
-            Background="Transparent"
-            MouseRightButtonDown="PluginControlGrid_MouseRightButtonUp">
+            Background="Transparent">
 
             <Grid Background="Transparent">
                 <Grid.RowDefinitions>

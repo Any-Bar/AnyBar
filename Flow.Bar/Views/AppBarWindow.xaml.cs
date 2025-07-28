@@ -341,7 +341,7 @@ public partial class AppBarWindow : Window
                     case AppBarDockMode.Left:
                     case AppBarDockMode.Right:
                         // Set thumb
-                        BarThumb.Width = 3.5;
+                        BarThumb.Width = 2;
                         BarThumb.Height = double.NaN;
                         BarThumb.Cursor = Cursors.SizeWE;
                         DockPanel.SetDock(BarThumb, _viewModel.DockMode == AppBarDockMode.Left ? Dock.Right : Dock.Left);
@@ -389,7 +389,7 @@ public partial class AppBarWindow : Window
                     case AppBarDockMode.Top:
                     case AppBarDockMode.Bottom:
                         // Set thumb
-                        BarThumb.Height = 3.5;
+                        BarThumb.Height = 2;
                         BarThumb.Width = double.NaN;
                         BarThumb.Cursor = Cursors.SizeNS;
                         DockPanel.SetDock(BarThumb, _viewModel.DockMode == AppBarDockMode.Top ? Dock.Bottom : Dock.Top);
@@ -587,7 +587,7 @@ public partial class AppBarWindow : Window
 
     #region Grid Events
 
-    private void PluginControlGrid_MouseRightButtonUp(object sender, MouseButtonEventArgs e)
+    private void MainGrid_MouseRightButtonUp(object sender, MouseButtonEventArgs e)
     {
         if (sender is FrameworkElement element)
         {
