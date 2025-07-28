@@ -105,7 +105,7 @@ namespace Flow.Bar.Controls.Flyout
 
             EnsurePresenter();
 
-            if (m_presenter.IsOpen)
+            if (m_presenter!.IsOpen)
             {
                 m_presenter.IsOpen = false;
             }
@@ -129,7 +129,7 @@ namespace Flow.Bar.Controls.Flyout
 
         private CustomPopupPlacement[] PositionPopup(Size popupSize, Size targetSize, Point offset)
         {
-            return PositionPopup(popupSize, targetSize, offset, m_presenter);
+            return PositionPopup(popupSize, targetSize, offset, m_presenter!);
         }
 
         private void EnsurePresenter()
@@ -154,14 +154,14 @@ namespace Flow.Bar.Controls.Flyout
             }
         }
 
-        private void OnPresenterOpened(object sender, RoutedEventArgs e)
+        private void OnPresenterOpened(object? sender, RoutedEventArgs e)
         {
             OnOpened();
         }
 
-        private void OnPresenterClosed(object sender, RoutedEventArgs e)
+        private void OnPresenterClosed(object? sender, RoutedEventArgs e)
         {
-            if (!m_presenter.IsOpen)
+            if (!m_presenter!.IsOpen)
             {
                 m_presenter.ClearValue(ContextMenu.PlacementProperty);
                 m_presenter.ClearValue(ContextMenu.PlacementTargetProperty);
@@ -172,12 +172,12 @@ namespace Flow.Bar.Controls.Flyout
             OnClosed();
         }
 
-        private void OnPresenterIsOpenChanged(object sender, DependencyPropertyChangedEventArgs e)
+        private void OnPresenterIsOpenChanged(object? sender, DependencyPropertyChangedEventArgs e)
         {
             UpdateIsOpen();
         }
 
-        private MenuFlyoutPresenter m_presenter;
+        private MenuFlyoutPresenter? m_presenter;
         private FlyoutPlacementMode? m_currentPlacement;
     }
 }
