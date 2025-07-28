@@ -6,6 +6,7 @@ using Flow.Bar.Models.Enums;
 using Flow.Bar.Plugin;
 using Flow.Bar.ViewModels;
 using iNKORE.UI.WPF.Modern.Controls;
+using iNKORE.UI.WPF.Modern.Controls.Primitives;
 using System;
 using System.ComponentModel;
 using System.Linq;
@@ -590,6 +591,15 @@ public partial class AppBarWindow : Window
     {
         if (sender is FrameworkElement element)
         {
+            _contextMenu.Placement = _viewModel.DockMode switch
+            {
+                AppBarDockMode.Left => FlyoutPlacementMode.Right,
+                AppBarDockMode.Right => FlyoutPlacementMode.Left,
+                AppBarDockMode.Top => FlyoutPlacementMode.Bottom,
+                AppBarDockMode.Bottom => FlyoutPlacementMode.Top,
+                _ => throw new NotSupportedException(),
+            };
+            _contextMenu.ShowMode = FlyoutShowMode.Auto;
             _contextMenu.ShowAt(element);
             e.Handled = true;
         }
