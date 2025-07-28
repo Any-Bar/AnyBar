@@ -3,6 +3,7 @@ using Flow.Bar.Helper.Plugins;
 using Flow.Bar.Models;
 using Flow.Bar.Models.AppBar;
 using Flow.Bar.Models.Enums;
+using Flow.Bar.Plugin;
 using Flow.Bar.ViewModels;
 using iNKORE.UI.WPF.Modern.Controls;
 using System;
@@ -194,7 +195,8 @@ public partial class AppBarWindow : Window
         CenterStackPanel.Children.Clear();
         foreach (var pluginControlModel in _model.LeftOrTopPluginControls.OrderBy(c => c.Order))
         {
-            var pluginControl = PluginManager.GetBarElement(pluginControlModel.ID);
+            var pluginControl = PluginManager.GetBarElement(pluginControlModel.ID, 
+                _viewModel.IsHorizontal ? BarElementPosition.Left : BarElementPosition.Top);
             if (pluginControl == null) continue;
             LeftOrTopStackPanel.Children.Add(pluginControl);
             if (_viewModel.DockMode == AppBarDockMode.Left)
@@ -210,7 +212,8 @@ public partial class AppBarWindow : Window
         }
         foreach (var pluginControlModel in _model.RightOrBottomPluginControls.OrderBy(c => c.Order))
         {
-            var pluginControl = PluginManager.GetBarElement(pluginControlModel.ID);
+            var pluginControl = PluginManager.GetBarElement(pluginControlModel.ID,
+                _viewModel.IsHorizontal ? BarElementPosition.Right : BarElementPosition.Bottom);
             if (pluginControl == null) continue;
             RightOrBottomStackPanel.Children.Add(pluginControl);
             if (_viewModel.DockMode == AppBarDockMode.Left)
@@ -226,7 +229,8 @@ public partial class AppBarWindow : Window
         }
         foreach (var pluginControlModel in _model.CenterPluginControls.OrderBy(c => c.Order))
         {
-            var pluginControl = PluginManager.GetBarElement(pluginControlModel.ID);
+            var pluginControl = PluginManager.GetBarElement(pluginControlModel.ID,
+                _viewModel.IsHorizontal ? BarElementPosition.HorizontalCenter : BarElementPosition.VerticalCenter);
             if (pluginControl == null) continue;
             CenterStackPanel.Children.Add(pluginControl);
             if (_viewModel.DockMode == AppBarDockMode.Left)

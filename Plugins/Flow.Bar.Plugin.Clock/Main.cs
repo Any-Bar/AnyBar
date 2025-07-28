@@ -12,8 +12,8 @@ public class Main : IPlugin
         Context = context;
     }
 
-    public FrameworkElement GetBarElement()
+    public FrameworkElement GetBarElement(BarElementPosition position)
     {
-        return new ClockControl();
+        return new ClockControl(position);
     }
 }

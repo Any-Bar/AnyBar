@@ -21,6 +21,8 @@ public partial class AppBarViewModel : ObservableObject
     [ObservableProperty]
     private bool _isResizable = false;
 
+    public bool IsHorizontal => DockMode is AppBarDockMode.Top or AppBarDockMode.Bottom;
+
     public MonitorInfo GetSelectedMonitor()
     {
         var monitor = Monitor;

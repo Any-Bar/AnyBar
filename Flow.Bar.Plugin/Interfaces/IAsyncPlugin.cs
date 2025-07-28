@@ -5,7 +5,7 @@ namespace Flow.Bar.Plugin;
 
 public interface IAsyncPlugin
 {
-    FrameworkElement GetBarElement();
+    FrameworkElement GetBarElement(BarElementPosition position);
 
     Task InitAsync(PluginInitContext context);
 }

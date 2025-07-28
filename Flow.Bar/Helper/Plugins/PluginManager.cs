@@ -109,7 +109,7 @@ public static class PluginManager
         }
     }
 
-    public static FrameworkElement? GetBarElement(string pluginId)
+    public static FrameworkElement? GetBarElement(string pluginId, BarElementPosition position)
     {
         var plugin = AllPlugins.FirstOrDefault(p => p.Metadata.ID == pluginId);
         if (plugin == null)
@@ -118,6 +118,6 @@ public static class PluginManager
             return null;
         }
 
-        return plugin.Plugin.GetBarElement();
+        return plugin.Plugin.GetBarElement(position);
     }
 }
