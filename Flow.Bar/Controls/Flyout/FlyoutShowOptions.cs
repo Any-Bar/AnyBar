@@ -17,24 +17,24 @@ public class FlyoutShowOptions : IEquatable<FlyoutShowOptions>
 
     }
 
-    public static bool operator ==(FlyoutShowOptions x, FlyoutShowOptions y)
+    public static bool operator ==(FlyoutShowOptions? x, FlyoutShowOptions? y)
     {
         return x?.Placement == y?.Placement &&
                x?.Position == y?.Position &&
                x?.ShowMode == y?.ShowMode;
     }
 
-    public static bool operator !=(FlyoutShowOptions x, FlyoutShowOptions y)
+    public static bool operator !=(FlyoutShowOptions? x, FlyoutShowOptions? y)
     {
         return !(x == y);
     }
 
-    public bool Equals(FlyoutShowOptions other)
+    public bool Equals(FlyoutShowOptions? other)
     {
         return this == other;
     }
 
-    public override bool Equals(object obj)
+    public override bool Equals(object? obj)
     {
         if (obj is FlyoutShowOptions flyoutShowOptions)
         {
