@@ -51,7 +51,7 @@ namespace Flow.Bar.Controls.Flyout
 
         #endregion
 
-        internal event EventHandler<DependencyPropertyChangedEventArgs> IsOpenChanged;
+        internal event EventHandler<DependencyPropertyChangedEventArgs>? IsOpenChanged;
 
         protected override void OnVisualParentChanged(DependencyObject oldParent)
         {
@@ -70,7 +70,7 @@ namespace Flow.Bar.Controls.Flyout
 
         internal void UpdatePopupAnimation()
         {
-            if (_parentPopup != null && m_owningFlyout.TryGetTarget(out var owningFlyout))
+            if (_parentPopup != null && m_owningFlyout!.TryGetTarget(out var owningFlyout))
             {
                 _parentPopup.Resources.Remove(SystemParameters.MenuPopupAnimationKey);
             }
@@ -113,13 +113,13 @@ namespace Flow.Bar.Controls.Flyout
 
         private void HandlePopupMouseButtonEvent(object sender, MouseButtonEventArgs e)
         {
-            if (!_parentPopup.IsOpen)
+            if (!_parentPopup!.IsOpen)
             {
                 e.Handled = true;
             }
         }
 
-        private Popup _parentPopup;
-        private WeakReference<MenuFlyout> m_owningFlyout;
+        private Popup? _parentPopup;
+        private WeakReference<MenuFlyout>? m_owningFlyout;
     }
 }
