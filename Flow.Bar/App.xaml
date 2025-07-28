@@ -11,8 +11,9 @@
             <ResourceDictionary.MergedDictionaries>
                 <ui:ThemeResources />
                 <ui:XamlControlsResources />
-                <ResourceDictionary Source="pack://application:,,,/Languages/en.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/Resources/ResourceDictionaries/SettingWindowStyle.xaml" />
+                <ResourceDictionary Source="/Languages/en.xaml" />
+                <ResourceDictionary Source="/Resources/ResourceDictionaries/SettingWindowStyle.xaml" />
+                <ResourceDictionary Source="/Controls/Flyout/MenuFlyout.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

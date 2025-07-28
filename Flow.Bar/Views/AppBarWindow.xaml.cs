@@ -1,11 +1,11 @@
 ﻿using CommunityToolkit.Mvvm.DependencyInjection;
+using Flow.Bar.Controls.Flyout;
 using Flow.Bar.Helper.Plugins;
 using Flow.Bar.Models;
 using Flow.Bar.Models.AppBar;
 using Flow.Bar.Models.Enums;
 using Flow.Bar.Plugin;
 using Flow.Bar.ViewModels;
-using iNKORE.UI.WPF.Modern.Controls;
 using iNKORE.UI.WPF.Modern.Controls.Primitives;
 using System;
 using System.ComponentModel;
@@ -79,7 +79,7 @@ public partial class AppBarWindow : Window
         var settingItem = new MenuItem
         {
             Header = "Appbar settings",
-            Icon = new FontIcon { Glyph = "\ue713" }
+            Icon = new iNKORE.UI.WPF.Modern.Controls.FontIcon { Glyph = "\ue713" }
         };
         settingItem.Click += (o, e) =>
         {
