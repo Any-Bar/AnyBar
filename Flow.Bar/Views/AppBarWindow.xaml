@@ -40,7 +40,8 @@
     <Grid
         x:Name="MainGrid"
         Background="Transparent"
-        MouseRightButtonDown="MainGrid_MouseRightButtonUp">
+        PreviewMouseRightButtonDown="MainGrid_PreviewMouseRightButtonDown"
+        PreviewMouseRightButtonUp="MainGrid_PreviewMouseRightButtonUp">
         <DockPanel Background="Transparent" LastChildFill="False">
             <Thumb
                 x:Name="BarThumb"

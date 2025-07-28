@@ -587,7 +587,17 @@ public partial class AppBarWindow : Window
 
     #region Grid Events
 
-    private void MainGrid_MouseRightButtonUp(object sender, MouseButtonEventArgs e)
+    private void MainGrid_PreviewMouseRightButtonUp(object sender, MouseButtonEventArgs e)
+    {
+        OpenAppBarMenu(sender, e);
+    }
+
+    private void MainGrid_PreviewMouseRightButtonDown(object sender, MouseButtonEventArgs e)
+    {
+        OpenAppBarMenu(sender, e);
+    }
+
+    private void OpenAppBarMenu(object sender, MouseButtonEventArgs e)
     {
         if (sender is FrameworkElement element)
         {
