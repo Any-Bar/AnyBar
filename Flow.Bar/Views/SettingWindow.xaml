@@ -102,7 +102,7 @@
                 </ui:NavigationViewItem>
             </ui:NavigationView.MenuItems>
 
-            <ui:ScrollViewerEx Padding="20 0">
+            <ui:ScrollViewerEx Padding="20 0 20 20">
                 <ui:Frame
                     x:Name="RootFrame"
                     Navigated="RootFrame_Navigated"
