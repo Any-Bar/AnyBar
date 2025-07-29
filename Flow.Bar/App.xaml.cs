@@ -10,6 +10,7 @@ using Flow.Bar.Plugin;
 using Flow.Bar.ViewModels;
 using Flow.Bar.ViewModels.SettingPages;
 using Flow.Bar.Views;
+using iNKORE.UI.WPF.Modern.Common;
 using iNKORE.UI.WPF.Modern.Controls;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -81,6 +82,10 @@ public partial class App : Application, IDisposable, ISingleInstanceApp
 
     public App()
     {
+        // Do not use bitmap cache since it can cause WPF second window freezing issue
+        ShadowAssist.UseBitmapCache = false;
+
+        // Configure the dependency injection container
         try
         {
             var host = Host.CreateDefaultBuilder()
@@ -101,6 +106,7 @@ public partial class App : Application, IDisposable, ISingleInstanceApp
             return;
         }
 
+        // Initialize the public API first
         try
         {
             API = Ioc.Default.GetRequiredService<IPublicAPI>();
