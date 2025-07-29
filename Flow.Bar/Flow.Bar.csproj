@@ -88,6 +88,10 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Flow.Bar.Plugin\Flow.Bar.Plugin.csproj" />
+    <ProjectReference Include="..\Localization\Flow.Bar.Localization.Analyzers\Flow.Bar.Localization.Analyzers.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
+    <ProjectReference Include="..\Localization\Flow.Bar.Localization.Attributes\Flow.Bar.Localization.Attributes.csproj" OutputItemType="Analyzer" />
+    <ProjectReference Include="..\Localization\Flow.Bar.Localization.Shared\Flow.Bar.Localization.Shared.csproj" OutputItemType="Analyzer" />
+    <ProjectReference Include="..\Localization\Flow.Bar.Localization.SourceGenerators\Flow.Bar.Localization.SourceGenerators.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
   </ItemGroup>
 
   <ItemGroup>
@@ -103,6 +107,15 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resource.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+  </ItemGroup>
+
+  <PropertyGroup>
+    <FBLUseDependencyInjection>true</FBLUseDependencyInjection>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <CompilerVisibleProperty Include="FBLUseDependencyInjection" />
+    <AdditionalFiles Include="Languages\en.xaml" />
   </ItemGroup>
 
   <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
