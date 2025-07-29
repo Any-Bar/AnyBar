@@ -8,8 +8,10 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:ui="http://schemas.inkore.net/lib/ui/wpf/modern"
     Title="{DynamicResource SettingWindow.Title}"
-    Width="800"
+    Width="801"
     Height="450"
+    MinWidth="507"
+    MinHeight="327"
     ui:ThemeManager.IsThemeAware="True"
     ui:ThemeManager.RequestedTheme="Default"
     ui:TitleBar.ExtendViewIntoTitleBar="True"
@@ -17,7 +19,6 @@
     ui:WindowHelper.SystemBackdropType="Mica"
     ui:WindowHelper.UseModernWindowStyle="True"
     Closed="Window_Closed"
-    Loaded="Window_Loaded"
     mc:Ignorable="d">
 
     <Grid>
@@ -29,47 +30,40 @@
             Background="Transparent"
             Canvas.ZIndex="1"
             IsHitTestVisible="True">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition />
-                    <ColumnDefinition Width="137" />
-                </Grid.ColumnDefinitions>
-                <ikw:SimpleStackPanel
-                    x:Name="AppTitle"
-                    Orientation="Horizontal"
-                    Spacing="12">
-                    <Image
-                        Width="20"
-                        Margin="-3 0 0 0"
-                        RenderOptions.BitmapScalingMode="HighQuality"
-                        Source="/Images/app.png" />
-                    <TextBlock
-                        x:Name="AppTitleText"
-                        Grid.Column="1"
-                        Margin="0 1 20 0"
-                        VerticalAlignment="Center"
-                        Style="{DynamicResource CaptionTextBlockStyle}"
-                        Text="{DynamicResource SettingWindow.Title}"
-                        TextWrapping="NoWrap" />
-                </ikw:SimpleStackPanel>
-            </Grid>
+            <ikw:SimpleStackPanel
+                x:Name="AppTitle"
+                Orientation="Horizontal"
+                Spacing="12">
+                <Image
+                    Width="20"
+                    Margin="-3 0 0 0"
+                    RenderOptions.BitmapScalingMode="HighQuality"
+                    Source="/Images/app.png" />
+                <TextBlock
+                    x:Name="AppTitleText"
+                    Grid.Column="1"
+                    Margin="0 1 20 0"
+                    VerticalAlignment="Center"
+                    Style="{DynamicResource CaptionTextBlockStyle}"
+                    Text="{DynamicResource SettingWindow.Title}"
+                    TextWrapping="NoWrap" />
+            </ikw:SimpleStackPanel>
         </Border>
 
         <ui:NavigationView
             x:Name="NavigationViewControl"
             AlwaysShowHeader="True"
             Canvas.ZIndex="0"
-            DisplayModeChanged="NavigationViewControl_DisplayModeChanged"
             Header=""
+            IsBackButtonVisible="Visible"
+            IsBackEnabled="True"
             IsFooterSeparatorVisible="{x:Null}"
             IsPaneToggleButtonVisible="True"
             IsSettingsVisible="False"
             IsTabStop="False"
             IsTitleBarAutoPaddingEnabled="False"
-            PaneClosing="NavigationViewControl_PaneClosing"
-            PaneDisplayMode="Auto"
-            PaneOpening="NavigationViewControl_PaneOpening"
+            Loaded="NavigationViewControl_Loaded"
+            PaneDisplayMode="LeftCompact"
             SelectionChanged="NavigationViewControl_SelectionChanged">
             <ui:NavigationView.HeaderTemplate>
                 <DataTemplate>

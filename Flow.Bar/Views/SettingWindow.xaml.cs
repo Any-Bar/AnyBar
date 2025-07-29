@@ -30,11 +30,6 @@ public partial class SettingWindow : Window
 
     #region Window Events
 
-    private void Window_Loaded(object sender, RoutedEventArgs e)
-    {
-        NavigationViewControl.SelectedItem = NavigationViewControl.MenuItems[0]; // Select the first item by default
-    }
-
     private void Window_Closed(object sender, EventArgs e)
     {
         App.API.SaveAppAllSettings();
@@ -44,38 +39,9 @@ public partial class SettingWindow : Window
 
     #region Navigation View Events
 
-    private void NavigationViewControl_DisplayModeChanged(NavigationView sender, NavigationViewDisplayModeChangedEventArgs args)
+    private void NavigationViewControl_Loaded(object sender, RoutedEventArgs e)
     {
-        Thickness currMargin = AppTitleBar.Margin;
-        if (sender.DisplayMode == NavigationViewDisplayMode.Minimal)
-        {
-            AppTitleBar.Margin = new Thickness(sender.CompactPaneLength * 2, currMargin.Top, currMargin.Right, currMargin.Bottom);
-
-        }
-        else
-        {
-            AppTitleBar.Margin = new Thickness(sender.CompactPaneLength, currMargin.Top, currMargin.Right, currMargin.Bottom);
-        }
-        AppTitleBar.Visibility = sender.PaneDisplayMode == NavigationViewPaneDisplayMode.Top ? Visibility.Collapsed : Visibility.Visible;
-        UpdateAppTitleMargin(sender);
-    }
-
-    private void UpdateAppTitleMargin(NavigationView _)
-    {
-        const int smallLeftIndent = 2;
-
-        Thickness currMargin = AppTitle.Margin;
-        AppTitle.Margin = new Thickness(smallLeftIndent, currMargin.Top, currMargin.Right, currMargin.Bottom);
-    }
-
-    private void NavigationViewControl_PaneClosing(NavigationView sender, NavigationViewPaneClosingEventArgs args)
-    {
-        UpdateAppTitleMargin(sender);
-    }
-
-    private void NavigationViewControl_PaneOpening(NavigationView sender, object args)
-    {
-        UpdateAppTitleMargin(sender);
+        NavigationViewControl.SelectedItem = NavigationViewControl.MenuItems[0]; // Select the first item by default
     }
 
     private void NavigationViewControl_SelectionChanged(NavigationView _, NavigationViewSelectionChangedEventArgs args)
