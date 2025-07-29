@@ -24,7 +24,7 @@
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <RepositoryUrl>https://github.com/Flow-Bar/Flow.Bar</RepositoryUrl>
     <PackageDescription>Reference this library if you want to develop a Flow Bar plugin</PackageDescription>
-    <PackageTags>flowbar</PackageTags>
+    <PackageTags>flow-bar; flow-bar-plugins; flowbar; flow-bar-plugin</PackageTags>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
     <PackageReadmeFile>Readme.md</PackageReadmeFile>

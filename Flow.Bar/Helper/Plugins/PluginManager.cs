@@ -21,7 +21,7 @@ public static class PluginManager
     public static List<PluginPair> AllPlugins { get; private set; } = [];
 
     /// <summary>
-    /// Directories that will hold Flow Launcher plugin directory
+    /// Directories that will hold Flow Bar plugin directory
     /// </summary>
     public static readonly string[] Directories =
     {

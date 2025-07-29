@@ -27,7 +27,7 @@ internal class PluginAssemblyLoader : AssemblyLoadContext
     {
         var assemblyPath = dependencyResolver.ResolveAssemblyToPath(assemblyName);
 
-        // When resolving dependencies, ignore assembly depenedencies that already exits with Flow.Launcher
+        // When resolving dependencies, ignore assembly depenedencies that already exits with Flow.Bar
         // Otherwise duplicate assembly will be loaded and some weird behavior will occur, such as WinRT.Runtime.dll
         // will fail due to loading multiple versions in process, each with their own static instance of registration state
         var existAssembly = Default.Assemblies.FirstOrDefault(x => x.FullName == assemblyName.FullName);
