@@ -196,14 +196,14 @@ namespace Flow.Bar.Controls.Flyout
 
         private CustomPopupPlacement[] PositionPopup(Size popupSize, Size targetSize, Point offset)
         {
-            return CustomPopupPlacementHelper.PositionPopup((AppBarPlacementMode)Placement, popupSize, targetSize, ShowOptions.Monitor, ShowOptions.Position, offset, m_target!, m_presenter!);
+            return AppBarPopupPlacementHelper.PositionPopup((AppBarPlacementMode)Placement, popupSize, targetSize, ShowOptions.Monitor, ShowOptions.Position, offset, m_target!, m_presenter!);
         }   
 
         private void EnsurePresenter()
         {
             if (m_presenter == null)
             {
-                var presenter = new MenuFlyoutPresenter
+                var presenter = new AppBarMenuFlyoutPresenter
                 {
                     Style = MenuFlyoutPresenterStyle,
                     Placement = PlacementMode.Custom,
@@ -275,7 +275,7 @@ namespace Flow.Bar.Controls.Flyout
         internal void BindPlacement(Control presenter)
         {
             presenter.SetBinding(
-                CustomPopupPlacementHelper.PlacementProperty,
+                AppBarPopupPlacementHelper.PlacementProperty,
                 new Binding
                 {
                     Path = new PropertyPath(PlacementProperty),
@@ -317,7 +317,7 @@ namespace Flow.Bar.Controls.Flyout
             }
         }
 
-        private MenuFlyoutPresenter? m_presenter;
+        private AppBarMenuFlyoutPresenter? m_presenter;
         private AppBarPlacementMode? m_currentPlacement;
 
         private double Offset { get; set; } = s_offset;

@@ -6,7 +6,7 @@ using System.Windows.Media;
 
 namespace Flow.Bar.Controls.Flyout
 {
-    internal static class CustomPopupPlacementHelper
+    internal static class AppBarPopupPlacementHelper
     {
         #region Placement
 
@@ -14,7 +14,7 @@ namespace Flow.Bar.Controls.Flyout
             DependencyProperty.RegisterAttached(
                 "Placement",
                 typeof(AppBarPlacementMode),
-                typeof(CustomPopupPlacementHelper),
+                typeof(AppBarPopupPlacementHelper),
                 new PropertyMetadata(AppBarPlacementMode.Top));
 
         public static AppBarPlacementMode GetPlacement(DependencyObject element)
@@ -70,7 +70,7 @@ namespace Flow.Bar.Controls.Flyout
             Size targetSize,
             MonitorInfo monitor,
             Point? cursor,
-            Point offset,
+            Point _,
             FrameworkElement target,
             FrameworkElement? child = null,
             Matrix transformToDevice = default)

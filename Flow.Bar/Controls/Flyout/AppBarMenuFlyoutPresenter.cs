@@ -8,23 +8,23 @@ using System.Windows.Input;
 
 namespace Flow.Bar.Controls.Flyout
 {
-    public class MenuFlyoutPresenter : ContextMenu
+    public class AppBarMenuFlyoutPresenter : ContextMenu
     {
-        static MenuFlyoutPresenter()
+        static AppBarMenuFlyoutPresenter()
         {
-            DefaultStyleKeyProperty.OverrideMetadata(typeof(MenuFlyoutPresenter), new FrameworkPropertyMetadata(typeof(MenuFlyoutPresenter)));
+            DefaultStyleKeyProperty.OverrideMetadata(typeof(AppBarMenuFlyoutPresenter), new FrameworkPropertyMetadata(typeof(AppBarMenuFlyoutPresenter)));
 
-            IsOpenProperty.OverrideMetadata(typeof(MenuFlyoutPresenter), new FrameworkPropertyMetadata(OnIsOpenChanged));
+            IsOpenProperty.OverrideMetadata(typeof(AppBarMenuFlyoutPresenter), new FrameworkPropertyMetadata(OnIsOpenChanged));
         }
 
-        public MenuFlyoutPresenter()
+        public AppBarMenuFlyoutPresenter()
         {
         }
 
         #region CornerRadius
 
         public static readonly DependencyProperty CornerRadiusProperty =
-            ControlHelper.CornerRadiusProperty.AddOwner(typeof(MenuFlyoutPresenter));
+            ControlHelper.CornerRadiusProperty.AddOwner(typeof(AppBarMenuFlyoutPresenter));
 
         public CornerRadius CornerRadius
         {
@@ -40,7 +40,7 @@ namespace Flow.Bar.Controls.Flyout
             DependencyProperty.Register(
                 nameof(IsDefaultShadowEnabled),
                 typeof(bool),
-                typeof(MenuFlyoutPresenter),
+                typeof(AppBarMenuFlyoutPresenter),
                 new PropertyMetadata(true));
 
         public bool IsDefaultShadowEnabled
@@ -78,7 +78,7 @@ namespace Flow.Bar.Controls.Flyout
 
         private static void OnIsOpenChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            ((MenuFlyoutPresenter)d).OnIsOpenChanged(e);
+            ((AppBarMenuFlyoutPresenter)d).OnIsOpenChanged(e);
         }
 
         private void OnIsOpenChanged(DependencyPropertyChangedEventArgs e)

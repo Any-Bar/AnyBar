@@ -6,11 +6,11 @@ using System.Windows.Media;
 
 namespace Flow.Bar.Controls.Flyout;
 
-public class PopupEx : Popup
+public class AppBarPopupEx : Popup
 {
-    static PopupEx()
+    static AppBarPopupEx()
     {
-        IsOpenProperty.OverrideMetadata(typeof(PopupEx), new FrameworkPropertyMetadata(OnIsOpenPropertyChanged));
+        IsOpenProperty.OverrideMetadata(typeof(AppBarPopupEx), new FrameworkPropertyMetadata(OnIsOpenPropertyChanged));
     }
 
     internal bool SuppressFadeAnimation { get; set; }
@@ -71,7 +71,7 @@ public class PopupEx : Popup
 
     private static void OnIsOpenPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
     {
-        ((PopupEx)d).OnIsOpenChanged();
+        ((AppBarPopupEx)d).OnIsOpenChanged();
     }
 
     private void OnIsOpenChanged()

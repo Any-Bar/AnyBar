@@ -3,7 +3,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="clr-namespace:Flow.Bar.Controls.Flyout">
 
-    <Style BasedOn="{StaticResource ContextMenuStyleBase}" TargetType="local:MenuFlyoutPresenter">
+    <Style BasedOn="{StaticResource ContextMenuStyleBase}" TargetType="local:AppBarMenuFlyoutPresenter">
         <Setter Property="IsDefaultShadowEnabled" Value="{DynamicResource {x:Static SystemParameters.DropShadowKey}}" />
         <Setter Property="HasDropShadow" Value="{Binding IsDefaultShadowEnabled, RelativeSource={RelativeSource Self}}" />
     </Style>
