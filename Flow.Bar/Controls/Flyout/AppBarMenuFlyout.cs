@@ -196,7 +196,7 @@ namespace Flow.Bar.Controls.Flyout
 
         private CustomPopupPlacement[] PositionPopup(Size popupSize, Size targetSize, Point offset)
         {
-            return AppBarPopupPlacementHelper.PositionPopup((AppBarPlacementMode)Placement, popupSize, targetSize, ShowOptions.Monitor, ShowOptions.Position, offset, m_target!, m_presenter!);
+            return AppBarPopupPlacementHelper.PositionPopup(Placement, popupSize, targetSize, ShowOptions.Monitor, ShowOptions.Position, offset, m_target!, m_presenter!);
         }   
 
         private void EnsurePresenter()
