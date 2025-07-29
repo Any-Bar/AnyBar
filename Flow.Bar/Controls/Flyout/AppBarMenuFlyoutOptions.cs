@@ -1,46 +1,42 @@
 ﻿using Flow.Bar.Models;
-using iNKORE.UI.WPF.Modern.Controls.Primitives;
 using System;
 using System.Windows;
 
 namespace Flow.Bar.Controls.Flyout;
 
-public class FlyoutShowOptions : IEquatable<FlyoutShowOptions>
+public class AppBarMenuFlyoutOptions : IEquatable<AppBarMenuFlyoutOptions>
 {
     public AppBarPlacementMode Placement { get; set; } = AppBarPlacementMode.Bottom;
 
     public Point? Position { get; set; } = null;
 
-    public FlyoutShowMode ShowMode { get; set; } = FlyoutShowMode.Auto;
-
     public MonitorInfo Monitor { get; set; } = null!;
 
-    public FlyoutShowOptions()
+    public AppBarMenuFlyoutOptions()
     {
 
     }
 
-    public static bool operator ==(FlyoutShowOptions? x, FlyoutShowOptions? y)
+    public static bool operator ==(AppBarMenuFlyoutOptions? x, AppBarMenuFlyoutOptions? y)
     {
         return x?.Placement == y?.Placement &&
                x?.Position == y?.Position &&
-               x?.ShowMode == y?.ShowMode &&
                x?.Monitor == y?.Monitor;
     }
 
-    public static bool operator !=(FlyoutShowOptions? x, FlyoutShowOptions? y)
+    public static bool operator !=(AppBarMenuFlyoutOptions? x, AppBarMenuFlyoutOptions? y)
     {
         return !(x == y);
     }
 
-    public bool Equals(FlyoutShowOptions? other)
+    public bool Equals(AppBarMenuFlyoutOptions? other)
     {
         return this == other;
     }
 
     public override bool Equals(object? obj)
     {
-        if (obj is FlyoutShowOptions flyoutShowOptions)
+        if (obj is AppBarMenuFlyoutOptions flyoutShowOptions)
         {
             return this == flyoutShowOptions;
         }
@@ -52,7 +48,6 @@ public class FlyoutShowOptions : IEquatable<FlyoutShowOptions>
     {
         return Placement.GetHashCode() ^
                (Position?.GetHashCode() ?? 0) ^
-               ShowMode.GetHashCode() ^
                Monitor.GetHashCode();
     }
 }

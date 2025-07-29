@@ -107,19 +107,19 @@ namespace Flow.Bar.Controls.Flyout
         public static readonly DependencyProperty ShowOptionsProperty =
             DependencyProperty.Register(
                 nameof(ShowOptions),
-                typeof(FlyoutShowOptions),
+                typeof(AppBarMenuFlyoutOptions),
                 typeof(AppBarMenuFlyout),
                 new PropertyMetadata(null));
 
-        public FlyoutShowOptions ShowOptions
+        public AppBarMenuFlyoutOptions ShowOptions
         {
-            get => (FlyoutShowOptions)GetValue(ShowOptionsProperty);
+            get => (AppBarMenuFlyoutOptions)GetValue(ShowOptionsProperty);
             set => SetValue(ShowOptionsProperty, value);
         }
 
         #endregion
 
-        public void ShowAt(FrameworkElement placementTarget, FlyoutShowOptions showOptions)
+        public void ShowAt(FrameworkElement placementTarget, AppBarMenuFlyoutOptions showOptions)
         {
             ArgumentNullException.ThrowIfNull(placementTarget);
             ArgumentNullException.ThrowIfNull(showOptions);
