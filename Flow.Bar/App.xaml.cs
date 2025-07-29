@@ -233,7 +233,7 @@ public partial class App : Application, IDisposable, ISingleInstanceApp
     {
         var exitItem = new MenuItem
         {
-            Header = API.GetTranslation("TrayIcon_Exit"),
+            Header = Localize.TrayIcon_Exit(),
             Icon = new FontIcon { Glyph = "\ue7e8" }
         };
         exitItem.Click += (o, e) =>
@@ -243,7 +243,7 @@ public partial class App : Application, IDisposable, ISingleInstanceApp
         };
         var settingItem = new MenuItem
         {
-            Header = API.GetTranslation("SettingWindow_Title"),
+            Header = Localize.SettingWindow_Title(),
             Icon = new FontIcon { Glyph = "\ue713" }
         };
         settingItem.Click += (o, e) =>

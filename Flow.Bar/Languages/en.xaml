@@ -40,4 +40,9 @@
     <system:String x:Key="AppBarDockMode_Right">Right</system:String>
     <system:String x:Key="AppBarDockMode_Bottom">Bottom</system:String>
 
+    <!--  Plugin Loader  -->
+    <system:String x:Key="PluginLoader_PluginHasErrored">The following plugin has errored and cannot be loaded:</system:String>
+    <system:String x:Key="PluginLoader_PluginsHaveErrored">The following plugins have errored and cannot be loaded:</system:String>
+    <system:String x:Key="PluginLoader_ReferToLogs">Please refer to the logs for more information</system:String>
+
 </ResourceDictionary>

@@ -89,14 +89,14 @@ public static class PluginsLoader
             var errorPluginString = string.Join(Environment.NewLine, erroredPlugins);
 
             var errorMessage = erroredPlugins.Count > 1 ?
-                App.API.GetTranslation("pluginsHaveErrored") :
-                App.API.GetTranslation("pluginHasErrored");
+                Localize.PluginLoader_PluginsHaveErrored():
+                Localize.PluginLoader_PluginHasErrored();
 
             _ = Task.Run(() =>
             {
                 App.API.ShowMsgBox($"{errorMessage}{Environment.NewLine}{Environment.NewLine}" +
-                                $"{errorPluginString}{Environment.NewLine}{Environment.NewLine}" +
-                                App.API.GetTranslation("referToLogs"), string.Empty,
+                    $"{errorPluginString}{Environment.NewLine}{Environment.NewLine}" +
+                    Localize.PluginLoader_ReferToLogs(), string.Empty,
                     MessageBoxButton.OK, MessageBoxImage.Warning);
             });
         }
