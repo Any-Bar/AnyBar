@@ -51,21 +51,44 @@ public partial class SettingsPaneAppBar : Page
             {
                 Header = Localize.SettingPaneAppBar_DockMode(),
                 Content = new System.Windows.Controls.ComboBox()
+                {
+                    ItemsSource = _viewModel.AllDockModes,
+                    DisplayMemberPath = "Display",
+                    SelectedValuePath = "Value",
+                    SelectedValue = appBar.DockMode
+                }
             };
+            var monitorComboBox = new System.Windows.Controls.ComboBox()
+            {
+                ItemsSource = _viewModel.AllMonitors,
+                DisplayMemberPath = "Display",
+                SelectedValuePath = "Value",
+                SelectedValue = appBar.MonitorName
+            };
+            if (appBar.MonitorName is null)
+            {
+                monitorComboBox.SelectedIndex = 0;
+            }
             var monitorCard = new SettingsCard
             {
                 Header = Localize.SettingPaneAppBar_Monitor(),
-                Content = new System.Windows.Controls.ComboBox()
+                Content = monitorComboBox
             };
             var resizableCard = new SettingsCard
             {
                 Header = Localize.SettingPaneAppBar_Resizable(),
                 Content = new ToggleSwitch()
+                {
+                    IsOn = appBar.IsResizable
+                }
             };
             var elementsCard = new SettingsCard
             {
                 Header = Localize.SettingPaneAppBar_BarElements(),
-                Content = new System.Windows.Controls.Button { Content = Localize.SettingPaneAppBar_Edit()}
+                Content = new System.Windows.Controls.Button()
+                {
+                    Content = Localize.SettingPaneAppBar_Edit()
+                }
             };
             appBarControl.Items.Add(dockModeCard);
             appBarControl.Items.Add(monitorCard);

@@ -27,6 +27,7 @@
     <!--  Setting Pane AppBar  -->
     <system:String x:Key="SettingPaneAppBar_DockMode">Dock mode</system:String>
     <system:String x:Key="SettingPaneAppBar_Monitor">Monitor</system:String>
+    <system:String x:Key="SettingPaneAppBar_MonitorPrimary">Primary monitor</system:String>
     <system:String x:Key="SettingPaneAppBar_Resizable">Resizable</system:String>
     <system:String x:Key="SettingPaneAppBar_BarElements">Monitor</system:String>
     <system:String x:Key="SettingPaneAppBar_Edit">Edit</system:String>
