@@ -15,5 +15,6 @@
             <Setter Property="Margin" Value="1 14 0 6" />
         </Style.Setters>
     </Style>
+    <Thickness x:Key="SettingsSectionHeaderMargin">1 14 0 6</Thickness>
 
 </ResourceDictionary>
