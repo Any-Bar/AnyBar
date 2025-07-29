@@ -1,10 +1,13 @@
 ﻿using iNKORE.UI.WPF.Modern.Controls.Helpers;
+using iNKORE.UI.WPF.Modern.Controls.Primitives;
 using System;
-using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Animation;
+using System.Windows.Threading;
 
 namespace Flow.Bar.Controls.Flyout
 {
@@ -91,13 +94,13 @@ namespace Flow.Bar.Controls.Flyout
                 {
                     HookupParentPopup();
                 }
+
+                Dispatcher.BeginInvoke(DispatcherPriority.Loaded, ApplyOpenAnimation);
             }
         }
 
         private void HookupParentPopup()
         {
-            Debug.Assert(_parentPopup == null, "_parentPopup should be null");
-
             _parentPopup = Parent as Popup;
 
             if (_parentPopup != null)
@@ -111,6 +114,65 @@ namespace Flow.Bar.Controls.Flyout
             }
         }
 
+        private void ApplyOpenAnimation()
+        {
+            if (Template?.FindName("Shdw", this) is ThemeShadowChrome chorme)
+            {
+                // Ensure RenderTransform is a TranslateTransform
+                if (chorme.RenderTransform is not TranslateTransform translateTransform)
+                {
+                    translateTransform = new TranslateTransform();
+                    chorme.RenderTransform = translateTransform;
+                }
+
+                double? from = null;
+                double? to = null;
+                DependencyProperty dp = TranslateTransform.YProperty;
+                double timeDuration = 0;
+                if (m_owningFlyout != null && m_owningFlyout.TryGetTarget(out var flyout))
+                {
+                    from = flyout.Placement switch
+                    {
+                        AppBarPlacementMode.Top => 0,
+                        AppBarPlacementMode.Bottom => 0,
+                        AppBarPlacementMode.Left => 0,
+                        AppBarPlacementMode.Right => -s_offset,
+                        _ => null
+                    };
+                    to = flyout.Placement switch
+                    {
+                        AppBarPlacementMode.Top => -s_offset,
+                        AppBarPlacementMode.Bottom => s_offset,
+                        AppBarPlacementMode.Left => -s_offset,
+                        AppBarPlacementMode.Right => 0,
+                        _ => null
+                    };
+                    dp = flyout.Placement switch
+                    {
+                        AppBarPlacementMode.Top or AppBarPlacementMode.Bottom => TranslateTransform.YProperty,
+                        AppBarPlacementMode.Left or AppBarPlacementMode.Right => TranslateTransform.XProperty,
+                        _ => dp
+                    };
+                    timeDuration = flyout.Placement switch
+                    {
+                        AppBarPlacementMode.Top or AppBarPlacementMode.Bottom => RenderSize.Height * vtd_factor,
+                        AppBarPlacementMode.Left or AppBarPlacementMode.Right => RenderSize.Width * htd_factor,
+                        _ => timeDuration
+                    };
+                }
+
+                var animation = new DoubleAnimation
+                {
+                    From = from,
+                    To = to,
+                    Duration = TimeSpan.FromSeconds(timeDuration),
+                    EasingFunction = new CircleEase { EasingMode = EasingMode.EaseOut }
+                };
+
+                translateTransform.BeginAnimation(dp, animation);
+            }
+        }
+
         private void HandlePopupMouseButtonEvent(object sender, MouseButtonEventArgs e)
         {
             if (!_parentPopup!.IsOpen)
@@ -121,5 +183,9 @@ namespace Flow.Bar.Controls.Flyout
 
         private Popup? _parentPopup;
         private WeakReference<AppBarMenuFlyout>? m_owningFlyout;
+
+        private const double s_offset = 30;
+        private const double vtd_factor = 0.002734375;
+        private const double htd_factor = 0.000735294;
     }
 }
