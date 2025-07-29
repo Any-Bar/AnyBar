@@ -16,7 +16,7 @@
     <ikw:SimpleStackPanel Orientation="Vertical" Spacing="{StaticResource SettingsCardSpacing}">
         <TextBlock
             x:Name="LanguageTitle"
-            Style="{StaticResource SettingsSectionHeaderTextBlockStyle}"
+            Style="{StaticResource SettingsFirstSectionHeaderTextBlockStyle}"
             Text="{DynamicResource SettingPaneGeneral.Language}" />
         <ui:SettingsCard
             x:Name="LanguageCard"

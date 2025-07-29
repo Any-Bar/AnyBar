@@ -8,13 +8,21 @@
 
     <!--  Style (inc. the correct spacing) of a section header  -->
     <Style
+        x:Key="SettingsFirstSectionHeaderTextBlockStyle"
+        BasedOn="{StaticResource BodyStrongTextBlockStyle}"
+        TargetType="TextBlock">
+        <Style.Setters>
+            <Setter Property="Margin" Value="1 0 0 0" />
+        </Style.Setters>
+    </Style>
+    <Style
         x:Key="SettingsSectionHeaderTextBlockStyle"
         BasedOn="{StaticResource BodyStrongTextBlockStyle}"
         TargetType="TextBlock">
         <Style.Setters>
-            <Setter Property="Margin" Value="1 14 0 6" />
+            <Setter Property="Margin" Value="1 14 0 0" />
         </Style.Setters>
     </Style>
-    <Thickness x:Key="SettingsSectionHeaderMargin">1 14 0 6</Thickness>
+    <Thickness x:Key="SettingsSectionHeaderMargin">1 14 0 0</Thickness>
 
 </ResourceDictionary>

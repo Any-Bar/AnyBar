@@ -14,7 +14,7 @@
     mc:Ignorable="d">
 
     <ikw:SimpleStackPanel Orientation="Vertical" Spacing="{StaticResource SettingsCardSpacing}">
-        <TextBlock Style="{StaticResource SettingsSectionHeaderTextBlockStyle}" Text="App" />
+        <TextBlock Style="{StaticResource SettingsFirstSectionHeaderTextBlockStyle}" Text="App" />
         <ui:SettingsCard Description="{DynamicResource SettingPaneAbout.Version}" Header="{Binding Version}">
             <ui:SettingsCard.HeaderIcon>
                 <ui:FontIcon Glyph="&#xe946;" />
