@@ -15,6 +15,9 @@
     <!--  Setting Pane General  -->
     <system:String x:Key="SettingPaneGeneral.Language">Language</system:String>
     <system:String x:Key="SettingPaneGeneral.AppDisplayLanguage">App display language</system:String>
+    <system:String x:Key="SettingPaneGeneral.Behaviour">Behaviour</system:String>
+    <system:String x:Key="SettingPaneGeneral.HideSettingWindow">Hide setting window on startup</system:String>
+    <system:String x:Key="SettingPaneGeneral.HideSettingWindowDescription">Hide setting window after starting up</system:String>
     <system:String x:Key="SettingPaneGeneral.Appearance">Appearance</system:String>
     <system:String x:Key="SettingPaneGeneral.TransparencyEffects">Transparency effects</system:String>
     <system:String x:Key="SettingPaneGeneral.TransparencyEffectsDescription">Make some window background slightly transparent</system:String>
