@@ -85,6 +85,14 @@
 
             <ui:NavigationView.MenuItems>
                 <ui:NavigationViewItem
+                    x:Name="GeneralItem"
+                    Content="{DynamicResource SettingWindow.General}"
+                    Tag="{x:Static local:SettingPageTag.General}">
+                    <ui:NavigationViewItem.Icon>
+                        <ui:FontIcon Glyph="&#xE713;" />
+                    </ui:NavigationViewItem.Icon>
+                </ui:NavigationViewItem>
+                <ui:NavigationViewItem
                     x:Name="AppBarItem"
                     Content="{DynamicResource SettingWindow.AppBar}"
                     Tag="{x:Static local:SettingPageTag.AppBar}">

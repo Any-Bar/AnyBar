@@ -49,7 +49,7 @@ public partial class SettingWindow : Window
         Thickness currMargin = AppTitleBar.Margin;
         if (sender.DisplayMode == NavigationViewDisplayMode.Minimal)
         {
-            AppTitleBar.Margin = new Thickness((sender.CompactPaneLength * 2), currMargin.Top, currMargin.Right, currMargin.Bottom);
+            AppTitleBar.Margin = new Thickness(sender.CompactPaneLength * 2, currMargin.Top, currMargin.Right, currMargin.Bottom);
 
         }
         else
@@ -107,6 +107,7 @@ public partial class SettingWindow : Window
     {
         return tag switch
         {
+            SettingPageTag.General => typeof(SettingsPaneGeneral),
             SettingPageTag.AppBar => typeof(SettingsPaneAppBar),
             SettingPageTag.About => typeof(SettingsPaneAbout),
             _ => throw new ArgumentOutOfRangeException(nameof(tag), tag, null)
@@ -126,7 +127,12 @@ public partial class SettingWindow : Window
         // Update the selected NavigationViewItem based on the page type
         NavigationViewItem? newItem;
 
-        if (RootFrame.SourcePageType == typeof(SettingsPaneAppBar))
+        if (RootFrame.SourcePageType == typeof(SettingsPaneGeneral))
+        {
+            _lastItem = SettingPageTag.General;
+            newItem = GeneralItem;
+        }
+        else if (RootFrame.SourcePageType == typeof(SettingsPaneAppBar))
         {
             _lastItem = SettingPageTag.AppBar;
             newItem = AppBarItem;
@@ -152,6 +158,7 @@ public partial class SettingWindow : Window
     {
         return tag switch
         {
+            SettingPageTag.General => "SettingWindow.General",
             SettingPageTag.AppBar => "SettingWindow.AppBar",
             SettingPageTag.About => "SettingWindow.About",
             _ => throw new ArgumentOutOfRangeException(nameof(tag), tag, null)
@@ -163,6 +170,7 @@ public partial class SettingWindow : Window
 
 public enum SettingPageTag
 {
+    General,
     AppBar,
     About
 }

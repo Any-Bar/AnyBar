@@ -5,12 +5,21 @@
 
     <!--  Tray Icon  -->
     <system:String x:Key="TrayIcon.Exit">Exit</system:String>
-    <system:String x:Key="TrayIcon.Settings">Settings</system:String>
 
     <!--  Setting Window  -->
     <system:String x:Key="SettingWindow.Title">Settings</system:String>
+    <system:String x:Key="SettingWindow.General">General</system:String>
     <system:String x:Key="SettingWindow.AppBar">Appbar</system:String>
     <system:String x:Key="SettingWindow.About">About</system:String>
+
+    <!--  Setting Pane General  -->
+    <system:String x:Key="SettingPaneGeneral.Language">Language</system:String>
+    <system:String x:Key="SettingPaneGeneral.AppDisplayLanguage">App display language</system:String>
+    <system:String x:Key="SettingPaneGeneral.Appearance">Appearance</system:String>
+    <system:String x:Key="SettingPaneGeneral.TransparencyEffects">Transparency effects</system:String>
+    <system:String x:Key="SettingPaneGeneral.TransparencyEffectsDescription">Make some window background slightly transparent</system:String>
+    <system:String x:Key="SettingPaneGeneral.AnimationEffects">Animation effects</system:String>
+    <system:String x:Key="SettingPaneGeneral.AnimationEffectsDescription">Show animation during menu pop-up, etc.</system:String>
 
     <!--  Setting Pane About  -->
     <system:String x:Key="SettingPaneAbout.Version">Version</system:String>

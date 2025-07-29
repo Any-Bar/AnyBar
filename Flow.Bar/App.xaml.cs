@@ -98,6 +98,7 @@ public partial class App : Application, IDisposable, ISingleInstanceApp
                 .AddTransient<AppBarViewModel>()
                 .AddTransient<SettingsPaneAboutViewModel>()
                 .AddTransient<SettingsPaneAppBarViewModel>()
+                .AddTransient<SettingsPaneGeneralViewModel>()
             ).Build();
             Ioc.Default.ConfigureServices(host.Services);
         }
@@ -242,7 +243,7 @@ public partial class App : Application, IDisposable, ISingleInstanceApp
         };
         var settingItem = new MenuItem
         {
-            Header = API.GetTranslation("TrayIcon.Settings"),
+            Header = API.GetTranslation("SettingWindow.Title"),
             Icon = new FontIcon { Glyph = "\ue713" }
         };
         settingItem.Click += (o, e) =>
