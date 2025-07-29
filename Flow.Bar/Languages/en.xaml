@@ -24,6 +24,13 @@
     <system:String x:Key="SettingPaneGeneral.AnimationEffects">Animation effects</system:String>
     <system:String x:Key="SettingPaneGeneral.AnimationEffectsDescription">Show animation during menu pop-up, etc.</system:String>
 
+    <!--  Setting Pane AppBar  -->
+    <system:String x:Key="SettingPaneAppBar.DockMode">Dock mode</system:String>
+    <system:String x:Key="SettingPaneAppBar.Monitor">Monitor</system:String>
+    <system:String x:Key="SettingPaneAppBar.Resizable">Resizable</system:String>
+    <system:String x:Key="SettingPaneAppBar.BarElements">Monitor</system:String>
+    <system:String x:Key="SettingPaneAppBar.Edit">Edit</system:String>
+
     <!--  Setting Pane About  -->
     <system:String x:Key="SettingPaneAbout.Version">Version</system:String>
 

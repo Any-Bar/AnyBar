@@ -42,9 +42,35 @@ public partial class SettingsPaneAppBar : Page
         {
             var appBarControl = new SettingsExpander
             {
-                Header = "Appbar",
-                Content = new System.Windows.Controls.CheckBox()
+                Header = $"{App.API.GetTranslation("SettingWindow.AppBar")} {appBar.Order + 1}",
+                HeaderIcon = new FontIcon { Glyph = "\uE90E" },
+                Tag = appBar,
+                Content = new ToggleSwitch()
             };
+            var dockModeCard = new SettingsCard
+            {
+                Header = App.API.GetTranslation("SettingPaneAppBar.DockMode"),
+                Content = new System.Windows.Controls.ComboBox()
+            };
+            var monitorCard = new SettingsCard
+            {
+                Header = App.API.GetTranslation("SettingPaneAppBar.Monitor"),
+                Content = new System.Windows.Controls.ComboBox()
+            };
+            var resizableCard = new SettingsCard
+            {
+                Header = App.API.GetTranslation("SettingPaneAppBar.Resizable"),
+                Content = new ToggleSwitch()
+            };
+            var elementsCard = new SettingsCard
+            {
+                Header = App.API.GetTranslation("SettingPaneAppBar.BarElements"),
+                Content = new System.Windows.Controls.Button { Content = App.API.GetTranslation("SettingPaneAppBar.Edit") }
+            };
+            appBarControl.Items.Add(dockModeCard);
+            appBarControl.Items.Add(monitorCard);
+            appBarControl.Items.Add(resizableCard);
+            appBarControl.Items.Add(elementsCard);
             AppBarStackPanel.Children.Add(appBarControl);
         }
     }
