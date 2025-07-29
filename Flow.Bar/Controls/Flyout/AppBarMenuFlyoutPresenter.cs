@@ -95,7 +95,7 @@ namespace Flow.Bar.Controls.Flyout
                     HookupParentPopup();
                 }
 
-                if (App.Settings.EnableTransparencyEffects)
+                if (App.Settings.EnbaleAnimationEffects)
                 {
                     Dispatcher.BeginInvoke(DispatcherPriority.Loaded, ApplyOpenAnimation);
                 }
