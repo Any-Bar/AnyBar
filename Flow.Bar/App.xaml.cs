@@ -28,11 +28,11 @@ namespace Flow.Bar;
 public partial class App : Application, IDisposable, ISingleInstanceApp
 {
     public static IPublicAPI API { get; private set; } = null!;
+    public static Settings Settings { get; private set; } = null!;
 
     private static readonly string ClassName = nameof(App);
 
     private static bool _disposed;
-    private static Settings _settings = null!;
 
     private System.Windows.Forms.NotifyIcon _notifyIcon = null!;
     private readonly ContextMenu _contextMenu = new();
@@ -49,8 +49,8 @@ public partial class App : Application, IDisposable, ISingleInstanceApp
         try
         {
             var storage = new FlowBarJsonStorage<Settings>();
-            _settings = storage.Load();
-            _settings.SetStorage(storage);
+            Settings = storage.Load();
+            Settings.SetStorage(storage);
         }
         catch (Exception e)
         {
@@ -62,9 +62,9 @@ public partial class App : Application, IDisposable, ISingleInstanceApp
         Internationalization.InitSystemLanguageCode();
 
         // Change culture info before application creation to localize WinForm windows
-        if (_settings.Language != Constants.SystemLanguageCode)
+        if (Settings.Language != Constants.SystemLanguageCode)
         {
-            Internationalization.ChangeCultureInfo(_settings.Language);
+            Internationalization.ChangeCultureInfo(Settings.Language);
         }
 
         // Start the application as a single instance
@@ -91,7 +91,7 @@ public partial class App : Application, IDisposable, ISingleInstanceApp
             var host = Host.CreateDefaultBuilder()
             .UseContentRoot(AppContext.BaseDirectory)
             .ConfigureServices(services => services
-                .AddSingleton(_ => _settings)
+                .AddSingleton(_ => Settings)
                 .AddSingleton<IPublicAPI, PublicAPIInstance>()
                 .AddSingleton<Internationalization>()
                 .AddTransient<AppBarViewModel>()
@@ -137,7 +137,7 @@ public partial class App : Application, IDisposable, ISingleInstanceApp
 
     private async void OnStartup(object sender, StartupEventArgs e)
     {
-        await API.StopwatchLogInfoAsync(ClassName, "Startup cost", async () =>
+        await API.StopwatchLogInfoAsync(ClassName, "Startup cost", (Func<System.Threading.Tasks.Task>)(async () =>
         {
             ShutdownMode = ShutdownMode.OnExplicitShutdown;
 
@@ -156,7 +156,7 @@ public partial class App : Application, IDisposable, ISingleInstanceApp
 
             var allPlugins = PluginManager.AllPlugins;
 
-            if (!_settings.HideSettingWindow)
+            if (!App.Settings.HideSettingWindow)
             {
                 var settingWindow = new SettingWindow();
                 settingWindow.Show();
@@ -164,10 +164,10 @@ public partial class App : Application, IDisposable, ISingleInstanceApp
 
             InitNotifyIcon();
 
-            var appBarKeys = _settings.AppBars.Keys.OrderBy(k => k);
+            var appBarKeys = Enumerable.OrderBy<int, int>(App.Settings.AppBars.Keys, (Func<int, int>)(k => k));
             foreach (var key in appBarKeys)
             {
-                var barWindow = new AppBarWindow(_settings.AppBars[key]);
+                var barWindow = new AppBarWindow((Models.AppBar.AppBarModel)App.Settings.AppBars[key]);
                 barWindow.Show();
             }
 
@@ -177,7 +177,7 @@ public partial class App : Application, IDisposable, ISingleInstanceApp
 
             API.SaveAppAllSettings();
             API.LogInfo(ClassName, "End Flow Bar startup ------------------------------------------------------");
-        });
+        }));
     }
 
     #endregion

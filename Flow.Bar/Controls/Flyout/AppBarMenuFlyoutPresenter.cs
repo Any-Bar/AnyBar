@@ -95,7 +95,10 @@ namespace Flow.Bar.Controls.Flyout
                     HookupParentPopup();
                 }
 
-                Dispatcher.BeginInvoke(DispatcherPriority.Loaded, ApplyOpenAnimation);
+                if (App.Settings.EnableTransparencyEffects)
+                {
+                    Dispatcher.BeginInvoke(DispatcherPriority.Loaded, ApplyOpenAnimation);
+                }
             }
         }
 
