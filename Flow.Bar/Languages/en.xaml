@@ -4,34 +4,40 @@
     xmlns:system="clr-namespace:System;assembly=mscorlib">
 
     <!--  Tray Icon  -->
-    <system:String x:Key="TrayIcon.Exit">Exit</system:String>
+    <system:String x:Key="TrayIcon_Exit">Exit</system:String>
 
     <!--  Setting Window  -->
-    <system:String x:Key="SettingWindow.Title">Settings</system:String>
-    <system:String x:Key="SettingWindow.General">General</system:String>
-    <system:String x:Key="SettingWindow.AppBar">Appbar</system:String>
-    <system:String x:Key="SettingWindow.About">About</system:String>
+    <system:String x:Key="SettingWindow_Title">Settings</system:String>
+    <system:String x:Key="SettingWindow_General">General</system:String>
+    <system:String x:Key="SettingWindow_AppBar">Appbar</system:String>
+    <system:String x:Key="SettingWindow_About">About</system:String>
 
     <!--  Setting Pane General  -->
-    <system:String x:Key="SettingPaneGeneral.Language">Language</system:String>
-    <system:String x:Key="SettingPaneGeneral.AppDisplayLanguage">App display language</system:String>
-    <system:String x:Key="SettingPaneGeneral.Behaviour">Behaviour</system:String>
-    <system:String x:Key="SettingPaneGeneral.HideSettingWindow">Hide setting window on startup</system:String>
-    <system:String x:Key="SettingPaneGeneral.HideSettingWindowDescription">Hide setting window after starting up</system:String>
-    <system:String x:Key="SettingPaneGeneral.Appearance">Appearance</system:String>
-    <system:String x:Key="SettingPaneGeneral.TransparencyEffects">Transparency effects</system:String>
-    <system:String x:Key="SettingPaneGeneral.TransparencyEffectsDescription">Make some window background slightly transparent</system:String>
-    <system:String x:Key="SettingPaneGeneral.AnimationEffects">Animation effects</system:String>
-    <system:String x:Key="SettingPaneGeneral.AnimationEffectsDescription">Show animation during menu pop-up, etc.</system:String>
+    <system:String x:Key="SettingPaneGeneral_Language">Language</system:String>
+    <system:String x:Key="SettingPaneGeneral_AppDisplayLanguage">App display language</system:String>
+    <system:String x:Key="SettingPaneGeneral_Behaviour">Behaviour</system:String>
+    <system:String x:Key="SettingPaneGeneral_HideSettingWindow">Hide setting window on startup</system:String>
+    <system:String x:Key="SettingPaneGeneral_HideSettingWindowDescription">Hide setting window after starting up</system:String>
+    <system:String x:Key="SettingPaneGeneral_Appearance">Appearance</system:String>
+    <system:String x:Key="SettingPaneGeneral_TransparencyEffects">Transparency effects</system:String>
+    <system:String x:Key="SettingPaneGeneral_TransparencyEffectsDescription">Make some window background slightly transparent</system:String>
+    <system:String x:Key="SettingPaneGeneral_AnimationEffects">Animation effects</system:String>
+    <system:String x:Key="SettingPaneGeneral_AnimationEffectsDescription">Show animation during menu pop-up, etc.</system:String>
 
     <!--  Setting Pane AppBar  -->
-    <system:String x:Key="SettingPaneAppBar.DockMode">Dock mode</system:String>
-    <system:String x:Key="SettingPaneAppBar.Monitor">Monitor</system:String>
-    <system:String x:Key="SettingPaneAppBar.Resizable">Resizable</system:String>
-    <system:String x:Key="SettingPaneAppBar.BarElements">Monitor</system:String>
-    <system:String x:Key="SettingPaneAppBar.Edit">Edit</system:String>
+    <system:String x:Key="SettingPaneAppBar_DockMode">Dock mode</system:String>
+    <system:String x:Key="SettingPaneAppBar_Monitor">Monitor</system:String>
+    <system:String x:Key="SettingPaneAppBar_Resizable">Resizable</system:String>
+    <system:String x:Key="SettingPaneAppBar_BarElements">Monitor</system:String>
+    <system:String x:Key="SettingPaneAppBar_Edit">Edit</system:String>
 
     <!--  Setting Pane About  -->
-    <system:String x:Key="SettingPaneAbout.Version">Version</system:String>
+    <system:String x:Key="SettingPaneAbout_Version">Version</system:String>
+
+    <!--  Enums  -->
+    <system:String x:Key="AppBarDockMode_Left">Left</system:String>
+    <system:String x:Key="AppBarDockMode_Top">Top</system:String>
+    <system:String x:Key="AppBarDockMode_Right">Right</system:String>
+    <system:String x:Key="AppBarDockMode_Bottom">Bottom</system:String>
 
 </ResourceDictionary>

@@ -124,9 +124,9 @@ public partial class SettingWindow : Window
     {
         return tag switch
         {
-            SettingPageTag.General => "SettingWindow.General",
-            SettingPageTag.AppBar => "SettingWindow.AppBar",
-            SettingPageTag.About => "SettingWindow.About",
+            SettingPageTag.General => "SettingWindow_General",
+            SettingPageTag.AppBar => "SettingWindow_AppBar",
+            SettingPageTag.About => "SettingWindow_About",
             _ => throw new ArgumentOutOfRangeException(nameof(tag), tag, null)
         };
     }

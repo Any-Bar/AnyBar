@@ -7,7 +7,7 @@
     xmlns:local="clr-namespace:Flow.Bar.Views"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:ui="http://schemas.inkore.net/lib/ui/wpf/modern"
-    Title="{DynamicResource SettingWindow.Title}"
+    Title="{DynamicResource SettingWindow_Title}"
     Width="801"
     Height="450"
     MinWidth="507"
@@ -45,7 +45,7 @@
                     Margin="0 1 20 0"
                     VerticalAlignment="Center"
                     Style="{DynamicResource CaptionTextBlockStyle}"
-                    Text="{DynamicResource SettingWindow.Title}"
+                    Text="{DynamicResource SettingWindow_Title}"
                     TextWrapping="NoWrap" />
             </ikw:SimpleStackPanel>
         </Border>
@@ -80,7 +80,7 @@
             <ui:NavigationView.MenuItems>
                 <ui:NavigationViewItem
                     x:Name="GeneralItem"
-                    Content="{DynamicResource SettingWindow.General}"
+                    Content="{DynamicResource SettingWindow_General}"
                     Tag="{x:Static local:SettingPageTag.General}">
                     <ui:NavigationViewItem.Icon>
                         <ui:FontIcon Glyph="&#xE713;" />
@@ -88,7 +88,7 @@
                 </ui:NavigationViewItem>
                 <ui:NavigationViewItem
                     x:Name="AppBarItem"
-                    Content="{DynamicResource SettingWindow.AppBar}"
+                    Content="{DynamicResource SettingWindow_AppBar}"
                     Tag="{x:Static local:SettingPageTag.AppBar}">
                     <ui:NavigationViewItem.Icon>
                         <ui:FontIcon Glyph="&#xE75B;" />
@@ -96,7 +96,7 @@
                 </ui:NavigationViewItem>
                 <ui:NavigationViewItem
                     x:Name="AboutItem"
-                    Content="{DynamicResource SettingWindow.About}"
+                    Content="{DynamicResource SettingWindow_About}"
                     Tag="{x:Static local:SettingPageTag.About}">
                     <ui:NavigationViewItem.Icon>
                         <ui:FontIcon Glyph="&#xE946;" />

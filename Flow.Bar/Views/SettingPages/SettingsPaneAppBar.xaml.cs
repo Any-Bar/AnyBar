@@ -42,30 +42,30 @@ public partial class SettingsPaneAppBar : Page
         {
             var appBarControl = new SettingsExpander
             {
-                Header = $"{App.API.GetTranslation("SettingWindow.AppBar")} {appBar.Order + 1}",
+                Header = $"{App.API.GetTranslation("SettingWindow_AppBar")} {appBar.Order + 1}",
                 HeaderIcon = new FontIcon { Glyph = "\uE90E" },
                 Tag = appBar,
                 Content = new ToggleSwitch()
             };
             var dockModeCard = new SettingsCard
             {
-                Header = App.API.GetTranslation("SettingPaneAppBar.DockMode"),
+                Header = App.API.GetTranslation("SettingPaneAppBar_DockMode"),
                 Content = new System.Windows.Controls.ComboBox()
             };
             var monitorCard = new SettingsCard
             {
-                Header = App.API.GetTranslation("SettingPaneAppBar.Monitor"),
+                Header = App.API.GetTranslation("SettingPaneAppBar_Monitor"),
                 Content = new System.Windows.Controls.ComboBox()
             };
             var resizableCard = new SettingsCard
             {
-                Header = App.API.GetTranslation("SettingPaneAppBar.Resizable"),
+                Header = App.API.GetTranslation("SettingPaneAppBar_Resizable"),
                 Content = new ToggleSwitch()
             };
             var elementsCard = new SettingsCard
             {
-                Header = App.API.GetTranslation("SettingPaneAppBar.BarElements"),
-                Content = new System.Windows.Controls.Button { Content = App.API.GetTranslation("SettingPaneAppBar.Edit") }
+                Header = App.API.GetTranslation("SettingPaneAppBar_BarElements"),
+                Content = new System.Windows.Controls.Button { Content = App.API.GetTranslation("SettingPaneAppBar_Edit") }
             };
             appBarControl.Items.Add(dockModeCard);
             appBarControl.Items.Add(monitorCard);
