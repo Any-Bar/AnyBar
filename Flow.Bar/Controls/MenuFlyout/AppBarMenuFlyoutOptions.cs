@@ -2,7 +2,7 @@
 using System;
 using System.Windows;
 
-namespace Flow.Bar.Controls.Flyout;
+namespace Flow.Bar.Controls.MenuFlyout;
 
 public class AppBarMenuFlyoutOptions : IEquatable<AppBarMenuFlyoutOptions>
 {

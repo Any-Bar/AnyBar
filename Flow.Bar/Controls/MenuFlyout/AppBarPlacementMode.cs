@@ -1,4 +1,4 @@
-﻿namespace Flow.Bar.Controls.Flyout;
+﻿namespace Flow.Bar.Controls.MenuFlyout;
 
 public enum AppBarPlacementMode
 {
