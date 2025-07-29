@@ -1,5 +1,4 @@
-﻿using iNKORE.UI.WPF.Modern.Controls.Primitives;
-using System;
+﻿using System;
 using System.Globalization;
 using System.Windows;
 using System.Windows.Controls;
@@ -66,13 +65,13 @@ namespace Flow.Bar.Controls.Flyout
         public static readonly DependencyProperty PlacementProperty =
             DependencyProperty.Register(
                 nameof(Placement),
-                typeof(FlyoutPlacementMode),
+                typeof(AppBarPlacementMode),
                 typeof(AppBarMenuFlyout),
-                new PropertyMetadata(FlyoutPlacementMode.Top));
+                new PropertyMetadata(AppBarPlacementMode.Bottom));
 
-        public FlyoutPlacementMode Placement
+        public AppBarPlacementMode Placement
         {
-            get => (FlyoutPlacementMode)GetValue(PlacementProperty);
+            get => (AppBarPlacementMode)GetValue(PlacementProperty);
             set => SetValue(PlacementProperty, value);
         }
 
@@ -103,23 +102,6 @@ namespace Flow.Bar.Controls.Flyout
 
         #endregion
 
-        #region ShowMode
-
-        public static readonly DependencyProperty ShowModeProperty =
-            DependencyProperty.Register(
-                nameof(ShowMode),
-                typeof(FlyoutShowMode),
-                typeof(AppBarMenuFlyout),
-                new PropertyMetadata(FlyoutShowMode.Standard));
-
-        public FlyoutShowMode ShowMode
-        {
-            get => (FlyoutShowMode)GetValue(ShowModeProperty);
-            set => SetValue(ShowModeProperty, value);
-        }
-
-        #endregion
-
         #region ShowOptions
 
         public static readonly DependencyProperty ShowOptionsProperty =
@@ -144,7 +126,6 @@ namespace Flow.Bar.Controls.Flyout
 
             ShowOptions = showOptions;
             Placement = showOptions.Placement;
-            ShowMode = showOptions.ShowMode;
             ShowAtCore(placementTarget, false);
         }
 
@@ -215,7 +196,7 @@ namespace Flow.Bar.Controls.Flyout
 
         private CustomPopupPlacement[] PositionPopup(Size popupSize, Size targetSize, Point offset)
         {
-            return CustomPopupPlacementHelper.PositionPopup((CustomPlacementMode)Placement, popupSize, targetSize, ShowOptions.Monitor, ShowOptions.Position, offset, m_target!, m_presenter!);
+            return CustomPopupPlacementHelper.PositionPopup((AppBarPlacementMode)Placement, popupSize, targetSize, ShowOptions.Monitor, ShowOptions.Position, offset, m_target!, m_presenter!);
         }   
 
         private void EnsurePresenter()
@@ -273,22 +254,14 @@ namespace Flow.Bar.Controls.Flyout
 
                 switch (Placement)
                 {
-                    case FlyoutPlacementMode.Top:
-                    case FlyoutPlacementMode.Bottom:
-                    case FlyoutPlacementMode.TopEdgeAlignedLeft:
-                    case FlyoutPlacementMode.TopEdgeAlignedRight:
-                    case FlyoutPlacementMode.BottomEdgeAlignedLeft:
-                    case FlyoutPlacementMode.BottomEdgeAlignedRight:
+                    case AppBarPlacementMode.Top:
+                    case AppBarPlacementMode.Bottom:
                         value = new Rect(
                             new Point(0, -Offset),
                             new Point(targetSize.Width, targetSize.Height + Offset));
                         break;
-                    case FlyoutPlacementMode.Left:
-                    case FlyoutPlacementMode.Right:
-                    case FlyoutPlacementMode.LeftEdgeAlignedTop:
-                    case FlyoutPlacementMode.LeftEdgeAlignedBottom:
-                    case FlyoutPlacementMode.RightEdgeAlignedTop:
-                    case FlyoutPlacementMode.RightEdgeAlignedBottom:
+                    case AppBarPlacementMode.Left:
+                    case AppBarPlacementMode.Right:
                         value = new Rect(
                             new Point(-Offset, 0),
                             new Point(targetSize.Width + Offset, targetSize.Height));
@@ -345,7 +318,7 @@ namespace Flow.Bar.Controls.Flyout
         }
 
         private MenuFlyoutPresenter? m_presenter;
-        private FlyoutPlacementMode? m_currentPlacement;
+        private AppBarPlacementMode? m_currentPlacement;
 
         private double Offset { get; set; } = s_offset;
 
@@ -366,7 +339,7 @@ namespace Flow.Bar.Controls.Flyout
         {
             public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
             {
-                return (CustomPlacementMode)value;
+                return (AppBarPlacementMode)value;
             }
 
             public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

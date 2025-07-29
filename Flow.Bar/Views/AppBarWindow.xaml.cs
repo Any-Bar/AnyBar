@@ -603,10 +603,10 @@ public partial class AppBarWindow : Window
         {
             var placement = _viewModel.DockMode switch
             {
-                AppBarDockMode.Left => FlyoutPlacementMode.Right,
-                AppBarDockMode.Right => FlyoutPlacementMode.Left,
-                AppBarDockMode.Top => FlyoutPlacementMode.Bottom,
-                AppBarDockMode.Bottom => FlyoutPlacementMode.Top,
+                AppBarDockMode.Left => AppBarPlacementMode.Right,
+                AppBarDockMode.Right => AppBarPlacementMode.Left,
+                AppBarDockMode.Top => AppBarPlacementMode.Bottom,
+                AppBarDockMode.Bottom => AppBarPlacementMode.Top,
                 _ => throw new NotSupportedException(),
             };
             _contextMenu.ShowAt(element, new FlyoutShowOptions()

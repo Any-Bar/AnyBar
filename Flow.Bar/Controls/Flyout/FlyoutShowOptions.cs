@@ -7,7 +7,7 @@ namespace Flow.Bar.Controls.Flyout;
 
 public class FlyoutShowOptions : IEquatable<FlyoutShowOptions>
 {
-    public FlyoutPlacementMode Placement { get; set; } = FlyoutPlacementMode.Top;
+    public AppBarPlacementMode Placement { get; set; } = AppBarPlacementMode.Bottom;
 
     public Point? Position { get; set; } = null;
 

@@ -13,16 +13,16 @@ namespace Flow.Bar.Controls.Flyout
         public static readonly DependencyProperty PlacementProperty =
             DependencyProperty.RegisterAttached(
                 "Placement",
-                typeof(CustomPlacementMode),
+                typeof(AppBarPlacementMode),
                 typeof(CustomPopupPlacementHelper),
-                new PropertyMetadata(CustomPlacementMode.Top));
+                new PropertyMetadata(AppBarPlacementMode.Top));
 
-        public static CustomPlacementMode GetPlacement(DependencyObject element)
+        public static AppBarPlacementMode GetPlacement(DependencyObject element)
         {
-            return (CustomPlacementMode)element.GetValue(PlacementProperty);
+            return (AppBarPlacementMode)element.GetValue(PlacementProperty);
         }
 
-        public static void SetPlacement(DependencyObject element, CustomPlacementMode value)
+        public static void SetPlacement(DependencyObject element, AppBarPlacementMode value)
         {
             element.SetValue(PlacementProperty, value);
         }
@@ -30,7 +30,7 @@ namespace Flow.Bar.Controls.Flyout
         #endregion
 
         internal static CustomPopupPlacement[] PositionPopup(
-            CustomPlacementMode placement,
+            AppBarPlacementMode placement,
             Size popupSize,
             Size targetSize,
             MonitorInfo monitor,
@@ -65,7 +65,7 @@ namespace Flow.Bar.Controls.Flyout
         }
 
         private static CustomPopupPlacement CalculatePopupPlacement(
-            CustomPlacementMode placement,
+            AppBarPlacementMode placement,
             Size popupSize,
             Size targetSize,
             MonitorInfo monitor,
@@ -80,59 +80,22 @@ namespace Flow.Bar.Controls.Flyout
 
             switch (placement)
             {
-                case CustomPlacementMode.Top:
+                case AppBarPlacementMode.Top:
                     point = new Point((targetSize.Width - popupSize.Width) / 2, -popupSize.Height);
                     primaryAxis = PopupPrimaryAxis.Horizontal;
                     break;
-                case CustomPlacementMode.Bottom:
+                case AppBarPlacementMode.Bottom:
                     point = new Point((targetSize.Width - popupSize.Width) / 2, targetSize.Height);
                     primaryAxis = PopupPrimaryAxis.Horizontal;
                     break;
-                case CustomPlacementMode.Left:
+                case AppBarPlacementMode.Left:
                     point = new Point(-popupSize.Width, (targetSize.Height - popupSize.Height) / 2);
                     primaryAxis = PopupPrimaryAxis.Vertical;
                     break;
-                case CustomPlacementMode.Right:
+                case AppBarPlacementMode.Right:
                     point = new Point(targetSize.Width, (targetSize.Height - popupSize.Height) / 2);
                     primaryAxis = PopupPrimaryAxis.Vertical;
                     break;
-                case CustomPlacementMode.Full:
-                    point = new Point((targetSize.Width - popupSize.Width) / 2, (targetSize.Height - popupSize.Height) / 2);
-                    primaryAxis = PopupPrimaryAxis.None;
-                    break;
-                case CustomPlacementMode.TopEdgeAlignedLeft:
-                    point = new Point(0, -popupSize.Height);
-                    primaryAxis = PopupPrimaryAxis.Horizontal;
-                    break;
-                case CustomPlacementMode.TopEdgeAlignedRight:
-                    point = new Point(targetSize.Width - popupSize.Width, -popupSize.Height);
-                    primaryAxis = PopupPrimaryAxis.Horizontal;
-                    break;
-                case CustomPlacementMode.BottomEdgeAlignedLeft:
-                    point = new Point(0, targetSize.Height);
-                    primaryAxis = PopupPrimaryAxis.Horizontal;
-                    break;
-                case CustomPlacementMode.BottomEdgeAlignedRight:
-                    point = new Point(targetSize.Width - popupSize.Width, targetSize.Height);
-                    primaryAxis = PopupPrimaryAxis.Horizontal;
-                    break;
-                case CustomPlacementMode.LeftEdgeAlignedTop:
-                    point = new Point(-popupSize.Width, 0);
-                    primaryAxis = PopupPrimaryAxis.Vertical;
-                    break;
-                case CustomPlacementMode.LeftEdgeAlignedBottom:
-                    point = new Point(-popupSize.Width, targetSize.Height - popupSize.Height);
-                    primaryAxis = PopupPrimaryAxis.Vertical;
-                    break;
-                case CustomPlacementMode.RightEdgeAlignedTop:
-                    point = new Point(targetSize.Width, 0);
-                    primaryAxis = PopupPrimaryAxis.Vertical;
-                    break;
-                case CustomPlacementMode.RightEdgeAlignedBottom:
-                    point = new Point(targetSize.Width, targetSize.Height - popupSize.Height);
-                    primaryAxis = PopupPrimaryAxis.Vertical;
-                    break;
-                //case CustomPopupPlacementMode.Auto:
                 default:
                     throw new ArgumentOutOfRangeException(nameof(placement));
             }
@@ -149,16 +112,16 @@ namespace Flow.Bar.Controls.Flyout
                 var cursorToTargetOffset = cursorToScreenOffset - targetToScreenOffset;
                 switch (placement)
                 {
-                    case CustomPlacementMode.Top:
+                    case AppBarPlacementMode.Top:
                         point = new Point(cursorToTargetOffset.X - popupSize.Width / 2, point.Y);
                         break;
-                    case CustomPlacementMode.Bottom:
+                    case AppBarPlacementMode.Bottom:
                         point = new Point(cursorToTargetOffset.X - popupSize.Width / 2, point.Y);
                         break;
-                    case CustomPlacementMode.Left:
+                    case AppBarPlacementMode.Left:
                         point = new Point(point.X, cursorToTargetOffset.Y - popupSize.Height / 2);
                         break;
-                    case CustomPlacementMode.Right:
+                    case AppBarPlacementMode.Right:
                         point = new Point(point.X, cursorToTargetOffset.Y - popupSize.Height / 2);
                         break;
                 }
@@ -177,24 +140,14 @@ namespace Flow.Bar.Controls.Flyout
             return new CustomPopupPlacement(point, primaryAxis);
         }
 
-        private static CustomPlacementMode? GetAlternativePlacementMode(CustomPlacementMode placement)
+        private static AppBarPlacementMode? GetAlternativePlacementMode(AppBarPlacementMode placement)
         {
             return placement switch
             {
-                CustomPlacementMode.Top => (CustomPlacementMode?)CustomPlacementMode.Bottom,
-                CustomPlacementMode.Bottom => (CustomPlacementMode?)CustomPlacementMode.Top,
-                CustomPlacementMode.Left => (CustomPlacementMode?)CustomPlacementMode.Right,
-                CustomPlacementMode.Right => (CustomPlacementMode?)CustomPlacementMode.Left,
-                CustomPlacementMode.Full => null,
-                CustomPlacementMode.TopEdgeAlignedLeft => (CustomPlacementMode?)CustomPlacementMode.BottomEdgeAlignedLeft,
-                CustomPlacementMode.TopEdgeAlignedRight => (CustomPlacementMode?)CustomPlacementMode.BottomEdgeAlignedRight,
-                CustomPlacementMode.BottomEdgeAlignedLeft => (CustomPlacementMode?)CustomPlacementMode.TopEdgeAlignedLeft,
-                CustomPlacementMode.BottomEdgeAlignedRight => (CustomPlacementMode?)CustomPlacementMode.TopEdgeAlignedRight,
-                CustomPlacementMode.LeftEdgeAlignedTop => (CustomPlacementMode?)CustomPlacementMode.RightEdgeAlignedTop,
-                CustomPlacementMode.LeftEdgeAlignedBottom => (CustomPlacementMode?)CustomPlacementMode.RightEdgeAlignedBottom,
-                CustomPlacementMode.RightEdgeAlignedTop => (CustomPlacementMode?)CustomPlacementMode.RightEdgeAlignedTop,
-                CustomPlacementMode.RightEdgeAlignedBottom => (CustomPlacementMode?)CustomPlacementMode.LeftEdgeAlignedBottom,
-                //case CustomPopupPlacementMode.Auto:
+                AppBarPlacementMode.Top => (AppBarPlacementMode?)AppBarPlacementMode.Bottom,
+                AppBarPlacementMode.Bottom => (AppBarPlacementMode?)AppBarPlacementMode.Top,
+                AppBarPlacementMode.Left => (AppBarPlacementMode?)AppBarPlacementMode.Right,
+                AppBarPlacementMode.Right => (AppBarPlacementMode?)AppBarPlacementMode.Left,
                 _ => null,
             };
         }
