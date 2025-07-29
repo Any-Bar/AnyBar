@@ -46,6 +46,18 @@ public partial class AppBarWindow : Window
     {
         _model = model;
         _viewModel.Order = model.Order;
+        _viewModel.Order = _model.Order;
+        _viewModel.DockMode = _model.DockMode;
+        if (_model.MonitorName != null)
+        {
+            _viewModel.Monitor = MonitorInfo.GetDisplayMonitors().FirstOrDefault(m => m.Name == _model.MonitorName);
+        }
+        else
+        {
+            _viewModel.Monitor = null;
+        }
+        _viewModel.DockedWidthOrHeight = _model.DockedWidthOrHeight;
+        _viewModel.IsResizable = _model.IsResizable;
         InitializeComponent();
         _viewModel.PropertyChanged += ViewModel_PropertyChanged;
         WindowStyle = WindowStyle.None;
@@ -176,19 +188,6 @@ public partial class AppBarWindow : Window
 
     private void Window_Loaded(object sender, RoutedEventArgs e)
     {
-        _viewModel.Order = _model.Order;
-        _viewModel.DockMode = _model.DockMode;
-        if (_model.MonitorName != null)
-        {
-            _viewModel.Monitor = MonitorInfo.GetDisplayMonitors().FirstOrDefault(m => m.Name == _model.MonitorName);
-        }
-        else
-        {
-            _viewModel.Monitor = null;
-        }
-        _viewModel.DockedWidthOrHeight = _model.DockedWidthOrHeight;
-        _viewModel.IsResizable = _model.IsResizable;
-
         // Init plugin controls
         LeftOrTopStackPanel.Children.Clear();
         RightOrBottomStackPanel.Children.Clear();
