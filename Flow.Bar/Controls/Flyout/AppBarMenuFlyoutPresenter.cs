@@ -122,32 +122,25 @@ namespace Flow.Bar.Controls.Flyout
             if (Template?.FindName("Shdw", this) is ThemeShadowChrome chorme)
             {
                 // Ensure RenderTransform is a TranslateTransform
-                if (chorme.RenderTransform is not TranslateTransform translateTransform)
+                if (chorme.RenderTransform is TranslateTransform translateTransform)
+                {
+                    translateTransform.X = translateTransform.Y = 0;
+                }
+                else
                 {
                     translateTransform = new TranslateTransform();
                     chorme.RenderTransform = translateTransform;
                 }
 
                 double? from = null;
-                double? to = null;
                 DependencyProperty dp = TranslateTransform.YProperty;
                 double timeDuration = 0;
                 if (m_owningFlyout != null && m_owningFlyout.TryGetTarget(out var flyout))
                 {
                     from = flyout.Placement switch
                     {
-                        AppBarPlacementMode.Top => 0,
-                        AppBarPlacementMode.Bottom => 0,
-                        AppBarPlacementMode.Left => 0,
-                        AppBarPlacementMode.Right => -s_offset,
-                        _ => null
-                    };
-                    to = flyout.Placement switch
-                    {
-                        AppBarPlacementMode.Top => -s_offset,
-                        AppBarPlacementMode.Bottom => s_offset,
-                        AppBarPlacementMode.Left => -s_offset,
-                        AppBarPlacementMode.Right => 0,
+                        AppBarPlacementMode.Left or AppBarPlacementMode.Top => s_offset,
+                        AppBarPlacementMode.Right or AppBarPlacementMode.Bottom => -s_offset,
                         _ => null
                     };
                     dp = flyout.Placement switch
@@ -167,7 +160,7 @@ namespace Flow.Bar.Controls.Flyout
                 var animation = new DoubleAnimation
                 {
                     From = from,
-                    To = to,
+                    To = 0,
                     Duration = TimeSpan.FromSeconds(timeDuration),
                     EasingFunction = new CircleEase { EasingMode = EasingMode.EaseOut }
                 };
