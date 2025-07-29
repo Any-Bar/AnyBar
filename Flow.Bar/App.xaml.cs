@@ -14,6 +14,7 @@ using iNKORE.UI.WPF.Modern.Common;
 using iNKORE.UI.WPF.Modern.Controls;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Toolkit.Uwp.Notifications;
 using System;
 using System.Diagnostics;
 using System.Linq;
@@ -137,7 +138,7 @@ public partial class App : Application, IDisposable, ISingleInstanceApp
 
     private async void OnStartup(object sender, StartupEventArgs e)
     {
-        await API.StopwatchLogInfoAsync(ClassName, "Startup cost", (Func<System.Threading.Tasks.Task>)(async () =>
+        await API.StopwatchLogInfoAsync(ClassName, "Startup cost", async () =>
         {
             ShutdownMode = ShutdownMode.OnExplicitShutdown;
 
@@ -156,7 +157,7 @@ public partial class App : Application, IDisposable, ISingleInstanceApp
 
             var allPlugins = PluginManager.AllPlugins;
 
-            if (!App.Settings.HideSettingWindow)
+            if (!Settings.HideSettingWindow)
             {
                 var settingWindow = new SettingWindow();
                 settingWindow.Show();
@@ -164,10 +165,10 @@ public partial class App : Application, IDisposable, ISingleInstanceApp
 
             InitNotifyIcon();
 
-            var appBarKeys = Enumerable.OrderBy<int, int>(App.Settings.AppBars.Keys, (Func<int, int>)(k => k));
+            var appBarKeys = Enumerable.OrderBy(Settings.AppBars.Keys, (k => k));
             foreach (var key in appBarKeys)
             {
-                var barWindow = new AppBarWindow((Models.AppBar.AppBarModel)App.Settings.AppBars[key]);
+                var barWindow = new AppBarWindow(Settings.AppBars[key]);
                 barWindow.Show();
             }
 
@@ -177,7 +178,7 @@ public partial class App : Application, IDisposable, ISingleInstanceApp
 
             API.SaveAppAllSettings();
             API.LogInfo(ClassName, "End Flow Bar startup ------------------------------------------------------");
-        }));
+        });
     }
 
     #endregion
@@ -301,11 +302,21 @@ public partial class App : Application, IDisposable, ISingleInstanceApp
             _disposed = true;
         }
 
-        if (disposing)
+        API.StopwatchLogInfo(ClassName, "Dispose cost", () =>
         {
-            // Dispose needs to be called on the main Windows thread,
-            // since some resources owned by the thread need to be disposed.
-        }
+            API.LogInfo(ClassName, "Begin Flow Bar dispose ----------------------------------------------------");
+
+            if (disposing)
+            {
+                // Dispose needs to be called on the main Windows thread,
+                // since some resources owned by the thread need to be disposed.
+                _notifyIcon.Visible = false;
+                ToastNotificationManagerCompat.Uninstall();
+                API.SaveAppAllSettings();
+            }
+
+            API.LogInfo(ClassName, "End Flow Bar dispose ------------------------------------------------------");
+        });
     }
 
     public void Dispose()
@@ -321,7 +332,7 @@ public partial class App : Application, IDisposable, ISingleInstanceApp
 
     public void OnSecondAppStarted()
     {
-
+        API.OpenSettingDialog();
     }
 
     #endregion
