@@ -14,11 +14,37 @@
     d:DesignWidth="800"
     mc:Ignorable="d">
 
-    <Grid>
+    <Grid Margin="{StaticResource SettingsSectionHeaderMargin}">
         <ikw:SimpleStackPanel
             x:Name="AppBarStackPanel"
             Spacing="{StaticResource SettingsCardSpacing}"
-            Visibility="Visible" />
+            Visibility="Visible">
+            <ui:SettingsExpander Header="Appbar 1" Tag="0">
+                <ui:SettingsExpander.HeaderIcon>
+                    <ui:FontIcon Glyph="&#xE90E;" />
+                </ui:SettingsExpander.HeaderIcon>
+
+                <ui:ToggleSwitch />
+
+                <ui:SettingsExpander.Items>
+                    <ui:SettingsCard Header="Dock mode">
+                        <ComboBox />
+                    </ui:SettingsCard>
+
+                    <ui:SettingsCard Header="Monitor">
+                        <ComboBox />
+                    </ui:SettingsCard>
+
+                    <ui:SettingsCard Header="Resizable">
+                        <ui:ToggleSwitch />
+                    </ui:SettingsCard>
+
+                    <ui:SettingsCard Header="Bar elements">
+                        <Button Content="Edit" />
+                    </ui:SettingsCard>
+                </ui:SettingsExpander.Items>
+            </ui:SettingsExpander>
+        </ikw:SimpleStackPanel>
 
         <ikw:SimpleStackPanel
             x:Name="NoAppBarStackPanel"
