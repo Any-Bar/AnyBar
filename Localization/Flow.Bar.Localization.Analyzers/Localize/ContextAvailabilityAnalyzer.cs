@@ -34,7 +34,7 @@ namespace Flow.Bar.Localization.Analyzers.Localize
         private static void AnalyzeNode(SyntaxNodeAnalysisContext context)
         {
             var configOptions = context.Options.AnalyzerConfigOptionsProvider;
-            var useDI = configOptions.GetFLLUseDependencyInjection();
+            var useDI = configOptions.GetFBLUseDependencyInjection();
             if (useDI)
             {
                 // If we use dependency injection, we don't need to check for this context property

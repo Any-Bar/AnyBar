@@ -70,7 +70,7 @@ namespace Flow.Bar.Localization.SourceGenerators.Localize
             var enumsDeclarations = data.Item1.Item1.EnumsDeclarations;
 
             var assemblyNamespace = compilation.AssemblyName ?? Constants.DefaultNamespace;
-            var useDI = configOptions.GetFLLUseDependencyInjection();
+            var useDI = configOptions.GetFBLUseDependencyInjection();
 
             PluginClassInfo pluginInfo;
             if (useDI)

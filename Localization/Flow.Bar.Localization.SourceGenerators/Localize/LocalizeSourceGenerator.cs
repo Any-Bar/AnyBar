@@ -98,7 +98,7 @@ namespace Flow.Bar.Localization.SourceGenerators.Localize
             var localizedStrings = data.Item1.Item1.Item1.Item1.LocalizableStrings;
 
             var assemblyNamespace = compilation.AssemblyName ?? Constants.DefaultNamespace;
-            var useDI = configOptions.GetFLLUseDependencyInjection();
+            var useDI = configOptions.GetFBLUseDependencyInjection();
 
             PluginClassInfo pluginInfo;
             if (useDI)

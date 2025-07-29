@@ -11,9 +11,9 @@ namespace Flow.Bar.Localization.Shared
     {
         #region Build Properties
 
-        public static bool GetFLLUseDependencyInjection(this AnalyzerConfigOptionsProvider configOptions)
+        public static bool GetFBLUseDependencyInjection(this AnalyzerConfigOptionsProvider configOptions)
         {
-            if (!configOptions.GlobalOptions.TryGetValue("build_property.FLLUseDependencyInjection", out var result) ||
+            if (!configOptions.GlobalOptions.TryGetValue("build_property.FBLUseDependencyInjection", out var result) ||
                 !bool.TryParse(result, out var useDI))
             {
                 return false; // Default to false

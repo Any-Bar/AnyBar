@@ -19,7 +19,7 @@ namespace Flow.Bar.Localization.SourceGenerators.Localize
         #region Incremental Generator
 
         /// <summary>
-        /// Initializes the generator and registers source output based on build property FLLUseDependencyInjection.
+        /// Initializes the generator and registers source output based on build property FBLUseDependencyInjection.
         /// </summary>
         /// <param name="context">The initialization context.</param>
         public void Initialize(IncrementalGeneratorInitializationContext context)
@@ -45,7 +45,7 @@ namespace Flow.Bar.Localization.SourceGenerators.Localize
             var configOptions = data.ConfigOptionsProvider;
 
             var assemblyNamespace = compilation.AssemblyName ?? Constants.DefaultNamespace;
-            var useDI = configOptions.GetFLLUseDependencyInjection();
+            var useDI = configOptions.GetFBLUseDependencyInjection();
 
             // If we do not use dependency injection, we do not need to generate the public api property
             if (!useDI) return;

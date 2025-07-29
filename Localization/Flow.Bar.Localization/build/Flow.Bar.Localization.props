@@ -1,6 +1,6 @@
 ﻿<Project>
     <ItemGroup>
-        <CompilerVisibleProperty Include="FLLUseDependencyInjection" />
+        <CompilerVisibleProperty Include="FBLUseDependencyInjection" />
         <AdditionalFiles Include="Languages\en.xaml" />
     </ItemGroup>
 </Project>
