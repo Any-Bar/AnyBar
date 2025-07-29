@@ -70,7 +70,7 @@ namespace Flow.Bar.Controls.Flyout
 
         internal void UpdatePopupAnimation()
         {
-            if (_parentPopup != null && m_owningFlyout!.TryGetTarget(out var owningFlyout))
+            if (_parentPopup != null && m_owningFlyout!.TryGetTarget(out var _))
             {
                 _parentPopup.Resources.Remove(SystemParameters.MenuPopupAnimationKey);
             }
