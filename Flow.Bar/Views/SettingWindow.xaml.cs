@@ -1,6 +1,6 @@
-﻿using Flow.Bar.Views.SettingPages;
+﻿using Flow.Bar.Controls.NavigationView;
+using Flow.Bar.Views.SettingPages;
 using iNKORE.UI.WPF.Helpers;
-using iNKORE.UI.WPF.Modern.Controls;
 using System;
 using System.Linq;
 using System.Windows;
@@ -46,26 +46,19 @@ public partial class SettingWindow : Window
 
     private void NavigationViewControl_SelectionChanged(NavigationView _, NavigationViewSelectionChangedEventArgs args)
     {
-        if (args.IsSettingsSelected)
+        var selectedItem = args.SelectedItemContainer;
+
+        if (selectedItem?.Tag is SettingPageTag tag)
         {
-            throw new NotImplementedException("Settings page is not implemented yet.");
+            var item = tag;
+            if (item == _lastItem) return;
+
+            _lastItem = item;
+            RootFrame.Navigate(GetPageType(item));
         }
         else
         {
-            var selectedItem = args.SelectedItemContainer;
-
-            if (selectedItem?.Tag is SettingPageTag tag)
-            {
-                var item = tag;
-                if (item == _lastItem) return;
-
-                _lastItem = item;
-                RootFrame.Navigate(GetPageType(item));
-            }
-            else
-            {
-                throw new InvalidOperationException("Selected item does not have a valid tag.");
-            }
+            throw new InvalidOperationException("Selected item does not have a valid tag.");
         }
     }
 
