@@ -12,7 +12,7 @@
         BasedOn="{StaticResource BodyStrongTextBlockStyle}"
         TargetType="TextBlock">
         <Style.Setters>
-            <Setter Property="Margin" Value="1 0 0 0" />
+            <Setter Property="Margin" Value="1 0 0 4" />
         </Style.Setters>
     </Style>
     <Style
@@ -20,9 +20,9 @@
         BasedOn="{StaticResource BodyStrongTextBlockStyle}"
         TargetType="TextBlock">
         <Style.Setters>
-            <Setter Property="Margin" Value="1 14 0 0" />
+            <Setter Property="Margin" Value="1 20 0 4" />
         </Style.Setters>
     </Style>
-    <Thickness x:Key="SettingsSectionHeaderMargin">1 14 0 0</Thickness>
+    <Thickness x:Key="SettingsSectionHeaderMargin">1 20 0 0</Thickness>
 
 </ResourceDictionary>
