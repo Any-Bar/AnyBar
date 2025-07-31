@@ -69,7 +69,7 @@ public partial class SplitView : Control
 
         UpdateTemplateSettings();
         UpdatePaneClipRectangle();
-        UpdateVisualState(false);
+        UpdateVisualState();
 
         Dispatcher.BeginInvoke(() =>
         {
@@ -237,7 +237,7 @@ public partial class SplitView : Control
         }
     }
 
-    private bool UpdateDisplayModeState(bool useTransitions = true)
+    private bool UpdateDisplayModeState()
     {
         string? stateName = null;
         var displayMode = DisplayMode;
@@ -298,10 +298,10 @@ public partial class SplitView : Control
         }
 
         Debug.Assert(stateName != null);
-        return VisualStateManager.GoToState(this, stateName, useTransitions);
+        return VisualStateManager.GoToState(this, stateName, App.Settings.EnableAnimationEffects);
     }
 
-    private void UpdateOverlayVisibilityState(bool useTransitions = true)
+    private void UpdateOverlayVisibilityState()
     {
         string stateName;
 
@@ -314,13 +314,13 @@ public partial class SplitView : Control
             stateName = "OverlayNotVisible";
         }
 
-        VisualStateManager.GoToState(this, stateName, useTransitions);
+        VisualStateManager.GoToState(this, stateName, App.Settings.EnableAnimationEffects);
     }
 
-    private void UpdateVisualState(bool useTransitions = true)
+    private void UpdateVisualState()
     {
-        UpdateDisplayModeState(useTransitions);
-        UpdateOverlayVisibilityState(useTransitions);
+        UpdateDisplayModeState();
+        UpdateOverlayVisibilityState();
     }
 
     private void ReapplyDisplayModeState(bool waitForDataBinding = true)

@@ -36,9 +36,9 @@ public partial class NavigationViewItem : NavigationViewItemBase
             new FrameworkPropertyMetadata(typeof(NavigationViewItem)));
     }
 
-    internal void UpdateVisualStateNoTransition(bool useTransition = false)
+    internal void UpdateVisualStateNoTransition()
     {
-        UpdateVisualState(useTransition);
+        UpdateVisualState();
     }
 
     private protected override void OnNavigationViewItemBaseDepthChanged()
@@ -137,7 +137,7 @@ public partial class NavigationViewItem : NavigationViewItemBase
             m_isClosedCompact = !splitView.IsPaneOpen
                 && (splitView.DisplayMode == SplitViewDisplayMode.CompactOverlay || splitView.DisplayMode == SplitViewDisplayMode.CompactInline);
 
-            UpdateVisualState(true /*useTransitions*/);
+            UpdateVisualState();
         }
     }
 
@@ -195,7 +195,7 @@ public partial class NavigationViewItem : NavigationViewItemBase
         if (m_navigationViewItemPresenter is { } presenter)
         {
             var stateName = showIcon ? (showContent ? "IconOnLeft" : "IconOnly") : "ContentOnly";
-            VisualStateManager.GoToState(presenter, stateName, false /*useTransitions*/);
+            VisualStateManager.GoToState(presenter, stateName, App.Settings.EnableAnimationEffects);
         }
     }
 
@@ -207,7 +207,7 @@ public partial class NavigationViewItem : NavigationViewItemBase
             focusState = "KeyboardFocused";
         }
 
-        VisualStateManager.GoToState(this, focusState, false /*useTransitions*/);
+        VisualStateManager.GoToState(this, focusState, App.Settings.EnableAnimationEffects);
     }
 
     private void UpdateVisualStateForToolTip()
@@ -288,17 +288,17 @@ public partial class NavigationViewItem : NavigationViewItemBase
         // update the states for the item itself.
         if (m_navigationViewItemPresenter is { } presenter)
         {
-            VisualStateManager.GoToState(presenter, enabledStateValue, true);
-            VisualStateManager.GoToState(presenter, selectedStateValue, true);
+            VisualStateManager.GoToState(presenter, enabledStateValue, App.Settings.EnableAnimationEffects);
+            VisualStateManager.GoToState(presenter, selectedStateValue, App.Settings.EnableAnimationEffects);
         }
         else
         {
-            VisualStateManager.GoToState(this, enabledStateValue, true);
-            VisualStateManager.GoToState(this, selectedStateValue, true);
+            VisualStateManager.GoToState(this, enabledStateValue, App.Settings.EnableAnimationEffects);
+            VisualStateManager.GoToState(this, selectedStateValue, App.Settings.EnableAnimationEffects);
         }
     }
 
-    private void UpdateVisualState(bool useTransitions)
+    private void UpdateVisualState()
     {
         if (!m_appliedTemplate)
             return;
@@ -311,7 +311,7 @@ public partial class NavigationViewItem : NavigationViewItemBase
         if (m_navigationViewItemPresenter is { } presenter)
         {
             // Backward Compatibility with RS4-, new implementation prefer IconOnLeft/IconOnly/ContentOnly
-            VisualStateManager.GoToState(presenter, shouldShowIcon ? "IconVisible" : "IconCollapsed", useTransitions);
+            VisualStateManager.GoToState(presenter, shouldShowIcon ? "IconVisible" : "IconCollapsed", App.Settings.EnableAnimationEffects);
         }
 
         UpdateVisualStateForToolTip();
@@ -423,7 +423,7 @@ public partial class NavigationViewItem : NavigationViewItemBase
             m_isMouseCaptured = true;
         }
 
-        UpdateVisualState(true);
+        UpdateVisualState();
     }
 
     private void OnPresenterPointerReleased(object sender, PointerRoutedEventArgs args)
@@ -442,7 +442,7 @@ public partial class NavigationViewItem : NavigationViewItemBase
             }
         }
 
-        UpdateVisualState(true);
+        UpdateVisualState();
     }
 
     private void OnPresenterPointerEntered(object sender, PointerRoutedEventArgs args)
@@ -458,7 +458,7 @@ public partial class NavigationViewItem : NavigationViewItemBase
     private void OnPresenterPointerExited(object sender, PointerRoutedEventArgs args)
     {
         m_isPointerOver = false;
-        UpdateVisualState(true);
+        UpdateVisualState();
     }
 
     private void OnPresenterPointerCanceled(object sender, PointerRoutedEventArgs args)
@@ -489,7 +489,7 @@ public partial class NavigationViewItem : NavigationViewItemBase
             }
         }
 
-        UpdateVisualState(true);
+        UpdateVisualState();
     }
 
     private void ProcessPointerCanceled(PointerRoutedEventArgs args)
@@ -497,7 +497,7 @@ public partial class NavigationViewItem : NavigationViewItemBase
         m_isPressed = false;
         m_isPointerOver = false;
         m_isMouseCaptured = false;
-        UpdateVisualState(true);
+        UpdateVisualState();
     }
 
     private void ProcessPointerOver(PointerRoutedEventArgs args)
@@ -505,7 +505,7 @@ public partial class NavigationViewItem : NavigationViewItemBase
         if (!m_isPointerOver)
         {
             m_isPointerOver = true;
-            UpdateVisualState(true);
+            UpdateVisualState();
         }
     }
 
