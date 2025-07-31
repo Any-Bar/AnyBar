@@ -28,6 +28,7 @@
             x:Name="NavigationViewControl"
             AlwaysShowHeader="True"
             Canvas.ZIndex="0"
+            ExpandedMinimalModeThresholdWidth="824"
             Header="General"
             IsTabStop="False"
             Loaded="NavigationViewControl_Loaded"
