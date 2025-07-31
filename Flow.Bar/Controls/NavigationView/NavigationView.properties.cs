@@ -1,0 +1,625 @@
+﻿// Copyright (c) Microsoft Corporation. All rights reserved.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
+
+using System.Collections;
+using System.Windows;
+using System.Windows.Controls;
+using iNKORE.UI.WPF.Modern.Common;
+using iNKORE.UI.WPF.Modern.Controls;
+using iNKORE.UI.WPF.Modern.Controls.Helpers;
+
+namespace Flow.Bar.Controls.NavigationView;
+
+public partial class NavigationView
+{
+    #region CornerRadius
+
+    /// <summary>
+    /// Identifies the CornerRadius dependency property.
+    /// </summary>
+    public static readonly DependencyProperty CornerRadiusProperty =
+        ControlHelper.CornerRadiusProperty.AddOwner(typeof(NavigationView));
+
+    /// <summary>
+    /// Gets or sets the radius for the corners of the control's border.
+    /// </summary>
+    public CornerRadius CornerRadius
+    {
+        get => (CornerRadius)GetValue(CornerRadiusProperty);
+        set => SetValue(CornerRadiusProperty, value);
+    }
+
+    #endregion
+
+    #region IsPaneOpen
+
+    public static readonly DependencyProperty IsPaneOpenProperty =
+        DependencyProperty.Register(
+            nameof(IsPaneOpen),
+            typeof(bool),
+            typeof(NavigationView),
+            new PropertyMetadata(true, OnIsPaneOpenPropertyChanged));
+
+    public bool IsPaneOpen
+    {
+        get => (bool)GetValue(IsPaneOpenProperty);
+        set => SetValue(IsPaneOpenProperty, value);
+    }
+
+    private static void OnIsPaneOpenPropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)
+    {
+        var owner = (NavigationView)sender;
+        owner.PropertyChanged(args);
+    }
+
+    #endregion
+
+    #region ExpandedMinimalModeThresholdWidth
+
+    public static readonly DependencyProperty ExpandedMinimalModeThresholdWidthProperty =
+        DependencyProperty.Register(
+            nameof(ExpandedMinimalModeThresholdWidth),
+            typeof(double),
+            typeof(NavigationView),
+            new PropertyMetadata(800.0, OnExpandedMinimalModeThresholdWidthPropertyChanged, CoerceToGreaterThanZero));
+
+    public double ExpandedMinimalModeThresholdWidth
+    {
+        get => (double)GetValue(ExpandedMinimalModeThresholdWidthProperty);
+        set => SetValue(ExpandedMinimalModeThresholdWidthProperty, value);
+    }
+
+    private static void OnExpandedMinimalModeThresholdWidthPropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)
+    {
+        var owner = (NavigationView)sender;
+        owner.PropertyChanged(args);
+    }
+
+    #endregion
+
+    #region Header
+
+    public static readonly DependencyProperty HeaderProperty =
+        DependencyProperty.Register(
+            nameof(Header),
+            typeof(object),
+            typeof(NavigationView),
+            new PropertyMetadata(OnHeaderPropertyChanged));
+
+    public object Header
+    {
+        get => GetValue(HeaderProperty);
+        set => SetValue(HeaderProperty, value);
+    }
+
+    private static void OnHeaderPropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)
+    {
+        var owner = (NavigationView)sender;
+        owner.PropertyChanged(args);
+    }
+
+    #endregion
+
+    #region HeaderTemplate
+
+    public static readonly DependencyProperty HeaderTemplateProperty =
+        DependencyProperty.Register(
+            nameof(HeaderTemplate),
+            typeof(DataTemplate),
+            typeof(NavigationView),
+            new PropertyMetadata(OnHeaderTemplatePropertyChanged));
+
+    public DataTemplate HeaderTemplate
+    {
+        get => (DataTemplate)GetValue(HeaderTemplateProperty);
+        set => SetValue(HeaderTemplateProperty, value);
+    }
+
+    private static void OnHeaderTemplatePropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)
+    {
+        var owner = (NavigationView)sender;
+        owner.PropertyChanged(args);
+    }
+
+    #endregion
+
+    #region Title
+
+    public static readonly DependencyProperty TitleProperty =
+        DependencyProperty.Register(
+            nameof(Title),
+            typeof(UIElement),
+            typeof(NavigationView),
+            new PropertyMetadata(OnTitlePropertyChanged));
+
+    public UIElement Title
+    {
+        get => (UIElement)GetValue(TitleProperty);
+        set => SetValue(TitleProperty, value);
+    }
+
+    private static void OnTitlePropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)
+    {
+        var owner = (NavigationView)sender;
+        owner.PropertyChanged(args);
+    }
+
+    #endregion
+
+    #region DisplayMode
+
+    private static readonly DependencyPropertyKey s_displayModePropertyKey =
+        DependencyProperty.RegisterReadOnly(
+            nameof(DisplayMode),
+            typeof(NavigationViewDisplayMode),
+            typeof(NavigationView),
+            new PropertyMetadata(NavigationViewDisplayMode.Minimal, OnDisplayModePropertyChanged));
+
+    public static readonly DependencyProperty DisplayModeProperty = s_displayModePropertyKey.DependencyProperty;
+
+    public NavigationViewDisplayMode DisplayMode => (NavigationViewDisplayMode)GetValue(DisplayModeProperty);
+
+    private static void OnDisplayModePropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)
+    {
+        var owner = (NavigationView)sender;
+        owner.PropertyChanged(args);
+    }
+
+    #endregion
+
+    #region AlwaysShowHeader
+
+    public static readonly DependencyProperty AlwaysShowHeaderProperty =
+        DependencyProperty.Register(
+            nameof(AlwaysShowHeader),
+            typeof(bool),
+            typeof(NavigationView),
+            new PropertyMetadata(true, OnAlwaysShowHeaderPropertyChanged));
+
+    public bool AlwaysShowHeader
+    {
+        get => (bool)GetValue(AlwaysShowHeaderProperty);
+        set => SetValue(AlwaysShowHeaderProperty, value);
+    }
+
+    private static void OnAlwaysShowHeaderPropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)
+    {
+        var owner = (NavigationView)sender;
+        owner.PropertyChanged(args);
+    }
+
+    #endregion
+
+    #region CompactPaneLength
+
+    public static readonly DependencyProperty CompactPaneLengthProperty =
+        DependencyProperty.Register(
+            nameof(CompactPaneLength),
+            typeof(double),
+            typeof(NavigationView),
+            new PropertyMetadata(48.0, OnCompactPaneLengthPropertyChanged, CoerceToGreaterThanZero));
+
+    public double CompactPaneLength
+    {
+        get => (double)GetValue(CompactPaneLengthProperty);
+        set => SetValue(CompactPaneLengthProperty, value);
+    }
+
+    private static void OnCompactPaneLengthPropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)
+    {
+        var owner = (NavigationView)sender;
+        owner.PropertyChanged(args);
+    }
+
+    #endregion
+
+    #region OpenPaneLength
+
+    public static readonly DependencyProperty OpenPaneLengthProperty =
+        DependencyProperty.Register(
+            nameof(OpenPaneLength),
+            typeof(double),
+            typeof(NavigationView),
+            new PropertyMetadata(300.0, OnOpenPaneLengthPropertyChanged, CoerceToGreaterThanZero));
+
+    public double OpenPaneLength
+    {
+        get => (double)GetValue(OpenPaneLengthProperty);
+        set => SetValue(OpenPaneLengthProperty, value);
+    }
+
+    private static void OnOpenPaneLengthPropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)
+    {
+        var owner = (NavigationView)sender;
+        owner.PropertyChanged(args);
+    }
+
+    #endregion
+
+    #region ContentLeftPadding
+
+    public static readonly DependencyProperty ContentLeftPaddingProperty =
+        DependencyProperty.Register(
+            nameof(ContentLeftPadding),
+            typeof(double),
+            typeof(NavigationView),
+            new PropertyMetadata(24.0, OnContentLeftPaddingPropertyChanged, CoerceToGreaterThanZero));
+
+    public double ContentLeftPadding
+    {
+        get => (double)GetValue(ContentLeftPaddingProperty);
+        set => SetValue(ContentLeftPaddingProperty, value);
+    }
+
+    private static void OnContentLeftPaddingPropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)
+    {
+        var owner = (NavigationView)sender;
+        owner.PropertyChanged(args);
+    }
+
+    #endregion
+
+    #region PaneToggleButtonStyle
+
+    public static readonly DependencyProperty PaneToggleButtonStyleProperty =
+        DependencyProperty.Register(
+            nameof(PaneToggleButtonStyle),
+            typeof(Style),
+            typeof(NavigationView),
+            new PropertyMetadata(OnPaneToggleButtonStylePropertyChanged));
+
+    public Style PaneToggleButtonStyle
+    {
+        get => (Style)GetValue(PaneToggleButtonStyleProperty);
+        set => SetValue(PaneToggleButtonStyleProperty, value);
+    }
+
+    private static void OnPaneToggleButtonStylePropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)
+    {
+        var owner = (NavigationView)sender;
+        owner.PropertyChanged(args);
+    }
+
+    #endregion
+
+    #region SelectedItem
+
+    public static readonly DependencyProperty SelectedItemProperty =
+        DependencyProperty.Register(
+            nameof(SelectedItem),
+            typeof(object),
+            typeof(NavigationView),
+            new PropertyMetadata(OnSelectedItemPropertyChanged));
+
+    public object SelectedItem
+    {
+        get => GetValue(SelectedItemProperty);
+        set => SetValue(SelectedItemProperty, value);
+    }
+
+    private static void OnSelectedItemPropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)
+    {
+        var owner = (NavigationView)sender;
+        owner.PropertyChanged(args);
+    }
+
+    #endregion
+
+    #region MenuItems
+
+    public static readonly DependencyProperty MenuItemsProperty =
+        DependencyProperty.Register(
+            nameof(MenuItems),
+            typeof(IList),
+            typeof(NavigationView),
+            new PropertyMetadata(OnMenuItemsPropertyChanged));
+
+    public IList MenuItems
+    {
+        get => (IList)GetValue(MenuItemsProperty); set => SetValue(MenuItemsProperty, value);
+    }
+
+    private static void OnMenuItemsPropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)
+    {
+        var owner = (NavigationView)sender;
+        owner.PropertyChanged(args);
+    }
+
+    #endregion
+
+    #region MenuItemsSource
+
+    public static readonly DependencyProperty MenuItemsSourceProperty =
+        DependencyProperty.Register(
+            nameof(MenuItemsSource),
+            typeof(object),
+            typeof(NavigationView),
+            new PropertyMetadata(OnMenuItemsSourcePropertyChanged));
+
+    public object MenuItemsSource
+    {
+        get => GetValue(MenuItemsSourceProperty);
+        set => SetValue(MenuItemsSourceProperty, value);
+    }
+
+    private static void OnMenuItemsSourcePropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)
+    {
+        var owner = (NavigationView)sender;
+        owner.PropertyChanged(args);
+    }
+
+    #endregion
+
+    #region AutoSuggestBox
+
+    public static readonly DependencyProperty AutoSuggestBoxProperty =
+        DependencyProperty.Register(
+            nameof(AutoSuggestBox),
+            typeof(AutoSuggestBox),
+            typeof(NavigationView),
+            new PropertyMetadata(OnAutoSuggestBoxPropertyChanged));
+
+    public AutoSuggestBox AutoSuggestBox
+    {
+        get => (AutoSuggestBox)GetValue(AutoSuggestBoxProperty);
+        set => SetValue(AutoSuggestBoxProperty, value);
+    }
+
+    private static void OnAutoSuggestBoxPropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)
+    {
+        var owner = (NavigationView)sender;
+        owner.PropertyChanged(args);
+    }
+
+    #endregion
+
+    #region MenuItemTemplate
+
+    public static readonly DependencyProperty MenuItemTemplateProperty =
+        DependencyProperty.Register(
+            nameof(MenuItemTemplate),
+            typeof(DataTemplate),
+            typeof(NavigationView),
+            new PropertyMetadata(OnMenuItemTemplatePropertyChanged));
+
+    public DataTemplate MenuItemTemplate
+    {
+        get => (DataTemplate)GetValue(MenuItemTemplateProperty);
+        set => SetValue(MenuItemTemplateProperty, value);
+    }
+
+    private static void OnMenuItemTemplatePropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)
+    {
+        var owner = (NavigationView)sender;
+        owner.PropertyChanged(args);
+    }
+
+    #endregion
+
+    #region MenuItemTemplateSelector
+
+    public static readonly DependencyProperty MenuItemTemplateSelectorProperty =
+        DependencyProperty.Register(
+            nameof(MenuItemTemplateSelector),
+            typeof(DataTemplateSelector),
+            typeof(NavigationView),
+            new PropertyMetadata(OnMenuItemTemplateSelectorPropertyChanged));
+
+    public DataTemplateSelector MenuItemTemplateSelector
+    {
+        get => (DataTemplateSelector)GetValue(MenuItemTemplateSelectorProperty);
+        set => SetValue(MenuItemTemplateSelectorProperty, value);
+    }
+
+    private static void OnMenuItemTemplateSelectorPropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)
+    {
+        var owner = (NavigationView)sender;
+        owner.PropertyChanged(args);
+    }
+
+    #endregion
+
+    #region MenuItemContainerStyle
+
+    public static readonly DependencyProperty MenuItemContainerStyleProperty =
+        DependencyProperty.Register(
+            nameof(MenuItemContainerStyle),
+            typeof(Style),
+            typeof(NavigationView),
+            new PropertyMetadata(OnMenuItemContainerStylePropertyChanged));
+
+    public Style MenuItemContainerStyle
+    {
+        get => (Style)GetValue(MenuItemContainerStyleProperty);
+        set => SetValue(MenuItemContainerStyleProperty, value);
+    }
+
+    private static void OnMenuItemContainerStylePropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)
+    {
+        var owner = (NavigationView)sender;
+        owner.PropertyChanged(args);
+    }
+
+    #endregion
+
+    #region MenuItemContainerStyleSelector
+
+    public static readonly DependencyProperty MenuItemContainerStyleSelectorProperty =
+        DependencyProperty.Register(
+            nameof(MenuItemContainerStyleSelector),
+            typeof(StyleSelector),
+            typeof(NavigationView),
+            new PropertyMetadata(OnMenuItemContainerStyleSelectorPropertyChanged));
+
+    public StyleSelector MenuItemContainerStyleSelector
+    {
+        get => (StyleSelector)GetValue(MenuItemContainerStyleSelectorProperty);
+        set => SetValue(MenuItemContainerStyleSelectorProperty, value);
+    }
+
+    private static void OnMenuItemContainerStyleSelectorPropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)
+    {
+        ((NavigationView)sender).OnMenuItemContainerStyleSelectorPropertyChanged(args);
+    }
+
+    private void OnMenuItemContainerStyleSelectorPropertyChanged(DependencyPropertyChangedEventArgs args)
+    {
+
+    }
+
+    #endregion
+
+    #region IsBackButtonVisible
+
+    public static readonly DependencyProperty IsBackButtonVisibleProperty =
+        DependencyProperty.Register(
+            nameof(IsBackButtonVisible),
+            typeof(bool),
+            typeof(NavigationView),
+            new PropertyMetadata(true, OnIsBackButtonVisiblePropertyChanged));
+
+    public bool IsBackButtonVisible
+    {
+        get => (bool)GetValue(IsBackButtonVisibleProperty);
+        set => SetValue(IsBackButtonVisibleProperty, value);
+    }
+
+    private static void OnIsBackButtonVisiblePropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)
+    {
+        var owner = (NavigationView)sender;
+        owner.PropertyChanged(args);
+    }
+
+    #endregion
+
+    #region IsBackEnabled
+
+    public static readonly DependencyProperty IsBackEnabledProperty =
+        DependencyProperty.Register(
+            nameof(IsBackEnabled),
+            typeof(bool),
+            typeof(NavigationView),
+            new PropertyMetadata(OnIsBackEnabledPropertyChanged));
+
+    public bool IsBackEnabled
+    {
+        get => (bool)GetValue(IsBackEnabledProperty);
+        set => SetValue(IsBackEnabledProperty, value);
+    }
+
+    private static void OnIsBackEnabledPropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)
+    {
+        var owner = (NavigationView)sender;
+        owner.PropertyChanged(args);
+    }
+
+    #endregion
+
+    #region PaneCustomContent
+
+    public static readonly DependencyProperty PaneCustomContentProperty =
+        DependencyProperty.Register(
+            nameof(PaneCustomContent),
+            typeof(UIElement),
+            typeof(NavigationView),
+            new PropertyMetadata(OnPaneCustomContentPropertyChanged));
+
+    public UIElement PaneCustomContent
+    {
+        get => (UIElement)GetValue(PaneCustomContentProperty);
+        set => SetValue(PaneCustomContentProperty, value);
+    }
+
+    private static void OnPaneCustomContentPropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)
+    {
+        var owner = (NavigationView)sender;
+        owner.PropertyChanged(args);
+    }
+
+    #endregion
+
+    #region IsPaneVisible
+
+    public static readonly DependencyProperty IsPaneVisibleProperty =
+        DependencyProperty.Register(
+            nameof(IsPaneVisible),
+            typeof(bool),
+            typeof(NavigationView),
+            new PropertyMetadata(true, OnIsPaneVisiblePropertyChanged));
+
+    public bool IsPaneVisible
+    {
+        get => (bool)GetValue(IsPaneVisibleProperty);
+        set => SetValue(IsPaneVisibleProperty, value);
+    }
+
+    private static void OnIsPaneVisiblePropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)
+    {
+        var owner = (NavigationView)sender;
+        owner.PropertyChanged(args);
+    }
+
+    #endregion
+
+    #region TemplateSettings
+
+    private static readonly DependencyPropertyKey s_templateSettingsPropertyKey =
+        DependencyProperty.RegisterReadOnly(
+            nameof(TemplateSettings),
+            typeof(NavigationViewTemplateSettings),
+            typeof(NavigationView),
+            null);
+
+    public static readonly DependencyProperty TemplateSettingsProperty =
+        s_templateSettingsPropertyKey.DependencyProperty;
+
+    public NavigationViewTemplateSettings TemplateSettings
+    {
+        get => (NavigationViewTemplateSettings)GetValue(TemplateSettingsProperty);
+        private set => SetValue(s_templateSettingsPropertyKey, value);
+    }
+
+    #endregion
+
+    #region IsTitleBarAutoPaddingEnabled
+
+    public static readonly DependencyProperty IsTitleBarAutoPaddingEnabledProperty =
+        DependencyProperty.Register(
+            nameof(IsTitleBarAutoPaddingEnabled),
+            typeof(bool),
+            typeof(NavigationView),
+            new PropertyMetadata(false, OnIsTitleBarAutoPaddingEnabledPropertyChanged));
+
+    public bool IsTitleBarAutoPaddingEnabled
+    {
+        get => (bool)GetValue(IsTitleBarAutoPaddingEnabledProperty);
+        set => SetValue(IsTitleBarAutoPaddingEnabledProperty, value);
+    }
+
+    private static void OnIsTitleBarAutoPaddingEnabledPropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)
+    {
+        var owner = (NavigationView)sender;
+        owner.PropertyChanged(args);
+    }
+
+    #endregion
+
+    public event TypedEventHandler<NavigationView, NavigationViewSelectionChangedEventArgs>? SelectionChanged;
+    public event TypedEventHandler<NavigationView, NavigationViewItemInvokedEventArgs>? ItemInvoked;
+    public event TypedEventHandler<NavigationView, NavigationViewDisplayModeChangedEventArgs>? DisplayModeChanged;
+    public event TypedEventHandler<NavigationView, NavigationViewBackRequestedEventArgs>? BackRequested;
+    public event TypedEventHandler<NavigationView, object?>? PaneClosed;
+    public event TypedEventHandler<NavigationView, NavigationViewPaneClosingEventArgs>? PaneClosing;
+    public event TypedEventHandler<NavigationView, object?>? PaneOpened;
+    public event TypedEventHandler<NavigationView, object?>? PaneOpening;
+
+    private static object CoerceToGreaterThanZero(DependencyObject d, object baseValue)
+    {
+        if (baseValue is double value)
+        {
+            CoerceToGreaterThanZero(ref value);
+            return value;
+        }
+        return baseValue;
+    }
+}
