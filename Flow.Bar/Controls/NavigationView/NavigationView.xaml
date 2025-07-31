@@ -356,7 +356,6 @@
                                     x:Name="ContentBorder"
                                     Margin="{DynamicResource NavigationViewContentMargin}"
                                     BorderBrush="{DynamicResource NavigationViewContentGridBorderBrush}"
-                                    BorderThickness="{DynamicResource NavigationViewContentGridBorderThickness}"
                                     CornerRadius="{DynamicResource NavigationViewContentGridCornerRadius}">
                                     <Grid x:Name="ContentGrid">
                                         <Grid.RowDefinitions>
@@ -524,7 +523,6 @@
                             <Setter TargetName="HeaderContent" Property="Margin" Value="0 44 0 0" />
                             <!--  Workaround for min height: Use PaneToggleButtonGrid.Height instead  -->
                             <Setter TargetName="ContentPaneTopPadding" Property="Margin" Value="0 40 0 0" />
-                            <Setter TargetName="ContentBorder" Property="BorderThickness" Value="{DynamicResource NavigationViewMinimalContentGridBorderThickness}" />
                             <Setter TargetName="ContentBorder" Property="CornerRadius" Value="{DynamicResource NavigationViewMinimalContentGridCornerRadius}" />
                             <Setter TargetName="ContentBorder" Property="Margin" Value="{DynamicResource NavigationViewMinimalContentMargin}" />
                         </Trigger>
@@ -533,7 +531,6 @@
                             <Setter TargetName="HeaderContent" Property="Margin" Value="0 44 0 0" />
                             <!--  Workaround for min height: Use PaneToggleButtonGrid.Height  -->
                             <Setter TargetName="ContentPaneTopPadding" Property="Margin" Value="0 40 0 0" />
-                            <Setter TargetName="ContentBorder" Property="BorderThickness" Value="{DynamicResource NavigationViewMinimalContentGridBorderThickness}" />
                             <Setter TargetName="ContentBorder" Property="CornerRadius" Value="{DynamicResource NavigationViewMinimalContentGridCornerRadius}" />
                             <Setter TargetName="ContentBorder" Property="Margin" Value="{DynamicResource NavigationViewMinimalContentMargin}" />
                         </Trigger>
