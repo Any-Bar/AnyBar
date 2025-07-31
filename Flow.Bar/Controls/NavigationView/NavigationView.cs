@@ -1125,7 +1125,7 @@ public partial class NavigationView : ContentControl, IControlProtected
             UIElement? paneContentGrid = m_paneContentGrid;
 
             if ((prevIndicator != nextIndicator) && paneContentGrid != null && prevIndicator != null && nextIndicator != null &&
-                App.Settings.EnbaleAnimationEffects && RenderCapability.Tier > 0) // SharedHelpers.IsAnimationsEnabled
+                App.Settings.EnableAnimationEffects && RenderCapability.Tier > 0) // SharedHelpers.IsAnimationsEnabled
             {
                 // Make sure both indicators are visible and in their original locations
                 ResetElementAnimationProperties(prevIndicator, 1.0);

@@ -70,7 +70,7 @@
                 <ui:FontIcon Glyph="&#xE805;" />
             </ui:SettingsCard.HeaderIcon>
 
-            <ui:ToggleSwitch IsOn="{Binding Settings.EnbaleAnimationEffects, Mode=TwoWay}" />
+            <ui:ToggleSwitch IsOn="{Binding Settings.EnableAnimationEffects, Mode=TwoWay}" />
         </ui:SettingsCard>
     </ikw:SimpleStackPanel>
 </ui:Page>

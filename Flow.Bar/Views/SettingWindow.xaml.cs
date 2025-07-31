@@ -57,7 +57,7 @@ public partial class SettingWindow : Window
             _lastItem = item;
             RootFrame.Navigate(GetPageType(item),
                 parameter: null,
-                infoOverride: App.Settings.EnbaleAnimationEffects ? null : // Default transition animation
+                infoOverride: App.Settings.EnableAnimationEffects ? null : // Default transition animation
                 new SuppressNavigationTransitionInfo()); // Suppress animation if disabled
         }
         else

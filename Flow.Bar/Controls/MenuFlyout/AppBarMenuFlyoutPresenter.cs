@@ -95,7 +95,7 @@ public class AppBarMenuFlyoutPresenter : ContextMenu
                 HookupParentPopup();
             }
 
-            if (App.Settings.EnbaleAnimationEffects)
+            if (App.Settings.EnableAnimationEffects)
             {
                 Dispatcher.BeginInvoke(DispatcherPriority.Loaded, ApplyOpenAnimation);
             }

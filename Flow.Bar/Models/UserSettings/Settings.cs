@@ -29,7 +29,7 @@ public class Settings
 
     public bool EnableTransparencyEffects { get; set; } = true;
 
-    public bool EnbaleAnimationEffects { get; set; } = true;
+    public bool EnableAnimationEffects { get; set; } = true;
 
     private ConcurrentDictionary<int, AppBarModel>? _appBars = null;
     public ConcurrentDictionary<int, AppBarModel> AppBars
