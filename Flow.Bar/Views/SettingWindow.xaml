@@ -10,8 +10,8 @@
     xmlns:navcontrol="clr-namespace:Flow.Bar.Controls.NavigationView"
     xmlns:ui="http://schemas.inkore.net/lib/ui/wpf/modern"
     Title="{DynamicResource SettingWindow_Title}"
-    Width="801"
-    Height="450"
+    Width="1026"
+    Height="618"
     MinWidth="507"
     MinHeight="327"
     ui:ThemeManager.IsThemeAware="True"
@@ -21,6 +21,7 @@
     ui:WindowHelper.SystemBackdropType="Mica"
     ui:WindowHelper.UseModernWindowStyle="True"
     Closed="Window_Closed"
+    WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
 
     <Grid>
