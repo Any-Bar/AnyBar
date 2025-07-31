@@ -41,7 +41,7 @@ public partial class SettingWindow : Window
 
     private void NavigationViewControl_Loaded(object sender, RoutedEventArgs e)
     {
-        NavigationViewControl.SelectedItem = NavigationViewControl.MenuItems[0]; // Select the first item by default
+        NavigationViewControl.SelectedItem = NavigationViewControl.MenuItems[0]!; // Select the first item by default
     }
 
     private void NavigationViewControl_SelectionChanged(NavigationView _, NavigationViewSelectionChangedEventArgs args)
