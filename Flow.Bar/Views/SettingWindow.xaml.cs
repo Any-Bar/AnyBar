@@ -1,6 +1,7 @@
 ﻿using Flow.Bar.Controls.NavigationView;
 using Flow.Bar.Views.SettingPages;
 using iNKORE.UI.WPF.Helpers;
+using iNKORE.UI.WPF.Modern.Media.Animation;
 using System;
 using System.Linq;
 using System.Windows;
@@ -54,7 +55,10 @@ public partial class SettingWindow : Window
             if (item == _lastItem) return;
 
             _lastItem = item;
-            RootFrame.Navigate(GetPageType(item));
+            RootFrame.Navigate(GetPageType(item),
+                parameter: null,
+                infoOverride: App.Settings.EnbaleAnimationEffects ? null : // Default transition animation
+                new SuppressNavigationTransitionInfo()); // Suppress animation if disabled
         }
         else
         {
