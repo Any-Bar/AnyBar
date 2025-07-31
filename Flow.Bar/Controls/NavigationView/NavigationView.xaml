@@ -351,9 +351,10 @@
                             </local1:SplitView.Pane>
 
                             <local1:SplitView.Content>
+                                <!--  Workaround for top margin: Use NavigationViewContentMargin instead  -->
                                 <ikw:ClippedContent
                                     x:Name="ContentBorder"
-                                    Margin="{DynamicResource NavigationViewContentMargin}"
+                                    Margin="0 48 0 0"
                                     BorderBrush="{DynamicResource NavigationViewContentGridBorderBrush}"
                                     CornerRadius="{DynamicResource NavigationViewContentGridCornerRadius}">
                                     <Grid x:Name="ContentGrid">
