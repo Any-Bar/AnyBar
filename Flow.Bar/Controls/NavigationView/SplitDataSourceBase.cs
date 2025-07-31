@@ -27,7 +27,7 @@ public class SplitVector<T, SplitVectorID>(SplitVectorID id, Func<T, int> indexO
 
     public IList GetVector() { return m_vector; }
 
-    public void OnRawDataRemove(int indexInOriginalVector, SplitVectorID vectorID)
+    public void OnRawDataRemove(int indexInOriginalVector, SplitVectorID? vectorID)
     {
         if (Equals(m_vectorID, vectorID))
         {
@@ -44,7 +44,7 @@ public class SplitVector<T, SplitVectorID>(SplitVectorID id, Func<T, int> indexO
         }
     }
 
-    public void OnRawDataInsert(int preferIndex, int indexInOriginalVector, T value, SplitVectorID vectorID)
+    public void OnRawDataInsert(int preferIndex, int indexInOriginalVector, T? value, SplitVectorID? vectorID)
     {
         for (int i = 0; i < m_indexesInOriginalVector.Count; i++)
         {
@@ -61,7 +61,7 @@ public class SplitVector<T, SplitVectorID>(SplitVectorID id, Func<T, int> indexO
         }
     }
 
-    public void InsertAt(int preferIndex, int indexInOriginalVector, T value)
+    public void InsertAt(int preferIndex, int indexInOriginalVector, T? value)
     {
         Debug.Assert(preferIndex >= 0);
         Debug.Assert(indexInOriginalVector >= 0);
@@ -119,22 +119,22 @@ public class SplitVector<T, SplitVectorID>(SplitVectorID id, Func<T, int> indexO
     int Size() { return m_indexesInOriginalVector.Count; }
 
     readonly SplitVectorID m_vectorID = id;
-    readonly Collection<T> m_vector = new ObservableCollection<T>();
+    readonly Collection<T?> m_vector = new ObservableCollection<T?>();
     readonly List<int> m_indexesInOriginalVector = [];
     readonly Func<T, int> m_indexFunctionFromDataSource = indexOfFunction;
 }
 
-class SplitDataSourceBase<T, SplitVectorID, AttachedDataType> where SplitVectorID : Enum
+internal class SplitDataSourceBase<T, SplitVectorID, AttachedDataType> where SplitVectorID : Enum
 {
     static readonly int s_splitVectorSize = Enum.GetNames(typeof(SplitVectorID)).Length;
 
-    public SplitVectorID GetVectorIDForItem(int index)
+    public SplitVectorID? GetVectorIDForItem(int index)
     {
         Debug.Assert(index >= 0 && index < RawDataSize());
         return m_flags[index];
     }
 
-    public AttachedDataType AttachedData(int index)
+    public AttachedDataType? AttachedData(int index)
     {
         Debug.Assert(index >= 0 && index < RawDataSize());
         return m_attachedData[index];
@@ -151,7 +151,7 @@ class SplitDataSourceBase<T, SplitVectorID, AttachedDataType> where SplitVectorI
         ResetAttachedData(DefaultAttachedData());
     }
 
-    public void ResetAttachedData(AttachedDataType attachedData)
+    public void ResetAttachedData(AttachedDataType? attachedData)
     {
         for (int i = 0; i < RawDataSize(); i++)
         {
@@ -341,12 +341,12 @@ class SplitDataSourceBase<T, SplitVectorID, AttachedDataType> where SplitVectorI
         m_attachedData.Insert(index, defaultAttachedData);
     }
 
-    int GetPreferIndex(int index, SplitVectorID vectorID)
+    int GetPreferIndex(int index, SplitVectorID? vectorID)
     {
         return RangeCount(0, index, vectorID);
     }
 
-    int RangeCount(int start, int end, SplitVectorID vectorID)
+    int RangeCount(int start, int end, SplitVectorID? vectorID)
     {
         int count = 0;
         for (int i = start; i < end; i++)
@@ -360,7 +360,7 @@ class SplitDataSourceBase<T, SplitVectorID, AttachedDataType> where SplitVectorI
     }
 
     // length is the same as data source, and used to identify which SplitVector it belongs to.
-    readonly List<SplitVectorID> m_flags = [];
-    readonly List<AttachedDataType> m_attachedData = [];
+    readonly List<SplitVectorID?> m_flags = [];
+    readonly List<AttachedDataType?> m_attachedData = [];
     readonly SplitVector<T, SplitVectorID>[] m_splitVectors = new SplitVector<T, SplitVectorID>[s_splitVectorSize];
 }
