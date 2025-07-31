@@ -220,7 +220,7 @@
                                         Style="{DynamicResource NavigationBackButtonNormalStyle}"
                                         Visibility="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=TemplateSettings.BackButtonVisibility}">
                                         <ToolTipService.ToolTip>
-                                            <ToolTip x:Name="NavigationViewBackButtonToolTip" />
+                                            <ToolTip x:Name="NavigationViewBackButtonToolTip" Content="{DynamicResource NavigationView_Back}" />
                                         </ToolTipService.ToolTip>
                                     </Button>
                                     <Button
@@ -229,7 +229,7 @@
                                         VerticalAlignment="Top"
                                         Style="{DynamicResource NavigationBackButtonNormalStyle}">
                                         <ToolTipService.ToolTip>
-                                            <ToolTip x:Name="NavigationViewCloseButtonToolTip" />
+                                            <ToolTip x:Name="NavigationViewCloseButtonToolTip" Content="{DynamicResource NavigationView_CloseNavigation}" />
                                         </ToolTipService.ToolTip>
                                     </Button>
                                 </Grid>
@@ -244,7 +244,11 @@
                                         VerticalAlignment="Top"
                                         ui:FocusVisualHelper.FocusVisualMargin="0"
                                         Style="{TemplateBinding PaneToggleButtonStyle}"
-                                        Visibility="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=TemplateSettings.PaneToggleButtonVisibility}" />
+                                        Visibility="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=TemplateSettings.PaneToggleButtonVisibility}">
+                                        <ToolTipService.ToolTip>
+                                            <ToolTip x:Name="NavigationViewTogglePaneButtonToolTip" Content="{DynamicResource NavigationView_OpenNavigation}" />
+                                        </ToolTipService.ToolTip>
+                                    </Button>
                                 </Grid>
 
                                 <ContentControl
@@ -546,6 +550,20 @@
                             <Setter TargetName="ShadowCaster" Property="Opacity" Value="0" />
                             <Setter TargetName="RootSplitView" Property="PaneBackground" Value="{DynamicResource NavigationViewExpandedPaneBackground}" />
                         </Trigger>
+
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="IsPaneOpen" Value="False" />
+                            </MultiTrigger.Conditions>
+                            <Setter TargetName="NavigationViewTogglePaneButtonToolTip" Property="Content" Value="{DynamicResource NavigationView_OpenNavigation}" />
+                        </MultiTrigger>
+
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="IsPaneOpen" Value="True" />
+                            </MultiTrigger.Conditions>
+                            <Setter TargetName="NavigationViewTogglePaneButtonToolTip" Property="Content" Value="{DynamicResource NavigationView_CloseNavigation}" />
+                        </MultiTrigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>

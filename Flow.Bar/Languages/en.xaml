@@ -46,4 +46,9 @@
     <system:String x:Key="PluginLoader_PluginsHaveErrored">The following plugins have errored and cannot be loaded:</system:String>
     <system:String x:Key="PluginLoader_ReferToLogs">Please refer to the logs for more information</system:String>
 
+    <!--  Navigation View  -->
+    <system:String x:Key="NavigationView_Back">Back</system:String>
+    <system:String x:Key="NavigationView_CloseNavigation">Close navigation</system:String>
+    <system:String x:Key="NavigationView_OpenNavigation">Open navigation</system:String>
+
 </ResourceDictionary>

@@ -10,7 +10,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows;
-using System.Windows.Automation;
 using System.Windows.Automation.Peers;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -50,9 +49,7 @@ public partial class NavigationView : ContentControl, IControlProtected
     private const string c_togglePaneTopPadding = "TogglePaneTopPadding";
     private const string c_contentPaneTopPadding = "ContentPaneTopPadding";
     private const string c_navViewBackButton = "NavigationViewBackButton";
-    private const string c_navViewBackButtonToolTip = "NavigationViewBackButtonToolTip";
     private const string c_navViewCloseButton = "NavigationViewCloseButton";
-    private const string c_navViewCloseButtonToolTip = "NavigationViewCloseButtonToolTip";
 
     // DisplayMode Left specific items
     private const string c_leftNavPaneAutoSuggestBoxPresenter = "PaneAutoSuggestBoxPresenter";
@@ -218,8 +215,6 @@ public partial class NavigationView : ContentControl, IControlProtected
             m_paneToggleButton = paneToggleButton;
             paneToggleButton.Click += OnPaneToggleButtonClick;
 
-            SetPaneToggleButtonAutomationName();
-
             WindowChrome.SetIsHitTestVisibleInChrome(paneToggleButton, true);
         }
 
@@ -294,22 +289,12 @@ public partial class NavigationView : ContentControl, IControlProtected
             m_contentPaneTopPadding = GetTemplateChild(c_contentPaneTopPadding) as FrameworkElement;
         }
 
-        if (GetTemplateChild(c_navViewBackButtonToolTip) is ToolTip backButtonToolTip)
-        {
-            backButtonToolTip.Content = "Back";
-        }
-
         if (GetTemplateChild(c_navViewCloseButton) is Button closeButton)
         {
             m_closeButton = closeButton;
             closeButton.Click += OnPaneToggleButtonClick;
 
             WindowChrome.SetIsHitTestVisibleInChrome(closeButton, true);
-        }
-
-        if (GetTemplateChild(c_navViewCloseButtonToolTip) is ToolTip closeButtonToolTip)
-        {
-            closeButtonToolTip.Content = "Close navigation";
         }
 
         m_itemsContainerRow = GetTemplateChildT<RowDefinition>(c_itemsContainerRow, controlProtected);
@@ -1100,31 +1085,6 @@ public partial class NavigationView : ContentControl, IControlProtected
     private bool ShouldShowBackOrCloseButton()
     {
         return IsBackButtonVisible;
-    }
-
-    // The automation name and tooltip for the pane toggle button changes depending on whether it is open or closed
-    // put the logic here as it will be called in a couple places
-    private void SetPaneToggleButtonAutomationName()
-    {
-        string navigationName;
-        if (IsPaneOpen)
-        {
-            navigationName = "Close navigation";
-        }
-        else
-        {
-            navigationName = "Open navigation";
-        }
-
-        if (m_paneToggleButton is { } paneToggleButton)
-        {
-            AutomationProperties.SetName(paneToggleButton, navigationName);
-            var toolTip = new ToolTip
-            {
-                Content = navigationName
-            };
-            ToolTipService.SetToolTip(paneToggleButton, toolTip);
-        }
     }
 
     private static readonly Point s_frame1point1 = new(0.9, 0.1);
@@ -2294,7 +2254,6 @@ public partial class NavigationView : ContentControl, IControlProtected
             }
         }
 
-        SetPaneToggleButtonAutomationName();
         UpdatePaneTabFocusNavigation();
         UpdatePaneOverlayGroup();
 
