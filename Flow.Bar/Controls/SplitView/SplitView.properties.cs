@@ -5,6 +5,8 @@ using iNKORE.UI.WPF.Modern.Controls.Helpers;
 
 namespace Flow.Bar.Controls.SplitView;
 
+#pragma warning disable IDE0060 // Remove unused parameter
+
 partial class SplitView
 {
     #region CompactPaneLength
