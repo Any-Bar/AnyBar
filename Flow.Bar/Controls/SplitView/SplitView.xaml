@@ -646,6 +646,7 @@
                                     Visibility="Collapsed" />
                             </Grid>
                         </Border>
+
                         <!--  Content Area  -->
                         <Grid x:Name="ContentRoot" Grid.ColumnSpan="2">
                             <Grid.RenderTransform>
@@ -656,11 +657,10 @@
                                 x:Name="LightDismissLayer"
                                 Fill="Transparent"
                                 Visibility="Collapsed" />
-
                         </Grid>
+
                         <VisualStateManager.VisualStateGroups>
                             <VisualStateGroup x:Name="DisplayModeStates">
-
                                 <VisualStateGroup.Transitions>
                                     <VisualTransition
                                         Storyboard="{StaticResource FromClosedToOpenOverlayLeft}"
@@ -777,24 +777,21 @@
                                 <VisualState x:Name="OpenInlineRight" Storyboard="{StaticResource OpenInlineRight}" />
                                 <VisualState x:Name="OpenCompactOverlayLeft" Storyboard="{StaticResource OpenCompactOverlayLeft}" />
                                 <VisualState x:Name="OpenCompactOverlayRight" Storyboard="{StaticResource OpenCompactOverlayRight}" />
-
                             </VisualStateGroup>
+
                             <VisualStateGroup x:Name="OverlayVisibilityStates">
                                 <VisualState x:Name="OverlayNotVisible" />
                                 <VisualState x:Name="OverlayVisible">
-
                                     <Storyboard>
                                         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="LightDismissLayer" Storyboard.TargetProperty="Fill">
                                             <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="{DynamicResource SplitViewLightDismissOverlayBackground}" />
                                         </ObjectAnimationUsingKeyFrames>
                                     </Storyboard>
                                 </VisualState>
-
                             </VisualStateGroup>
 
                         </VisualStateManager.VisualStateGroups>
                     </Grid>
-
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
