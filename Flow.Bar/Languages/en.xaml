@@ -20,7 +20,7 @@
     <system:String x:Key="SettingPaneGeneral_HideSettingWindowDescription">Hide setting window after starting up</system:String>
     <system:String x:Key="SettingPaneGeneral_Appearance">Appearance</system:String>
     <system:String x:Key="SettingPaneGeneral_TransparencyEffects">Transparency effects</system:String>
-    <system:String x:Key="SettingPaneGeneral_TransparencyEffectsDescription">Make some window background slightly transparent</system:String>
+    <system:String x:Key="SettingPaneGeneral_TransparencyEffectsDescription">Make some control background slightly transparent</system:String>
     <system:String x:Key="SettingPaneGeneral_AnimationEffects">Animation effects</system:String>
     <system:String x:Key="SettingPaneGeneral_AnimationEffectsDescription">Show animation during menu pop-up, etc.</system:String>
 
