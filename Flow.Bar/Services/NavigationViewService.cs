@@ -153,9 +153,7 @@ public class NavigationViewService(PageService pageService)
 
     private void Frame_OnNavigating(object sender, NavigatingCancelEventArgs e)
     {
-        // Update the back button state
         _navigationView!.IsBackEnabled = _frame!.CanGoBack;
-
         if (sender is not Frame frame) return;
         if (GetPageViewModel(frame) is INavigationAware navigationAware)
         {
@@ -165,9 +163,7 @@ public class NavigationViewService(PageService pageService)
 
     private void Frame_OnNavigated(object sender, NavigationEventArgs e)
     {
-        // Update the back button state
         _navigationView!.IsBackEnabled = _frame!.CanGoBack;
-
         if (sender is not Frame frame) return;
         if (GetPageViewModel(frame) is INavigationAware navigationAware)
         {
