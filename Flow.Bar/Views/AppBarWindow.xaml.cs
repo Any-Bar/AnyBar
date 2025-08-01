@@ -28,6 +28,8 @@ namespace Flow.Bar.Views;
 
 public partial class AppBarWindow : Window
 {
+    public AppBarViewModel ViewModel { get; } = Ioc.Default.GetRequiredService<AppBarViewModel>();
+
     private HWND _hwnd;
     private HwndSource? _hwndSource;
 
@@ -39,28 +41,27 @@ public partial class AppBarWindow : Window
     private bool _isExplorerRestarting = false;
 
     private readonly AppBarModel _model;
-    private readonly AppBarViewModel _viewModel = Ioc.Default.GetRequiredService<AppBarViewModel>();
 
     private readonly AppBarMenuFlyout _contextMenu = new();
 
     public AppBarWindow(AppBarModel model)
     {
         _model = model;
-        _viewModel.Order = model.Order;
-        _viewModel.Order = _model.Order;
-        _viewModel.DockMode = _model.DockMode;
+        ViewModel.Order = model.Order;
+        ViewModel.Order = _model.Order;
+        ViewModel.DockMode = _model.DockMode;
         if (_model.MonitorName != null)
         {
-            _viewModel.Monitor = MonitorInfo.GetDisplayMonitors().FirstOrDefault(m => m.Name == _model.MonitorName);
+            ViewModel.Monitor = MonitorInfo.GetDisplayMonitors().FirstOrDefault(m => m.Name == _model.MonitorName);
         }
         else
         {
-            _viewModel.Monitor = null;
+            ViewModel.Monitor = null;
         }
-        _viewModel.DockedWidthOrHeight = _model.DockedWidthOrHeight;
-        _viewModel.IsResizable = _model.IsResizable;
+        ViewModel.DockedWidthOrHeight = _model.DockedWidthOrHeight;
+        ViewModel.IsResizable = _model.IsResizable;
         InitializeComponent();
-        _viewModel.PropertyChanged += ViewModel_PropertyChanged;
+        ViewModel.PropertyChanged += ViewModel_PropertyChanged;
         WindowStyle = WindowStyle.None;
         ResizeMode = ResizeMode.NoResize;
         Topmost = true;
@@ -161,7 +162,7 @@ public partial class AppBarWindow : Window
             return (int)Math.Round(dim / dpi.PixelsPerDip);
         }
 
-        if (_viewModel.DockedWidthOrHeight != null) return;
+        if (ViewModel.DockedWidthOrHeight != null) return;
 
         var monitor = MonitorInfo.GetPrimaryDisplayMonitor();
         if (monitor != null)
@@ -169,19 +170,19 @@ public partial class AppBarWindow : Window
             var taskBarHeight = monitor.Bounds.Height - monitor.WorkingArea.Height;
             if (taskBarHeight != 0) // Taskbar is docked at the top or bottom
             {
-                _viewModel.DockedWidthOrHeight = DesktopDimensionToWpf(this, (int)taskBarHeight);
+                ViewModel.DockedWidthOrHeight = DesktopDimensionToWpf(this, (int)taskBarHeight);
             }
             else
             {
                 var taskBarWidth = monitor.Bounds.Width - monitor.WorkingArea.Width;
                 if (taskBarWidth != 0) // Taskbar is docked at the left or right
                 {
-                    _viewModel.DockedWidthOrHeight = DesktopDimensionToWpf(this, (int)taskBarWidth);
+                    ViewModel.DockedWidthOrHeight = DesktopDimensionToWpf(this, (int)taskBarWidth);
                 }
                 else
                 {
                     // No taskbar detected, set a default value
-                    _viewModel.DockedWidthOrHeight = 200;
+                    ViewModel.DockedWidthOrHeight = 200;
                 }
             }
         }
@@ -196,10 +197,10 @@ public partial class AppBarWindow : Window
         foreach (var pluginControlModel in _model.LeftOrTopPluginControls.OrderBy(c => c.Order))
         {
             var pluginControl = PluginManager.GetBarElement(pluginControlModel.ID, 
-                _viewModel.IsHorizontal ? BarElementPosition.Left : BarElementPosition.Top);
+                ViewModel.IsHorizontal ? BarElementPosition.Left : BarElementPosition.Top);
             if (pluginControl == null) continue;
             LeftOrTopStackPanel.Children.Add(pluginControl);
-            if (_viewModel.DockMode == AppBarDockMode.Left)
+            if (ViewModel.DockMode == AppBarDockMode.Left)
             {
                 pluginControl.VerticalAlignment = VerticalAlignment.Top;
                 pluginControl.HorizontalAlignment = HorizontalAlignment.Center;
@@ -213,10 +214,10 @@ public partial class AppBarWindow : Window
         foreach (var pluginControlModel in _model.RightOrBottomPluginControls.OrderBy(c => c.Order))
         {
             var pluginControl = PluginManager.GetBarElement(pluginControlModel.ID,
-                _viewModel.IsHorizontal ? BarElementPosition.Right : BarElementPosition.Bottom);
+                ViewModel.IsHorizontal ? BarElementPosition.Right : BarElementPosition.Bottom);
             if (pluginControl == null) continue;
             RightOrBottomStackPanel.Children.Add(pluginControl);
-            if (_viewModel.DockMode == AppBarDockMode.Left)
+            if (ViewModel.DockMode == AppBarDockMode.Left)
             {
                 pluginControl.VerticalAlignment = VerticalAlignment.Top;
                 pluginControl.HorizontalAlignment = HorizontalAlignment.Center;
@@ -230,10 +231,10 @@ public partial class AppBarWindow : Window
         foreach (var pluginControlModel in _model.CenterPluginControls.OrderBy(c => c.Order))
         {
             var pluginControl = PluginManager.GetBarElement(pluginControlModel.ID,
-                _viewModel.IsHorizontal ? BarElementPosition.HorizontalCenter : BarElementPosition.VerticalCenter);
+                ViewModel.IsHorizontal ? BarElementPosition.HorizontalCenter : BarElementPosition.VerticalCenter);
             if (pluginControl == null) continue;
             CenterStackPanel.Children.Add(pluginControl);
-            if (_viewModel.DockMode == AppBarDockMode.Left)
+            if (ViewModel.DockMode == AppBarDockMode.Left)
             {
                 pluginControl.VerticalAlignment = VerticalAlignment.Top;
                 pluginControl.HorizontalAlignment = HorizontalAlignment.Center;
@@ -335,7 +336,7 @@ public partial class AppBarWindow : Window
         {
             case nameof(AppBarViewModel.DockMode):
                 OnDockLocationChanged();
-                switch (_viewModel.DockMode)
+                switch (ViewModel.DockMode)
                 {
                     case AppBarDockMode.Left:
                     case AppBarDockMode.Right:
@@ -343,9 +344,9 @@ public partial class AppBarWindow : Window
                         BarThumb.Width = 2;
                         BarThumb.Height = double.NaN;
                         BarThumb.Cursor = Cursors.SizeWE;
-                        DockPanel.SetDock(BarThumb, _viewModel.DockMode == AppBarDockMode.Left ? Dock.Right : Dock.Left);
+                        DockPanel.SetDock(BarThumb, ViewModel.DockMode == AppBarDockMode.Left ? Dock.Right : Dock.Left);
                         // Set grid
-                        PluginControlGrid.Margin = _viewModel.DockMode == AppBarDockMode.Left ? new Thickness(0, 8, BarThumb.Width, 8) : new Thickness(BarThumb.Width, 8, 0, 8);
+                        PluginControlGrid.Margin = ViewModel.DockMode == AppBarDockMode.Left ? new Thickness(0, 8, BarThumb.Width, 8) : new Thickness(BarThumb.Width, 8, 0, 8);
                         // Set stack panel
                         LeftOrTopStackPanel.Orientation = Orientation.Vertical;
                         Grid.SetRow(LeftOrTopStackPanel, 0);
@@ -391,9 +392,9 @@ public partial class AppBarWindow : Window
                         BarThumb.Height = 2;
                         BarThumb.Width = double.NaN;
                         BarThumb.Cursor = Cursors.SizeNS;
-                        DockPanel.SetDock(BarThumb, _viewModel.DockMode == AppBarDockMode.Top ? Dock.Bottom : Dock.Top);
+                        DockPanel.SetDock(BarThumb, ViewModel.DockMode == AppBarDockMode.Top ? Dock.Bottom : Dock.Top);
                         // Set grid
-                        PluginControlGrid.Margin = _viewModel.DockMode == AppBarDockMode.Top ? new Thickness(8, 0, 8, BarThumb.Height) : new Thickness(8, BarThumb.Height, 8, 0);
+                        PluginControlGrid.Margin = ViewModel.DockMode == AppBarDockMode.Top ? new Thickness(8, 0, 8, BarThumb.Height) : new Thickness(8, BarThumb.Height, 8, 0);
                         // Set stack panel
                         LeftOrTopStackPanel.Orientation = Orientation.Horizontal;
                         Grid.SetRow(LeftOrTopStackPanel, 0);
@@ -441,9 +442,9 @@ public partial class AppBarWindow : Window
                 OnDockLocationChanged();
                 break;
             case nameof(AppBarViewModel.IsResizable):
-                if (_viewModel.IsResizable)
+                if (ViewModel.IsResizable)
                 {
-                    BarThumb.Cursor = _viewModel.DockMode switch
+                    BarThumb.Cursor = ViewModel.DockMode switch
                     {
                         AppBarDockMode.Left or AppBarDockMode.Right => Cursors.SizeWE,
                         AppBarDockMode.Top or AppBarDockMode.Bottom => Cursors.SizeNS,
@@ -472,7 +473,7 @@ public partial class AppBarWindow : Window
 
     private void BarThumb_DragCompleted(object sender, System.Windows.Controls.Primitives.DragCompletedEventArgs e)
     {
-        var delta = _viewModel.DockMode switch
+        var delta = ViewModel.DockMode switch
         {
             AppBarDockMode.Left => e.HorizontalChange,
             AppBarDockMode.Right => e.HorizontalChange * -1,
@@ -480,7 +481,7 @@ public partial class AppBarWindow : Window
             AppBarDockMode.Bottom => e.VerticalChange * -1,
             _ => throw new NotSupportedException(),
         };
-        _viewModel.DockedWidthOrHeight += (int)(delta / VisualTreeHelper.GetDpi(this).PixelsPerDip);
+        ViewModel.DockedWidthOrHeight += (int)(delta / VisualTreeHelper.GetDpi(this).PixelsPerDip);
     }
 
     #endregion
@@ -503,18 +504,18 @@ public partial class AppBarWindow : Window
             return value;
         }
 
-        if (_viewModel.DockedWidthOrHeight == null) return false;
+        if (ViewModel.DockedWidthOrHeight == null) return false;
 
-        var dockedWidthOrHeight = _viewModel.DockMode switch
+        var dockedWidthOrHeight = ViewModel.DockMode switch
         {
-            AppBarDockMode.Left or AppBarDockMode.Right => BoundIntToDouble(_viewModel.DockedWidthOrHeight.Value, MinWidth, MaxWidth),
-            AppBarDockMode.Top or AppBarDockMode.Bottom => BoundIntToDouble(_viewModel.DockedWidthOrHeight.Value, MinHeight, MaxHeight),
+            AppBarDockMode.Left or AppBarDockMode.Right => BoundIntToDouble(ViewModel.DockedWidthOrHeight.Value, MinWidth, MaxWidth),
+            AppBarDockMode.Top or AppBarDockMode.Bottom => BoundIntToDouble(ViewModel.DockedWidthOrHeight.Value, MinHeight, MaxHeight),
             _ => throw new NotSupportedException(),
         };
 
-        if (_viewModel.DockedWidthOrHeight != dockedWidthOrHeight)
+        if (ViewModel.DockedWidthOrHeight != dockedWidthOrHeight)
         {
-            _viewModel.DockedWidthOrHeight = dockedWidthOrHeight;
+            ViewModel.DockedWidthOrHeight = dockedWidthOrHeight;
             return true;
         }
 
@@ -538,19 +539,19 @@ public partial class AppBarWindow : Window
         {
             return;
         }
-        else if (_viewModel.DockedWidthOrHeight == null)
+        else if (ViewModel.DockedWidthOrHeight == null)
         {
             return;
         }
 
         var abd = GetAppBarData();
-        var bounds = _viewModel.GetSelectedMonitor().Bounds;
+        var bounds = ViewModel.GetSelectedMonitor().Bounds;
         abd.rc = new RECT((int)bounds.Left, (int)bounds.Top, (int)bounds.Right, (int)bounds.Bottom);
 
         PInvoke.SHAppBarMessage(PInvoke.ABM_QUERYPOS, ref abd);
 
-        var dockedWidthOrHeightInDesktopPixels = _isMinimized ? 0 : WpfDimensionToDesktop(this, _viewModel.DockedWidthOrHeight.Value);
-        switch (_viewModel.DockMode)
+        var dockedWidthOrHeightInDesktopPixels = _isMinimized ? 0 : WpfDimensionToDesktop(this, ViewModel.DockedWidthOrHeight.Value);
+        switch (ViewModel.DockMode)
         {
             case AppBarDockMode.Top:
                 abd.rc.bottom = abd.rc.top + dockedWidthOrHeightInDesktopPixels;
@@ -600,7 +601,7 @@ public partial class AppBarWindow : Window
     {
         if (sender is FrameworkElement element)
         {
-            var placement = _viewModel.DockMode switch
+            var placement = ViewModel.DockMode switch
             {
                 AppBarDockMode.Left => AppBarPlacementMode.Right,
                 AppBarDockMode.Right => AppBarPlacementMode.Left,
@@ -612,7 +613,7 @@ public partial class AppBarWindow : Window
             {
                 Placement = placement,
                 Position = e.GetPosition(element),
-                Monitor = _viewModel.GetSelectedMonitor()
+                Monitor = ViewModel.GetSelectedMonitor()
             });
             e.Handled = true;
         }
@@ -629,7 +630,7 @@ public partial class AppBarWindow : Window
             cbSize = (uint)sizeof(APPBARDATA),
             hWnd = _hwnd,
             uCallbackMessage = AppBarMessageId,
-            uEdge = (uint)_viewModel.DockMode
+            uEdge = (uint)ViewModel.DockMode
         };
     }
 
