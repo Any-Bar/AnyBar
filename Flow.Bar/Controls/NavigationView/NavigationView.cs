@@ -1057,7 +1057,7 @@ public partial class NavigationView : ContentControl, IControlProtected
 
     private bool ShouldShowBackButton()
     {
-        if (m_backButton != null && !ShouldPreserveNavigationViewRS3Behavior())
+        if (m_backButton != null)
         {
             if (DisplayMode == NavigationViewDisplayMode.Minimal && IsPaneOpen)
             {
@@ -1072,7 +1072,7 @@ public partial class NavigationView : ContentControl, IControlProtected
 
     private bool ShouldShowCloseButton()
     {
-        if (m_backButton != null && !ShouldPreserveNavigationViewRS3Behavior() && m_closeButton != null)
+        if (m_backButton != null && m_closeButton != null)
         {
             if (!IsPaneOpen)
             {
@@ -1432,12 +1432,6 @@ public partial class NavigationView : ContentControl, IControlProtected
     private NavigationViewItem? NavigationViewItemOrSettingsContentFromData(object data)
     {
         return GetContainerForData<NavigationViewItem>(data);
-    }
-
-    private bool ShouldPreserveNavigationViewRS3Behavior()
-    {
-        // Since RS4, we support backbutton
-        return m_backButton == null;
     }
 
     private UIElement? FindSelectionIndicator(object item)
@@ -2410,7 +2404,7 @@ public partial class NavigationView : ContentControl, IControlProtected
                     {
                         backButtonRowHeight = c_backButtonHeight;
                     }
-                    else if (ShouldPreserveNavigationViewRS3Behavior())
+                    else if (m_backButton == null)
                     {
                         // This row represented the height of the hamburger+margin in RS3 and prior
                         backButtonRowHeight = c_toggleButtonHeightWhenShouldPreserveNavigationViewRS3Behavior;
@@ -2510,7 +2504,7 @@ public partial class NavigationView : ContentControl, IControlProtected
             // Do not set a top padding when the IsTitleBarAutoPaddingEnabled property is set to False.
             if (IsTitleBarAutoPaddingEnabled)
             {
-                if (ShouldPreserveNavigationViewRS3Behavior())
+                if (m_backButton == null)
                 {
                     needsTopPadding = true;
                 }
