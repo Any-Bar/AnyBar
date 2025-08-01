@@ -1,6 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Navigation;
 using CommunityToolkit.Mvvm.DependencyInjection;
+using Flow.Bar.Models.AppBar;
 using Flow.Bar.ViewModels.SettingPages;
 using iNKORE.UI.WPF.Modern.Controls;
 
@@ -21,80 +22,15 @@ public partial class SettingsPaneAppBar : Page
         if (!IsInitialized)
         {
             InitializeComponent();
-            RefreshAppBars();
+            _viewModel.RefreshAppBars();
         }
         base.OnNavigatedTo(e);
     }
 
-    private void RefreshAppBars()
+    private void SettingsCard_Click(object sender, RoutedEventArgs e)
     {
-        if (_viewModel.AppBars.Capacity == 0)
-        {
-            NoAppBarStackPanel.Visibility = Visibility.Visible;
-            AppBarStackPanel.Visibility = Visibility.Collapsed;
-            return;
-        }
-
-        NoAppBarStackPanel.Visibility = Visibility.Collapsed;
-        AppBarStackPanel.Visibility = Visibility.Visible;
-        AppBarStackPanel.Children.Clear();
-        foreach (var appBar in _viewModel.AppBars)
-        {
-            var appBarControl = new SettingsExpander
-            {
-                Header = $"{Localize.SettingWindow_AppBar()} {appBar.Order + 1}",
-                HeaderIcon = new FontIcon { Glyph = "\uE90E" },
-                Tag = appBar,
-                Content = new ToggleSwitch()
-            };
-            var dockModeCard = new SettingsCard
-            {
-                Header = Localize.SettingPaneAppBar_DockMode(),
-                Content = new System.Windows.Controls.ComboBox()
-                {
-                    ItemsSource = _viewModel.AllDockModes,
-                    DisplayMemberPath = "Display",
-                    SelectedValuePath = "Value",
-                    SelectedValue = appBar.DockMode
-                }
-            };
-            var monitorComboBox = new System.Windows.Controls.ComboBox()
-            {
-                ItemsSource = _viewModel.AllMonitors,
-                DisplayMemberPath = "Display",
-                SelectedValuePath = "Value",
-                SelectedValue = appBar.MonitorName
-            };
-            if (appBar.MonitorName is null)
-            {
-                monitorComboBox.SelectedIndex = 0;
-            }
-            var monitorCard = new SettingsCard
-            {
-                Header = Localize.SettingPaneAppBar_Monitor(),
-                Content = monitorComboBox
-            };
-            var resizableCard = new SettingsCard
-            {
-                Header = Localize.SettingPaneAppBar_Resizable(),
-                Content = new ToggleSwitch()
-                {
-                    IsOn = appBar.IsResizable
-                }
-            };
-            var elementsCard = new SettingsCard
-            {
-                Header = Localize.SettingPaneAppBar_BarElements(),
-                Content = new System.Windows.Controls.Button()
-                {
-                    Content = Localize.SettingPaneAppBar_Edit()
-                }
-            };
-            appBarControl.Items.Add(dockModeCard);
-            appBarControl.Items.Add(monitorCard);
-            appBarControl.Items.Add(resizableCard);
-            appBarControl.Items.Add(elementsCard);
-            AppBarStackPanel.Children.Add(appBarControl);
-        }
+        if (sender is not SettingsCard element) return;
+        if (element.Tag is not AppBarModel model) return;
+        // TODO
     }
 }

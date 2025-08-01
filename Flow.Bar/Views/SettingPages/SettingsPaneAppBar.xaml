@@ -5,6 +5,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:ikw="http://schemas.inkore.net/lib/ui/wpf"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:models="clr-namespace:Flow.Bar.Models.AppBar"
     xmlns:sys="clr-namespace:System;assembly=mscorlib"
     xmlns:ui="http://schemas.inkore.net/lib/ui/wpf/modern"
     xmlns:viewModels="clr-namespace:Flow.Bar.ViewModels.SettingPages"
@@ -15,36 +16,28 @@
     mc:Ignorable="d">
 
     <Grid>
-        <ikw:SimpleStackPanel
-            x:Name="AppBarStackPanel"
-            Spacing="{StaticResource SettingsCardSpacing}"
+        <ui:ItemsRepeater
+            x:Name="AppBarListView"
+            ItemsSource="{Binding AppBars}"
             Visibility="Visible">
-            <ui:SettingsExpander Header="Appbar 1" Tag="0">
-                <ui:SettingsExpander.HeaderIcon>
-                    <ui:FontIcon Glyph="&#xE90E;" />
-                </ui:SettingsExpander.HeaderIcon>
+            <ui:ItemsRepeater.ItemTemplate>
+                <DataTemplate DataType="models:AppBarModel">
+                    <ui:SettingsCard
+                        Click="SettingsCard_Click"
+                        Header="{DynamicResource SettingWindow_AppBar}"
+                        IsClickEnabled="True"
+                        Tag="{Binding}">
+                        <ui:SettingsCard.HeaderIcon>
+                            <ui:FontIcon Glyph="&#xE90E;" />
+                        </ui:SettingsCard.HeaderIcon>
 
-                <ui:ToggleSwitch />
-
-                <ui:SettingsExpander.Items>
-                    <ui:SettingsCard Header="Dock mode">
-                        <ComboBox />
+                        <ui:SettingsCard.ActionIcon>
+                            <ui:FontIcon Glyph="&#xE76C;" />
+                        </ui:SettingsCard.ActionIcon>
                     </ui:SettingsCard>
-
-                    <ui:SettingsCard Header="Monitor">
-                        <ComboBox />
-                    </ui:SettingsCard>
-
-                    <ui:SettingsCard Header="Resizable">
-                        <ui:ToggleSwitch />
-                    </ui:SettingsCard>
-
-                    <ui:SettingsCard Header="Bar elements">
-                        <Button Content="Edit" />
-                    </ui:SettingsCard>
-                </ui:SettingsExpander.Items>
-            </ui:SettingsExpander>
-        </ikw:SimpleStackPanel>
+                </DataTemplate>
+            </ui:ItemsRepeater.ItemTemplate>
+        </ui:ItemsRepeater>
 
         <ikw:SimpleStackPanel
             x:Name="NoAppBarStackPanel"
