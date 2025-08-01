@@ -1,4 +1,4 @@
-﻿using Flow.Bar.Models;
+﻿using Flow.Bar.Models.Monitor;
 using System;
 using System.Windows;
 using System.Windows.Controls.Primitives;

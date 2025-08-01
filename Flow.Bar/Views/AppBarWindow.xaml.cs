@@ -4,6 +4,7 @@ using Flow.Bar.Helper.Plugins;
 using Flow.Bar.Models;
 using Flow.Bar.Models.AppBar;
 using Flow.Bar.Models.Enums;
+using Flow.Bar.Models.Monitor;
 using Flow.Bar.Plugin;
 using Flow.Bar.ViewModels;
 using System;

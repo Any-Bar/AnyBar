@@ -1,6 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
-using Flow.Bar.Models;
 using Flow.Bar.Models.Enums;
+using Flow.Bar.Models.Monitor;
 using System.Linq;
 
 namespace Flow.Bar.ViewModels;

@@ -7,7 +7,7 @@ using Windows.Win32.Foundation;
 using Windows.Win32.Graphics.Gdi;
 using Windows.Win32.UI.WindowsAndMessaging;
 
-namespace Flow.Bar.Models;
+namespace Flow.Bar.Models.Monitor;
 
 /// <summary>
 /// Contains full information about a display monitor.
