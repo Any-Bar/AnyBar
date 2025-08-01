@@ -21,7 +21,7 @@
                 <ComboBox
                     DisplayMemberPath="Display"
                     ItemsSource="{Binding AllDockModes, Mode=OneTime}"
-                    SelectedValue="{Binding DockMode, Mode=TwoWay}"
+                    SelectedValue="{Binding AppBarModel.DockMode, Mode=TwoWay}"
                     SelectedValuePath="Value" />
             </ui:SettingsCard>
 
@@ -29,12 +29,12 @@
                 <ComboBox
                     DisplayMemberPath="Display"
                     ItemsSource="{Binding AllMonitorNames, Mode=OneTime}"
-                    SelectedValue="{Binding MonitorName, Mode=TwoWay}"
+                    SelectedValue="{Binding AppBarModel.MonitorName, Mode=TwoWay}"
                     SelectedValuePath="Value" />
             </ui:SettingsCard>
 
             <ui:SettingsCard Header="{DynamicResource SettingPaneAppBar_Resizable}">
-                <ui:ToggleSwitch IsOn="{Binding IsResizable}" />
+                <ui:ToggleSwitch IsOn="{Binding AppBarModel.IsResizable}" />
             </ui:SettingsCard>
 
             <ui:SettingsExpander Header="{DynamicResource SettingPaneAppBar_BarElements}" />

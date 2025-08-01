@@ -16,24 +16,16 @@ public partial class SettingsPaneAppBarSettingViewModel(AppBarManagementService 
 
     public List<AppBarDockModeLocalized> AllDockModes { get; } = AppBarDockModeLocalized.GetValues();
 
-    [ObservableProperty]
-    private AppBarDockMode _dockMode = AppBarDockMode.Top;
-
     public List<MonitorNameLocalized> AllMonitorNames { get; } = appBarManagementService.GetAllMonitorNames();
 
     [ObservableProperty]
-    private string? _monitorName = null;
-
-    [ObservableProperty]
-    private bool _isResizable = false;
+    private AppBarModel? _appBarModel;
 
     public void OnNavigatedTo(object? parameter)
     {
         if (parameter is AppBarModel model)
         {
-            DockMode = model.DockMode;
-            MonitorName = model.MonitorName;
-            IsResizable = model.IsResizable;
+            AppBarModel = model;
         }
     }
 
