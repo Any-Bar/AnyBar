@@ -12,13 +12,14 @@ namespace Flow.Bar.Controls.MenuFlyout;
 [ContentProperty(nameof(Items))]
 public class AppBarMenuFlyout : DependencyObject
 {
+    private const string s_contextMenuStyleKey = "ContextMenuStyleBase";
     private static Style? s_contextMenuStyle;
 
     public AppBarMenuFlyout()
     {
-        s_contextMenuStyle ??= (Style)Application.Current.Resources["ContextMenuStyleBase"];
+        s_contextMenuStyle ??= (Style)Application.Current.Resources[s_contextMenuStyleKey];
 
-        ArgumentNullException.ThrowIfNull(s_contextMenuStyle, "ContextMenuStyleBase not found in Application resources.");
+        ArgumentNullException.ThrowIfNull(s_contextMenuStyle, $"{s_contextMenuStyleKey} not found in Application resources.");
 
         MenuFlyoutPresenterStyle = s_contextMenuStyle;
     }
