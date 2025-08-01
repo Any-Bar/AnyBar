@@ -34,6 +34,8 @@
                         <ui:SettingsCard.ActionIcon>
                             <ui:FontIcon Glyph="&#xE76C;" />
                         </ui:SettingsCard.ActionIcon>
+
+                        <ui:ToggleSwitch IsOn="{Binding IsEnabled, Mode=TwoWay}" />
                     </ui:SettingsCard>
                 </DataTemplate>
             </ui:ItemsRepeater.ItemTemplate>

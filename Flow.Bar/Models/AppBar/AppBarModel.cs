@@ -1,14 +1,26 @@
+﻿using CommunityToolkit.Mvvm.ComponentModel;
 ﻿using Flow.Bar.Models.Enums;
+using Flow.Bar.Services;
 using System;
 using System.Collections.Generic;
 
 namespace Flow.Bar.Models.AppBar;
 
-public class AppBarModel : IEquatable<AppBarModel>
+public partial class AppBarModel : ObservableObject, IEquatable<AppBarModel>
 {
+    private static AppBarManagementService? _appBarManagementService;
+    private static AppBarManagementService AppBarManagementService =>
+        _appBarManagementService ??= Ioc.Default.GetRequiredService<AppBarManagementService>();
+
     public int Order { get; set; } = -1;
 
-    public AppBarDockMode DockMode { get; set; } = AppBarDockMode.Top;
+    [ObservableProperty]
+    private bool _isEnabled = true;
+
+    partial void OnIsEnabledChanged(bool value)
+    {
+        AppBarManagementService.SetEnabled(Order, value);
+    }
 
     public string? MonitorName { get; set; } = null;
 
@@ -21,9 +33,6 @@ public class AppBarModel : IEquatable<AppBarModel>
     public List<PluginControlModel> RightOrBottomPluginControls { get; set; } = [];
 
     public List<PluginControlModel> CenterPluginControls { get; set; } = [];
-
-    /// <inheritdoc />
-    public override string ToString() => $"{Order}";
 
     /// <inheritdoc />
     public override bool Equals(object? obj)
