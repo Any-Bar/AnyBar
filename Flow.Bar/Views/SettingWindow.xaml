@@ -28,6 +28,7 @@
         <navcontrol:NavigationView
             x:Name="NavigationViewControl"
             AlwaysShowHeader="True"
+            BackRequested="NavigationViewControl_BackRequested"
             Canvas.ZIndex="0"
             ExpandedMinimalModeThresholdWidth="824"
             Header="General"

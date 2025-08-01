@@ -64,6 +64,13 @@ public partial class SettingWindow : Window
         {
             throw new InvalidOperationException("Selected item does not have a valid tag.");
         }
+
+        RefreshNavigationViewBackEnabled();
+    }
+
+    private void NavigationViewControl_BackRequested(NavigationView sender, NavigationViewBackRequestedEventArgs args)
+    {
+        RootFrame.GoBack();
     }
 
     private static Type GetPageType(SettingPageTag tag)
@@ -83,6 +90,8 @@ public partial class SettingWindow : Window
         {
             PageHeader?.SetResourceReference(TextBlock.TextProperty, GetPageHeaderResource((SettingPageTag)_lastItem));
         }
+
+        RefreshNavigationViewBackEnabled();
     }
 
     private void RootFrame_Navigated(object sender, NavigationEventArgs e)
@@ -115,6 +124,8 @@ public partial class SettingWindow : Window
         {
             NavigationViewControl.SelectedItem = newItem;
         }
+
+        RefreshNavigationViewBackEnabled();
     }
 
     private static string GetPageHeaderResource(SettingPageTag tag)
@@ -126,6 +137,11 @@ public partial class SettingWindow : Window
             SettingPageTag.About => "SettingWindow_About",
             _ => throw new ArgumentOutOfRangeException(nameof(tag), tag, null)
         };
+    }
+
+    private void RefreshNavigationViewBackEnabled()
+    {
+        NavigationViewControl.IsBackEnabled = RootFrame.CanGoBack;
     }
 
     #endregion
