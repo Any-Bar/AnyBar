@@ -64,6 +64,9 @@ public partial class NavigationView : ContentControl, IControlProtected
 
     private const int c_mainMenuBlockIndex = 0;
 
+    private const string c_navigationBackButtonNormalStyleKey = "NavigationBackButtonNormalStyle";
+    private static Style? s_navigationBackButtonNormalStyle;
+
     protected override AutomationPeer OnCreateAutomationPeer()
     {
         return new NavigationViewAutomationPeer(this);
@@ -113,6 +116,12 @@ public partial class NavigationView : ContentControl, IControlProtected
 
     public NavigationView()
     {
+        s_navigationBackButtonNormalStyle ??= (Style)Application.Current.Resources[c_navigationBackButtonNormalStyleKey];
+
+        ArgumentNullException.ThrowIfNull(s_navigationBackButtonNormalStyle, $"{c_navigationBackButtonNormalStyleKey} not found in Application resources.");
+
+        Resources.Add(c_navigationBackButtonNormalStyleKey, s_navigationBackButtonNormalStyle);
+
         SetValue(s_templateSettingsPropertyKey, new NavigationViewTemplateSettings());
 
         SizeChanged += OnSizeChanged;
