@@ -14,9 +14,4 @@ internal static class CppWinRTHelpers
         }
         return null;
     }
-
-    internal interface IControlProtected
-    {
-        DependencyObject GetTemplateChild(string childName);
-    }
 }

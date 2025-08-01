@@ -8,7 +8,6 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using static Flow.Bar.Controls.NavigationView.CppWinRTHelpers;
 using ControlHelper = iNKORE.UI.WPF.Modern.Controls.Helpers.ControlHelper;
-using IControlProtected = Flow.Bar.Controls.NavigationView.CppWinRTHelpers.IControlProtected;
 
 namespace Flow.Bar.Controls.NavigationView;
 

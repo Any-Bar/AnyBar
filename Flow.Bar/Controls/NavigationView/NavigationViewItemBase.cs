@@ -6,7 +6,6 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using iNKORE.UI.WPF.Modern.Controls.Helpers;
-using IControlProtected = Flow.Bar.Controls.NavigationView.CppWinRTHelpers.IControlProtected;
 
 namespace Flow.Bar.Controls.NavigationView;
 

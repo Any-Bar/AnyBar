@@ -8,7 +8,6 @@ using System.Windows.Automation.Peers;
 using System.Windows.Controls;
 using System.Windows.Input;
 using static Flow.Bar.Controls.NavigationView.CppWinRTHelpers;
-using IControlProtected = Flow.Bar.Controls.NavigationView.CppWinRTHelpers.IControlProtected;
 using PointerRoutedEventArgs = System.Windows.Input.MouseEventArgs;
 
 namespace Flow.Bar.Controls.NavigationView;

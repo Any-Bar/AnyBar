@@ -19,7 +19,6 @@ using System.Windows.Media.Animation;
 using System.Windows.Shell;
 using System.Windows.Threading;
 using static Flow.Bar.Controls.NavigationView.CppWinRTHelpers;
-using IControlProtected = Flow.Bar.Controls.NavigationView.CppWinRTHelpers.IControlProtected;
 using SplitViewDisplayMode = Flow.Bar.Controls.SplitView.SplitViewDisplayMode;
 using SplitViewPaneClosingEventArgs = Flow.Bar.Controls.SplitView.SplitViewPaneClosingEventArgs;
 
