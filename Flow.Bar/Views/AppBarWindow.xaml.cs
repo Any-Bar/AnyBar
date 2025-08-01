@@ -327,7 +327,7 @@ public partial class AppBarWindow : Window
 
     private void Window_Loaded(object sender, RoutedEventArgs e)
     {
-        // This method will trigger OnDockLocationChanged, so we do not need to call it again here
+        // No need to call OnDockLocationChanged - It will be called in property changed handler
         OnDockWidthOrHeightChanged(true);
         OnIsResizableChanged();
         InitializeDockModeRelatedControls();
