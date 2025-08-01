@@ -3,20 +3,23 @@ using Flow.Bar.Interfaces;
 using Flow.Bar.Models.AppBar;
 using Flow.Bar.Models.Enums;
 using Flow.Bar.Models.Monitor;
+using Flow.Bar.Services;
 using System.Collections.Generic;
 
 namespace Flow.Bar.ViewModels.SettingPages;
 
-public partial class SettingsPaneAppBarSettingViewModel : ObservableObject, INavigationAware
+public partial class SettingsPaneAppBarSettingViewModel(AppBarManagementService appBarManagementService) : ObservableObject, INavigationAware
 {
     private static readonly string ClassName = nameof(SettingsPaneAppBarSettingViewModel);
+
+    private readonly AppBarManagementService _appBarManagementService = appBarManagementService;
 
     public List<AppBarDockModeLocalized> AllDockModes { get; } = AppBarDockModeLocalized.GetValues();
 
     [ObservableProperty]
     private AppBarDockMode _dockMode = AppBarDockMode.Top;
 
-    public List<MonitorNameLocalized> AllMonitorNames { get; } = MonitorNameLocalized.GetValues(App.Settings.AppBars.Values);
+    public List<MonitorNameLocalized> AllMonitorNames { get; } = appBarManagementService.GetAllMonitorNames();
 
     [ObservableProperty]
     private string? _monitorName = null;

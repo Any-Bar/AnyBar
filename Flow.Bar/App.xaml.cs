@@ -18,7 +18,6 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Toolkit.Uwp.Notifications;
 using System;
 using System.Diagnostics;
-using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Windows;
@@ -98,6 +97,7 @@ public partial class App : Application, IDisposable, ISingleInstanceApp
                 .AddSingleton<Internationalization>()
                 .AddSingleton<NavigationViewService>()
                 .AddSingleton<PageService>()
+                .AddSingleton<AppBarManagementService>()
                 .AddTransient<AppBarViewModel>()
                 .AddTransient<SettingsPaneAboutViewModel>()
                 .AddTransient<SettingsPaneAppBarViewModel>()
@@ -170,12 +170,7 @@ public partial class App : Application, IDisposable, ISingleInstanceApp
 
             InitNotifyIcon();
 
-            var appBarKeys = Enumerable.OrderBy(Settings.AppBars.Keys, (k => k));
-            foreach (var key in appBarKeys)
-            {
-                var barWindow = new AppBarWindow(Settings.AppBars[key]);
-                barWindow.Show();
-            }
+            Ioc.Default.GetRequiredService<AppBarManagementService>().InitializeAllAppBarWindows();
 
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
 
