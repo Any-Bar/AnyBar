@@ -13,6 +13,7 @@ using System.Windows;
 using System.Windows.Automation.Peers;
 using System.Windows.Controls;
 using System.Windows.Data;
+using System.Windows.Forms.VisualStyles;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
@@ -64,8 +65,16 @@ public partial class NavigationView : ContentControl, IControlProtected
 
     private const int c_mainMenuBlockIndex = 0;
 
+    private const int c_headerContentTopMargin = 44;
+    private const int c_contentPaneTopPaddingHeight = 40;
+
     private const string c_navigationBackButtonNormalStyleKey = "NavigationBackButtonNormalStyle";
     private static Style? s_navigationBackButtonNormalStyle;
+
+    private const string c_navigationViewMinimalHeaderTopMarginKey = "NavigationViewMinimalHeaderTopMargin";
+    private const string c_navigationViewMinimalContentPaneTopMarginKey = "NavigationViewMinimalContentPaneTopMargin";
+    private static readonly Thickness s_navigationViewMinimalHeaderTopMargin = new(0, c_headerContentTopMargin, 0, 0);
+    private static readonly Thickness s_navigationViewMinimalContentPaneTopMargin = new(0, c_contentPaneTopPaddingHeight, 0, 0);
 
     protected override AutomationPeer OnCreateAutomationPeer()
     {
@@ -121,6 +130,9 @@ public partial class NavigationView : ContentControl, IControlProtected
         ArgumentNullException.ThrowIfNull(s_navigationBackButtonNormalStyle, $"{c_navigationBackButtonNormalStyleKey} not found in Application resources.");
 
         Resources.Add(c_navigationBackButtonNormalStyleKey, s_navigationBackButtonNormalStyle);
+
+        Resources.Add(c_navigationViewMinimalHeaderTopMarginKey, s_navigationViewMinimalHeaderTopMargin);
+        Resources.Add(c_navigationViewMinimalContentPaneTopMarginKey, s_navigationViewMinimalContentPaneTopMargin);
 
         SetValue(s_templateSettingsPropertyKey, new NavigationViewTemplateSettings());
 
