@@ -10,6 +10,7 @@ namespace Flow.Bar.Services;
 public class PageService
 {
     private readonly Dictionary<SettingPageTag, Type> _pages = [];
+    private readonly Dictionary<SettingPageTag, SettingPageTag> _containedPages = [];
 
     public PageService()
     {
@@ -17,6 +18,8 @@ public class PageService
         Configure<SettingsPaneAppBar>(SettingPageTag.AppBar);
         Configure<SettingsPaneAbout>(SettingPageTag.About);
         Configure<SettingsPaneAppBarSetting>(SettingPageTag.AppBarSetting);
+
+        Configure(SettingPageTag.AppBarSetting, SettingPageTag.AppBar);
     }
 
     public Type GetPageType(SettingPageTag tag)
@@ -46,6 +49,19 @@ public class PageService
         }
     }
 
+    public SettingPageTag? GetContainedPageTag(SettingPageTag containedTag)
+    {
+        lock (_containedPages)
+        {
+            if (!_containedPages.TryGetValue(containedTag, out var tag))
+            {
+                return null;
+            }
+
+            return tag;
+        }
+    }
+
     private void Configure<V>(SettingPageTag tag) where V : Page
     {
         lock (_pages)
@@ -62,6 +78,19 @@ public class PageService
             }
 
             _pages.Add(tag, view);
+        }
+    }
+
+    private void Configure(SettingPageTag containedTag, SettingPageTag tag)
+    {
+        lock (_pages)
+        {
+            if (_containedPages.ContainsKey(containedTag))
+            {
+                throw new ArgumentException($"The tag {containedTag} is already configured in PageService!");
+            }
+
+            _containedPages.Add(containedTag, tag);
         }
     }
 }

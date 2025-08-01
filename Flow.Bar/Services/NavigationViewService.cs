@@ -182,6 +182,25 @@ public class NavigationViewService(PageService pageService)
                 _navigationView.SelectedItem = newItem;
             }
         }
+
+        // Update the contained NavigationViewItem based on the page type
+        var containedTag = _pageService.GetContainedPageTag(currentTag);
+        if (containedTag.HasValue)
+        {
+            foreach (var item in _navigationView.MenuItems)
+            {
+                if (item is NavigationViewItem newItem &&
+                    newItem.Tag is SettingPageTag tag &&
+                    tag == containedTag.Value &&
+                    _navigationView.SelectedItem != newItem)
+                {
+                    // Temporarily remove and reattach the event handler to prevent navigation
+                    _navigationView.SelectionChanged -= NavigationView_SelectionChanged;
+                    _navigationView.SelectedItem = newItem;
+                    _navigationView.SelectionChanged += NavigationView_SelectionChanged;
+                }
+            }
+        }
     }
 
     private static object? GetPageViewModel(Frame frame) => (frame?.Content as Page)?.DataContext as INavigationAware;
