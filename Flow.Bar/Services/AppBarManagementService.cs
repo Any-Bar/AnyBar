@@ -1,4 +1,5 @@
 ﻿using Flow.Bar.Models.AppBar;
+using Flow.Bar.Models.Enums;
 using Flow.Bar.Models.Monitor;
 using Flow.Bar.Models.UserSettings;
 using Flow.Bar.Views;
@@ -66,6 +67,58 @@ public class AppBarManagementService(Settings settings)
                     newAppBarWindow.Show();
                     AppBarWindowPairs.TryAdd(order, newAppBarWindow);
                 }
+            }
+        }
+    }
+
+    public void SetDockMode(int order, AppBarDockMode dockMode)
+    {
+        if (_settings.AppBars.TryGetValue(order, out var appBar))
+        {
+            appBar.DockMode = dockMode;
+            _settings.Save();
+            if (AppBarWindowPairs.TryGetValue(order, out var appBarWindow))
+            {
+                appBarWindow.ViewModel.DockMode = dockMode;
+            }
+        }
+    }
+
+    public void SetMonitorName(int order, string? monitorName)
+    {
+        if (_settings.AppBars.TryGetValue(order, out var appBar))
+        {
+            appBar.MonitorName = monitorName;
+            _settings.Save();
+            if (AppBarWindowPairs.TryGetValue(order, out var appBarWindow))
+            {
+                appBarWindow.ViewModel.MonitorName = monitorName;
+            }
+        }
+    }
+
+    public void SetDockedWidthOrHeight(int order, int? dockedWidthOrHeight)
+    {
+        if (_settings.AppBars.TryGetValue(order, out var appBar))
+        {
+            appBar.DockedWidthOrHeight = dockedWidthOrHeight;
+            _settings.Save();
+            if (AppBarWindowPairs.TryGetValue(order, out var appBarWindow))
+            {
+                appBarWindow.ViewModel.DockedWidthOrHeight = dockedWidthOrHeight;
+            }
+        }
+    }
+
+    public void SetIsResizable(int order, bool isResizable)
+    {
+        if (_settings.AppBars.TryGetValue(order, out var appBar))
+        {
+            appBar.IsResizable = isResizable;
+            _settings.Save();
+            if (AppBarWindowPairs.TryGetValue(order, out var appBarWindow))
+            {
+                appBarWindow.ViewModel.IsResizable = isResizable;
             }
         }
     }
