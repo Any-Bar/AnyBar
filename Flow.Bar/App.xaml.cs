@@ -7,6 +7,7 @@ using Flow.Bar.Models.Language;
 using Flow.Bar.Models.Storage;
 using Flow.Bar.Models.UserSettings;
 using Flow.Bar.Plugin;
+using Flow.Bar.Services;
 using Flow.Bar.ViewModels;
 using Flow.Bar.ViewModels.SettingPages;
 using Flow.Bar.Views;
@@ -95,6 +96,8 @@ public partial class App : Application, IDisposable, ISingleInstanceApp
                 .AddSingleton(_ => Settings)
                 .AddSingleton<IPublicAPI, PublicAPIInstance>()
                 .AddSingleton<Internationalization>()
+                .AddSingleton<NavigationViewService>()
+                .AddSingleton<PageService>()
                 .AddTransient<AppBarViewModel>()
                 .AddTransient<SettingsPaneAboutViewModel>()
                 .AddTransient<SettingsPaneAppBarViewModel>()

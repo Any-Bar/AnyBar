@@ -2,6 +2,8 @@
 using System.Windows.Navigation;
 using CommunityToolkit.Mvvm.DependencyInjection;
 using Flow.Bar.Models.AppBar;
+using Flow.Bar.Models.Enums;
+using Flow.Bar.Services;
 using Flow.Bar.ViewModels.SettingPages;
 using iNKORE.UI.WPF.Modern.Controls;
 
@@ -10,6 +12,7 @@ namespace Flow.Bar.Views.SettingPages;
 public partial class SettingsPaneAppBar : Page
 {
     private SettingsPaneAppBarViewModel _viewModel = null!;
+    private NavigationViewService _navigationService = null!;
 
     protected override void OnNavigatedTo(NavigationEventArgs e)
     {
@@ -17,12 +20,12 @@ public partial class SettingsPaneAppBar : Page
         if (_viewModel == null)
         {
             _viewModel = Ioc.Default.GetRequiredService<SettingsPaneAppBarViewModel>();
+            _navigationService = Ioc.Default.GetRequiredService<NavigationViewService>();
             DataContext = _viewModel;
         }
         if (!IsInitialized)
         {
             InitializeComponent();
-            _viewModel.RefreshAppBars();
         }
         base.OnNavigatedTo(e);
     }
@@ -31,6 +34,6 @@ public partial class SettingsPaneAppBar : Page
     {
         if (sender is not SettingsCard element) return;
         if (element.Tag is not AppBarModel model) return;
-        // TODO
+        _navigationService.NavigateTo(SettingPageTag.AppBarSetting, model);
     }
 }

@@ -1,11 +1,13 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using Flow.Bar.Interfaces;
+using Flow.Bar.Models.AppBar;
 using Flow.Bar.Models.Enums;
 using Flow.Bar.Models.Monitor;
 using System.Collections.Generic;
 
 namespace Flow.Bar.ViewModels.SettingPages;
 
-public partial class SettingsPaneAppBarSettingViewModel : ObservableObject
+public partial class SettingsPaneAppBarSettingViewModel : ObservableObject, INavigationAware
 {
     private static readonly string ClassName = nameof(SettingsPaneAppBarSettingViewModel);
 
@@ -21,4 +23,19 @@ public partial class SettingsPaneAppBarSettingViewModel : ObservableObject
 
     [ObservableProperty]
     private bool _isResizable = false;
+
+    public void OnNavigatedTo(object? parameter)
+    {
+        if (parameter is AppBarModel model)
+        {
+            DockMode = model.DockMode;
+            MonitorName = model.MonitorName;
+            IsResizable = model.IsResizable;
+        }
+    }
+
+    public void OnNavigatedFrom()
+    {
+
+    }
 }
