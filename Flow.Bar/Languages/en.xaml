@@ -29,8 +29,7 @@
     <system:String x:Key="SettingPaneAppBar_Monitor">Monitor</system:String>
     <system:String x:Key="SettingPaneAppBar_MonitorPrimary">Primary monitor</system:String>
     <system:String x:Key="SettingPaneAppBar_Resizable">Resizable</system:String>
-    <system:String x:Key="SettingPaneAppBar_BarElements">Monitor</system:String>
-    <system:String x:Key="SettingPaneAppBar_Edit">Edit</system:String>
+    <system:String x:Key="SettingPaneAppBar_BarElements">Bar elements</system:String>
 
     <!--  Setting Pane About  -->
     <system:String x:Key="SettingPaneAbout_Version">Version</system:String>
