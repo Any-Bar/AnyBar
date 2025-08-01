@@ -55,7 +55,7 @@
         </DockPanel>
 
         <Grid
-            x:Name="PluginControlGrid"
+            x:Name="BarElementsGrid"
             Margin="8 0 8 5"
             Background="Transparent">
 

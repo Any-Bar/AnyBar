@@ -48,7 +48,7 @@ public class Settings
                     MonitorName = null,
                     DockedWidthOrHeight = null,
                     IsResizable = false,
-                    RightOrBottomPluginControls =
+                    RightOrBottomBarElements =
                     [
                         new()
                         {

@@ -1,6 +1,6 @@
 ﻿namespace Flow.Bar.Models.AppBar;
 
-public class PluginControlModel
+public class BarElementModel
 {
     public int Order { get; set; } = -1;
 

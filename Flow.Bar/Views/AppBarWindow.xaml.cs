@@ -4,8 +4,8 @@ using Flow.Bar.Helper.Plugins;
 using Flow.Bar.Models;
 using Flow.Bar.Models.AppBar;
 using Flow.Bar.Models.Enums;
-using Flow.Bar.Models.Monitor;
 using Flow.Bar.Plugin;
+using Flow.Bar.Services;
 using Flow.Bar.ViewModels;
 using System;
 using System.ComponentModel;
@@ -14,6 +14,7 @@ using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using System.Windows.Interop;
 using System.Windows.Media;
@@ -30,6 +31,10 @@ public partial class AppBarWindow : Window
 {
     public AppBarViewModel ViewModel { get; } = Ioc.Default.GetRequiredService<AppBarViewModel>();
 
+    private static AppBarManagementService? _appBarManagementService;
+    private static AppBarManagementService AppBarManagementService =>
+        _appBarManagementService ??= Ioc.Default.GetRequiredService<AppBarManagementService>();
+
     private HWND _hwnd;
     private HwndSource? _hwndSource;
 
@@ -40,31 +45,32 @@ public partial class AppBarWindow : Window
     private readonly ExplorerWatcher _explorerWatcher = new();
     private bool _isExplorerRestarting = false;
 
+    private readonly AppBarMenuFlyout _contextMenu = new();
+
+    // TODO: Use Binding and remove this field
     private readonly AppBarModel _model;
 
-    private readonly AppBarMenuFlyout _contextMenu = new();
+    #region Constructor
 
     public AppBarWindow(AppBarModel model)
     {
         _model = model;
-        ViewModel.Order = model.Order;
-        ViewModel.Order = _model.Order;
-        ViewModel.DockMode = _model.DockMode;
-        if (_model.MonitorName != null)
-        {
-            ViewModel.Monitor = MonitorInfo.GetDisplayMonitors().FirstOrDefault(m => m.Name == _model.MonitorName);
-        }
-        else
-        {
-            ViewModel.Monitor = null;
-        }
-        ViewModel.DockedWidthOrHeight = _model.DockedWidthOrHeight;
-        ViewModel.IsResizable = _model.IsResizable;
+        ViewModel.Initialize(model);
         InitializeComponent();
-        ViewModel.PropertyChanged += ViewModel_PropertyChanged;
         WindowStyle = WindowStyle.None;
         ResizeMode = ResizeMode.NoResize;
         Topmost = true;
+        ViewModel.PropertyChanged += ViewModel_PropertyChanged;
+        InitializaExplorerWatcher();
+        InitializeMenuFlyout();
+    }
+
+    #endregion
+
+    #region Initialization
+
+    private void InitializaExplorerWatcher()
+    {
         _explorerWatcher.ExplorerRestarted += async () =>
         {
             await Task.Delay(300);
@@ -89,6 +95,10 @@ public partial class AppBarWindow : Window
                 _isExplorerRestarting = false;
             });
         };
+    }
+
+    private void InitializeMenuFlyout()
+    {
         var settingItem = new MenuItem
         {
             Header = "Appbar settings",
@@ -100,6 +110,173 @@ public partial class AppBarWindow : Window
         };
         _contextMenu.Items.Add(settingItem);
     }
+
+    // TODO: Use Binding and remove this method
+    private void InitializeBarElements()
+    {
+        LeftOrTopStackPanel.Children.Clear();
+        RightOrBottomStackPanel.Children.Clear();
+        CenterStackPanel.Children.Clear();
+        foreach (var element in _model.LeftOrTopBarElements.OrderBy(c => c.Order))
+        {
+            var control = PluginManager.GetBarElement(element.ID,
+                ViewModel.IsHorizontal ? BarElementPosition.Left : BarElementPosition.Top);
+            if (control == null) continue;
+            LeftOrTopStackPanel.Children.Add(control);
+            if (ViewModel.DockMode == AppBarDockMode.Left)
+            {
+                control.VerticalAlignment = VerticalAlignment.Top;
+                control.HorizontalAlignment = HorizontalAlignment.Center;
+            }
+            else
+            {
+                control.VerticalAlignment = VerticalAlignment.Center;
+                control.HorizontalAlignment = HorizontalAlignment.Left;
+            }
+        }
+        foreach (var element in _model.RightOrBottomBarElements.OrderBy(c => c.Order))
+        {
+            var control = PluginManager.GetBarElement(element.ID,
+                ViewModel.IsHorizontal ? BarElementPosition.Right : BarElementPosition.Bottom);
+            if (control == null) continue;
+            RightOrBottomStackPanel.Children.Add(control);
+            if (ViewModel.DockMode == AppBarDockMode.Left)
+            {
+                control.VerticalAlignment = VerticalAlignment.Top;
+                control.HorizontalAlignment = HorizontalAlignment.Center;
+            }
+            else
+            {
+                control.VerticalAlignment = VerticalAlignment.Center;
+                control.HorizontalAlignment = HorizontalAlignment.Left;
+            }
+        }
+        foreach (var element in _model.CenterBarElements.OrderBy(c => c.Order))
+        {
+            var control = PluginManager.GetBarElement(element.ID,
+                ViewModel.IsHorizontal ? BarElementPosition.HorizontalCenter : BarElementPosition.VerticalCenter);
+            if (control == null) continue;
+            CenterStackPanel.Children.Add(control);
+            if (ViewModel.DockMode == AppBarDockMode.Left)
+            {
+                control.VerticalAlignment = VerticalAlignment.Top;
+                control.HorizontalAlignment = HorizontalAlignment.Center;
+            }
+            else
+            {
+                control.VerticalAlignment = VerticalAlignment.Center;
+                control.HorizontalAlignment = HorizontalAlignment.Left;
+            }
+        }
+    }
+
+    // TODO: Use VisualStateManager and remove this method
+    private void InitializeDockModeRelatedControls()
+    {
+        switch (ViewModel.DockMode)
+        {
+            case AppBarDockMode.Left:
+            case AppBarDockMode.Right:
+                // Set thumb
+                BarThumb.Width = 2;
+                BarThumb.Height = double.NaN;
+                BarThumb.Cursor = Cursors.SizeWE;
+                DockPanel.SetDock(BarThumb, ViewModel.DockMode == AppBarDockMode.Left ? Dock.Right : Dock.Left);
+                // Set grid
+                BarElementsGrid.Margin = ViewModel.DockMode == AppBarDockMode.Left ? new Thickness(0, 8, BarThumb.Width, 8) : new Thickness(BarThumb.Width, 8, 0, 8);
+                // Set stack panel
+                LeftOrTopStackPanel.Orientation = Orientation.Vertical;
+                Grid.SetRow(LeftOrTopStackPanel, 0);
+                Grid.SetColumn(LeftOrTopStackPanel, 0);
+                Grid.SetRowSpan(LeftOrTopStackPanel, 1);
+                Grid.SetColumnSpan(LeftOrTopStackPanel, 3);
+                foreach (var child in LeftOrTopStackPanel.Children)
+                {
+                    if (child is FrameworkElement control)
+                    {
+                        control.VerticalAlignment = VerticalAlignment.Top;
+                        control.HorizontalAlignment = HorizontalAlignment.Center;
+                    }
+                }
+
+                RightOrBottomStackPanel.Orientation = Orientation.Vertical;
+                Grid.SetRow(RightOrBottomStackPanel, 2);
+                Grid.SetColumn(RightOrBottomStackPanel, 0);
+                Grid.SetRowSpan(RightOrBottomStackPanel, 1);
+                Grid.SetColumnSpan(RightOrBottomStackPanel, 3);
+                foreach (var child in RightOrBottomStackPanel.Children)
+                {
+                    if (child is FrameworkElement control)
+                    {
+                        control.VerticalAlignment = VerticalAlignment.Top;
+                        control.HorizontalAlignment = HorizontalAlignment.Center;
+                    }
+                }
+
+                CenterStackPanel.Orientation = Orientation.Vertical;
+                foreach (var child in CenterStackPanel.Children)
+                {
+                    if (child is FrameworkElement control)
+                    {
+                        control.VerticalAlignment = VerticalAlignment.Top;
+                        control.HorizontalAlignment = HorizontalAlignment.Center;
+                    }
+                }
+                break;
+            case AppBarDockMode.Top:
+            case AppBarDockMode.Bottom:
+                // Set thumb
+                BarThumb.Height = 2;
+                BarThumb.Width = double.NaN;
+                BarThumb.Cursor = Cursors.SizeNS;
+                DockPanel.SetDock(BarThumb, ViewModel.DockMode == AppBarDockMode.Top ? Dock.Bottom : Dock.Top);
+                // Set grid
+                BarElementsGrid.Margin = ViewModel.DockMode == AppBarDockMode.Top ? new Thickness(8, 0, 8, BarThumb.Height) : new Thickness(8, BarThumb.Height, 8, 0);
+                // Set stack panel
+                LeftOrTopStackPanel.Orientation = Orientation.Horizontal;
+                Grid.SetRow(LeftOrTopStackPanel, 0);
+                Grid.SetColumn(LeftOrTopStackPanel, 0);
+                Grid.SetRowSpan(LeftOrTopStackPanel, 3);
+                Grid.SetColumnSpan(LeftOrTopStackPanel, 1);
+                foreach (var child in LeftOrTopStackPanel.Children)
+                {
+                    if (child is FrameworkElement control)
+                    {
+                        control.VerticalAlignment = VerticalAlignment.Center;
+                        control.HorizontalAlignment = HorizontalAlignment.Left;
+                    }
+                }
+
+                RightOrBottomStackPanel.Orientation = Orientation.Horizontal;
+                Grid.SetRow(RightOrBottomStackPanel, 0);
+                Grid.SetColumn(RightOrBottomStackPanel, 2);
+                Grid.SetRowSpan(RightOrBottomStackPanel, 3);
+                Grid.SetColumnSpan(RightOrBottomStackPanel, 1);
+                foreach (var child in RightOrBottomStackPanel.Children)
+                {
+                    if (child is FrameworkElement control)
+                    {
+                        control.VerticalAlignment = VerticalAlignment.Center;
+                        control.HorizontalAlignment = HorizontalAlignment.Left;
+                    }
+                }
+
+                CenterStackPanel.Orientation = Orientation.Horizontal;
+                foreach (var child in CenterStackPanel.Children)
+                {
+                    if (child is FrameworkElement control)
+                    {
+                        control.VerticalAlignment = VerticalAlignment.Center;
+                        control.HorizontalAlignment = HorizontalAlignment.Left;
+                    }
+                }
+                break;
+            default:
+                throw new InvalidOperationException($"Dock mode {ViewModel.DockMode} is not supported.");
+        }
+    }
+
+    #endregion
 
     #region Dependency Properties
 
@@ -115,11 +292,7 @@ public partial class AppBarWindow : Window
     private static void MinMaxHeightWidth_Changed(DependencyObject d, DependencyPropertyChangedEventArgs e)
     {
         var @this = (AppBarWindow)d;
-
-        if (!@this.OnDockWidthOrHeightChanged())
-        {
-            @this.OnDockLocationChanged();
-        }
+        @this.OnDockLocationChanged();
     }
 
     #endregion
@@ -150,101 +323,15 @@ public partial class AppBarWindow : Window
 
         // set our initial location
         _isAppBarRegistered = true;
-        InitDockHeightOrWidth();
-    }
-
-    private void InitDockHeightOrWidth()
-    {
-        static int DesktopDimensionToWpf(Visual visual, int dim)
-        {
-            var dpi = VisualTreeHelper.GetDpi(visual);
-
-            return (int)Math.Round(dim / dpi.PixelsPerDip);
-        }
-
-        if (ViewModel.DockedWidthOrHeight != null) return;
-
-        var monitor = MonitorInfo.GetPrimaryDisplayMonitor();
-        if (monitor != null)
-        {
-            var taskBarHeight = monitor.Bounds.Height - monitor.WorkingArea.Height;
-            if (taskBarHeight != 0) // Taskbar is docked at the top or bottom
-            {
-                ViewModel.DockedWidthOrHeight = DesktopDimensionToWpf(this, (int)taskBarHeight);
-            }
-            else
-            {
-                var taskBarWidth = monitor.Bounds.Width - monitor.WorkingArea.Width;
-                if (taskBarWidth != 0) // Taskbar is docked at the left or right
-                {
-                    ViewModel.DockedWidthOrHeight = DesktopDimensionToWpf(this, (int)taskBarWidth);
-                }
-                else
-                {
-                    // No taskbar detected, set a default value
-                    ViewModel.DockedWidthOrHeight = 200;
-                }
-            }
-        }
     }
 
     private void Window_Loaded(object sender, RoutedEventArgs e)
     {
-        // Init plugin controls
-        LeftOrTopStackPanel.Children.Clear();
-        RightOrBottomStackPanel.Children.Clear();
-        CenterStackPanel.Children.Clear();
-        foreach (var pluginControlModel in _model.LeftOrTopPluginControls.OrderBy(c => c.Order))
-        {
-            var pluginControl = PluginManager.GetBarElement(pluginControlModel.ID, 
-                ViewModel.IsHorizontal ? BarElementPosition.Left : BarElementPosition.Top);
-            if (pluginControl == null) continue;
-            LeftOrTopStackPanel.Children.Add(pluginControl);
-            if (ViewModel.DockMode == AppBarDockMode.Left)
-            {
-                pluginControl.VerticalAlignment = VerticalAlignment.Top;
-                pluginControl.HorizontalAlignment = HorizontalAlignment.Center;
-            }
-            else
-            {
-                pluginControl.VerticalAlignment = VerticalAlignment.Center;
-                pluginControl.HorizontalAlignment = HorizontalAlignment.Left;
-            }
-        }
-        foreach (var pluginControlModel in _model.RightOrBottomPluginControls.OrderBy(c => c.Order))
-        {
-            var pluginControl = PluginManager.GetBarElement(pluginControlModel.ID,
-                ViewModel.IsHorizontal ? BarElementPosition.Right : BarElementPosition.Bottom);
-            if (pluginControl == null) continue;
-            RightOrBottomStackPanel.Children.Add(pluginControl);
-            if (ViewModel.DockMode == AppBarDockMode.Left)
-            {
-                pluginControl.VerticalAlignment = VerticalAlignment.Top;
-                pluginControl.HorizontalAlignment = HorizontalAlignment.Center;
-            }
-            else
-            {
-                pluginControl.VerticalAlignment = VerticalAlignment.Center;
-                pluginControl.HorizontalAlignment = HorizontalAlignment.Left;
-            }
-        }
-        foreach (var pluginControlModel in _model.CenterPluginControls.OrderBy(c => c.Order))
-        {
-            var pluginControl = PluginManager.GetBarElement(pluginControlModel.ID,
-                ViewModel.IsHorizontal ? BarElementPosition.HorizontalCenter : BarElementPosition.VerticalCenter);
-            if (pluginControl == null) continue;
-            CenterStackPanel.Children.Add(pluginControl);
-            if (ViewModel.DockMode == AppBarDockMode.Left)
-            {
-                pluginControl.VerticalAlignment = VerticalAlignment.Top;
-                pluginControl.HorizontalAlignment = HorizontalAlignment.Center;
-            }
-            else
-            {
-                pluginControl.VerticalAlignment = VerticalAlignment.Center;
-                pluginControl.HorizontalAlignment = HorizontalAlignment.Left;
-            }
-        }
+        // This method will trigger OnDockLocationChanged, so we do not need to call it again here
+        OnDockWidthOrHeightChanged(true);
+        OnIsResizableChanged();
+        InitializeDockModeRelatedControls();
+        InitializeBarElements();
     }
 
     private void Window_DpiChanged(object sender, DpiChangedEventArgs e)
@@ -331,138 +418,23 @@ public partial class AppBarWindow : Window
 
     private void ViewModel_PropertyChanged(object? sender, PropertyChangedEventArgs e)
     {
-        // Dispatcher.BeginInvoke?
         switch (e.PropertyName)
         {
             case nameof(AppBarViewModel.DockMode):
                 OnDockLocationChanged();
-                switch (ViewModel.DockMode)
-                {
-                    case AppBarDockMode.Left:
-                    case AppBarDockMode.Right:
-                        // Set thumb
-                        BarThumb.Width = 2;
-                        BarThumb.Height = double.NaN;
-                        BarThumb.Cursor = Cursors.SizeWE;
-                        DockPanel.SetDock(BarThumb, ViewModel.DockMode == AppBarDockMode.Left ? Dock.Right : Dock.Left);
-                        // Set grid
-                        PluginControlGrid.Margin = ViewModel.DockMode == AppBarDockMode.Left ? new Thickness(0, 8, BarThumb.Width, 8) : new Thickness(BarThumb.Width, 8, 0, 8);
-                        // Set stack panel
-                        LeftOrTopStackPanel.Orientation = Orientation.Vertical;
-                        Grid.SetRow(LeftOrTopStackPanel, 0);
-                        Grid.SetColumn(LeftOrTopStackPanel, 0);
-                        Grid.SetRowSpan(LeftOrTopStackPanel, 1);
-                        Grid.SetColumnSpan(LeftOrTopStackPanel, 3);
-                        foreach (var child in LeftOrTopStackPanel.Children)
-                        {
-                            if (child is FrameworkElement control)
-                            {
-                                control.VerticalAlignment = VerticalAlignment.Top;
-                                control.HorizontalAlignment = HorizontalAlignment.Center;
-                            }
-                        }
-
-                        RightOrBottomStackPanel.Orientation = Orientation.Vertical;
-                        Grid.SetRow(RightOrBottomStackPanel, 2);
-                        Grid.SetColumn(RightOrBottomStackPanel, 0);
-                        Grid.SetRowSpan(RightOrBottomStackPanel, 1);
-                        Grid.SetColumnSpan(RightOrBottomStackPanel, 3);
-                        foreach (var child in RightOrBottomStackPanel.Children)
-                        {
-                            if (child is FrameworkElement control)
-                            {
-                                control.VerticalAlignment = VerticalAlignment.Top;
-                                control.HorizontalAlignment = HorizontalAlignment.Center;
-                            }
-                        }
-
-                        CenterStackPanel.Orientation = Orientation.Vertical;
-                        foreach (var child in CenterStackPanel.Children)
-                        {
-                            if (child is FrameworkElement control)
-                            {
-                                control.VerticalAlignment = VerticalAlignment.Top;
-                                control.HorizontalAlignment = HorizontalAlignment.Center;
-                            }
-                        }
-                        break;
-                    case AppBarDockMode.Top:
-                    case AppBarDockMode.Bottom:
-                        // Set thumb
-                        BarThumb.Height = 2;
-                        BarThumb.Width = double.NaN;
-                        BarThumb.Cursor = Cursors.SizeNS;
-                        DockPanel.SetDock(BarThumb, ViewModel.DockMode == AppBarDockMode.Top ? Dock.Bottom : Dock.Top);
-                        // Set grid
-                        PluginControlGrid.Margin = ViewModel.DockMode == AppBarDockMode.Top ? new Thickness(8, 0, 8, BarThumb.Height) : new Thickness(8, BarThumb.Height, 8, 0);
-                        // Set stack panel
-                        LeftOrTopStackPanel.Orientation = Orientation.Horizontal;
-                        Grid.SetRow(LeftOrTopStackPanel, 0);
-                        Grid.SetColumn(LeftOrTopStackPanel, 0);
-                        Grid.SetRowSpan(LeftOrTopStackPanel, 3);
-                        Grid.SetColumnSpan(LeftOrTopStackPanel, 1);
-                        foreach (var child in LeftOrTopStackPanel.Children)
-                        {
-                            if (child is FrameworkElement control)
-                            {
-                                control.VerticalAlignment = VerticalAlignment.Center;
-                                control.HorizontalAlignment = HorizontalAlignment.Left;
-                            }
-                        }
-
-                        RightOrBottomStackPanel.Orientation = Orientation.Horizontal;
-                        Grid.SetRow(RightOrBottomStackPanel, 0);
-                        Grid.SetColumn(RightOrBottomStackPanel, 2);
-                        Grid.SetRowSpan(RightOrBottomStackPanel, 3);
-                        Grid.SetColumnSpan(RightOrBottomStackPanel, 1);
-                        foreach (var child in RightOrBottomStackPanel.Children)
-                        {
-                            if (child is FrameworkElement control)
-                            {
-                                control.VerticalAlignment = VerticalAlignment.Center;
-                                control.HorizontalAlignment = HorizontalAlignment.Left;
-                            }
-                        }
-
-                        CenterStackPanel.Orientation = Orientation.Horizontal;
-                        foreach (var child in CenterStackPanel.Children)
-                        {
-                            if (child is FrameworkElement control)
-                            {
-                                control.VerticalAlignment = VerticalAlignment.Center;
-                                control.HorizontalAlignment = HorizontalAlignment.Left;
-                            }
-                        }
-                        break;
-                    default:
-                        throw new NotSupportedException();
-                }
+                InitializeDockModeRelatedControls();
                 break;
-            case nameof(AppBarViewModel.Monitor):
+            case nameof(AppBarViewModel.ActualMonitor):
                 OnDockLocationChanged();
                 break;
             case nameof(AppBarViewModel.IsResizable):
-                if (ViewModel.IsResizable)
-                {
-                    BarThumb.Cursor = ViewModel.DockMode switch
-                    {
-                        AppBarDockMode.Left or AppBarDockMode.Right => Cursors.SizeWE,
-                        AppBarDockMode.Top or AppBarDockMode.Bottom => Cursors.SizeNS,
-                        _ => throw new NotSupportedException(),
-                    };
-                    BarThumb.DragCompleted += BarThumb_DragCompleted;
-                }
-                else
-                {
-                    BarThumb.Cursor = Cursors.Arrow;
-                    BarThumb.DragCompleted -= BarThumb_DragCompleted;
-                }
+                OnIsResizableChanged();
                 break;
             case nameof(AppBarViewModel.DockedWidthOrHeight):
-                if (!OnDockWidthOrHeightChanged())
-                {
-                    OnDockLocationChanged();
-                }
+                OnDockWidthOrHeightChanged();
+                break;
+            case nameof(AppBarViewModel.ActualDockedWidthOrHeight):
+                OnDockLocationChanged();
                 break;
         }
     }
@@ -471,7 +443,26 @@ public partial class AppBarWindow : Window
 
     #region Thumb Events
 
-    private void BarThumb_DragCompleted(object sender, System.Windows.Controls.Primitives.DragCompletedEventArgs e)
+    private void OnIsResizableChanged()
+    {
+        if (ViewModel.IsResizable)
+        {
+            BarThumb.Cursor = ViewModel.DockMode switch
+            {
+                AppBarDockMode.Left or AppBarDockMode.Right => Cursors.SizeWE,
+                AppBarDockMode.Top or AppBarDockMode.Bottom => Cursors.SizeNS,
+                _ => throw new InvalidOperationException($"Dock mode {ViewModel.DockMode} is not supported for resizing."),
+            };
+            BarThumb.DragCompleted += BarThumb_DragCompleted;
+        }
+        else
+        {
+            BarThumb.Cursor = Cursors.Arrow;
+            BarThumb.DragCompleted -= BarThumb_DragCompleted;
+        }
+    }
+
+    private void BarThumb_DragCompleted(object sender, DragCompletedEventArgs e)
     {
         var delta = ViewModel.DockMode switch
         {
@@ -481,14 +472,21 @@ public partial class AppBarWindow : Window
             AppBarDockMode.Bottom => e.VerticalChange * -1,
             _ => throw new NotSupportedException(),
         };
-        ViewModel.DockedWidthOrHeight += (int)(delta / VisualTreeHelper.GetDpi(this).PixelsPerDip);
+        if (ViewModel.DockedWidthOrHeight == null)
+        {
+            ViewModel.DockedWidthOrHeight = ViewModel.ActualDockedWidthOrHeight + (int)(delta / VisualTreeHelper.GetDpi(this).PixelsPerDip);
+        }
+        else
+        {
+            ViewModel.DockedWidthOrHeight = ViewModel.DockedWidthOrHeight.Value + (int)(delta / VisualTreeHelper.GetDpi(this).PixelsPerDip);
+        }
     }
 
     #endregion
 
     #region Dock Events
 
-    private bool OnDockWidthOrHeightChanged()
+    private void OnDockWidthOrHeightChanged(bool init = false)
     {
         static int BoundIntToDouble(int value, double min, double max)
         {
@@ -504,22 +502,18 @@ public partial class AppBarWindow : Window
             return value;
         }
 
-        if (ViewModel.DockedWidthOrHeight == null) return false;
-
-        var dockedWidthOrHeight = ViewModel.DockMode switch
+        var dockedWidthOrHeight = ViewModel.GetDockedWidthOrHeight(this);
+        ViewModel.ActualDockedWidthOrHeight = ViewModel.DockMode switch
         {
-            AppBarDockMode.Left or AppBarDockMode.Right => BoundIntToDouble(ViewModel.DockedWidthOrHeight.Value, MinWidth, MaxWidth),
-            AppBarDockMode.Top or AppBarDockMode.Bottom => BoundIntToDouble(ViewModel.DockedWidthOrHeight.Value, MinHeight, MaxHeight),
+            AppBarDockMode.Left or AppBarDockMode.Right => BoundIntToDouble(dockedWidthOrHeight, MinWidth, MaxWidth),
+            AppBarDockMode.Top or AppBarDockMode.Bottom => BoundIntToDouble(dockedWidthOrHeight, MinHeight, MaxHeight),
             _ => throw new NotSupportedException(),
         };
 
-        if (ViewModel.DockedWidthOrHeight != dockedWidthOrHeight)
+        if (!init)
         {
-            ViewModel.DockedWidthOrHeight = dockedWidthOrHeight;
-            return true;
+            AppBarManagementService.SetDockedWidthOrHeight(ViewModel.Order, ViewModel.DockedWidthOrHeight);
         }
-
-        return false;
     }
 
     private void OnDockLocationChanged()
@@ -539,18 +533,18 @@ public partial class AppBarWindow : Window
         {
             return;
         }
-        else if (ViewModel.DockedWidthOrHeight == null)
+        else if (ViewModel.ActualMonitor == null)
         {
             return;
         }
 
         var abd = GetAppBarData();
-        var bounds = ViewModel.GetSelectedMonitor().Bounds;
+        var bounds = ViewModel.ActualMonitor.Bounds;
         abd.rc = new RECT((int)bounds.Left, (int)bounds.Top, (int)bounds.Right, (int)bounds.Bottom);
 
         PInvoke.SHAppBarMessage(PInvoke.ABM_QUERYPOS, ref abd);
 
-        var dockedWidthOrHeightInDesktopPixels = _isMinimized ? 0 : WpfDimensionToDesktop(this, ViewModel.DockedWidthOrHeight.Value);
+        var dockedWidthOrHeightInDesktopPixels = _isMinimized ? 0 : WpfDimensionToDesktop(this, ViewModel.ActualDockedWidthOrHeight);
         switch (ViewModel.DockMode)
         {
             case AppBarDockMode.Top:
@@ -613,7 +607,7 @@ public partial class AppBarWindow : Window
             {
                 Placement = placement,
                 Position = e.GetPosition(element),
-                Monitor = ViewModel.GetSelectedMonitor()
+                Monitor = ViewModel.ActualMonitor
             });
             e.Handled = true;
         }
