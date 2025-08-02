@@ -38,7 +38,7 @@ public class NavigationViewService(PageService pageService)
         UnregisterFrameEvents(frame);
         _navigationView = view;
         _navigationView.BackRequested += NavigationView_BackRequested;
-        _navigationView.SelectionChanged += NavigationView_SelectionChanged;
+        _navigationView.ItemInvoked += NavigationView_ItemInvoked;
         _frame = frame;
         _frame.Navigating += Frame_OnNavigating;
         _frame.Navigated += Frame_OnNavigated;
@@ -137,9 +137,9 @@ public class NavigationViewService(PageService pageService)
 
     #region Events
 
-    private void NavigationView_SelectionChanged(NavigationView sender, NavigationViewSelectionChangedEventArgs args)
+    private void NavigationView_ItemInvoked(NavigationView sender, NavigationViewItemInvokedEventArgs args)
     {
-        var selectedItem = args.SelectedItemContainer;
+        var selectedItem = args.InvokedItemContainer;
         if (selectedItem?.Tag is SettingPageTag tag)
         {
             NavigateTo(tag, null);
@@ -197,9 +197,9 @@ public class NavigationViewService(PageService pageService)
                     _navigationView.SelectedItem != newItem)
                 {
                     // Temporarily remove and reattach the event handler to prevent navigation
-                    _navigationView.SelectionChanged -= NavigationView_SelectionChanged;
+                    _navigationView.ItemInvoked -= NavigationView_ItemInvoked;
                     _navigationView.SelectedItem = newItem;
-                    _navigationView.SelectionChanged += NavigationView_SelectionChanged;
+                    _navigationView.ItemInvoked += NavigationView_ItemInvoked;
                 }
             }
         }
