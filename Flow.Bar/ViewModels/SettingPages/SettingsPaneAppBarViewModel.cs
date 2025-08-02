@@ -21,7 +21,7 @@ public partial class SettingsPaneAppBarViewModel(AppBarManagementService appBarM
         // TODO
     }
 
-    internal void RefreshAppBars()
+    private void RefreshAppBars()
     {
         AppBars.Clear();
         foreach (var appBar in _appBarManagementService.GetAllAppBars())
