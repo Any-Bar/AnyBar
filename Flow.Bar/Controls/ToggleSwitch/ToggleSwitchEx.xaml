@@ -28,7 +28,6 @@
         <Setter Property="FontFamily" Value="{DynamicResource ContentControlThemeFontFamily}" />
         <Setter Property="FontSize" Value="{DynamicResource ControlContentThemeFontSize}" />
         <Setter Property="UseSystemFocusVisuals" Value="{DynamicResource UseSystemFocusVisuals}" />
-        <Setter Property="MinWidth" Value="{DynamicResource ToggleSwitchThemeMinWidth}" />
         <Setter Property="FocusVisualStyle" Value="{DynamicResource {x:Static SystemParameters.FocusVisualStyleKey}}" />
         <Setter Property="ui:FocusVisualHelper.FocusVisualMargin" Value="-7,-3,-7,-3" />
         <Setter Property="Template">
@@ -568,6 +567,9 @@
                             <Setter TargetName="OnContentPresenter" Property="Grid.Column" Value="0" />
                             <Setter TargetName="ColumnDefinition_LeftGap" Property="Width" Value="{StaticResource ToggleSwitchLabelGapGL}" />
                             <Setter TargetName="ColumnDefinition_RightGap" Property="Width" Value="0" />
+                        </Trigger>
+                        <Trigger Property="IsRightAlignedCompact" Value="False">
+                            <Setter Property="MinWidth" Value="{DynamicResource ToggleSwitchThemeMinWidth}" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
