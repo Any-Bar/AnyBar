@@ -1,6 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Navigation;
 using CommunityToolkit.Mvvm.DependencyInjection;
+using Flow.Bar.Controls.ToggleSwitch;
 using Flow.Bar.Models.AppBar;
 using Flow.Bar.Models.Enums;
 using Flow.Bar.Services;
@@ -41,7 +42,7 @@ public partial class SettingsPaneAppBar : Page
 
     private void AppBarToggleSwitch_Toggled(object sender, RoutedEventArgs e)
     {
-        if (sender is not ToggleSwitch toggleSwitch) return;
+        if (sender is not ToggleSwitchEx toggleSwitch) return;
         if (toggleSwitch.Tag is not AppBarModel model) return;
         _appBarManagementService.SetEnabled(model.Order, toggleSwitch.IsOn);
     }

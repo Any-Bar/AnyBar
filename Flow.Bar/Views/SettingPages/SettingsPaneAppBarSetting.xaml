@@ -7,6 +7,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:models="clr-namespace:Flow.Bar.Models.AppBar"
     xmlns:sys="clr-namespace:System;assembly=mscorlib"
+    xmlns:tscontrol="clr-namespace:Flow.Bar.Controls.ToggleSwitch"
     xmlns:ui="http://schemas.inkore.net/lib/ui/wpf/modern"
     xmlns:viewModels="clr-namespace:Flow.Bar.ViewModels.SettingPages"
     Title="{DynamicResource SettingWindow_AppBar}"
@@ -37,7 +38,7 @@
         </ui:SettingsCard>
 
         <ui:SettingsCard Header="{DynamicResource SettingPaneAppBarSetting_Resizable}">
-            <ui:ToggleSwitch IsOn="{Binding IsResizable, Mode=TwoWay}" />
+            <tscontrol:ToggleSwitchEx IsOn="{Binding IsResizable, Mode=TwoWay}" />
         </ui:SettingsCard>
 
         <TextBlock

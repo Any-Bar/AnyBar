@@ -6,6 +6,7 @@
     xmlns:ikw="http://schemas.inkore.net/lib/ui/wpf"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:settingsVm="clr-namespace:Flow.Bar.ViewModels.SettingPages"
+    xmlns:tscontrol="clr-namespace:Flow.Bar.Controls.ToggleSwitch"
     xmlns:ui="http://schemas.inkore.net/lib/ui/wpf/modern"
     Title="{DynamicResource SettingWindow_General}"
     d:DataContext="{d:DesignInstance Type=settingsVm:SettingsPaneGeneralViewModel}"
@@ -45,7 +46,7 @@
                 <ui:FontIcon Glyph="&#xed1a;" />
             </ui:SettingsCard.HeaderIcon>
 
-            <ui:ToggleSwitch IsOn="{Binding Settings.HideSettingWindow, Mode=TwoWay}" />
+            <tscontrol:ToggleSwitchEx IsOn="{Binding Settings.HideSettingWindow, Mode=TwoWay}" />
         </ui:SettingsCard>
 
         <TextBlock
@@ -60,7 +61,7 @@
                 <ui:FontIcon Glyph="&#xF4A5;" />
             </ui:SettingsCard.HeaderIcon>
 
-            <ui:ToggleSwitch IsOn="{Binding Settings.EnableTransparencyEffects, Mode=TwoWay}" />
+            <tscontrol:ToggleSwitchEx IsOn="{Binding Settings.EnableTransparencyEffects, Mode=TwoWay}" />
         </ui:SettingsCard>
         <ui:SettingsCard
             x:Name="AnimationEffectsCard"
@@ -70,7 +71,7 @@
                 <ui:FontIcon Glyph="&#xE805;" />
             </ui:SettingsCard.HeaderIcon>
 
-            <ui:ToggleSwitch IsOn="{Binding Settings.EnableAnimationEffects, Mode=TwoWay}" />
+            <tscontrol:ToggleSwitchEx IsOn="{Binding Settings.EnableAnimationEffects, Mode=TwoWay}" />
         </ui:SettingsCard>
     </ikw:SimpleStackPanel>
 </ui:Page>

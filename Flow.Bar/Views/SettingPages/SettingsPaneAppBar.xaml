@@ -7,6 +7,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:models="clr-namespace:Flow.Bar.Models.AppBar"
     xmlns:sys="clr-namespace:System;assembly=mscorlib"
+    xmlns:tscontrol="clr-namespace:Flow.Bar.Controls.ToggleSwitch"
     xmlns:ui="http://schemas.inkore.net/lib/ui/wpf/modern"
     xmlns:viewModels="clr-namespace:Flow.Bar.ViewModels.SettingPages"
     Title="{DynamicResource SettingWindow_AppBar}"
@@ -35,7 +36,7 @@
                             <ui:FontIcon Glyph="&#xE76C;" />
                         </ui:SettingsCard.ActionIcon>
 
-                        <ui:ToggleSwitch
+                        <tscontrol:ToggleSwitchEx
                             IsOn="{Binding IsEnabled, Mode=TwoWay}"
                             Tag="{Binding}"
                             Toggled="AppBarToggleSwitch_Toggled" />
