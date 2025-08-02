@@ -1973,7 +1973,6 @@ public partial class NavigationView : ContentControl, IControlProtected
 
     private void OnSelectedItemPropertyChanged(DependencyPropertyChangedEventArgs args)
     {
-
         var newItem = args.NewValue;
         var oldItem = args.OldValue;
 
@@ -2788,7 +2787,7 @@ public partial class NavigationView : ContentControl, IControlProtected
     // Customer clicked listview->listview raised OnSelectChange->SelectedItem property changed->ChangeSelection->Undo the selection by SelectedItem(prevItem) (we want it stop here)->ChangeSelection again ->...
     private bool m_shouldIgnoreNextSelectionChange = false;
     // Flag indicating whether selection change should raise item invoked. This is needed to be able to raise ItemInvoked before SelectionChanged while SelectedItem should point to the clicked item
-    private bool m_shouldRaiseItemInvokedAfterSelection = false;
+    private bool m_shouldRaiseItemInvokedAfterSelection = true;
 
     // There are three ways to change IsPaneOpen:
     // 1, customer call IsPaneOpen=true/false directly or nav.IsPaneOpen is binding with a variable and the value is changed.
