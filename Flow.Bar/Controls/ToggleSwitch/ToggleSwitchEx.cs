@@ -274,7 +274,11 @@ public class ToggleSwitchEx : Control
     #region IsRightAlignedCompact
 
     public static readonly DependencyProperty IsRightAlignedCompactProperty =
-        DependencyProperty.Register(nameof(IsRightAlignedCompact), typeof(bool), typeof(ToggleSwitchEx), new PropertyMetadata(false));
+        DependencyProperty.Register(
+            nameof(IsRightAlignedCompact),
+            typeof(bool),
+            typeof(ToggleSwitchEx),
+            new PropertyMetadata(true));
 
     public bool IsRightAlignedCompact
     {
