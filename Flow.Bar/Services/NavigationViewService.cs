@@ -155,7 +155,8 @@ public class NavigationViewService(PageService pageService)
     {
         _navigationView!.IsBackEnabled = _frame!.CanGoBack;
         if (sender is not Frame frame) return;
-        if (GetPageViewModel(frame) is INavigationAware navigationAware)
+        if (frame.Content is not Page page) return;
+        if (GetPageViewModel(page) is INavigationAware navigationAware)
         {
             navigationAware.OnNavigatedFrom();
         }
@@ -165,7 +166,8 @@ public class NavigationViewService(PageService pageService)
     {
         _navigationView!.IsBackEnabled = _frame!.CanGoBack;
         if (sender is not Frame frame) return;
-        if (GetPageViewModel(frame) is INavigationAware navigationAware)
+        if (frame.Content is not Page page) return;
+        if (GetPageViewModel(page) is INavigationAware navigationAware)
         {
             navigationAware.OnNavigatedTo(_parameterStack.Peek());
         }
@@ -201,9 +203,13 @@ public class NavigationViewService(PageService pageService)
                 }
             }
         }
+
+        // TODO: Use DynamicResource for Binding
+        // Update the header of the NavigationView
+        _navigationView.Header = page.Title;
     }
 
-    private static object? GetPageViewModel(Frame frame) => (frame?.Content as Page)?.DataContext as INavigationAware;
+    private static object? GetPageViewModel(Page page) => page.DataContext as INavigationAware;
 
     #endregion
 }
