@@ -13,11 +13,11 @@ public class AppBarPopupEx : Popup
         IsOpenProperty.OverrideMetadata(typeof(AppBarPopupEx), new FrameworkPropertyMetadata(OnIsOpenPropertyChanged));
     }
 
-    internal bool SuppressFadeAnimation { get; set; }
-
     internal event EventHandler? Closing;
 
     internal event EventHandler? IsOpenChanged;
+
+    private static bool SuppressFadeAnimation => !App.Settings.EnableAnimationEffects;
 
     protected override void OnOpened(EventArgs e)
     {
