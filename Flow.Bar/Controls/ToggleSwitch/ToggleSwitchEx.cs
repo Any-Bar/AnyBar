@@ -1,4 +1,6 @@
-﻿using System;
+﻿using iNKORE.UI.WPF.Modern.Common;
+using iNKORE.UI.WPF.Modern.Controls.Helpers;
+using System;
 using System.Windows;
 using System.Windows.Automation;
 using System.Windows.Automation.Peers;
@@ -7,8 +9,6 @@ using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using System.Windows.Markup;
 using System.Windows.Media;
-using iNKORE.UI.WPF.Modern.Common;
-using iNKORE.UI.WPF.Modern.Controls.Helpers;
 
 namespace Flow.Bar.Controls.ToggleSwitch;
 
@@ -39,6 +39,9 @@ public class ToggleSwitchEx : Control
     private const string OffState = "Off";
     private const string OnState = "On";
 
+    private const string ToggleSwitchExOffContentKey = nameof(Localize.ToggleSwitchEx_OffContent);
+    private const string ToggleSwitchExOnContentKey = nameof(Localize.ToggleSwitchEx_OnContent);
+
     private const double _offTranslation = 0;
     private double _onTranslation;
     private double _startTranslation;
@@ -55,7 +58,8 @@ public class ToggleSwitchEx : Control
 
     public ToggleSwitchEx()
     {
-
+        SetResourceReference(OffContentProperty, ToggleSwitchExOffContentKey);
+        SetResourceReference(OnContentProperty, ToggleSwitchExOnContentKey);
 
         IsEnabledChanged += OnIsEnabledChanged;
     }
