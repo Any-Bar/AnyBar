@@ -523,14 +523,14 @@
 
                     <ControlTemplate.Triggers>
                         <Trigger SourceName="DisplayModeGroupListener" Property="CurrentStateName" Value="Minimal">
-                            <Setter TargetName="HeaderContent" Property="Margin" Value="{DynamicResource NavigationViewMinimalHeaderTopMargin}" />
                             <Setter TargetName="ContentPaneTopPadding" Property="Margin" Value="{DynamicResource NavigationViewMinimalContentPaneTopMargin}" />
+                            <Setter TargetName="ContentTopPadding" Property="Margin" Value="{DynamicResource NavigationViewMinimalHeaderTopMargin}" />
                             <Setter TargetName="ContentBorder" Property="CornerRadius" Value="{DynamicResource NavigationViewMinimalContentGridCornerRadius}" />
                             <Setter TargetName="ContentBorder" Property="Margin" Value="{DynamicResource NavigationViewMinimalContentMargin}" />
                         </Trigger>
                         <Trigger SourceName="DisplayModeGroupListener" Property="CurrentStateName" Value="MinimalWithBackButton">
-                            <Setter TargetName="HeaderContent" Property="Margin" Value="{DynamicResource NavigationViewMinimalHeaderTopMargin}" />
                             <Setter TargetName="ContentPaneTopPadding" Property="Margin" Value="{DynamicResource NavigationViewMinimalContentPaneTopMargin}" />
+                            <Setter TargetName="ContentTopPadding" Property="Margin" Value="{DynamicResource NavigationViewMinimalHeaderTopMargin}" />
                             <Setter TargetName="ContentBorder" Property="CornerRadius" Value="{DynamicResource NavigationViewMinimalContentGridCornerRadius}" />
                             <Setter TargetName="ContentBorder" Property="Margin" Value="{DynamicResource NavigationViewMinimalContentMargin}" />
                         </Trigger>
