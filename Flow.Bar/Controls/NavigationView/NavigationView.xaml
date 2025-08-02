@@ -177,7 +177,37 @@
                 <ControlTemplate TargetType="local:NavigationView">
                     <Grid x:Name="RootGrid" KeyboardNavigation.TabNavigation="Local">
                         <Grid.Resources>
-                            <ui:BindingProxy x:Key="RootSplitViewProxy" Value="{x:Reference RootSplitView}" />
+                            <Storyboard x:Key="ShadowCasterEaseInStoryboard">
+                                <DoubleAnimationUsingKeyFrames Storyboard.TargetName="ShadowCasterTransform" Storyboard.TargetProperty="X">
+                                    <DiscreteDoubleKeyFrame KeyTime="0" Value="{Binding Source={x:Reference RootSplitView}, Path=TemplateSettings.NegativeOpenPaneLengthMinusCompactLength}" />
+                                    <SplineDoubleKeyFrame
+                                        KeySpline="0.1,0.9 0.2,1.0"
+                                        KeyTime="0:0:0.35"
+                                        Value="0" />
+                                </DoubleAnimationUsingKeyFrames>
+                                <DoubleAnimationUsingKeyFrames Storyboard.TargetName="ShadowCaster" Storyboard.TargetProperty="Opacity">
+                                    <LinearDoubleKeyFrame KeyTime="0:0:0.35" Value="1" />
+                                </DoubleAnimationUsingKeyFrames>
+                                <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ShadowCaster" Storyboard.TargetProperty="HorizontalAlignment">
+                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static HorizontalAlignment.Left}" />
+                                </ObjectAnimationUsingKeyFrames>
+                            </Storyboard>
+
+                            <Storyboard x:Key="ShadowCasterEaseOutStoryboard">
+                                <DoubleAnimationUsingKeyFrames Storyboard.TargetName="ShadowCasterTransform" Storyboard.TargetProperty="X">
+                                    <DiscreteDoubleKeyFrame KeyTime="0" Value="0" />
+                                    <SplineDoubleKeyFrame
+                                        KeySpline="0.1,0.9 0.2,1.0"
+                                        KeyTime="0:0:0.12"
+                                        Value="{Binding Source={x:Reference RootSplitView}, Path=TemplateSettings.NegativeOpenPaneLengthMinusCompactLength}" />
+                                </DoubleAnimationUsingKeyFrames>
+                                <DoubleAnimationUsingKeyFrames Storyboard.TargetName="ShadowCaster" Storyboard.TargetProperty="Opacity">
+                                    <LinearDoubleKeyFrame KeyTime="0:0:0.12" Value="0" />
+                                </DoubleAnimationUsingKeyFrames>
+                                <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ShadowCaster" Storyboard.TargetProperty="HorizontalAlignment">
+                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static HorizontalAlignment.Left}" />
+                                </ObjectAnimationUsingKeyFrames>
+                            </Storyboard>
                         </Grid.Resources>
 
                         <!--  Shadow  -->
@@ -463,40 +493,18 @@
                                 <ui:VisualStateGroupListener.Listener>
                                     <ui:VisualStateGroupListener x:Name="PaneOverlayGroupListener" />
                                 </ui:VisualStateGroupListener.Listener>
-                                <VisualState x:Name="PaneOverlaying">
-                                    <Storyboard>
-                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetName="ShadowCasterTransform" Storyboard.TargetProperty="X">
-                                            <DiscreteDoubleKeyFrame KeyTime="0" Value="{Binding Source={StaticResource RootSplitViewProxy}, Path=Value.TemplateSettings.NegativeOpenPaneLengthMinusCompactLength}" />
-                                            <SplineDoubleKeyFrame
-                                                KeySpline="0.1,0.9 0.2,1.0"
-                                                KeyTime="0:0:0.35"
-                                                Value="0" />
-                                        </DoubleAnimationUsingKeyFrames>
-                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetName="ShadowCaster" Storyboard.TargetProperty="Opacity">
-                                            <LinearDoubleKeyFrame KeyTime="0:0:0.35" Value="1" />
-                                        </DoubleAnimationUsingKeyFrames>
-                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ShadowCaster" Storyboard.TargetProperty="HorizontalAlignment">
-                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static HorizontalAlignment.Left}" />
-                                        </ObjectAnimationUsingKeyFrames>
-                                    </Storyboard>
-                                </VisualState>
-                                <VisualState x:Name="PaneNotOverlaying">
-                                    <Storyboard x:Name="ShadowCasterEaseOutStoryboard">
-                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetName="ShadowCasterTransform" Storyboard.TargetProperty="X">
-                                            <DiscreteDoubleKeyFrame KeyTime="0" Value="0" />
-                                            <SplineDoubleKeyFrame
-                                                KeySpline="0.1,0.9 0.2,1.0"
-                                                KeyTime="0:0:0.12"
-                                                Value="{Binding Source={StaticResource RootSplitViewProxy}, Path=Value.TemplateSettings.NegativeOpenPaneLengthMinusCompactLength}" />
-                                        </DoubleAnimationUsingKeyFrames>
-                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetName="ShadowCaster" Storyboard.TargetProperty="Opacity">
-                                            <LinearDoubleKeyFrame KeyTime="0:0:0.12" Value="0" />
-                                        </DoubleAnimationUsingKeyFrames>
-                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ShadowCaster" Storyboard.TargetProperty="HorizontalAlignment">
-                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static HorizontalAlignment.Left}" />
-                                        </ObjectAnimationUsingKeyFrames>
-                                    </Storyboard>
-                                </VisualState>
+                                <VisualStateGroup.Transitions>
+                                    <VisualTransition
+                                        Storyboard="{StaticResource ShadowCasterEaseInStoryboard}"
+                                        From="PaneNotOverlaying"
+                                        To="PaneOverlaying" />
+                                    <VisualTransition
+                                        Storyboard="{StaticResource ShadowCasterEaseOutStoryboard}"
+                                        From="PaneOverlaying"
+                                        To="PaneNotOverlaying" />
+                                </VisualStateGroup.Transitions>
+                                <VisualState x:Name="PaneOverlaying" />
+                                <VisualState x:Name="PaneNotOverlaying" />
                             </VisualStateGroup>
 
                             <VisualStateGroup x:Name="PaneVisibilityGroup">
