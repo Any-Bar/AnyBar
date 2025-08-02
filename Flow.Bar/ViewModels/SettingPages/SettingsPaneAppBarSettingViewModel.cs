@@ -69,6 +69,10 @@ public partial class SettingsPaneAppBarSettingViewModel(AppBarManagementService 
             IsResizable = model.IsResizable;
             _isInitialized = true;
         }
+        else
+        {
+            App.API.LogError(ClassName, "Parameter is not of type AppBarModel.");
+        }
     }
 
     public void OnNavigatedFrom()
