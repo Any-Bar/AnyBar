@@ -789,7 +789,6 @@
                                     </Storyboard>
                                 </VisualState>
                             </VisualStateGroup>
-
                         </VisualStateManager.VisualStateGroups>
                     </Grid>
                 </ControlTemplate>
