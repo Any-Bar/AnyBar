@@ -601,6 +601,12 @@
                                     <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="{x:Static Visibility.Visible}" />
                                 </ObjectAnimationUsingKeyFrames>
                             </Storyboard>
+
+                            <Storyboard x:Key="FromOverlayNotVisibleToVisible">
+                                <ObjectAnimationUsingKeyFrames Storyboard.TargetName="LightDismissLayer" Storyboard.TargetProperty="Fill">
+                                    <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="{DynamicResource SplitViewLightDismissOverlayBackground}" />
+                                </ObjectAnimationUsingKeyFrames>
+                            </Storyboard>
                         </Grid.Resources>
 
                         <Grid.ColumnDefinitions>
@@ -780,14 +786,14 @@
                             </VisualStateGroup>
 
                             <VisualStateGroup x:Name="OverlayVisibilityStates">
+                                <VisualStateGroup.Transitions>
+                                    <VisualTransition
+                                        Storyboard="{StaticResource FromOverlayNotVisibleToVisible}"
+                                        From="OverlayNotVisible"
+                                        To="OverlayVisible" />
+                                </VisualStateGroup.Transitions>
                                 <VisualState x:Name="OverlayNotVisible" />
-                                <VisualState x:Name="OverlayVisible">
-                                    <Storyboard>
-                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="LightDismissLayer" Storyboard.TargetProperty="Fill">
-                                            <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="{DynamicResource SplitViewLightDismissOverlayBackground}" />
-                                        </ObjectAnimationUsingKeyFrames>
-                                    </Storyboard>
-                                </VisualState>
+                                <VisualState x:Name="OverlayVisible" />
                             </VisualStateGroup>
                         </VisualStateManager.VisualStateGroups>
                     </Grid>
