@@ -23,7 +23,7 @@
             <ui:ItemsRepeater.ItemTemplate>
                 <DataTemplate DataType="models:AppBarModel">
                     <ui:SettingsCard
-                        Click="SettingsCard_Click"
+                        Click="AppBarSettingsCard_Click"
                         Header="{DynamicResource SettingWindow_AppBar}"
                         IsClickEnabled="True"
                         Tag="{Binding}">
@@ -35,7 +35,10 @@
                             <ui:FontIcon Glyph="&#xE76C;" />
                         </ui:SettingsCard.ActionIcon>
 
-                        <ui:ToggleSwitch IsOn="{Binding IsEnabled, Mode=TwoWay}" />
+                        <ui:ToggleSwitch
+                            IsOn="{Binding IsEnabled, Mode=TwoWay}"
+                            Tag="{Binding}"
+                            Toggled="AppBarToggleSwitch_Toggled" />
                     </ui:SettingsCard>
                 </DataTemplate>
             </ui:ItemsRepeater.ItemTemplate>

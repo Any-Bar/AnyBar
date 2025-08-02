@@ -13,6 +13,7 @@ public partial class SettingsPaneAppBar : Page
 {
     private SettingsPaneAppBarViewModel _viewModel = null!;
     private NavigationViewService _navigationService = null!;
+    private AppBarManagementService _appBarManagementService = null!;
 
     protected override void OnNavigatedTo(NavigationEventArgs e)
     {
@@ -21,6 +22,7 @@ public partial class SettingsPaneAppBar : Page
         {
             _viewModel = Ioc.Default.GetRequiredService<SettingsPaneAppBarViewModel>();
             _navigationService = Ioc.Default.GetRequiredService<NavigationViewService>();
+            _appBarManagementService = Ioc.Default.GetRequiredService<AppBarManagementService>();
             DataContext = _viewModel;
         }
         if (!IsInitialized)
@@ -30,10 +32,17 @@ public partial class SettingsPaneAppBar : Page
         base.OnNavigatedTo(e);
     }
 
-    private void SettingsCard_Click(object sender, RoutedEventArgs e)
+    private void AppBarSettingsCard_Click(object sender, RoutedEventArgs e)
     {
         if (sender is not SettingsCard element) return;
         if (element.Tag is not AppBarModel model) return;
         _navigationService.NavigateTo(SettingPageTag.AppBarSetting, model);
+    }
+
+    private void AppBarToggleSwitch_Toggled(object sender, RoutedEventArgs e)
+    {
+        if (sender is not ToggleSwitch toggleSwitch) return;
+        if (toggleSwitch.Tag is not AppBarModel model) return;
+        _appBarManagementService.SetEnabled(model.Order, toggleSwitch.IsOn);
     }
 }
