@@ -78,6 +78,6 @@ public partial class SettingsPaneAppBarSettingViewModel(AppBarManagementService 
 
     public void OnNavigatedFrom()
     {
-
+        _isInitialized = false;
     }
 }
