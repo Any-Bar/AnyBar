@@ -25,11 +25,17 @@
     <system:String x:Key="SettingPaneGeneral_AnimationEffectsDescription">Show animation during some control interaction</system:String>
 
     <!--  Setting Pane AppBar  -->
-    <system:String x:Key="SettingPaneAppBar_DockMode">Dock mode</system:String>
-    <system:String x:Key="SettingPaneAppBar_Monitor">Monitor</system:String>
-    <system:String x:Key="SettingPaneAppBar_MonitorPrimary">Primary monitor</system:String>
-    <system:String x:Key="SettingPaneAppBar_Resizable">Resizable</system:String>
-    <system:String x:Key="SettingPaneAppBar_BarElements">Bar elements</system:String>
+    <system:String x:Key="SettingPaneAppBarSetting_BarBehaviour">Bar behaviour</system:String>
+    <system:String x:Key="SettingPaneAppBarSetting_DockMode">Dock mode</system:String>
+    <system:String x:Key="SettingPaneAppBarSetting_Monitor">Monitor</system:String>
+    <system:String x:Key="SettingPaneAppBarSetting_MonitorPrimary">Primary monitor</system:String>
+    <system:String x:Key="SettingPaneAppBarSetting_Resizable">Resizable</system:String>
+    <system:String x:Key="SettingPaneAppBarSetting_BarElements">Bar elements</system:String>
+    <system:String x:Key="SettingPaneAppBarSetting_LeftBarElements">Left bar elements</system:String>
+    <system:String x:Key="SettingPaneAppBarSetting_TopBarElements">Top bar elements</system:String>
+    <system:String x:Key="SettingPaneAppBarSetting_CenterBarElements">Center bar elements</system:String>
+    <system:String x:Key="SettingPaneAppBarSetting_RightBarElements">Right bar elements</system:String>
+    <system:String x:Key="SettingPaneAppBarSetting_BottomBarElements">Bottom bar elements</system:String>
 
     <!--  Setting Pane About  -->
     <system:String x:Key="SettingPaneAbout_Version">Version</system:String>

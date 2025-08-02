@@ -46,8 +46,8 @@ public class MonitorNameLocalized
         monitorList.Insert(0, new MonitorNameLocalized
         {
             Value = null,
-            Display = Localize.SettingPaneAppBar_MonitorPrimary(),
-            LocalizationKey = nameof(Localize.SettingPaneAppBar_MonitorPrimary)
+            Display = Localize.SettingPaneAppBarSetting_MonitorPrimary(),
+            LocalizationKey = nameof(Localize.SettingPaneAppBarSetting_MonitorPrimary)
         });
         return monitorList;
     }

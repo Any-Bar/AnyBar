@@ -17,7 +17,11 @@
 
     <Grid>
         <ikw:SimpleStackPanel x:Name="AppBarStackPanel" Spacing="{StaticResource SettingsCardSpacing}">
-            <ui:SettingsCard Header="{DynamicResource SettingPaneAppBar_DockMode}">
+            <TextBlock
+                x:Name="BarBehaviourTitle"
+                Style="{StaticResource SettingsFirstSectionHeaderTextBlockStyle}"
+                Text="{DynamicResource SettingPaneAppBarSetting_BarBehaviour}" />
+            <ui:SettingsCard Header="{DynamicResource SettingPaneAppBarSetting_DockMode}">
                 <ComboBox
                     DisplayMemberPath="Display"
                     ItemsSource="{Binding AllDockModes, Mode=OneTime}"
@@ -25,7 +29,7 @@
                     SelectedValuePath="Value" />
             </ui:SettingsCard>
 
-            <ui:SettingsCard Header="{DynamicResource SettingPaneAppBar_Monitor}">
+            <ui:SettingsCard Header="{DynamicResource SettingPaneAppBarSetting_Monitor}">
                 <ComboBox
                     DisplayMemberPath="Display"
                     ItemsSource="{Binding AllMonitorNames, Mode=OneTime}"
@@ -33,11 +37,52 @@
                     SelectedValuePath="Value" />
             </ui:SettingsCard>
 
-            <ui:SettingsCard Header="{DynamicResource SettingPaneAppBar_Resizable}">
+            <ui:SettingsCard Header="{DynamicResource SettingPaneAppBarSetting_Resizable}">
                 <ui:ToggleSwitch IsOn="{Binding IsResizable, Mode=TwoWay}" />
             </ui:SettingsCard>
 
-            <ui:SettingsExpander Header="{DynamicResource SettingPaneAppBar_BarElements}" />
+            <TextBlock
+                x:Name="BarElementsTitle"
+                Style="{StaticResource SettingsSectionHeaderTextBlockStyle}"
+                Text="{DynamicResource SettingPaneAppBarSetting_BarElements}" />
+            <ui:SettingsCard
+                Header="{DynamicResource SettingPaneAppBarSetting_LeftBarElements}"
+                IsClickEnabled="True"
+                Tag="{Binding AppBarModel, Mode=OneWay}">
+                <ui:SettingsCard.HeaderIcon>
+                    <ui:FontIcon Glyph="&#xE71D;" />
+                </ui:SettingsCard.HeaderIcon>
+
+                <ui:SettingsCard.ActionIcon>
+                    <ui:FontIcon Glyph="&#xE76C;" />
+                </ui:SettingsCard.ActionIcon>
+            </ui:SettingsCard>
+
+            <ui:SettingsCard
+                Header="{DynamicResource SettingPaneAppBarSetting_CenterBarElements}"
+                IsClickEnabled="True"
+                Tag="{Binding AppBarModel, Mode=OneWay}">
+                <ui:SettingsCard.HeaderIcon>
+                    <ui:FontIcon Glyph="&#xE71D;" />
+                </ui:SettingsCard.HeaderIcon>
+
+                <ui:SettingsCard.ActionIcon>
+                    <ui:FontIcon Glyph="&#xE76C;" />
+                </ui:SettingsCard.ActionIcon>
+            </ui:SettingsCard>
+
+            <ui:SettingsCard
+                Header="{DynamicResource SettingPaneAppBarSetting_RightBarElements}"
+                IsClickEnabled="True"
+                Tag="{Binding AppBarModel, Mode=OneWay}">
+                <ui:SettingsCard.HeaderIcon>
+                    <ui:FontIcon Glyph="&#xE71D;" />
+                </ui:SettingsCard.HeaderIcon>
+
+                <ui:SettingsCard.ActionIcon>
+                    <ui:FontIcon Glyph="&#xE76C;" />
+                </ui:SettingsCard.ActionIcon>
+            </ui:SettingsCard>
         </ikw:SimpleStackPanel>
     </Grid>
 </ui:Page>

@@ -14,9 +14,10 @@ public partial class SettingsPaneAppBarSettingViewModel(AppBarManagementService 
 
     private readonly AppBarManagementService _appBarManagementService = appBarManagementService;
 
-    private AppBarModel _appBarModel = null!;
-
     private bool _isInitialized = false;
+
+    [ObservableProperty]
+    private AppBarModel _appBarModel = null!;
 
     [ObservableProperty]
     private bool _isEnabled = true;
@@ -24,7 +25,7 @@ public partial class SettingsPaneAppBarSettingViewModel(AppBarManagementService 
     partial void OnIsEnabledChanged(bool value)
     {
         if (!_isInitialized) return;
-        _appBarManagementService.SetEnabled(_appBarModel.Order, value);
+        _appBarManagementService.SetEnabled(AppBarModel.Order, value);
     }
 
     public List<AppBarDockModeLocalized> AllDockModes { get; } = AppBarDockModeLocalized.GetValues();
@@ -35,7 +36,7 @@ public partial class SettingsPaneAppBarSettingViewModel(AppBarManagementService 
     partial void OnDockModeChanged(AppBarDockMode value)
     {
         if (!_isInitialized) return;
-        _appBarManagementService.SetDockMode(_appBarModel.Order, value);
+        _appBarManagementService.SetDockMode(AppBarModel.Order, value);
     }
 
     public List<MonitorNameLocalized> AllMonitorNames { get; } = appBarManagementService.GetAllMonitorNames();
@@ -46,7 +47,7 @@ public partial class SettingsPaneAppBarSettingViewModel(AppBarManagementService 
     partial void OnMonitorNameChanged(string? value)
     {
         if (!_isInitialized) return;
-        _appBarManagementService.SetMonitorName(_appBarModel.Order, value);
+        _appBarManagementService.SetMonitorName(AppBarModel.Order, value);
     }
 
     [ObservableProperty]
@@ -55,14 +56,14 @@ public partial class SettingsPaneAppBarSettingViewModel(AppBarManagementService 
     partial void OnIsResizableChanged(bool value)
     {
         if (!_isInitialized) return;
-        _appBarManagementService.SetIsResizable(_appBarModel.Order, value);
+        _appBarManagementService.SetIsResizable(AppBarModel.Order, value);
     }
 
     public void OnNavigatedTo(object? parameter)
     {
         if (parameter is AppBarModel model)
         {
-            _appBarModel = model;
+            AppBarModel = model;
             IsEnabled = model.IsEnabled;
             DockMode = model.DockMode;
             MonitorName = model.MonitorName;
