@@ -29,7 +29,7 @@ namespace Flow.Bar;
 public partial class App : Application, IDisposable, ISingleInstanceApp
 {
     public static IPublicAPI API { get; private set; } = null!;
-    public static Settings Settings { get; private set; } = null!;
+    public static Settings Settings { get; private set; } = new();
 
     private static readonly string ClassName = nameof(App);
 
