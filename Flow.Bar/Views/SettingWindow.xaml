@@ -22,6 +22,7 @@
     ui:WindowHelper.SystemBackdropType="Mica"
     ui:WindowHelper.UseModernWindowStyle="True"
     Closed="Window_Closed"
+    DataContext="{Binding RelativeSource={RelativeSource Self}}"
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
 
