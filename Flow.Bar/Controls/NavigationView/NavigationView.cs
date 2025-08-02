@@ -462,15 +462,7 @@ public partial class NavigationView : ContentControl, IControlProtected
 
         // Determine the recommeded transition direction.
         // Any transitions other than `Default` only apply in top nav scenarios.
-
-        NavigationRecommendedTransitionDirection recommendedDirection;
-        {
-            static NavigationRecommendedTransitionDirection init()
-            {
-                return NavigationRecommendedTransitionDirection.Default;
-            };
-            recommendedDirection = init();
-        }
+        var recommendedDirection = NavigationRecommendedTransitionDirection.Default;
 
         RaiseItemInvoked(nextItem!, nvi, recommendedDirection);
     }
@@ -624,15 +616,7 @@ public partial class NavigationView : ContentControl, IControlProtected
             if (args.Element is NavigationViewItem nvi)
             {
                 // Propagate depth to children items if they exist
-                int childDepth;
-                {
-                    int init()
-                    {
-                        return nvibImpl.Depth + 1;
-
-                    }
-                    childDepth = init();
-                }
+                int childDepth = nvibImpl.Depth + 1;
 
                 // Register for item events
                 InputHelper.AddTappedHandler(nvi, OnNavigationViewItemTapped);
@@ -1490,14 +1474,7 @@ public partial class NavigationView : ContentControl, IControlProtected
         // otherwise if prevItem is on left side of nextActualItem, transition is from left
         //           if prevItem is on right side of nextActualItem, transition is from right
         // click on Settings item is considered Default
-        NavigationRecommendedTransitionDirection recommendedDirection;
-        {
-            static NavigationRecommendedTransitionDirection init()
-            {
-                return NavigationRecommendedTransitionDirection.Default;
-            }
-            recommendedDirection = init();
-        }
+        var recommendedDirection = NavigationRecommendedTransitionDirection.Default;
 
         // Bug 17850504, Customer may use NavigationViewItem.IsSelected in ItemInvoke or SelectionChanged Event.
         // To keep the logic the same as RS4, ItemInvoke is before unselect the old item
@@ -1793,15 +1770,7 @@ public partial class NavigationView : ContentControl, IControlProtected
 
     private void KeyboardFocusFirstItemFromItem(NavigationViewItemBase nvib)
     {
-        UIElement firstElement;
-        {
-            UIElement init()
-            {
-                var parentIR = GetParentRootItemsRepeaterForContainer(nvib);
-                return parentIR!.TryGetElement(0);
-            }
-            firstElement = init();
-        }
+        UIElement? firstElement = GetParentRootItemsRepeaterForContainer(nvib)?.TryGetElement(0);
 
         if (firstElement is Control controlFirst)
         {
@@ -1864,11 +1833,7 @@ public partial class NavigationView : ContentControl, IControlProtected
 
                     object? rootRepeaterForSelectedItem;
                     {
-                        rootRepeaterForSelectedItem = init();
-                        object? init()
-                        {
-                            return m_leftNavRepeater;
-                        }
+                        rootRepeaterForSelectedItem = m_leftNavRepeater;
                     }
 
                     // If focus is coming from outside the root repeater,
