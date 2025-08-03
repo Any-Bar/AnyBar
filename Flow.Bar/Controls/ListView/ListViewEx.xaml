@@ -33,9 +33,9 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="local:ListViewExItem">
+                    <!--  TODO: Use Margin="{DynamicResource ListViewItemCompactSelectedBorderThemeThickness}" if IsSelectionEnabled is True  -->
                     <Border
                         x:Name="LayoutRoot"
-                        Margin="{DynamicResource ListViewItemCompactSelectedBorderThemeThickness}"
                         ui:PressHelper.IsEnabled="True"
                         Background="{TemplateBinding Background}"
                         BorderBrush="{TemplateBinding BorderBrush}"
