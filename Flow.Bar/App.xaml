@@ -9,10 +9,15 @@
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
+                <!--  UI Framework  -->
                 <ui:ThemeResources />
                 <ui:XamlControlsResources />
+                <!--  Languages  -->
                 <ResourceDictionary Source="/Languages/en.xaml" />
+                <!--  Styles  -->
                 <ResourceDictionary Source="/Resources/ResourceDictionaries/SettingWindowStyle.xaml" />
+                <!--  Controls  -->
+                <ResourceDictionary Source="/Controls/ListView/ListViewEx.xaml" />
                 <ResourceDictionary Source="/Controls/MenuFlyout/AppBarMenuFlyout.xaml" />
                 <ResourceDictionary Source="/Controls/NavigationView/NavigationView.xaml" />
                 <ResourceDictionary Source="/Controls/SplitView/SplitViewEx.xaml" />
