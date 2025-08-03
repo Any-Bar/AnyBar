@@ -3,6 +3,7 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:enum="clr-namespace:Flow.Bar.Models.Enums"
     xmlns:ikw="http://schemas.inkore.net/lib/ui/wpf"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:models="clr-namespace:Flow.Bar.Models.AppBar"
@@ -46,9 +47,23 @@
             Style="{StaticResource SettingsSectionHeaderTextBlockStyle}"
             Text="{DynamicResource SettingPaneAppBarSetting_BarElements}" />
         <ui:SettingsCard
-            Header="{DynamicResource SettingPaneAppBarSetting_LeftBarElements}"
+            x:Name="LeftOrTopBarElementsCard"
             IsClickEnabled="True"
             Tag="{Binding AppBarModel, Mode=OneWay}">
+            <ui:SettingsCard.Style>
+                <Style TargetType="ui:SettingsCard">
+                    <Setter Property="Header" Value="{DynamicResource SettingPaneAppBarSetting_LeftBarElements}" />
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding DockMode}" Value="{x:Static enum:AppBarDockMode.Left}">
+                            <Setter Property="Header" Value="{DynamicResource SettingPaneAppBarSetting_TopBarElements}" />
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding DockMode}" Value="{x:Static enum:AppBarDockMode.Right}">
+                            <Setter Property="Header" Value="{DynamicResource SettingPaneAppBarSetting_TopBarElements}" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </ui:SettingsCard.Style>
+
             <ui:SettingsCard.HeaderIcon>
                 <ui:FontIcon Glyph="&#xE71D;" />
             </ui:SettingsCard.HeaderIcon>
@@ -59,6 +74,7 @@
         </ui:SettingsCard>
 
         <ui:SettingsCard
+            x:Name="CenterBarElementsCard"
             Header="{DynamicResource SettingPaneAppBarSetting_CenterBarElements}"
             IsClickEnabled="True"
             Tag="{Binding AppBarModel, Mode=OneWay}">
@@ -72,9 +88,23 @@
         </ui:SettingsCard>
 
         <ui:SettingsCard
-            Header="{DynamicResource SettingPaneAppBarSetting_RightBarElements}"
+            x:Name="RightOrBottomBarElementsCard"
             IsClickEnabled="True"
             Tag="{Binding AppBarModel, Mode=OneWay}">
+            <ui:SettingsCard.Style>
+                <Style TargetType="ui:SettingsCard">
+                    <Setter Property="Header" Value="{DynamicResource SettingPaneAppBarSetting_RightBarElements}" />
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding DockMode}" Value="{x:Static enum:AppBarDockMode.Left}">
+                            <Setter Property="Header" Value="{DynamicResource SettingPaneAppBarSetting_BottomBarElements}" />
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding DockMode}" Value="{x:Static enum:AppBarDockMode.Right}">
+                            <Setter Property="Header" Value="{DynamicResource SettingPaneAppBarSetting_BottomBarElements}" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </ui:SettingsCard.Style>
+
             <ui:SettingsCard.HeaderIcon>
                 <ui:FontIcon Glyph="&#xE71D;" />
             </ui:SettingsCard.HeaderIcon>
