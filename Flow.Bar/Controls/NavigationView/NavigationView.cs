@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
+using Flow.Bar.Controls.SplitView;
 using iNKORE.UI.WPF.Helpers;
 using iNKORE.UI.WPF.Modern.Common;
 using iNKORE.UI.WPF.Modern.Controls;
@@ -19,8 +20,6 @@ using System.Windows.Media.Animation;
 using System.Windows.Shell;
 using System.Windows.Threading;
 using static Flow.Bar.Controls.NavigationView.CppWinRTHelpers;
-using SplitViewDisplayMode = Flow.Bar.Controls.SplitView.SplitViewDisplayMode;
-using SplitViewPaneClosingEventArgs = Flow.Bar.Controls.SplitView.SplitViewPaneClosingEventArgs;
 
 #pragma warning disable IDE0060 // Remove unused parameter
 #pragma warning disable IDE1006 // Naming Styles
@@ -238,7 +237,7 @@ public partial class NavigationView : ContentControl, IControlProtected
         }
 
         // Get a pointer to the root SplitView
-        if (GetTemplateChild(c_rootSplitViewName) is SplitView.SplitView splitView)
+        if (GetTemplateChild(c_rootSplitViewName) is SplitViewEx splitView)
         {
             m_rootSplitView = splitView;
             splitView.IsPaneOpenChanged += OnSplitViewClosedCompactChanged;
@@ -918,8 +917,8 @@ public partial class NavigationView : ContentControl, IControlProtected
 
     private void OnSplitViewClosedCompactChanged(DependencyObject sender, DependencyProperty args)
     {
-        if (args == SplitView.SplitView.IsPaneOpenProperty ||
-            args == SplitView.SplitView.DisplayModeProperty)
+        if (args == SplitViewEx.IsPaneOpenProperty ||
+            args == SplitViewEx.DisplayModeProperty)
         {
             UpdateIsClosedCompact();
         }
@@ -930,7 +929,7 @@ public partial class NavigationView : ContentControl, IControlProtected
         PaneClosed?.Invoke(this, null);
     }
 
-    private void OnSplitViewPaneClosing(DependencyObject sender, SplitViewPaneClosingEventArgs args)
+    private void OnSplitViewPaneClosing(DependencyObject sender, SplitView.SplitViewPaneClosingEventArgs args)
     {
         bool pendingPaneClosingCancel = false;
         if (PaneClosing != null)
@@ -1923,7 +1922,7 @@ public partial class NavigationView : ContentControl, IControlProtected
         return null;
     }
 
-    internal SplitView.SplitView? GetSplitView()
+    internal SplitViewEx? GetSplitView()
     {
         return m_rootSplitView;
     }
@@ -2743,7 +2742,7 @@ public partial class NavigationView : ContentControl, IControlProtected
 
     // Visual components
     private Button? m_paneToggleButton;
-    private SplitView.SplitView? m_rootSplitView;
+    private SplitViewEx? m_rootSplitView;
     private RowDefinition? m_itemsContainerRow;
     private FrameworkElement? m_menuItemsScrollViewer;
     private UIElement? m_paneContentGrid;

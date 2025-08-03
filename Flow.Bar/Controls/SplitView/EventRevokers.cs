@@ -2,40 +2,40 @@
 
 namespace Flow.Bar.Controls.SplitView;
 
-internal class SplitViewIsPaneOpenChangedRevoker(SplitView source, DependencyPropertyChangedCallback handler) : EventRevoker<SplitView, DependencyPropertyChangedCallback>(source, handler)
+internal class SplitViewIsPaneOpenChangedRevoker(SplitViewEx source, DependencyPropertyChangedCallback handler) : EventRevoker<SplitViewEx, DependencyPropertyChangedCallback>(source, handler)
 {
-    protected override void AddHandler(SplitView source, DependencyPropertyChangedCallback handler)
+    protected override void AddHandler(SplitViewEx source, DependencyPropertyChangedCallback handler)
     {
         source.IsPaneOpenChanged += handler;
     }
 
-    protected override void RemoveHandler(SplitView source, DependencyPropertyChangedCallback handler)
+    protected override void RemoveHandler(SplitViewEx source, DependencyPropertyChangedCallback handler)
     {
         source.IsPaneOpenChanged -= handler;
     }
 }
 
-internal class SplitViewDisplayModeChangedRevoker(SplitView source, DependencyPropertyChangedCallback handler) : EventRevoker<SplitView, DependencyPropertyChangedCallback>(source, handler)
+internal class SplitViewDisplayModeChangedRevoker(SplitViewEx source, DependencyPropertyChangedCallback handler) : EventRevoker<SplitViewEx, DependencyPropertyChangedCallback>(source, handler)
 {
-    protected override void AddHandler(SplitView source, DependencyPropertyChangedCallback handler)
+    protected override void AddHandler(SplitViewEx source, DependencyPropertyChangedCallback handler)
     {
         source.DisplayModeChanged += handler;
     }
 
-    protected override void RemoveHandler(SplitView source, DependencyPropertyChangedCallback handler)
+    protected override void RemoveHandler(SplitViewEx source, DependencyPropertyChangedCallback handler)
     {
         source.DisplayModeChanged -= handler;
     }
 }
 
-internal class SplitViewCompactPaneLengthChangedRevoker(SplitView source, DependencyPropertyChangedCallback handler) : EventRevoker<SplitView, DependencyPropertyChangedCallback>(source, handler)
+internal class SplitViewCompactPaneLengthChangedRevoker(SplitViewEx source, DependencyPropertyChangedCallback handler) : EventRevoker<SplitViewEx, DependencyPropertyChangedCallback>(source, handler)
 {
-    protected override void AddHandler(SplitView source, DependencyPropertyChangedCallback handler)
+    protected override void AddHandler(SplitViewEx source, DependencyPropertyChangedCallback handler)
     {
         source.CompactPaneLengthChanged += handler;
     }
 
-    protected override void RemoveHandler(SplitView source, DependencyPropertyChangedCallback handler)
+    protected override void RemoveHandler(SplitViewEx source, DependencyPropertyChangedCallback handler)
     {
         source.CompactPaneLengthChanged -= handler;
     }

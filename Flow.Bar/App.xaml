@@ -15,7 +15,7 @@
                 <ResourceDictionary Source="/Resources/ResourceDictionaries/SettingWindowStyle.xaml" />
                 <ResourceDictionary Source="/Controls/MenuFlyout/AppBarMenuFlyout.xaml" />
                 <ResourceDictionary Source="/Controls/NavigationView/NavigationView.xaml" />
-                <ResourceDictionary Source="/Controls/SplitView/SplitView.xaml" />
+                <ResourceDictionary Source="/Controls/SplitView/SplitViewEx.xaml" />
                 <ResourceDictionary Source="/Controls/ToggleSwitch/ToggleSwitchEx.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>

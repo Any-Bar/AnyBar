@@ -1,13 +1,14 @@
 ﻿using System.Windows;
 using System.Windows.Media;
 using iNKORE.UI.WPF.Modern.Common;
+using iNKORE.UI.WPF.Modern.Controls;
 using iNKORE.UI.WPF.Modern.Controls.Helpers;
 
 namespace Flow.Bar.Controls.SplitView;
 
 #pragma warning disable IDE0060 // Remove unused parameter
 
-partial class SplitView
+partial class SplitViewEx
 {
     #region CompactPaneLength
 
@@ -15,7 +16,7 @@ partial class SplitView
         DependencyProperty.Register(
             nameof(CompactPaneLength),
             typeof(double),
-            typeof(SplitView),
+            typeof(SplitViewEx),
             new PropertyMetadata(OnCompactPaneLengthPropertyChanged));
 
     public double CompactPaneLength
@@ -26,7 +27,7 @@ partial class SplitView
 
     private static void OnCompactPaneLengthPropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)
     {
-        ((SplitView)sender).OnCompactPaneLengthPropertyChanged(args);
+        ((SplitViewEx)sender).OnCompactPaneLengthPropertyChanged(args);
     }
 
     private void OnCompactPaneLengthPropertyChanged(DependencyPropertyChangedEventArgs args)
@@ -43,7 +44,7 @@ partial class SplitView
         DependencyProperty.Register(
             nameof(Content),
             typeof(UIElement),
-            typeof(SplitView));
+            typeof(SplitViewEx));
 
     public UIElement Content
     {
@@ -59,7 +60,7 @@ partial class SplitView
     /// Identifies the CornerRadius dependency property.
     /// </summary>
     public static readonly DependencyProperty CornerRadiusProperty =
-        ControlHelper.CornerRadiusProperty.AddOwner(typeof(SplitView));
+        ControlHelper.CornerRadiusProperty.AddOwner(typeof(SplitViewEx));
 
     /// <summary>
     /// Gets or sets the radius for the corners of the control's border.
@@ -78,7 +79,7 @@ partial class SplitView
         DependencyProperty.Register(
             nameof(DisplayMode),
             typeof(SplitViewDisplayMode),
-            typeof(SplitView),
+            typeof(SplitViewEx),
             new PropertyMetadata(SplitViewDisplayMode.Overlay, OnDisplayModePropertyChanged));
 
     public SplitViewDisplayMode DisplayMode
@@ -89,7 +90,7 @@ partial class SplitView
 
     private static void OnDisplayModePropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)
     {
-        ((SplitView)sender).OnDisplayModePropertyChanged(args);
+        ((SplitViewEx)sender).OnDisplayModePropertyChanged(args);
     }
 
     private void OnDisplayModePropertyChanged(DependencyPropertyChangedEventArgs args)
@@ -108,7 +109,7 @@ partial class SplitView
         DependencyProperty.Register(
             nameof(IsPaneOpen),
             typeof(bool),
-            typeof(SplitView),
+            typeof(SplitViewEx),
             new PropertyMetadata(OnIsPaneOpenPropertyChanged));
 
     public bool IsPaneOpen
@@ -119,7 +120,7 @@ partial class SplitView
 
     private static void OnIsPaneOpenPropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)
     {
-        ((SplitView)sender).OnIsPaneOpenPropertyChanged(args);
+        ((SplitViewEx)sender).OnIsPaneOpenPropertyChanged(args);
     }
 
     private void OnIsPaneOpenPropertyChanged(DependencyPropertyChangedEventArgs args)
@@ -149,7 +150,7 @@ partial class SplitView
         DependencyProperty.Register(
             nameof(OpenPaneLength),
             typeof(double),
-            typeof(SplitView),
+            typeof(SplitViewEx),
             new PropertyMetadata(OnOpenPaneLengthPropertyChanged));
 
     public double OpenPaneLength
@@ -160,7 +161,7 @@ partial class SplitView
 
     private static void OnOpenPaneLengthPropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)
     {
-        ((SplitView)sender).OnOpenPaneLengthPropertyChanged(args);
+        ((SplitViewEx)sender).OnOpenPaneLengthPropertyChanged(args);
     }
 
     private void OnOpenPaneLengthPropertyChanged(DependencyPropertyChangedEventArgs args)
@@ -177,7 +178,7 @@ partial class SplitView
         DependencyProperty.Register(
             nameof(PaneBackground),
             typeof(Brush),
-            typeof(SplitView));
+            typeof(SplitViewEx));
 
     public Brush PaneBackground
     {
@@ -193,7 +194,7 @@ partial class SplitView
         DependencyProperty.Register(
             nameof(PanePlacement),
             typeof(SplitViewPanePlacement),
-            typeof(SplitView),
+            typeof(SplitViewEx),
             new PropertyMetadata(SplitViewPanePlacement.Left, OnPanePlacementPropertyChanged));
 
     public SplitViewPanePlacement PanePlacement
@@ -204,7 +205,7 @@ partial class SplitView
 
     private static void OnPanePlacementPropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)
     {
-        ((SplitView)sender).OnPanePlacementPropertyChanged(args);
+        ((SplitViewEx)sender).OnPanePlacementPropertyChanged(args);
     }
 
     private void OnPanePlacementPropertyChanged(DependencyPropertyChangedEventArgs args)
@@ -220,7 +221,7 @@ partial class SplitView
         DependencyProperty.Register(
             nameof(Pane),
             typeof(UIElement),
-            typeof(SplitView));
+            typeof(SplitViewEx));
 
     public UIElement Pane
     {
@@ -236,7 +237,7 @@ partial class SplitView
         DependencyProperty.RegisterReadOnly(
             nameof(TemplateSettings),
             typeof(SplitViewTemplateSettings),
-            typeof(SplitView),
+            typeof(SplitViewEx),
             null);
 
     public static readonly DependencyProperty TemplateSettingsProperty =
@@ -256,7 +257,7 @@ partial class SplitView
         DependencyProperty.Register(
             nameof(LightDismissOverlayMode),
             typeof(LightDismissOverlayMode),
-            typeof(SplitView),
+            typeof(SplitViewEx),
             new PropertyMetadata(LightDismissOverlayMode.Auto, OnLightDismissOverlayModePropertyChanged));
 
     public LightDismissOverlayMode LightDismissOverlayMode
@@ -267,7 +268,7 @@ partial class SplitView
 
     private static void OnLightDismissOverlayModePropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)
     {
-        ((SplitView)sender).OnLightDismissOverlayModePropertyChanged(args);
+        ((SplitViewEx)sender).OnLightDismissOverlayModePropertyChanged(args);
     }
 
     private void OnLightDismissOverlayModePropertyChanged(DependencyPropertyChangedEventArgs args)

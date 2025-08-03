@@ -2,6 +2,7 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using Flow.Bar.Controls.SplitView;
+using iNKORE.UI.WPF.Modern.Controls;
 using System.Diagnostics;
 using System.Windows;
 using System.Windows.Automation.Peers;
@@ -103,12 +104,12 @@ public partial class NavigationViewItem : NavigationViewItemBase
 
     private void OnSplitViewPropertyChanged(DependencyObject sender, DependencyProperty args)
     {
-        if (args == SplitView.SplitView.CompactPaneLengthProperty)
+        if (args == SplitViewEx.CompactPaneLengthProperty)
         {
             UpdateCompactPaneLength();
         }
-        else if (args == SplitView.SplitView.IsPaneOpenProperty ||
-            args == SplitView.SplitView.DisplayModeProperty)
+        else if (args == SplitViewEx.IsPaneOpenProperty ||
+            args == SplitViewEx.DisplayModeProperty)
         {
             UpdateIsClosedCompact();
         }
@@ -364,7 +365,7 @@ public partial class NavigationViewItem : NavigationViewItemBase
         // Update item indentation based on its depth
         if (m_navigationViewItemPresenter is { } presenter)
         {
-            var newLeftMargin = Depth * CItemIndentation;
+            var newLeftMargin = Depth * c_itemIndentation;
             presenter.UpdateContentLeftIndentation(newLeftMargin);
         }
     }

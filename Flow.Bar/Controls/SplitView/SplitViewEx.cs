@@ -8,18 +8,19 @@ using System.Windows.Threading;
 using Flow.Bar.Controls.NavigationView;
 using iNKORE.UI.WPF.Helpers;
 using iNKORE.UI.WPF.Modern.Common;
+using iNKORE.UI.WPF.Modern.Controls;
 
 namespace Flow.Bar.Controls.SplitView;
 
 [ContentProperty(nameof(Content))]
-public partial class SplitView : Control
+public partial class SplitViewEx : Control
 {
-    static SplitView()
+    static SplitViewEx()
     {
-        DefaultStyleKeyProperty.OverrideMetadata(typeof(SplitView), new FrameworkPropertyMetadata(typeof(SplitView)));
+        DefaultStyleKeyProperty.OverrideMetadata(typeof(SplitViewEx), new FrameworkPropertyMetadata(typeof(SplitViewEx)));
     }
 
-    public SplitView()
+    public SplitViewEx()
     {
         TemplateSettings = new SplitViewTemplateSettings();
 
@@ -36,10 +37,10 @@ public partial class SplitView : Control
         }
     }
 
-    public event TypedEventHandler<SplitView, object?>? PaneOpening;
-    public event TypedEventHandler<SplitView, object?>? PaneOpened;
-    public event TypedEventHandler<SplitView, SplitViewPaneClosingEventArgs>? PaneClosing;
-    public event TypedEventHandler<SplitView, object?>? PaneClosed;
+    public event TypedEventHandler<SplitViewEx, object?>? PaneOpening;
+    public event TypedEventHandler<SplitViewEx, object?>? PaneOpened;
+    public event TypedEventHandler<SplitViewEx, SplitViewPaneClosingEventArgs>? PaneClosing;
+    public event TypedEventHandler<SplitViewEx, object?>? PaneClosed;
 
     internal event DependencyPropertyChangedCallback? IsPaneOpenChanged;
     internal event DependencyPropertyChangedCallback? DisplayModeChanged;

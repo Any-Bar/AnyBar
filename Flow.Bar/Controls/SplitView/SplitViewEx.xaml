@@ -13,7 +13,7 @@
     <KeyTime x:Key="SplitViewPaneAnimationOpenPreDuration">00:00:00.19999</KeyTime>
     <KeyTime x:Key="SplitViewPaneAnimationCloseDuration">00:00:00.1</KeyTime>
 
-    <Style TargetType="local:SplitView">
+    <Style TargetType="local:SplitViewEx">
         <Setter Property="BorderBrush" Value="{DynamicResource SystemControlForegroundTransparentBrush}" />
         <Setter Property="BorderThickness" Value="{DynamicResource SplitViewLeftBorderThemeThickness}" />
         <Setter Property="HorizontalContentAlignment" Value="Stretch" />
@@ -24,7 +24,7 @@
         <Setter Property="CornerRadius" Value="{DynamicResource SplitViewPaneRootCornerRadius}" />
         <Setter Property="Template">
             <Setter.Value>
-                <ControlTemplate TargetType="local:SplitView">
+                <ControlTemplate TargetType="local:SplitViewEx">
                     <Grid Background="{TemplateBinding Background}" KeyboardNavigation.TabNavigation="Local">
                         <Grid.Resources>
                             <Storyboard x:Key="FromClosedToOpenOverlayLeft">
