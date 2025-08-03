@@ -1,9 +1,8 @@
-﻿using iNKORE.UI.WPF.Modern.Controls;
-using System.Windows;
+﻿using System.Windows;
 
 namespace Flow.Bar.Controls.ListView;
 
-public class ListViewEx : ListViewBase
+public class ListViewEx : ListViewExBase
 {
     static ListViewEx()
     {
@@ -16,11 +15,11 @@ public class ListViewEx : ListViewBase
 
     protected override bool IsItemItsOwnContainerOverride(object item)
     {
-        return item is ListViewItem;
+        return item is ListViewExItem;
     }
 
     protected override DependencyObject GetContainerForItemOverride()
     {
-        return new ListViewItem();
+        return new ListViewExItem();
     }
 }

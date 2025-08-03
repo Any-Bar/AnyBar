@@ -1,12 +1,11 @@
 ﻿using System.Windows;
-using iNKORE.UI.WPF.Modern.Controls;
 
 namespace Flow.Bar.Controls.ListView;
 
-public class ListViewItemEx : ListViewBaseItem
+public class ListViewExItem : ListViewExBaseItem
 {
-    static ListViewItemEx()
+    static ListViewExItem()
     {
-        DefaultStyleKeyProperty.OverrideMetadata(typeof(ListViewItemEx), new FrameworkPropertyMetadata(typeof(ListViewItemEx)));
+        DefaultStyleKeyProperty.OverrideMetadata(typeof(ListViewExItem), new FrameworkPropertyMetadata(typeof(ListViewExItem)));
     }
 }

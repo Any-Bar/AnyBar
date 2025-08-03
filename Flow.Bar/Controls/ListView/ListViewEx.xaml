@@ -13,27 +13,26 @@
         </ResourceDictionary>
     </ResourceDictionary.MergedDictionaries>
 
-    <Style TargetType="local:ListViewItemEx">
-        <Setter Property="FontFamily" Value="{DynamicResource ContentControlThemeFontFamily}" />
+    <Style x:Key="DefaultListViewItemStyle" TargetType="local:ListViewExItem">
+        <Setter Property="OverridesDefaultStyle" Value="True" />
         <Setter Property="FontSize" Value="{DynamicResource ControlContentThemeFontSize}" />
-        <Setter Property="BorderBrush" Value="{x:Null}" />
-        <Setter Property="BorderThickness" Value="0" />
         <Setter Property="Background" Value="{DynamicResource ListViewItemBackground}" />
         <Setter Property="Foreground" Value="{DynamicResource ListViewItemForeground}" />
-        <Setter Property="KeyboardNavigation.TabNavigation" Value="Local" />
-        <!--<Setter Property="IsHoldingEnabled" Value="True" />-->
-        <Setter Property="Padding" Value="16 0 12 0" />
+        <!--  TODO: Use 12 0 12 0 if IsSelectionEnabled is True  -->
+        <Setter Property="Padding" Value="0" />
+        <!--  TODO: Use {Binding HorizontalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}  -->
         <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+        <!--  TODO: Use {Binding VerticalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}  -->
         <Setter Property="VerticalContentAlignment" Value="Center" />
         <Setter Property="MinWidth" Value="{DynamicResource ListViewItemMinWidth}" />
         <Setter Property="MinHeight" Value="{DynamicResource ListViewItemMinHeight}" />
-        <Setter Property="CornerRadius" Value="{DynamicResource ListViewItemCornerRadius}" />
-        <Setter Property="UseSystemFocusVisuals" Value="{DynamicResource UseSystemFocusVisuals}" />
-        <Setter Property="FocusVisualMargin" Value="1" />
+        <Setter Property="SnapsToDevicePixels" Value="True" />
+        <Setter Property="ui:ControlHelper.CornerRadius" Value="{DynamicResource ListViewItemCornerRadius}" />
         <Setter Property="FocusVisualStyle" Value="{DynamicResource {x:Static SystemParameters.FocusVisualStyleKey}}" />
+        <Setter Property="ui:FocusVisualHelper.UseSystemFocusVisuals" Value="{DynamicResource UseSystemFocusVisuals}" />
         <Setter Property="Template">
             <Setter.Value>
-                <ControlTemplate TargetType="local:ListViewItemEx">
+                <ControlTemplate TargetType="local:ListViewExItem">
                     <Border
                         x:Name="LayoutRoot"
                         Margin="{DynamicResource ListViewItemCompactSelectedBorderThemeThickness}"
@@ -41,11 +40,8 @@
                         Background="{TemplateBinding Background}"
                         BorderBrush="{TemplateBinding BorderBrush}"
                         BorderThickness="{TemplateBinding BorderThickness}"
-                        CornerRadius="{TemplateBinding CornerRadius}"
+                        CornerRadius="{TemplateBinding ui:ControlHelper.CornerRadius}"
                         SnapsToDevicePixels="true">
-                        <VisualStateManager.CustomVisualStateManager>
-                            <ui:SimpleVisualStateManager />
-                        </VisualStateManager.CustomVisualStateManager>
                         <Grid>
                             <Grid x:Name="PressedBackgroundGrid">
                                 <Grid.RowDefinitions>
@@ -237,7 +233,15 @@
                         <Trigger SourceName="LayoutRoot" Property="ui:PressHelper.IsPressed" Value="False">
                             <Setter TargetName="LayoutRoot" Property="ui:ControlHelper.VisualState" Value="Normal" />
                         </Trigger>
-                        <!--  PointerOver  -->
+                        <DataTrigger Binding="{Binding SelectionMode, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:ListViewEx}}" Value="Single">
+                            <Setter TargetName="LayoutRoot" Property="ui:ControlHelper.VisualState" Value="MultiSelectDisabled" />
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding SelectionMode, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:ListViewEx}}" Value="Extended">
+                            <Setter TargetName="LayoutRoot" Property="ui:ControlHelper.VisualState" Value="MultiSelectDisabled" />
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding SelectionMode, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:ListViewEx}}" Value="Multiple">
+                            <Setter TargetName="LayoutRoot" Property="ui:ControlHelper.VisualState" Value="MultiSelectEnabled" />
+                        </DataTrigger>
                         <MultiTrigger>
                             <MultiTrigger.Conditions>
                                 <Condition Property="IsSelected" Value="False" />
@@ -248,7 +252,6 @@
                             <Setter TargetName="MultiSelectSquare" Property="BorderBrush" Value="{DynamicResource ListViewItemCheckBoxPointerOverBorderBrush}" />
                             <Setter TargetName="MultiSelectSquare" Property="Background" Value="{DynamicResource ListViewItemCheckBoxPointerOverBrush}" />
                         </MultiTrigger>
-                        <!--  Pressed  -->
                         <MultiTrigger>
                             <MultiTrigger.Conditions>
                                 <Condition Property="IsSelected" Value="False" />
@@ -313,41 +316,32 @@
         </Setter>
     </Style>
 
-    <Style TargetType="local:ListViewEx">
-        <Setter Property="IsTabStop" Value="False" />
-        <Setter Property="KeyboardNavigation.TabNavigation" Value="Once" />
-        <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled" />
+    <Style BasedOn="{StaticResource DefaultListViewItemStyle}" TargetType="local:ListViewExItem" />
+
+    <Style x:Key="BaseListViewStyle" TargetType="local:ListViewEx">
+        <Setter Property="OverridesDefaultStyle" Value="True" />
+        <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto" />
         <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto" />
-        <Setter Property="ScrollViewer.IsDeferredScrollingEnabled" Value="False" />
         <Setter Property="ScrollViewer.CanContentScroll" Value="true" />
+        <Setter Property="ScrollViewer.PanningMode" Value="Both" />
         <Setter Property="Stylus.IsFlicksEnabled" Value="False" />
-        <Setter Property="UseSystemFocusVisuals" Value="{DynamicResource UseSystemFocusVisuals}" />
-        <Setter Property="FocusVisualStyle" Value="{DynamicResource {x:Static SystemParameters.FocusVisualStyleKey}}" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="ItemContainerStyle" Value="{StaticResource DefaultListViewItemStyle}" />
         <Setter Property="ui:ScrollViewerHelper.AutoHideScrollBars" Value="{DynamicResource AutoHideScrollBars}" />
-        <Setter Property="ItemsPanel">
-            <Setter.Value>
-                <ItemsPanelTemplate>
-                    <VirtualizingStackPanel Orientation="Vertical" />
-                </ItemsPanelTemplate>
-            </Setter.Value>
-        </Setter>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="local:ListViewEx">
                     <Border
+                        x:Name="Bd"
                         Background="{TemplateBinding Background}"
                         BorderBrush="{TemplateBinding BorderBrush}"
                         BorderThickness="{TemplateBinding BorderThickness}"
-                        CornerRadius="{TemplateBinding CornerRadius}"
-                        SnapsToDevicePixels="True">
+                        SnapsToDevicePixels="true">
                         <ui:ScrollViewerEx
-                            x:Name="ScrollViewer"
                             Padding="{TemplateBinding Padding}"
-                            AutoHideScrollBars="{TemplateBinding ui:ScrollViewerHelper.AutoHideScrollBars}"
+                            ui:ScrollViewerHelper.AutoHideScrollBars="{TemplateBinding ui:ScrollViewerHelper.AutoHideScrollBars}"
                             Focusable="false"
                             HorizontalScrollBarVisibility="{TemplateBinding ScrollViewer.HorizontalScrollBarVisibility}"
-                            IsDeferredScrollingEnabled="{TemplateBinding ScrollViewer.IsDeferredScrollingEnabled}"
-                            KeyboardNavigation.TabNavigation="{TemplateBinding KeyboardNavigation.TabNavigation}"
                             VerticalScrollBarVisibility="{TemplateBinding ScrollViewer.VerticalScrollBarVisibility}">
                             <Grid>
                                 <Grid.RowDefinitions>
@@ -359,15 +353,15 @@
                                     Grid.Row="0"
                                     HorizontalAlignment="Stretch"
                                     VerticalAlignment="Stretch"
-                                    Content="{TemplateBinding Header}"
-                                    ContentTemplate="{TemplateBinding HeaderTemplate}" />
+                                    Content="{TemplateBinding ui:ListViewHelper.Header}"
+                                    ContentTemplate="{TemplateBinding ui:ListViewHelper.HeaderTemplate}" />
                                 <ItemsPresenter Grid.Row="1" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
                                 <ContentPresenter
                                     Grid.Row="2"
                                     HorizontalAlignment="Stretch"
                                     VerticalAlignment="Stretch"
-                                    Content="{TemplateBinding Footer}"
-                                    ContentTemplate="{TemplateBinding FooterTemplate}" />
+                                    Content="{TemplateBinding ui:ListViewHelper.Footer}"
+                                    ContentTemplate="{TemplateBinding ui:ListViewHelper.FooterTemplate}" />
                             </Grid>
                         </ui:ScrollViewerEx>
                     </Border>
@@ -384,5 +378,12 @@
             </Setter.Value>
         </Setter>
     </Style>
+
+    <Style
+        x:Key="DefaultListViewStyle"
+        BasedOn="{StaticResource BaseListViewStyle}"
+        TargetType="local:ListViewEx" />
+
+    <Style BasedOn="{StaticResource DefaultListViewStyle}" TargetType="local:ListViewEx" />
 
 </ResourceDictionary>
