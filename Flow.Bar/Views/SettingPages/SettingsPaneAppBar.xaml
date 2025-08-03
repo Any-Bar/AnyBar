@@ -4,6 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:ikw="http://schemas.inkore.net/lib/ui/wpf"
+    xmlns:lvcontrol="clr-namespace:Flow.Bar.Controls.ListView"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:models="clr-namespace:Flow.Bar.Models.AppBar"
     xmlns:sys="clr-namespace:System;assembly=mscorlib"
@@ -17,11 +18,11 @@
     mc:Ignorable="d">
 
     <Grid>
-        <ui:ItemsRepeater
+        <lvcontrol:ListViewEx
             x:Name="AppBarListView"
             ItemsSource="{Binding AppBars}"
             Visibility="Visible">
-            <ui:ItemsRepeater.ItemTemplate>
+            <lvcontrol:ListViewEx.ItemTemplate>
                 <DataTemplate DataType="models:AppBarModel">
                     <ui:SettingsCard
                         Click="AppBarSettingsCard_Click"
@@ -42,8 +43,8 @@
                             Toggled="AppBarToggleSwitch_Toggled" />
                     </ui:SettingsCard>
                 </DataTemplate>
-            </ui:ItemsRepeater.ItemTemplate>
-        </ui:ItemsRepeater>
+            </lvcontrol:ListViewEx.ItemTemplate>
+        </lvcontrol:ListViewEx>
 
         <ikw:SimpleStackPanel
             x:Name="NoAppBarStackPanel"
