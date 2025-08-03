@@ -17,11 +17,19 @@
     d:DesignWidth="800"
     mc:Ignorable="d">
 
-    <Grid>
+    <ikw:SimpleStackPanel Orientation="Vertical" Spacing="{StaticResource SettingsCardSpacing}">
+        <ui:SettingsCard x:Name="AddAppBarCard" Header="{DynamicResource SettingPaneAppBar_AddAppBarHeader}">
+            <Button
+                x:Name="AddAppBarButton"
+                Command="{Binding AddAppBarCommand, Mode=OneTime}"
+                Content="{DynamicResource SettingPaneAppBar_AddAppBar}"
+                Style="{DynamicResource {x:Static ui:ThemeKeys.AccentButtonStyleKey}}" />
+        </ui:SettingsCard>
         <lvcontrol:ListViewEx x:Name="AppBarListView" ItemsSource="{Binding AppBars}">
             <lvcontrol:ListViewEx.ItemTemplate>
                 <DataTemplate DataType="models:AppBarModel">
                     <ui:SettingsCard
+                        x:Name="AppBarSettingsCard"
                         Click="AppBarSettingsCard_Click"
                         Header="{DynamicResource SettingWindow_AppBar}"
                         IsClickEnabled="True"
@@ -42,18 +50,5 @@
                 </DataTemplate>
             </lvcontrol:ListViewEx.ItemTemplate>
         </lvcontrol:ListViewEx>
-
-        <ikw:SimpleStackPanel
-            x:Name="NoAppBarStackPanel"
-            HorizontalAlignment="Center"
-            VerticalAlignment="Center"
-            Spacing="{StaticResource SettingsCardSpacing}"
-            Visibility="Collapsed">
-            <TextBlock Text="There are no appbars yet. Add one appbar to start!" />
-            <Button
-                HorizontalAlignment="Center"
-                Command="{Binding AddAppBarCommand}"
-                Content="Add AppBar" />
-        </ikw:SimpleStackPanel>
-    </Grid>
+    </ikw:SimpleStackPanel>
 </ui:Page>

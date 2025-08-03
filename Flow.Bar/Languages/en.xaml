@@ -25,6 +25,10 @@
     <system:String x:Key="SettingPaneGeneral_AnimationEffectsDescription">Show animation during some control interaction</system:String>
 
     <!--  Setting Pane AppBar  -->
+    <system:String x:Key="SettingPaneAppBar_AddAppBarHeader">Add a new appbar to your system</system:String>
+    <system:String x:Key="SettingPaneAppBar_AddAppBar">Add AppBar</system:String>
+
+    <!--  Setting Pane AppBar Setting  -->
     <system:String x:Key="SettingPaneAppBarSetting_BarBehaviour">Bar behaviour</system:String>
     <system:String x:Key="SettingPaneAppBarSetting_DockMode">Dock mode</system:String>
     <system:String x:Key="SettingPaneAppBarSetting_Monitor">Monitor</system:String>
