@@ -18,10 +18,7 @@
     mc:Ignorable="d">
 
     <Grid>
-        <lvcontrol:ListViewEx
-            x:Name="AppBarListView"
-            ItemsSource="{Binding AppBars}"
-            Visibility="Visible">
+        <lvcontrol:ListViewEx x:Name="AppBarListView" ItemsSource="{Binding AppBars}">
             <lvcontrol:ListViewEx.ItemTemplate>
                 <DataTemplate DataType="models:AppBarModel">
                     <ui:SettingsCard
