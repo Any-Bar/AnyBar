@@ -20,9 +20,9 @@ public class AppBarModel : IEquatable<AppBarModel>
 
     public List<BarElementModel> LeftOrTopBarElements { get; set; } = [];
 
-    public List<BarElementModel> RightOrBottomBarElements { get; set; } = [];
-
     public List<BarElementModel> CenterBarElements { get; set; } = [];
+
+    public List<BarElementModel> RightOrBottomBarElements { get; set; } = [];
 
     /// <inheritdoc />
     public override bool Equals(object? obj)
