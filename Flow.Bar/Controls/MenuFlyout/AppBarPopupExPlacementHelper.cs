@@ -6,7 +6,7 @@ using System.Windows.Media;
 
 namespace Flow.Bar.Controls.MenuFlyout;
 
-internal static class AppBarPopupPlacementHelper
+internal static class AppBarPopupExPlacementHelper
 {
     #region Placement
 
@@ -14,7 +14,7 @@ internal static class AppBarPopupPlacementHelper
         DependencyProperty.RegisterAttached(
             "Placement",
             typeof(AppBarPlacementMode),
-            typeof(AppBarPopupPlacementHelper),
+            typeof(AppBarPopupExPlacementHelper),
             new PropertyMetadata(AppBarPlacementMode.Top));
 
     public static AppBarPlacementMode GetPlacement(DependencyObject element)

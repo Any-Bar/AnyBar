@@ -199,7 +199,7 @@ public class AppBarMenuFlyout : DependencyObject
 
     private CustomPopupPlacement[] PositionPopup(Size popupSize, Size targetSize, Point offset)
     {
-        return AppBarPopupPlacementHelper.PositionPopup(Placement, popupSize, targetSize, ShowOptions.Monitor, ShowOptions.Position, offset, m_target!, m_presenter!);
+        return AppBarPopupExPlacementHelper.PositionPopup(Placement, popupSize, targetSize, ShowOptions.Monitor, ShowOptions.Position, offset, m_target!, m_presenter!);
     }   
 
     private void EnsurePresenter()
@@ -278,7 +278,7 @@ public class AppBarMenuFlyout : DependencyObject
     internal void BindPlacement(Control presenter)
     {
         presenter.SetBinding(
-            AppBarPopupPlacementHelper.PlacementProperty,
+            AppBarPopupExPlacementHelper.PlacementProperty,
             new Binding
             {
                 Path = new PropertyPath(PlacementProperty),
