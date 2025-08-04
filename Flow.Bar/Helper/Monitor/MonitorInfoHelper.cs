@@ -7,7 +7,7 @@ namespace Flow.Bar.Helper.Monitor;
 
 public class MonitorInfoHelper
 {
-    private const int DefaultDockedWidthOrHeight = 48;
+    public const int DefaultDockedWidthOrHeight = 48;
 
     public static MonitorInfo? GetMonitorInfoFromName(string? monitorName)
     {
