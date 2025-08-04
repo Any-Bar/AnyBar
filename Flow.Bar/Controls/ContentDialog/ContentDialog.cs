@@ -44,6 +44,9 @@ namespace Flow.Bar.Controls;
 [StyleTypedProperty(Property = nameof(CloseButtonStyle), StyleTargetType = typeof(Button))]
 public class ContentDialog : ContentControl
 {
+    private const string c_defaultContentDialogStyleKey = "DefaultContentDialogStyle";
+    private static Style? s_defaultContentDialogStyle;
+
     static ContentDialog()
     {
         DefaultStyleKeyProperty.OverrideMetadata(typeof(ContentDialog),
@@ -55,6 +58,12 @@ public class ContentDialog : ContentControl
 
     public ContentDialog()
     {
+        s_defaultContentDialogStyle ??= (Style)Application.Current.Resources[c_defaultContentDialogStyleKey];
+
+        ArgumentNullException.ThrowIfNull(s_defaultContentDialogStyle, $"{c_defaultContentDialogStyleKey} not found in Application resources.");
+
+        Style = s_defaultContentDialogStyle;
+
         m_closeTimer = new DispatcherTimer
         {
             Interval = TimeSpan.FromSeconds(0.6)
