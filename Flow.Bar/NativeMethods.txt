@@ -30,3 +30,4 @@ WINDOWPOS
 ABN_POSCHANGED
 
 SetForegroundWindow
+GetActiveWindow

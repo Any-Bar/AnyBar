@@ -5,7 +5,7 @@ using Windows.Win32.Foundation;
 
 namespace Flow.Bar.Helper;
 
-public class Win32Helper
+public static class Win32Helper
 {
     public static bool SetForegroundWindow(Window window)
     {
@@ -25,5 +25,20 @@ public class Win32Helper
             windowHelper.EnsureHandle();
         }
         return new(windowHelper.Handle);
+    }
+
+    public static Window? GetActiveWindow()
+    {
+        var activeWindow = GetActiveWindowHandle();
+        if (activeWindow != HWND.Null)
+        {
+            return HwndSource.FromHwnd(activeWindow)?.RootVisual as Window;
+        }
+        return null;
+    }
+
+    internal static HWND GetActiveWindowHandle()
+    {
+        return PInvoke.GetActiveWindow();
     }
 }
