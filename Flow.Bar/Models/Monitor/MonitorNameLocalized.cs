@@ -13,7 +13,7 @@ public class MonitorNameLocalized
     public string? LocalizationKey { get; set; }
     public string? LocalizationValue { get; set; }
 
-    public static List<MonitorNameLocalized> GetValues(ICollection<AppBarModel> appBars)
+    public static List<MonitorNameLocalized> GetValues(ICollection<AppBarModel>? appBars)
     {
         // Get all monitors from the system
         var monitorList = MonitorInfo.GetDisplayMonitors()
@@ -24,20 +24,24 @@ public class MonitorNameLocalized
                 LocalizationValue = monitor.Name
             })
             .ToList();
-        var monitorNames = monitorList.Select(m => m.Value).ToHashSet();
-        // Append monitors that are not included in the system
-        foreach (var appBar in appBars)
+        // Include monitors from app bars if provided
+        if (appBars is not null)
         {
-            var monitorName = appBar.MonitorName;
-            if (monitorName is not null && !monitorNames.Contains(monitorName))
+            var monitorNames = monitorList.Select(m => m.Value).ToHashSet();
+            // Append monitors that are not included in the system
+            foreach (var appBar in appBars)
             {
-                monitorList.Add(new MonitorNameLocalized
+                var monitorName = appBar.MonitorName;
+                if (monitorName is not null && !monitorNames.Contains(monitorName))
                 {
-                    Value = monitorName,
-                    Display = monitorName,
-                    LocalizationValue = monitorName
-                });
-                monitorNames.Add(monitorName);
+                    monitorList.Add(new MonitorNameLocalized
+                    {
+                        Value = monitorName,
+                        Display = monitorName,
+                        LocalizationValue = monitorName
+                    });
+                    monitorNames.Add(monitorName);
+                }
             }
         }
         // Sort the monitors by name

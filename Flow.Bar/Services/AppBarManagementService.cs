@@ -36,9 +36,9 @@ public class AppBarManagementService(Settings settings)
         }
     }
 
-    public List<MonitorNameLocalized> GetAllMonitorNames()
+    public List<MonitorNameLocalized> GetAllMonitorNames(bool includeSettingMonitors)
     {
-        return MonitorNameLocalized.GetValues(_settings.AppBars.Values);
+        return MonitorNameLocalized.GetValues(includeSettingMonitors ? _settings.AppBars.Values : null);
     }
 
     public List<AppBarModel> GetAllAppBars()

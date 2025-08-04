@@ -42,7 +42,7 @@ public partial class SettingsPaneAppBarSettingViewModel(AppBarManagementService 
         _appBarManagementService.SetDockMode(AppBarModel.Order, value);
     }
 
-    public List<MonitorNameLocalized> AllMonitorNames { get; } = appBarManagementService.GetAllMonitorNames();
+    public List<MonitorNameLocalized> AllMonitorNames { get; } = appBarManagementService.GetAllMonitorNames(true);
 
     [ObservableProperty]
     private MonitorInfo _actualMonitor = null!;
