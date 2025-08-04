@@ -58,6 +58,7 @@ public class ContentDialog : ContentControl
 
     public ContentDialog()
     {
+        // TODO: Use <Style BasedOn="{StaticResource DefaultContentDialogStyle}" TargetType="local:ContentDialog" /> instead of this
         s_defaultContentDialogStyle ??= (Style)Application.Current.Resources[c_defaultContentDialogStyleKey];
 
         ArgumentNullException.ThrowIfNull(s_defaultContentDialogStyle, $"{c_defaultContentDialogStyleKey} not found in Application resources.");
