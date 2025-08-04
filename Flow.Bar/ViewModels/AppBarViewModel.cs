@@ -78,7 +78,7 @@ public partial class AppBarViewModel : ObservableObject
         }
         else
         {
-            App.API.LogError(ClassName, "Monitor not found: " + monitorName);
+            App.API.LogError(ClassName, $"Monitor not found: {monitorName}");
         }
     }
 }
