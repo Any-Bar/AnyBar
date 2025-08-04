@@ -343,6 +343,7 @@
                                             <controls:ItemsRepeaterScrollHost HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                                                 <ui:ScrollViewerEx
                                                     x:Name="MenuItemsScrollViewer"
+                                                    HorizontalScrollBarVisibility="Disabled"
                                                     KeyboardNavigation.TabNavigation="Local"
                                                     VerticalScrollBarVisibility="Auto">
                                                     <!--  Left nav ItemsRepeater  -->
