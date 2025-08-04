@@ -57,25 +57,8 @@ public partial class AppBarViewModel : ObservableObject
         }
 
         var monitor = MonitorInfo.GetPrimaryDisplayMonitor();
-        if (monitor != null)
-        {
-            var taskBarHeight = monitor.Bounds.Height - monitor.WorkingArea.Height;
-            if (taskBarHeight != 0) // Taskbar is docked at the top or bottom
-            {
-                return DesktopDimensionToWpf(visual, (int)taskBarHeight);
-            }
-            else
-            {
-                var taskBarWidth = monitor.Bounds.Width - monitor.WorkingArea.Width;
-                if (taskBarWidth != 0) // Taskbar is docked at the left or right
-                {
-                    return DesktopDimensionToWpf(visual, (int)taskBarWidth);
-                }
-            }
-        }
-
-        // No taskbar detected, return a default value
-        return 48;
+        var taskBarWidthOrHeight = MonitorInfoHelper.GetMonitorTaskBarWidthOrHeight(monitor);
+        return DesktopDimensionToWpf(visual, taskBarWidthOrHeight);
     }
 
     [ObservableProperty]
