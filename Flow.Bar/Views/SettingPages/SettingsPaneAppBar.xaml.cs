@@ -1,12 +1,12 @@
-﻿using System.Windows;
-using System.Windows.Navigation;
-using CommunityToolkit.Mvvm.DependencyInjection;
+﻿using CommunityToolkit.Mvvm.DependencyInjection;
 using Flow.Bar.Controls.ToggleSwitch;
 using Flow.Bar.Models.AppBar;
 using Flow.Bar.Models.Enums;
 using Flow.Bar.Services;
 using Flow.Bar.ViewModels.SettingPages;
 using iNKORE.UI.WPF.Modern.Controls;
+using System.Windows;
+using System.Windows.Navigation;
 
 namespace Flow.Bar.Views.SettingPages;
 
