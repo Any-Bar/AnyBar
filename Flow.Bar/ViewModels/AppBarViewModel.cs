@@ -40,13 +40,16 @@ public partial class AppBarViewModel : ObservableObject
     private int _actualDockedWidthOrHeight = -1;
 
     [ObservableProperty]
-    private int? _dockedWidthOrHeight = null;
+    private bool _followSystemTaskbarWidthOrHeight = true;
+
+    [ObservableProperty]
+    private int _dockedWidthOrHeight = MonitorInfoHelper.DefaultDockedWidthOrHeight;
 
     public int GetDockedWidthOrHeight(Visual visual)
     {
-        if (DockedWidthOrHeight != null)
+        if (!FollowSystemTaskbarWidthOrHeight)
         {
-            return DockedWidthOrHeight.Value;
+            return DockedWidthOrHeight;
         }
 
         static int DesktopDimensionToWpf(Visual visual, int dim)
@@ -72,6 +75,7 @@ public partial class AppBarViewModel : ObservableObject
         Order = model.Order;
         DockMode = model.DockMode;
         MonitorName = model.MonitorName;
+        FollowSystemTaskbarWidthOrHeight = model.FollowSystemTaskbarWidthOrHeight;
         DockedWidthOrHeight = model.DockedWidthOrHeight;
         IsResizable = model.IsResizable;
         if (ActualMonitor == null)

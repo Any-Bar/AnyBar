@@ -97,7 +97,20 @@ public class AppBarManagementService(Settings settings)
         }
     }
 
-    public void SetDockedWidthOrHeight(int order, int? dockedWidthOrHeight)
+    public void SetFollowSystemTaskbarWidthOrHeight(int order, bool followSystemTaskbarWidthOrHeight)
+    {
+        if (_settings.AppBars.TryGetValue(order, out var appBar))
+        {
+            appBar.FollowSystemTaskbarWidthOrHeight = followSystemTaskbarWidthOrHeight;
+            _settings.Save();
+            if (AppBarWindowPairs.TryGetValue(order, out var appBarWindow))
+            {
+                appBarWindow.ViewModel.FollowSystemTaskbarWidthOrHeight = followSystemTaskbarWidthOrHeight;
+            }
+        }
+    }
+
+    public void SetDockedWidthOrHeight(int order, int dockedWidthOrHeight)
     {
         if (_settings.AppBars.TryGetValue(order, out var appBar))
         {

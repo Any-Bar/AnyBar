@@ -14,7 +14,9 @@ public class AppBarModel : IEquatable<AppBarModel>
 
     public string? MonitorName { get; set; } = null;
 
-    public int? DockedWidthOrHeight { get; set; } = null;
+    public bool FollowSystemTaskbarWidthOrHeight { get; set; } = true;
+
+    public int DockedWidthOrHeight { get; set; } = 0;
 
     public bool IsResizable { get; set; } = false;
 

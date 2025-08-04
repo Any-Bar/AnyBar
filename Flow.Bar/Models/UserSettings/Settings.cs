@@ -1,4 +1,5 @@
-﻿using Flow.Bar.Models.AppBar;
+﻿using Flow.Bar.Helper.Monitor;
+using Flow.Bar.Models.AppBar;
 using Flow.Bar.Models.Enums;
 using Flow.Bar.Models.Storage;
 using System;
@@ -41,12 +42,15 @@ public class Settings
             if (_appBars == null)
             {
                 _appBars = new();
+                var monitor = MonitorInfoHelper.GetMonitorInfoFromName(null);
+                var dockedWidthOrHeight = MonitorInfoHelper.GetMonitorTaskBarWidthOrHeight(monitor);
                 var defaultAppBar = new AppBarModel
                 {
                     Order = 0,
                     DockMode = AppBarDockMode.Top,
                     MonitorName = null,
-                    DockedWidthOrHeight = null,
+                    FollowSystemTaskbarWidthOrHeight = true,
+                    DockedWidthOrHeight = dockedWidthOrHeight,
                     IsResizable = false,
                     RightOrBottomBarElements =
                     [

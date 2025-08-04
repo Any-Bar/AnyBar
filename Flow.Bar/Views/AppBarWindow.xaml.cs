@@ -328,7 +328,7 @@ public partial class AppBarWindow : Window
     private void Window_Loaded(object sender, RoutedEventArgs e)
     {
         // No need to call OnDockLocationChanged - It will be called in property changed handler
-        OnDockWidthOrHeightChanged(true);
+        UpdateDockedWidthOrHeight();
         OnIsResizableChanged();
         InitializeDockModeRelatedControls();
         InitializeBarElements();
@@ -430,8 +430,11 @@ public partial class AppBarWindow : Window
             case nameof(AppBarViewModel.IsResizable):
                 OnIsResizableChanged();
                 break;
+            case nameof(AppBarViewModel.FollowSystemTaskbarWidthOrHeight):
+                OnSystemTaskbarWidthOrHeightChanged();
+                break;
             case nameof(AppBarViewModel.DockedWidthOrHeight):
-                OnDockWidthOrHeightChanged();
+                OnDockedWidthOrHeightChanged();
                 break;
             case nameof(AppBarViewModel.ActualDockedWidthOrHeight):
                 OnDockLocationChanged();
@@ -472,13 +475,11 @@ public partial class AppBarWindow : Window
             AppBarDockMode.Bottom => e.VerticalChange * -1,
             _ => throw new NotSupportedException(),
         };
-        if (ViewModel.DockedWidthOrHeight == null)
+        ViewModel.DockedWidthOrHeight += (int)(delta / VisualTreeHelper.GetDpi(this).PixelsPerDip);
+        // Users have set a specific width or height, so we should not follow the system taskbar width or height.
+        if (ViewModel.FollowSystemTaskbarWidthOrHeight)
         {
-            ViewModel.DockedWidthOrHeight = ViewModel.ActualDockedWidthOrHeight + (int)(delta / VisualTreeHelper.GetDpi(this).PixelsPerDip);
-        }
-        else
-        {
-            ViewModel.DockedWidthOrHeight = ViewModel.DockedWidthOrHeight.Value + (int)(delta / VisualTreeHelper.GetDpi(this).PixelsPerDip);
+            ViewModel.FollowSystemTaskbarWidthOrHeight = false;
         }
     }
 
@@ -486,7 +487,21 @@ public partial class AppBarWindow : Window
 
     #region Dock Events
 
-    private void OnDockWidthOrHeightChanged(bool init = false)
+    private void OnSystemTaskbarWidthOrHeightChanged()
+    {
+        UpdateDockedWidthOrHeight();
+
+        AppBarManagementService.SetFollowSystemTaskbarWidthOrHeight(ViewModel.Order, ViewModel.FollowSystemTaskbarWidthOrHeight);
+    }
+
+    private void OnDockedWidthOrHeightChanged()
+    {
+        UpdateDockedWidthOrHeight();
+
+        AppBarManagementService.SetDockedWidthOrHeight(ViewModel.Order, ViewModel.DockedWidthOrHeight);
+    }
+
+    private void UpdateDockedWidthOrHeight()
     {
         static int BoundIntToDouble(int value, double min, double max)
         {
@@ -509,11 +524,6 @@ public partial class AppBarWindow : Window
             AppBarDockMode.Top or AppBarDockMode.Bottom => BoundIntToDouble(dockedWidthOrHeight, MinHeight, MaxHeight),
             _ => throw new NotSupportedException(),
         };
-
-        if (!init)
-        {
-            AppBarManagementService.SetDockedWidthOrHeight(ViewModel.Order, ViewModel.DockedWidthOrHeight);
-        }
     }
 
     private void OnDockLocationChanged()
