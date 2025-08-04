@@ -3,9 +3,9 @@ using Flow.Bar.Models.Enums;
 using Flow.Bar.Models.Monitor;
 using Flow.Bar.Models.UserSettings;
 using Flow.Bar.Views;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 
 namespace Flow.Bar.Services;
 
@@ -15,7 +15,9 @@ public class AppBarManagementService(Settings settings)
 {
     private readonly Settings _settings = settings;
 
-    private readonly ConcurrentDictionary<int, AppBarWindow> AppBarWindowPairs = [];
+    private readonly Dictionary<int, AppBarWindow> AppBarWindowPairs = [];
+
+    private readonly Lock _appBarWindowLock = new();
 
     public void InitializeAllAppBarWindows()
     {
@@ -24,9 +26,12 @@ public class AppBarManagementService(Settings settings)
             var appBar = _settings.AppBars[key];
             if (appBar.IsEnabled)
             {
-                var barWindow = new AppBarWindow(appBar);
-                barWindow.Show();
-                AppBarWindowPairs.TryAdd(appBar.Order, barWindow);
+                lock (_appBarWindowLock)
+                {
+                    var barWindow = new AppBarWindow(appBar);
+                    barWindow.Show();
+                    AppBarWindowPairs.TryAdd(appBar.Order, barWindow);
+                }
             }
         }
     }
@@ -47,25 +52,28 @@ public class AppBarManagementService(Settings settings)
         {
             appBar.IsEnabled = isEnabled;
             _settings.Save();
-            if (AppBarWindowPairs.TryGetValue(order, out var appBarWindow))
+            lock (_appBarWindowLock)
             {
-                if (isEnabled)
+                if (AppBarWindowPairs.TryGetValue(order, out var appBarWindow))
                 {
-                    appBarWindow.Show();
+                    if (isEnabled)
+                    {
+                        appBarWindow.Show();
+                    }
+                    else
+                    {
+                        appBarWindow.Close();
+                        AppBarWindowPairs.Remove(order);
+                    }
                 }
                 else
                 {
-                    appBarWindow.Close();
-                    AppBarWindowPairs.TryRemove(order, out _);
-                }
-            }
-            else
-            {
-                if (isEnabled)
-                {
-                    var newAppBarWindow = new AppBarWindow(appBar);
-                    newAppBarWindow.Show();
-                    AppBarWindowPairs.TryAdd(order, newAppBarWindow);
+                    if (isEnabled)
+                    {
+                        var newAppBarWindow = new AppBarWindow(appBar);
+                        newAppBarWindow.Show();
+                        AppBarWindowPairs.TryAdd(order, newAppBarWindow);
+                    }
                 }
             }
         }
@@ -77,9 +85,12 @@ public class AppBarManagementService(Settings settings)
         {
             appBar.DockMode = dockMode;
             _settings.Save();
-            if (AppBarWindowPairs.TryGetValue(order, out var appBarWindow))
+            lock (_appBarWindowLock)
             {
-                appBarWindow.ViewModel.DockMode = dockMode;
+                if (AppBarWindowPairs.TryGetValue(order, out var appBarWindow))
+                {
+                    appBarWindow.ViewModel.DockMode = dockMode;
+                }
             }
         }
     }
@@ -90,9 +101,12 @@ public class AppBarManagementService(Settings settings)
         {
             appBar.MonitorName = monitorName;
             _settings.Save();
-            if (AppBarWindowPairs.TryGetValue(order, out var appBarWindow))
+            lock (_appBarWindowLock)
             {
-                appBarWindow.ViewModel.MonitorName = monitorName;
+                if (AppBarWindowPairs.TryGetValue(order, out var appBarWindow))
+                {
+                    appBarWindow.ViewModel.MonitorName = monitorName;
+                }
             }
         }
     }
@@ -103,9 +117,12 @@ public class AppBarManagementService(Settings settings)
         {
             appBar.FollowSystemTaskbarWidthOrHeight = followSystemTaskbarWidthOrHeight;
             _settings.Save();
-            if (AppBarWindowPairs.TryGetValue(order, out var appBarWindow))
+            lock (_appBarWindowLock)
             {
-                appBarWindow.ViewModel.FollowSystemTaskbarWidthOrHeight = followSystemTaskbarWidthOrHeight;
+                if (AppBarWindowPairs.TryGetValue(order, out var appBarWindow))
+                {
+                    appBarWindow.ViewModel.FollowSystemTaskbarWidthOrHeight = followSystemTaskbarWidthOrHeight;
+                }
             }
         }
     }
@@ -116,9 +133,12 @@ public class AppBarManagementService(Settings settings)
         {
             appBar.DockedWidthOrHeight = dockedWidthOrHeight;
             _settings.Save();
-            if (AppBarWindowPairs.TryGetValue(order, out var appBarWindow))
+            lock (_appBarWindowLock)
             {
-                appBarWindow.ViewModel.DockedWidthOrHeight = dockedWidthOrHeight;
+                if (AppBarWindowPairs.TryGetValue(order, out var appBarWindow))
+                {
+                    appBarWindow.ViewModel.DockedWidthOrHeight = dockedWidthOrHeight;
+                }
             }
         }
     }
@@ -129,9 +149,12 @@ public class AppBarManagementService(Settings settings)
         {
             appBar.IsResizable = isResizable;
             _settings.Save();
-            if (AppBarWindowPairs.TryGetValue(order, out var appBarWindow))
+            lock (_appBarWindowLock)
             {
-                appBarWindow.ViewModel.IsResizable = isResizable;
+                if (AppBarWindowPairs.TryGetValue(order, out var appBarWindow))
+                {
+                    appBarWindow.ViewModel.IsResizable = isResizable;
+                }
             }
         }
     }
