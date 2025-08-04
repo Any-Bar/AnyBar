@@ -7,7 +7,7 @@ using System.Windows.Data;
 using System.Windows.Markup;
 using System.Windows.Threading;
 
-namespace Flow.Bar.Controls.MenuFlyout;
+namespace Flow.Bar.Controls;
 
 [ContentProperty(nameof(Items))]
 public class AppBarMenuFlyout : DependencyObject

@@ -4,7 +4,7 @@ using System.Windows;
 using System.Windows.Controls.Primitives;
 using System.Windows.Media;
 
-namespace Flow.Bar.Controls.MenuFlyout;
+namespace Flow.Bar.Controls;
 
 internal static class AppBarPopupExPlacementHelper
 {

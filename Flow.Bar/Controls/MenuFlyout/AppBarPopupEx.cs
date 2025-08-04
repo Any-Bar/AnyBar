@@ -4,7 +4,7 @@ using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using System.Windows.Media;
 
-namespace Flow.Bar.Controls.MenuFlyout;
+namespace Flow.Bar.Controls;
 
 public class AppBarPopupEx : Popup
 {

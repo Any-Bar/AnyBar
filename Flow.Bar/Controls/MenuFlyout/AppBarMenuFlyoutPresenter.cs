@@ -9,7 +9,7 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Threading;
 
-namespace Flow.Bar.Controls.MenuFlyout;
+namespace Flow.Bar.Controls;
 
 public class AppBarMenuFlyoutPresenter : ContextMenu
 {
