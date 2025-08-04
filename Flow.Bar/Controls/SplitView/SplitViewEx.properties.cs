@@ -4,7 +4,7 @@ using iNKORE.UI.WPF.Modern.Common;
 using iNKORE.UI.WPF.Modern.Controls;
 using iNKORE.UI.WPF.Modern.Controls.Helpers;
 
-namespace Flow.Bar.Controls.SplitView;
+namespace Flow.Bar.Controls;
 
 #pragma warning disable IDE0060 // Remove unused parameter
 

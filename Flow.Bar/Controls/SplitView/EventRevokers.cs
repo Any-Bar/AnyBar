@@ -1,6 +1,6 @@
 ﻿using Flow.Bar.Controls;
 
-namespace Flow.Bar.Controls.SplitView;
+namespace Flow.Bar.Controls;
 
 internal class SplitViewIsPaneOpenChangedRevoker(SplitViewEx source, DependencyPropertyChangedCallback handler) : EventRevoker<SplitViewEx, DependencyPropertyChangedCallback>(source, handler)
 {

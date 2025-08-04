@@ -5,7 +5,6 @@
     xmlns:controls="http://schemas.inkore.net/lib/ui/wpf/modern"
     xmlns:ikw="http://schemas.inkore.net/lib/ui/wpf"
     xmlns:local="clr-namespace:Flow.Bar.Controls"
-    xmlns:svcontrol="clr-namespace:Flow.Bar.Controls.SplitView"
     xmlns:ui="http://schemas.inkore.net/lib/ui/wpf/modern">
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary>
@@ -262,7 +261,7 @@
                         </Grid>
 
                         <!--  Content layouts for Displaymode (compact/minimal/normal) left  -->
-                        <svcontrol:SplitViewEx
+                        <local:SplitViewEx
                             x:Name="RootSplitView"
                             Background="{TemplateBinding Background}"
                             BorderBrush="{DynamicResource NavigationViewItemSeparatorForeground}"
@@ -275,7 +274,7 @@
                             OpenPaneLength="{TemplateBinding OpenPaneLength}"
                             PaneBackground="{DynamicResource NavigationViewDefaultPaneBackground}">
 
-                            <svcontrol:SplitViewEx.Pane>
+                            <local:SplitViewEx.Pane>
                                 <Border
                                     x:Name="PaneContentBorder"
                                     Margin="{DynamicResource NavigationViewPaneContentGridMargin}"
@@ -353,9 +352,9 @@
                                         </Grid>
                                     </Grid>
                                 </Border>
-                            </svcontrol:SplitViewEx.Pane>
+                            </local:SplitViewEx.Pane>
 
-                            <svcontrol:SplitViewEx.Content>
+                            <local:SplitViewEx.Content>
                                 <!--  Workaround for top margin: Use NavigationViewContentMargin instead  -->
                                 <ikw:ClippedContent
                                     x:Name="ContentBorder"
@@ -402,8 +401,8 @@
                                             Content="{TemplateBinding Content}" />
                                     </Grid>
                                 </ikw:ClippedContent>
-                            </svcontrol:SplitViewEx.Content>
-                        </svcontrol:SplitViewEx>
+                            </local:SplitViewEx.Content>
+                        </local:SplitViewEx>
 
                         <VisualStateManager.VisualStateGroups>
                             <VisualStateGroup x:Name="DisplayModeGroup">

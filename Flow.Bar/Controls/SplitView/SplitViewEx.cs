@@ -10,7 +10,7 @@ using iNKORE.UI.WPF.Helpers;
 using iNKORE.UI.WPF.Modern.Common;
 using iNKORE.UI.WPF.Modern.Controls;
 
-namespace Flow.Bar.Controls.SplitView;
+namespace Flow.Bar.Controls;
 
 [ContentProperty(nameof(Content))]
 public partial class SplitViewEx : Control

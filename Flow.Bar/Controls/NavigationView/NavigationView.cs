@@ -1,7 +1,7 @@
 ﻿// Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-using Flow.Bar.Controls.SplitView;
+using Flow.Bar.Controls;
 using iNKORE.UI.WPF.Helpers;
 using iNKORE.UI.WPF.Modern.Common;
 using iNKORE.UI.WPF.Modern.Controls;
@@ -929,7 +929,7 @@ public partial class NavigationView : ContentControl, IControlProtected
         PaneClosed?.Invoke(this, null);
     }
 
-    private void OnSplitViewPaneClosing(DependencyObject sender, SplitView.SplitViewPaneClosingEventArgs args)
+    private void OnSplitViewPaneClosing(DependencyObject sender, SplitViewPaneClosingEventArgs args)
     {
         bool pendingPaneClosingCancel = false;
         if (PaneClosing != null)
