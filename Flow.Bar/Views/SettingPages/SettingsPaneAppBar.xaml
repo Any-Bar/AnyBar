@@ -2,9 +2,9 @@
     x:Class="Flow.Bar.Views.SettingPages.SettingsPaneAppBar"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="clr-namespace:Flow.Bar.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:ikw="http://schemas.inkore.net/lib/ui/wpf"
-    xmlns:lvcontrol="clr-namespace:Flow.Bar.Controls.ListView"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:models="clr-namespace:Flow.Bar.Models.AppBar"
     xmlns:sys="clr-namespace:System;assembly=mscorlib"
@@ -26,8 +26,8 @@
                 Content="{DynamicResource SettingPaneAppBar_AddAppBar}"
                 Style="{DynamicResource {x:Static ui:ThemeKeys.AccentButtonStyleKey}}" />
         </ui:SettingsCard>
-        <lvcontrol:ListViewEx x:Name="AppBarListView" ItemsSource="{Binding AppBars}">
-            <lvcontrol:ListViewEx.ItemTemplate>
+        <controls:ListViewEx x:Name="AppBarListView" ItemsSource="{Binding AppBars}">
+            <controls:ListViewEx.ItemTemplate>
                 <DataTemplate DataType="models:AppBarModel">
                     <ui:SettingsCard
                         x:Name="AppBarSettingsCard"
@@ -49,7 +49,7 @@
                             Toggled="AppBarToggleSwitch_Toggled" />
                     </ui:SettingsCard>
                 </DataTemplate>
-            </lvcontrol:ListViewEx.ItemTemplate>
-        </lvcontrol:ListViewEx>
+            </controls:ListViewEx.ItemTemplate>
+        </controls:ListViewEx>
     </ikw:SimpleStackPanel>
 </ui:Page>

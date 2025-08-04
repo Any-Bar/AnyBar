@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-namespace Flow.Bar.Controls.ListView;
+namespace Flow.Bar.Controls;
 
 public class ListViewExItem : ListViewExBaseItem
 {

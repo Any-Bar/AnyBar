@@ -4,7 +4,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
-namespace Flow.Bar.Controls.ListView;
+namespace Flow.Bar.Controls;
 
 public class ListViewExBaseItem : ListBoxItem
 {

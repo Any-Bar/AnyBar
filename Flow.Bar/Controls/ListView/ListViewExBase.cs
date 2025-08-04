@@ -3,7 +3,7 @@ using System;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace Flow.Bar.Controls.ListView;
+namespace Flow.Bar.Controls;
 
 public class ListViewExBase : ListBox
 {

@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-namespace Flow.Bar.Controls.ListView;
+namespace Flow.Bar.Controls;
 
 public delegate void ItemClickEventHandler(object sender, ItemClickEventArgs e);
 
