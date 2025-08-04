@@ -6,12 +6,12 @@ using iNKORE.UI.WPF.Modern.Controls;
 using System;
 using System.Collections.Generic;
 
-namespace Flow.Bar.Controls.ContentDialogs;
+namespace Flow.Bar.Dialogs;
 
 [INotifyPropertyChanged]
-public partial class AddAppBarContentDialog : ContentDialog
+public partial class AddAppBarDialog : ContentDialog
 {
-    private static readonly string ClassName = nameof(AddAppBarContentDialog);
+    private static readonly string ClassName = nameof(AddAppBarDialog);
 
     public List<AppBarDockModeLocalized> AllDockModes { get; } = AppBarDockModeLocalized.GetValues();
 
@@ -56,7 +56,7 @@ public partial class AddAppBarContentDialog : ContentDialog
     [ObservableProperty]
     private bool _isResizable = false;
     
-    public AddAppBarContentDialog()
+    public AddAppBarDialog()
     {
         UpdateMinAndMaxDockedWidthOrHeight();
         InitializeComponent();
