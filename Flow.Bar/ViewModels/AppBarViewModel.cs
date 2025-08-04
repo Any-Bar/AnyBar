@@ -23,15 +23,7 @@ public partial class AppBarViewModel : ObservableObject
 
     partial void OnMonitorNameChanged(string? value)
     {
-        var monitor = MonitorInfoHelper.GetMonitorInfoFromName(value);
-        if (monitor != null)
-        {
-            ActualMonitor = monitor;
-        }
-        else
-        {
-            App.API.LogError(ClassName, $"Monitor not found: {value}");
-        }
+        UpdateActualMonitor(value);
     }
 
     [ObservableProperty]
@@ -71,9 +63,22 @@ public partial class AppBarViewModel : ObservableObject
         IsResizable = model.IsResizable;
         if (ActualMonitor == null)
         {
-            OnMonitorNameChanged(MonitorName);
+            UpdateActualMonitor(MonitorName);
         }
         // Initialize the MonitorTaskBarWidthOrHeight for the monitor before any AppBarWindow is created on this monitor
         MonitorInfoHelper.GetMonitorTaskBarWidthOrHeight(ActualMonitor);
+    }
+
+    private void UpdateActualMonitor(string? monitorName)
+    {
+        var monitor = MonitorInfoHelper.GetMonitorInfoFromName(monitorName);
+        if (monitor != null)
+        {
+            ActualMonitor = monitor;
+        }
+        else
+        {
+            App.API.LogError(ClassName, "Monitor not found: " + monitorName);
+        }
     }
 }
