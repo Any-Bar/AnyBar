@@ -517,7 +517,7 @@ public partial class AppBarWindow : Window
             return value;
         }
 
-        var dockedWidthOrHeight = ViewModel.GetDockedWidthOrHeight(this);
+        var dockedWidthOrHeight = ViewModel.GetDockedWidthOrHeight();
         ViewModel.ActualDockedWidthOrHeight = ViewModel.DockMode switch
         {
             AppBarDockMode.Left or AppBarDockMode.Right => BoundIntToDouble(dockedWidthOrHeight, MinWidth, MaxWidth),

@@ -3,8 +3,6 @@ using Flow.Bar.Helper.Monitor;
 using Flow.Bar.Models.AppBar;
 using Flow.Bar.Models.Enums;
 using Flow.Bar.Models.Monitor;
-using System;
-using System.Windows.Media;
 
 namespace Flow.Bar.ViewModels;
 
@@ -45,23 +43,16 @@ public partial class AppBarViewModel : ObservableObject
     [ObservableProperty]
     private int _dockedWidthOrHeight = MonitorInfoHelper.DefaultDockedWidthOrHeight;
 
-    public int GetDockedWidthOrHeight(Visual visual)
+    public int GetDockedWidthOrHeight()
     {
         if (!FollowSystemTaskbarWidthOrHeight)
         {
             return DockedWidthOrHeight;
         }
 
-        static int DesktopDimensionToWpf(Visual visual, int dim)
-        {
-            var dpi = VisualTreeHelper.GetDpi(visual);
-
-            return (int)Math.Round(dim / dpi.PixelsPerDip);
-        }
-
         var monitor = MonitorInfo.GetPrimaryDisplayMonitor();
         var taskBarWidthOrHeight = MonitorInfoHelper.GetMonitorTaskBarWidthOrHeight(monitor);
-        return DesktopDimensionToWpf(visual, taskBarWidthOrHeight);
+        return taskBarWidthOrHeight;
     }
 
     [ObservableProperty]
