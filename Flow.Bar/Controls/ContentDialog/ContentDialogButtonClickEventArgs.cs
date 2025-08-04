@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
 
 namespace Flow.Bar.Controls;
 
@@ -18,10 +17,7 @@ public class ContentDialogButtonClickEventArgs : EventArgs
     {
         _deferralCount++;
 
-        return new ContentDialogButtonClickDeferral(() =>
-        {
-            DecrementDeferralCount();
-        });
+        return new ContentDialogButtonClickDeferral(DecrementDeferralCount);
     }
 
     internal void SetDeferral(ContentDialogButtonClickDeferral deferral)
@@ -31,7 +27,6 @@ public class ContentDialogButtonClickEventArgs : EventArgs
 
     internal void DecrementDeferralCount()
     {
-        Debug.Assert(_deferralCount > 0);
         _deferralCount--;
         if (_deferralCount == 0)
         {

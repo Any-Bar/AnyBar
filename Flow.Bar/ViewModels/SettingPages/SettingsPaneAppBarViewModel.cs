@@ -4,11 +4,11 @@ using System.Windows;
 using System.Windows.Controls;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Flow.Bar.Controls;
 using Flow.Bar.Dialogs;
 using Flow.Bar.Interfaces;
 using Flow.Bar.Models.AppBar;
 using Flow.Bar.Services;
-using iNKORE.UI.WPF.Modern.Controls;
 
 namespace Flow.Bar.ViewModels.SettingPages;
 

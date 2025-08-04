@@ -1,5 +1,4 @@
-﻿using iNKORE.UI.WPF.Modern.Controls;
-using System;
+﻿using System;
 
 namespace Flow.Bar.Controls;
 

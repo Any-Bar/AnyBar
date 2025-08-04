@@ -11,7 +11,6 @@ using System.Windows.Threading;
 using Flow.Bar.Helper;
 using iNKORE.UI.WPF.Helpers;
 using iNKORE.UI.WPF.Modern.Common;
-using iNKORE.UI.WPF.Modern.Controls;
 using iNKORE.UI.WPF.Modern.Controls.Primitives;
 
 namespace Flow.Bar.Controls;
@@ -527,7 +526,6 @@ public class ContentDialog : ContentControl
 
     public async Task<ContentDialogResult> ShowAsync(Window owner)
     {
-
         ThrowIfHasOpenDialog(owner);
 
         var cp = FindContentPresenter(owner);
