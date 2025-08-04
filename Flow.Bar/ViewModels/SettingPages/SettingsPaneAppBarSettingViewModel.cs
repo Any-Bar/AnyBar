@@ -5,6 +5,7 @@ using Flow.Bar.Models.AppBar;
 using Flow.Bar.Models.Enums;
 using Flow.Bar.Models.Monitor;
 using Flow.Bar.Services;
+using System;
 using System.Collections.Generic;
 
 namespace Flow.Bar.ViewModels.SettingPages;
@@ -36,6 +37,7 @@ public partial class SettingsPaneAppBarSettingViewModel(AppBarManagementService 
 
     partial void OnDockModeChanged(AppBarDockMode value)
     {
+        UpdateMinAndMaxDockedWidthOrHeight();
         if (!_isInitialized) return;
         _appBarManagementService.SetDockMode(AppBarModel.Order, value);
     }
@@ -43,10 +45,19 @@ public partial class SettingsPaneAppBarSettingViewModel(AppBarManagementService 
     public List<MonitorNameLocalized> AllMonitorNames { get; } = appBarManagementService.GetAllMonitorNames();
 
     [ObservableProperty]
+    private MonitorInfo _actualMonitor = null!;
+
+    partial void OnActualMonitorChanged(MonitorInfo value)
+    {
+        UpdateMinAndMaxDockedWidthOrHeight();
+    }
+
+    [ObservableProperty]
     private string? _monitorName = null;
 
     partial void OnMonitorNameChanged(string? value)
     {
+        UpdateActualMonitor(value);
         if (!_isInitialized) return;
         _appBarManagementService.SetMonitorName(AppBarModel.Order, value);
     }
@@ -95,6 +106,7 @@ public partial class SettingsPaneAppBarSettingViewModel(AppBarManagementService 
             FollowSystemTaskbarWidthOrHeight = model.FollowSystemTaskbarWidthOrHeight;
             DockedWidthOrHeight = model.DockedWidthOrHeight;
             IsResizable = model.IsResizable;
+            UpdateMinAndMaxDockedWidthOrHeight();
             _isInitialized = true;
         }
         else
@@ -106,5 +118,35 @@ public partial class SettingsPaneAppBarSettingViewModel(AppBarManagementService 
     public void OnNavigatedFrom()
     {
         _isInitialized = false;
+    }
+
+    private void UpdateActualMonitor(string? monitorName)
+    {
+        var monitor = MonitorInfoHelper.GetMonitorInfoFromName(monitorName);
+        if (monitor != null)
+        {
+            ActualMonitor = monitor;
+        }
+        else
+        {
+            App.API.LogError(ClassName, "Monitor not found: " + monitorName);
+        }
+    }
+
+    private void UpdateMinAndMaxDockedWidthOrHeight()
+    {
+        if (ActualMonitor == null)
+        {
+            UpdateActualMonitor(MonitorName);
+        }
+        if (ActualMonitor == null)
+        {
+            // ActualMonitor should never be null here since users should connect to a monitor to use this app :?
+            // So we throw an exception to indicate this issue.
+            throw new InvalidOperationException("ActualMonitor cannot be null");
+        }
+        var dockedWidthOrHeight = DockedWidthOrHeight;
+        (MinDockedWidthOrHeight, MaxDockedWidthOrHeight, DockedWidthOrHeight) =
+            MonitorInfoHelper.GetMinAndMaxDockedWidthOrHeight(dockedWidthOrHeight, DockMode, ActualMonitor);
     }
 }
