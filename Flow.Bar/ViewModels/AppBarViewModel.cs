@@ -1,15 +1,17 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using Flow.Bar.Helper.Monitor;
 using Flow.Bar.Models.AppBar;
 using Flow.Bar.Models.Enums;
 using Flow.Bar.Models.Monitor;
 using System;
-using System.Linq;
 using System.Windows.Media;
 
 namespace Flow.Bar.ViewModels;
 
 public partial class AppBarViewModel : ObservableObject
 {
+    private static readonly string ClassName = nameof(AppBarViewModel);
+
     public int Order { get; set; } = -1;
 
     [ObservableProperty]
@@ -23,16 +25,14 @@ public partial class AppBarViewModel : ObservableObject
 
     partial void OnMonitorNameChanged(string? value)
     {
-        if (MonitorName == null)
+        var monitor = MonitorInfoHelper.GetMonitorInfoFromName(value);
+        if (monitor != null)
         {
-            ActualMonitor = MonitorInfo.GetPrimaryDisplayMonitor() ?? MonitorInfo.GetDisplayMonitors()[0];
+            ActualMonitor = monitor;
         }
         else
         {
-            var allMonitors = MonitorInfo.GetDisplayMonitors();
-            ActualMonitor = allMonitors.FirstOrDefault(m => m.Name == MonitorName)
-                ?? allMonitors.FirstOrDefault(m => m.IsPrimary)
-                ?? allMonitors[0];
+            App.API.LogError(ClassName, "Monitor not found: " + value);
         }
     }
 
