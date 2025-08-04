@@ -46,6 +46,19 @@ public class AppBarManagementService(Settings settings)
         return [.. _settings.AppBars.Values.OrderBy(bar => bar.Order)];
     }
 
+    public void AddAppBar(AppBarModel model)
+    {
+        model.Order = _settings.AppBars.Keys.Max() + 1;
+        _settings.AppBars.TryAdd(model.Order, model);
+        _settings.Save();
+        lock (_appBarWindowLock)
+        {
+            var newAppBarWindow = new AppBarWindow(model);
+            newAppBarWindow.Show();
+            AppBarWindowPairs.TryAdd(model.Order, newAppBarWindow);
+        }
+    }
+
     public void SetEnabled(int order, bool isEnabled)
     {
         if (_settings.AppBars.TryGetValue(order, out var model))
@@ -131,7 +144,7 @@ public class AppBarManagementService(Settings settings)
     {
         if (_settings.AppBars.TryGetValue(order, out var model))
         {
-            appBar.DockedWidthOrHeight = dockedWidthOrHeight;
+            model.DockedWidthOrHeight = dockedWidthOrHeight;
             _settings.Save();
             lock (_appBarWindowLock)
             {
