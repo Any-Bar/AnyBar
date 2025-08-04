@@ -3,9 +3,14 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="clr-namespace:Flow.Bar.Controls">
 
-    <Style BasedOn="{StaticResource ContextMenuStyleBase}" TargetType="local:AppBarMenuFlyoutPresenter">
+    <Style
+        x:Key="DefaultContextMenuStyle"
+        BasedOn="{StaticResource ContextMenuStyleBase}"
+        TargetType="local:AppBarMenuFlyoutPresenter">
         <Setter Property="IsDefaultShadowEnabled" Value="{DynamicResource {x:Static SystemParameters.DropShadowKey}}" />
         <Setter Property="HasDropShadow" Value="{Binding IsDefaultShadowEnabled, RelativeSource={RelativeSource Self}}" />
     </Style>
+
+    <Style BasedOn="{StaticResource DefaultContextMenuStyle}" TargetType="local:AppBarMenuFlyoutPresenter" />
 
 </ResourceDictionary>

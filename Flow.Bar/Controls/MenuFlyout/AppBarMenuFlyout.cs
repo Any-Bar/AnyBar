@@ -12,7 +12,7 @@ namespace Flow.Bar.Controls;
 [ContentProperty(nameof(Items))]
 public class AppBarMenuFlyout : DependencyObject
 {
-    private const string c_contextMenuStyleKey = "ContextMenuStyleBase";
+    private const string c_contextMenuStyleKey = "DefaultContextMenuStyle";
     private static Style? s_contextMenuStyle;
 
     public AppBarMenuFlyout()
