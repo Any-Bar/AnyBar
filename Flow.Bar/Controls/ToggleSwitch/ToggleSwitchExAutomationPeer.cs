@@ -2,7 +2,7 @@
 using System.Windows.Automation.Peers;
 using System.Windows.Automation.Provider;
 
-namespace Flow.Bar.Controls.ToggleSwitch;
+namespace Flow.Bar.Controls;
 
 public class ToggleSwitchExAutomationPeer(ToggleSwitchEx owner) : FrameworkElementAutomationPeer(owner), IToggleProvider
 {

@@ -10,7 +10,7 @@ using System.Windows.Input;
 using System.Windows.Markup;
 using System.Windows.Media;
 
-namespace Flow.Bar.Controls.ToggleSwitch;
+namespace Flow.Bar.Controls;
 
 [ContentProperty(nameof(Header))]
 [TemplatePart(Name = nameof(HeaderContentPresenter), Type = typeof(ContentPresenter))]

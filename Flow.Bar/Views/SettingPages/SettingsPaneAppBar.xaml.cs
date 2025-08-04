@@ -1,5 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.DependencyInjection;
-using Flow.Bar.Controls.ToggleSwitch;
+using Flow.Bar.Controls;
 using Flow.Bar.Models.AppBar;
 using Flow.Bar.Models.Enums;
 using Flow.Bar.Services;
