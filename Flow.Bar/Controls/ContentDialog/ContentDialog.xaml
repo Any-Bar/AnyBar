@@ -8,6 +8,9 @@
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary>
             <ikw:CornerRadiusFilterConverter x:Key="BottomCornerRadiusDoubleValueConverter" Filter="Bottom" />
+            <!--  TODO: Create PR for this change  -->
+            <Thickness x:Key="ContentDialogTitleMargin">24 24 24 12</Thickness>
+            <Thickness x:Key="ContentDialogContentScrollViewerPadding">24 0 24 24</Thickness>
         </ResourceDictionary>
     </ResourceDictionary.MergedDictionaries>
 
@@ -69,57 +72,57 @@
                                             <RowDefinition Height="*" />
                                             <RowDefinition Height="Auto" />
                                         </Grid.RowDefinitions>
-                                        <ui:ScrollViewerEx
-                                            x:Name="ContentScrollViewer"
-                                            HorizontalScrollBarVisibility="{TemplateBinding ScrollViewer.HorizontalScrollBarVisibility}"
-                                            IsTabStop="False"
-                                            VerticalScrollBarVisibility="{TemplateBinding ScrollViewer.VerticalScrollBarVisibility}">
-                                            <Border
-                                                x:Name="BaseBorder"
-                                                Padding="{DynamicResource ContentDialogPadding}"
-                                                Background="{DynamicResource ContentDialogTopOverlay}"
-                                                BorderBrush="{DynamicResource ContentDialogSeparatorBorderBrush}"
-                                                BorderThickness="{DynamicResource ContentDialogSeparatorThickness}">
-                                                <Border.CornerRadius>
-                                                    <TemplateBinding Property="CornerRadius">
-                                                        <TemplateBindingExtension.Converter>
-                                                            <ikw:CornerRadiusFilterConverter x:Name="CornerConverter" Filter="Top" />
-                                                        </TemplateBindingExtension.Converter>
-                                                    </TemplateBinding>
-                                                </Border.CornerRadius>
-                                                <Grid>
-                                                    <Grid.RowDefinitions>
-                                                        <RowDefinition Height="Auto" />
-                                                        <RowDefinition Height="*" />
-                                                    </Grid.RowDefinitions>
-                                                    <ContentControl
-                                                        x:Name="Title"
-                                                        Margin="{DynamicResource ContentDialogTitleMargin}"
-                                                        HorizontalAlignment="Left"
-                                                        VerticalAlignment="Top"
-                                                        Content="{TemplateBinding Title}"
-                                                        ContentTemplate="{TemplateBinding TitleTemplate}"
-                                                        FontFamily="{DynamicResource ContentControlThemeFontFamily}"
-                                                        FontSize="20"
-                                                        FontWeight="SemiBold"
-                                                        Foreground="{TemplateBinding Foreground}"
-                                                        IsTabStop="False"
-                                                        SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}">
-                                                        <ContentControl.Template>
-                                                            <ControlTemplate TargetType="ContentControl">
-                                                                <ui:ContentPresenterEx
-                                                                    Margin="{TemplateBinding Padding}"
-                                                                    HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-                                                                    VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
-                                                                    Content="{TemplateBinding Content}"
-                                                                    ContentTemplate="{TemplateBinding ContentTemplate}"
-                                                                    TextWrapping="Wrap" />
-                                                            </ControlTemplate>
-                                                        </ContentControl.Template>
-                                                    </ContentControl>
+                                        <Border
+                                            x:Name="BaseBorder"
+                                            Background="{DynamicResource ContentDialogTopOverlay}"
+                                            BorderBrush="{DynamicResource ContentDialogSeparatorBorderBrush}"
+                                            BorderThickness="{DynamicResource ContentDialogSeparatorThickness}">
+                                            <Border.CornerRadius>
+                                                <TemplateBinding Property="CornerRadius">
+                                                    <TemplateBindingExtension.Converter>
+                                                        <ikw:CornerRadiusFilterConverter x:Name="CornerConverter" Filter="Top" />
+                                                    </TemplateBindingExtension.Converter>
+                                                </TemplateBinding>
+                                            </Border.CornerRadius>
+                                            <Grid>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="Auto" />
+                                                    <RowDefinition Height="*" />
+                                                </Grid.RowDefinitions>
+                                                <ContentControl
+                                                    x:Name="Title"
+                                                    Margin="{StaticResource ContentDialogTitleMargin}"
+                                                    HorizontalAlignment="Left"
+                                                    VerticalAlignment="Top"
+                                                    Content="{TemplateBinding Title}"
+                                                    ContentTemplate="{TemplateBinding TitleTemplate}"
+                                                    FontFamily="{DynamicResource ContentControlThemeFontFamily}"
+                                                    FontSize="20"
+                                                    FontWeight="SemiBold"
+                                                    Foreground="{TemplateBinding Foreground}"
+                                                    IsTabStop="False"
+                                                    SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}">
+                                                    <ContentControl.Template>
+                                                        <ControlTemplate TargetType="ContentControl">
+                                                            <ui:ContentPresenterEx
+                                                                Margin="{TemplateBinding Padding}"
+                                                                HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                                                VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                                                Content="{TemplateBinding Content}"
+                                                                ContentTemplate="{TemplateBinding ContentTemplate}"
+                                                                TextWrapping="Wrap" />
+                                                        </ControlTemplate>
+                                                    </ContentControl.Template>
+                                                </ContentControl>
+                                                <ui:ScrollViewerEx
+                                                    x:Name="ContentScrollViewer"
+                                                    Grid.Row="1"
+                                                    Padding="{StaticResource ContentDialogContentScrollViewerPadding}"
+                                                    HorizontalScrollBarVisibility="{TemplateBinding ScrollViewer.HorizontalScrollBarVisibility}"
+                                                    IsTabStop="False"
+                                                    VerticalScrollBarVisibility="{TemplateBinding ScrollViewer.VerticalScrollBarVisibility}">
                                                     <ui:ContentPresenterEx
                                                         x:Name="Content"
-                                                        Grid.Row="1"
                                                         Content="{TemplateBinding Content}"
                                                         ContentTemplate="{TemplateBinding ContentTemplate}"
                                                         FontFamily="{DynamicResource ContentControlThemeFontFamily}"
@@ -127,9 +130,9 @@
                                                         Foreground="{TemplateBinding Foreground}"
                                                         SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
                                                         TextWrapping="Wrap" />
-                                                </Grid>
-                                            </Border>
-                                        </ui:ScrollViewerEx>
+                                                </ui:ScrollViewerEx>
+                                            </Grid>
+                                        </Border>
                                         <Border
                                             x:Name="CommandSpace"
                                             Grid.Row="1"
