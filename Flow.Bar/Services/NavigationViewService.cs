@@ -1,4 +1,4 @@
-﻿using Flow.Bar.Controls.NavigationView;
+﻿using Flow.Bar.Controls;
 using Flow.Bar.Interfaces;
 using Flow.Bar.Models.Enums;
 using iNKORE.UI.WPF.Modern.Media.Animation;

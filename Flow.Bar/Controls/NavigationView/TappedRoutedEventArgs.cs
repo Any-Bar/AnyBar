@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-namespace Flow.Bar.Controls.NavigationView;
+namespace Flow.Bar.Controls;
 
 internal sealed class TappedRoutedEventArgs : RoutedEventArgs
 {

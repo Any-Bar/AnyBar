@@ -3,7 +3,7 @@ using iNKORE.UI.WPF.Modern.Controls.Primitives;
 using System.Windows;
 using System.Windows.Data;
 
-namespace Flow.Bar.Controls.NavigationView;
+namespace Flow.Bar.Controls;
 
 internal sealed class CoreApplicationViewTitleBar
 {

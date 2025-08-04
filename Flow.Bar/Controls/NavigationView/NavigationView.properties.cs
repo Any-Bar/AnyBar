@@ -8,7 +8,7 @@ using iNKORE.UI.WPF.Modern.Common;
 using iNKORE.UI.WPF.Modern.Controls;
 using iNKORE.UI.WPF.Modern.Controls.Helpers;
 
-namespace Flow.Bar.Controls.NavigationView;
+namespace Flow.Bar.Controls;
 
 public partial class NavigationView
 {

@@ -4,7 +4,7 @@
 using System;
 using System.Collections.Specialized;
 
-namespace Flow.Bar.Controls.NavigationView;
+namespace Flow.Bar.Controls;
 
 #pragma warning disable CS9113
 

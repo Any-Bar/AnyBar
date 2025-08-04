@@ -4,7 +4,7 @@
 using System.Windows.Automation.Peers;
 using System.Windows.Automation.Provider;
 
-namespace Flow.Bar.Controls.NavigationView;
+namespace Flow.Bar.Controls;
 
 internal class NavigationViewAutomationPeer(NavigationView owner) : FrameworkElementAutomationPeer(owner), ISelectionProvider
 {

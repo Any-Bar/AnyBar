@@ -5,7 +5,7 @@ using iNKORE.UI.WPF.Modern.Controls;
 using System.Windows.Automation.Peers;
 using System.Windows.Automation.Provider;
 
-namespace Flow.Bar.Controls.NavigationView;
+namespace Flow.Bar.Controls;
 
 public class NavigationViewItemAutomationPeer(NavigationViewItem owner) :
     FrameworkElementAutomationPeer(owner),

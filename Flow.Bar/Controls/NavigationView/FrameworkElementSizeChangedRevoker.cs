@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-namespace Flow.Bar.Controls.NavigationView;
+namespace Flow.Bar.Controls;
 
 internal class FrameworkElementSizeChangedRevoker(FrameworkElement source, SizeChangedEventHandler handler) : EventRevoker<FrameworkElement, SizeChangedEventHandler>(source, handler)
 {

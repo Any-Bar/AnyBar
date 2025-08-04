@@ -1,4 +1,4 @@
-﻿namespace Flow.Bar.Controls.NavigationView;
+﻿namespace Flow.Bar.Controls;
 
 internal enum FocusInputDeviceKind
 {

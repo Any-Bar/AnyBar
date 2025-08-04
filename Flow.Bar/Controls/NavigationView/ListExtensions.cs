@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Flow.Bar.Controls.NavigationView;
+namespace Flow.Bar.Controls;
 
 internal static class ListExtensions
 {

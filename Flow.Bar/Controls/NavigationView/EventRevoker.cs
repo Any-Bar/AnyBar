@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Flow.Bar.Controls.NavigationView;
+namespace Flow.Bar.Controls;
 
 internal abstract class EventRevoker<TSource, TDelegate>
     where TSource : class

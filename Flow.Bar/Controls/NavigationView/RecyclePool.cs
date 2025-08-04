@@ -7,7 +7,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Xaml;
 
-namespace Flow.Bar.Controls.NavigationView;
+namespace Flow.Bar.Controls;
 
 public class RecyclePool
 {

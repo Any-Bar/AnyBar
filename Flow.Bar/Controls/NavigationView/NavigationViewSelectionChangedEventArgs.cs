@@ -4,7 +4,7 @@
 using System;
 using iNKORE.UI.WPF.Modern.Media.Animation;
 
-namespace Flow.Bar.Controls.NavigationView;
+namespace Flow.Bar.Controls;
 
 public sealed class NavigationViewSelectionChangedEventArgs : EventArgs
 {

@@ -8,7 +8,7 @@ using System.Windows.Input;
 using Flow.Bar.Controls.SplitView;
 using iNKORE.UI.WPF.Modern.Controls.Helpers;
 
-namespace Flow.Bar.Controls.NavigationView;
+namespace Flow.Bar.Controls;
 
 public class NavigationViewItemBase : ContentControl, IControlProtected
 {

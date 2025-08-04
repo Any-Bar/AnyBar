@@ -19,12 +19,12 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shell;
 using System.Windows.Threading;
-using static Flow.Bar.Controls.NavigationView.CppWinRTHelpers;
+using static Flow.Bar.Controls.CppWinRTHelpers;
 
 #pragma warning disable IDE0060 // Remove unused parameter
 #pragma warning disable IDE1006 // Naming Styles
 
-namespace Flow.Bar.Controls.NavigationView;
+namespace Flow.Bar.Controls;
 
 internal enum NavigationRecommendedTransitionDirection
 {

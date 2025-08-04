@@ -3,7 +3,7 @@
 
 using System;
 
-namespace Flow.Bar.Controls.NavigationView;
+namespace Flow.Bar.Controls;
 
 public sealed class NavigationViewDisplayModeChangedEventArgs : EventArgs
 {

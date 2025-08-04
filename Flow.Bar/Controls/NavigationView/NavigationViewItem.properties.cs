@@ -4,7 +4,7 @@
 using System.Windows;
 using iNKORE.UI.WPF.Modern.Controls.Helpers;
 
-namespace Flow.Bar.Controls.NavigationView;
+namespace Flow.Bar.Controls;
 
 public partial class NavigationViewItem
 {

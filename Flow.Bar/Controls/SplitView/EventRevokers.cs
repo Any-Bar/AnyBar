@@ -1,4 +1,4 @@
-﻿using Flow.Bar.Controls.NavigationView;
+﻿using Flow.Bar.Controls;
 
 namespace Flow.Bar.Controls.SplitView;
 

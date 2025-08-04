@@ -8,10 +8,10 @@ using System.Windows;
 using System.Windows.Automation.Peers;
 using System.Windows.Controls;
 using System.Windows.Input;
-using static Flow.Bar.Controls.NavigationView.CppWinRTHelpers;
+using static Flow.Bar.Controls.CppWinRTHelpers;
 using PointerRoutedEventArgs = System.Windows.Input.MouseEventArgs;
 
-namespace Flow.Bar.Controls.NavigationView;
+namespace Flow.Bar.Controls;
 
 #pragma warning disable IDE0060 // Remove unused parameter
 

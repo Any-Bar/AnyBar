@@ -3,12 +3,12 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:constants="clr-namespace:Flow.Bar"
+    xmlns:control="clr-namespace:Flow.Bar.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:enums="clr-namespace:Flow.Bar.Models.Enums"
     xmlns:ikw="http://schemas.inkore.net/lib/ui/wpf"
     xmlns:local="clr-namespace:Flow.Bar.Views"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:navcontrol="clr-namespace:Flow.Bar.Controls.NavigationView"
     xmlns:ui="http://schemas.inkore.net/lib/ui/wpf/modern"
     Title="{DynamicResource SettingWindow_Title}"
     Width="1026"
@@ -26,14 +26,14 @@
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
 
-    <navcontrol:NavigationView
+    <control:NavigationView
         x:Name="NavigationViewControl"
         AlwaysShowHeader="True"
         Canvas.ZIndex="0"
         ExpandedMinimalModeThresholdWidth="824"
         IsTabStop="False"
         Loaded="NavigationViewControl_Loaded">
-        <navcontrol:NavigationView.Title>
+        <control:NavigationView.Title>
             <Grid
                 Margin="{DynamicResource NavigationViewButtonHolderGridMargin}"
                 HorizontalAlignment="Left"
@@ -45,9 +45,9 @@
                     Style="{DynamicResource CaptionTextBlockStyle}"
                     Text="{DynamicResource SettingWindow_Title}" />
             </Grid>
-        </navcontrol:NavigationView.Title>
+        </control:NavigationView.Title>
 
-        <navcontrol:NavigationView.PaneCustomContent>
+        <control:NavigationView.PaneCustomContent>
             <ikw:SimpleStackPanel
                 Margin="4 10 0 10"
                 Orientation="Horizontal"
@@ -66,36 +66,36 @@
                     Text="{x:Static constants:Constants.FlowBarFullName}"
                     TextWrapping="NoWrap" />
             </ikw:SimpleStackPanel>
-        </navcontrol:NavigationView.PaneCustomContent>
+        </control:NavigationView.PaneCustomContent>
 
-        <navcontrol:NavigationView.MenuItems>
-            <navcontrol:NavigationViewItem
+        <control:NavigationView.MenuItems>
+            <control:NavigationViewItem
                 x:Name="GeneralItem"
                 Content="{DynamicResource SettingWindow_General}"
                 Tag="{x:Static enums:SettingPageTag.General}">
-                <navcontrol:NavigationViewItem.Icon>
+                <control:NavigationViewItem.Icon>
                     <ui:FontIcon Glyph="&#xE713;" />
-                </navcontrol:NavigationViewItem.Icon>
-            </navcontrol:NavigationViewItem>
-            <navcontrol:NavigationViewItem
+                </control:NavigationViewItem.Icon>
+            </control:NavigationViewItem>
+            <control:NavigationViewItem
                 x:Name="AppBarItem"
                 Content="{DynamicResource SettingWindow_AppBar}"
                 Tag="{x:Static enums:SettingPageTag.AppBar}">
-                <navcontrol:NavigationViewItem.Icon>
+                <control:NavigationViewItem.Icon>
                     <ui:FontIcon Glyph="&#xE75B;" />
-                </navcontrol:NavigationViewItem.Icon>
-            </navcontrol:NavigationViewItem>
-            <navcontrol:NavigationViewItem
+                </control:NavigationViewItem.Icon>
+            </control:NavigationViewItem>
+            <control:NavigationViewItem
                 x:Name="AboutItem"
                 Content="{DynamicResource SettingWindow_About}"
                 Tag="{x:Static enums:SettingPageTag.About}">
-                <navcontrol:NavigationViewItem.Icon>
+                <control:NavigationViewItem.Icon>
                     <ui:FontIcon Glyph="&#xE946;" />
-                </navcontrol:NavigationViewItem.Icon>
-            </navcontrol:NavigationViewItem>
-        </navcontrol:NavigationView.MenuItems>
+                </control:NavigationViewItem.Icon>
+            </control:NavigationViewItem>
+        </control:NavigationView.MenuItems>
 
-        <navcontrol:NavigationView.HeaderTemplate>
+        <control:NavigationView.HeaderTemplate>
             <DataTemplate>
                 <TextBlock
                     Margin="0 0 0 14"
@@ -103,7 +103,7 @@
                     FontWeight="SemiBold"
                     Text="{Binding Header, ElementName=NavigationViewControl, Mode=OneWay}" />
             </DataTemplate>
-        </navcontrol:NavigationView.HeaderTemplate>
+        </control:NavigationView.HeaderTemplate>
 
         <ui:ScrollViewerEx HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
             <ui:Frame
@@ -113,5 +113,5 @@
                 Loaded="RootFrame_Loaded"
                 Unloaded="RootFrame_Unloaded" />
         </ui:ScrollViewerEx>
-    </navcontrol:NavigationView>
+    </control:NavigationView>
 </Window>

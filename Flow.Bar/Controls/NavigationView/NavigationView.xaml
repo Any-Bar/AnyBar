@@ -4,7 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:controls="http://schemas.inkore.net/lib/ui/wpf/modern"
     xmlns:ikw="http://schemas.inkore.net/lib/ui/wpf"
-    xmlns:local="clr-namespace:Flow.Bar.Controls.NavigationView"
+    xmlns:local="clr-namespace:Flow.Bar.Controls"
     xmlns:svcontrol="clr-namespace:Flow.Bar.Controls.SplitView"
     xmlns:ui="http://schemas.inkore.net/lib/ui/wpf/modern">
     <ResourceDictionary.MergedDictionaries>

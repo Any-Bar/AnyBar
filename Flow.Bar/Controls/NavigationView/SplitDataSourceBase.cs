@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 
-namespace Flow.Bar.Controls.NavigationView;
+namespace Flow.Bar.Controls;
 
 // The same copy of .Net Collections like C# ObservableCollection<string> data is splitted into multiple Vectors.
 // For example, the raw data is:  Homes Apps Music | Microsoft Development

@@ -6,7 +6,7 @@ using System.Windows;
 using System.Windows.Controls;
 using iNKORE.UI.WPF.Modern.Controls;
 
-namespace Flow.Bar.Controls.NavigationView;
+namespace Flow.Bar.Controls;
 
 public class NavigationViewItemsFactory : ElementFactory
 {
