@@ -22,6 +22,7 @@
             <Button
                 x:Name="AddAppBarButton"
                 Command="{Binding AddAppBarCommand, Mode=OneTime}"
+                CommandParameter="{Binding RelativeSource={RelativeSource Self}}"
                 Content="{DynamicResource SettingPaneAppBar_AddAppBar}"
                 Style="{DynamicResource {x:Static ui:ThemeKeys.AccentButtonStyleKey}}" />
         </ui:SettingsCard>

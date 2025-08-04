@@ -16,6 +16,7 @@
                 <ResourceDictionary Source="/Languages/en.xaml" />
                 <!--  Styles  -->
                 <ResourceDictionary Source="/Resources/ResourceDictionaries/SettingWindowStyle.xaml" />
+                <ResourceDictionary Source="/Resources/ResourceDictionaries/ContentDialogStyle.xaml" />
                 <!--  Controls  -->
                 <ResourceDictionary Source="/Controls/ListView/ListViewEx.xaml" />
                 <ResourceDictionary Source="/Controls/MenuFlyout/AppBarMenuFlyout.xaml" />

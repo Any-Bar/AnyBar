@@ -34,6 +34,9 @@
     <system:String x:Key="SettingPaneAppBarSetting_Monitor">Monitor</system:String>
     <system:String x:Key="SettingPaneAppBarSetting_MonitorPrimary">Primary monitor</system:String>
     <system:String x:Key="SettingPaneAppBarSetting_FollowSystemTaskbarWidth">Follow system taskbar width</system:String>
+    <system:String x:Key="SettingPaneAppBarSetting_FollowSystemTaskbarHeight">Follow system taskbar height</system:String>
+    <system:String x:Key="SettingPaneAppBarSetting_DockedWidth">Docked width</system:String>
+    <system:String x:Key="SettingPaneAppBarSetting_DockedHeight">Docked height</system:String>
     <system:String x:Key="SettingPaneAppBarSetting_Resizable">Resizable</system:String>
     <system:String x:Key="SettingPaneAppBarSetting_BarElements">Bar elements</system:String>
     <system:String x:Key="SettingPaneAppBarSetting_LeftBarElements">Left bar elements</system:String>
@@ -64,5 +67,9 @@
     <!--  Toggle Switch  -->
     <system:String x:Key="ToggleSwitchEx_OnContent">On</system:String>
     <system:String x:Key="ToggleSwitchEx_OffContent">Off</system:String>
+
+    <!--  Add AppBar Content Dialog  -->
+    <system:String x:Key="AddAppBarContentDialog_Add">Add</system:String>
+    <system:String x:Key="AddAppBarContentDialog_Cancel">Cancel</system:String>
 
 </ResourceDictionary>
