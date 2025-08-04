@@ -38,6 +38,49 @@
                 SelectedValuePath="Value" />
         </ui:SettingsCard>
 
+        <ui:SettingsCard>
+            <ui:SettingsCard.Style>
+                <Style TargetType="ui:SettingsCard">
+                    <Setter Property="Header" Value="{DynamicResource SettingPaneAppBarSetting_FollowSystemTaskbarWidth}" />
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding DockMode}" Value="{x:Static enum:AppBarDockMode.Left}">
+                            <Setter Property="Header" Value="{DynamicResource SettingPaneAppBarSetting_FollowSystemTaskbarHeight}" />
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding DockMode}" Value="{x:Static enum:AppBarDockMode.Right}">
+                            <Setter Property="Header" Value="{DynamicResource SettingPaneAppBarSetting_FollowSystemTaskbarHeight}" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </ui:SettingsCard.Style>
+
+            <tscontrol:ToggleSwitchEx IsOn="{Binding FollowSystemTaskbarWidthOrHeight, Mode=TwoWay}" />
+        </ui:SettingsCard>
+
+        <ui:SettingsCard>
+            <ui:SettingsCard.Style>
+                <Style TargetType="ui:SettingsCard">
+                    <Setter Property="Header" Value="{DynamicResource SettingPaneAppBarSetting_DockedWidth}" />
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding DockMode}" Value="{x:Static enum:AppBarDockMode.Left}">
+                            <Setter Property="Header" Value="{DynamicResource SettingPaneAppBarSetting_DockedHeight}" />
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding DockMode}" Value="{x:Static enum:AppBarDockMode.Right}">
+                            <Setter Property="Header" Value="{DynamicResource SettingPaneAppBarSetting_DockedHeight}" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </ui:SettingsCard.Style>
+
+            <ui:NumberBox
+                MinWidth="120"
+                LargeChange="10"
+                Maximum="{Binding MaxDockedWidthOrHeight, Mode=OneWay}"
+                Minimum="{Binding MinDockedWidthOrHeight, Mode=OneWay}"
+                SmallChange="5"
+                SpinButtonPlacementMode="Compact"
+                Value="{Binding DockedWidthOrHeight, Mode=TwoWay}" />
+        </ui:SettingsCard>
+
         <ui:SettingsCard Header="{DynamicResource SettingPaneAppBarSetting_Resizable}">
             <tscontrol:ToggleSwitchEx IsOn="{Binding IsResizable, Mode=TwoWay}" />
         </ui:SettingsCard>

@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using Flow.Bar.Helper.Monitor;
 using Flow.Bar.Interfaces;
 using Flow.Bar.Models.AppBar;
 using Flow.Bar.Models.Enums;
@@ -51,7 +52,31 @@ public partial class SettingsPaneAppBarSettingViewModel(AppBarManagementService 
     }
 
     [ObservableProperty]
-    public bool _isResizable = false;
+    private bool _followSystemTaskbarWidthOrHeight = true;
+
+    partial void OnFollowSystemTaskbarWidthOrHeightChanged(bool value)
+    {
+        if (!_isInitialized) return;
+        _appBarManagementService.SetFollowSystemTaskbarWidthOrHeight(AppBarModel.Order, value);
+    }
+
+    [ObservableProperty]
+    private int _minDockedWidthOrHeight = 0;
+
+    [ObservableProperty]
+    private int _maxDockedWidthOrHeight = int.MaxValue;
+
+    [ObservableProperty]
+    private int _dockedWidthOrHeight = MonitorInfoHelper.DefaultDockedWidthOrHeight;
+
+    partial void OnDockedWidthOrHeightChanged(int value)
+    {
+        if (!_isInitialized) return;
+        _appBarManagementService.SetDockedWidthOrHeight(AppBarModel.Order, value);
+    }
+
+    [ObservableProperty]
+    private bool _isResizable = false;
 
     partial void OnIsResizableChanged(bool value)
     {
@@ -67,6 +92,8 @@ public partial class SettingsPaneAppBarSettingViewModel(AppBarManagementService 
             IsEnabled = model.IsEnabled;
             DockMode = model.DockMode;
             MonitorName = model.MonitorName;
+            FollowSystemTaskbarWidthOrHeight = model.FollowSystemTaskbarWidthOrHeight;
+            DockedWidthOrHeight = model.DockedWidthOrHeight;
             IsResizable = model.IsResizable;
             _isInitialized = true;
         }

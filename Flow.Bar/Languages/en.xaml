@@ -33,6 +33,7 @@
     <system:String x:Key="SettingPaneAppBarSetting_DockMode">Dock mode</system:String>
     <system:String x:Key="SettingPaneAppBarSetting_Monitor">Monitor</system:String>
     <system:String x:Key="SettingPaneAppBarSetting_MonitorPrimary">Primary monitor</system:String>
+    <system:String x:Key="SettingPaneAppBarSetting_FollowSystemTaskbarWidth">Follow system taskbar width</system:String>
     <system:String x:Key="SettingPaneAppBarSetting_Resizable">Resizable</system:String>
     <system:String x:Key="SettingPaneAppBarSetting_BarElements">Bar elements</system:String>
     <system:String x:Key="SettingPaneAppBarSetting_LeftBarElements">Left bar elements</system:String>
