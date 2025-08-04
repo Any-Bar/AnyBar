@@ -33,4 +33,6 @@ public static class Constants
     public const string Cache = "Cache";
 
     public const string SystemLanguageCode = "system";
+
+    public const string FlowBarPluginClockPluginId = "3675a0dd-af3b-412f-b257-5e004dea2bd0";
 }
