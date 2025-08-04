@@ -82,5 +82,7 @@ public partial class AppBarViewModel : ObservableObject
         {
             OnMonitorNameChanged(MonitorName);
         }
+        // Initialize the MonitorTaskBarWidthOrHeight for the monitor before any AppBarWindow is created on this monitor
+        MonitorInfoHelper.GetMonitorTaskBarWidthOrHeight(ActualMonitor);
     }
 }

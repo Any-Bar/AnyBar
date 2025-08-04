@@ -1,6 +1,7 @@
 ﻿using Flow.Bar.Models.Enums;
 using Flow.Bar.Models.Monitor;
 using System;
+using System.Collections.Concurrent;
 using System.Linq;
 
 namespace Flow.Bar.Helper.Monitor;
@@ -8,6 +9,10 @@ namespace Flow.Bar.Helper.Monitor;
 public class MonitorInfoHelper
 {
     public const int DefaultDockedWidthOrHeight = 48;
+
+    // This dictionary is used to cache the taskbar width or height for each monitor.
+    // Because we will register AppBarWindow which can cause MonitorInfo.WorkingArea changed.
+    private static readonly ConcurrentDictionary<string, int> MonitorTaskBarWidthOrHeights = [];
 
     public static MonitorInfo? GetMonitorInfoFromName(string? monitorName)
     {
@@ -37,17 +42,21 @@ public class MonitorInfoHelper
     {
         if (monitor != null)
         {
-            var taskBarHeight = (int)monitor.Bounds.Height - (int)monitor.WorkingArea.Height;
-            if (taskBarHeight != 0) // Taskbar is docked at the top or bottom
+            if (MonitorTaskBarWidthOrHeights.TryGetValue(monitor.Name, out var widthOrHeight))
             {
-                return taskBarHeight;
+                return widthOrHeight;
             }
-            else
+
+            var taskBarWidthOrHeight = (int)monitor.Bounds.Height - (int)monitor.WorkingArea.Height;
+            // Taskbar is docked at the top or bottom
+            if (taskBarWidthOrHeight == 0)
             {
-                var taskBarWidth = (int)monitor.Bounds.Width - (int)monitor.WorkingArea.Width;
-                if (taskBarWidth != 0) // Taskbar is docked at the left or right
+                // Taskbar is docked at the left or right
+                taskBarWidthOrHeight = (int)monitor.Bounds.Width - (int)monitor.WorkingArea.Width;
+                if (taskBarWidthOrHeight > 0)
                 {
-                    return taskBarWidth;
+                    MonitorTaskBarWidthOrHeights[monitor.Name] = taskBarWidthOrHeight;
+                    return taskBarWidthOrHeight;
                 }
             }
         }
