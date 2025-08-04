@@ -60,7 +60,7 @@
     <system:String x:Key="NavigationView_CloseNavigation">Close navigation</system:String>
     <system:String x:Key="NavigationView_OpenNavigation">Open navigation</system:String>
 
-    <!--  Toggle Switch Ex  -->
+    <!--  Toggle Switch  -->
     <system:String x:Key="ToggleSwitchEx_OnContent">On</system:String>
     <system:String x:Key="ToggleSwitchEx_OffContent">Off</system:String>
 
