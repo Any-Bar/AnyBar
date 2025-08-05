@@ -36,6 +36,7 @@
                     <!--  TODO: Use Margin="{DynamicResource ListViewItemCompactSelectedBorderThemeThickness}" if IsSelectionEnabled is True  -->
                     <Border
                         x:Name="LayoutRoot"
+                        Margin="0 2 0 2"
                         ui:PressHelper.IsEnabled="True"
                         Background="{TemplateBinding Background}"
                         BorderBrush="{TemplateBinding BorderBrush}"
@@ -355,7 +356,11 @@
                                     VerticalAlignment="Stretch"
                                     Content="{TemplateBinding ui:ListViewHelper.Header}"
                                     ContentTemplate="{TemplateBinding ui:ListViewHelper.HeaderTemplate}" />
-                                <ItemsPresenter Grid.Row="1" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                                <!--  This margin is to remove the top margin of the first item and the bottom margin of the last item  -->
+                                <ItemsPresenter
+                                    Grid.Row="1"
+                                    Margin="0 -2 0 -2"
+                                    SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
                                 <ContentPresenter
                                     Grid.Row="2"
                                     HorizontalAlignment="Stretch"
