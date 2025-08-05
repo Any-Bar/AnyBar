@@ -43,14 +43,14 @@
                                 x:Name="Shdw"
                                 CornerRadius="{TemplateBinding CornerRadius}"
                                 IsShadowEnabled="{TemplateBinding IsShadowEnabled}" />
-                            <!--  microsoft-ui-xaml has this but the final display effect is weird so I remove it here  -->
-                            <!--
+                            <!--  microsoft-ui-xaml has this Fill="{DynamicResource ContentDialogSmokeFill}"  -->
+                            <!--  but the final display effect is weird so I remove it here  -->
                             <Rectangle
                                 x:Name="SmokeLayerBackground"
                                 HorizontalAlignment="Stretch"
                                 VerticalAlignment="Stretch"
-                                Fill="{DynamicResource ContentDialogSmokeFill}" />
-                            -->
+                                Fill="Transparent"
+                                IsHitTestVisible="True" />
                             <Border
                                 x:Name="BackgroundElement"
                                 MinWidth="{DynamicResource ContentDialogMinWidth}"
