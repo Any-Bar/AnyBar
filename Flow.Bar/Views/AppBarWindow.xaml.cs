@@ -621,7 +621,7 @@ public partial class AppBarWindow : Window
     }
 
     private static uint _AppBarMessageId;
-    public static uint AppBarMessageId
+    private static uint AppBarMessageId
     {
         get
         {
@@ -692,7 +692,6 @@ public partial class AppBarWindow : Window
             }
         }
     }
-
 
     #endregion
 }
