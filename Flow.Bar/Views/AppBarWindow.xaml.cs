@@ -31,9 +31,7 @@ public partial class AppBarWindow : Window
 {
     public AppBarViewModel ViewModel { get; } = Ioc.Default.GetRequiredService<AppBarViewModel>();
 
-    private static AppBarManagementService? _appBarManagementService;
-    private static AppBarManagementService AppBarManagementService =>
-        _appBarManagementService ??= Ioc.Default.GetRequiredService<AppBarManagementService>();
+    private readonly AppBarManagementService _appBarManagementService = Ioc.Default.GetRequiredService<AppBarManagementService>();
 
     private HWND _hwnd;
     private HwndSource? _hwndSource;
@@ -492,14 +490,14 @@ public partial class AppBarWindow : Window
     {
         UpdateDockedWidthOrHeight();
 
-        AppBarManagementService.SetFollowSystemTaskbarWidthOrHeight(ViewModel.Order, ViewModel.FollowSystemTaskbarWidthOrHeight);
+        _appBarManagementService.SetFollowSystemTaskbarWidthOrHeight(ViewModel.Order, ViewModel.FollowSystemTaskbarWidthOrHeight);
     }
 
     private void OnDockedWidthOrHeightChanged()
     {
         UpdateDockedWidthOrHeight();
 
-        AppBarManagementService.SetDockedWidthOrHeight(ViewModel.Order, ViewModel.DockedWidthOrHeight);
+        _appBarManagementService.SetDockedWidthOrHeight(ViewModel.Order, ViewModel.DockedWidthOrHeight);
     }
 
     private void UpdateDockedWidthOrHeight()
