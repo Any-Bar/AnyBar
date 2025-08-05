@@ -29,8 +29,8 @@
                 Content="{DynamicResource SettingPaneAppBar_AddAppBar}"
                 Style="{DynamicResource {x:Static ui:ThemeKeys.AccentButtonStyleKey}}" />
         </ui:SettingsCard>
-        <controls:ListViewEx
-            x:Name="AppBarListView"
+        <controls:StackPanelViewEx
+            x:Name="AppBarStackPanelView"
             dd:DragDrop.DropScrollingMode="VerticalOnly"
             dd:DragDrop.DropTargetAdornerBrush="{ui:ThemeResource AccentFillColorDefaultBrush}"
             dd:DragDrop.DropTargetScrollViewer="{Binding RootFrameScrollViewer, Mode=OneTime}"
@@ -47,7 +47,7 @@
             Orientation="Vertical"
             ScrollViewer.HorizontalScrollBarVisibility="Disabled"
             ScrollViewer.VerticalScrollBarVisibility="Disabled">
-            <controls:ListViewEx.ItemTemplate>
+            <controls:StackPanelViewEx.ItemTemplate>
                 <DataTemplate DataType="models:AppBarModel">
                     <ui:SettingsCard
                         x:Name="AppBarSettingsCard"
@@ -69,7 +69,7 @@
                             Toggled="AppBarToggleSwitch_Toggled" />
                     </ui:SettingsCard>
                 </DataTemplate>
-            </controls:ListViewEx.ItemTemplate>
-        </controls:ListViewEx>
+            </controls:StackPanelViewEx.ItemTemplate>
+        </controls:StackPanelViewEx>
     </ikw:SimpleStackPanel>
 </ui:Page>

@@ -7,14 +7,14 @@
     xmlns:ui="http://schemas.inkore.net/lib/ui/wpf/modern">
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary>
-            <Thickness x:Key="ListViewExItemLayoutRootMargin">2</Thickness>
+            <Thickness x:Key="StackPanelViewExItemLayoutRootMargin">2</Thickness>
             <!--  This margin is to remove the top/left margin of the first item and the bottom/right margin of the last item  -->
             <!--  And the left/top and right/bottom margin of the items  -->
-            <Thickness x:Key="ListViewExItemsPresenterMargin">-2</Thickness>
+            <Thickness x:Key="StackPanelViewExItemsPresenterMargin">-2</Thickness>
         </ResourceDictionary>
     </ResourceDictionary.MergedDictionaries>
 
-    <Style x:Key="DefaultListViewItemStyle" TargetType="local:ListViewExItem">
+    <Style x:Key="DefaultStackPanelViewExItemStyle" TargetType="local:StackPanelViewExItem">
         <Setter Property="OverridesDefaultStyle" Value="True" />
         <Setter Property="FontSize" Value="{DynamicResource ControlContentThemeFontSize}" />
         <Setter Property="Background" Value="{DynamicResource ListViewItemBackground}" />
@@ -29,10 +29,10 @@
         <Setter Property="ui:FocusVisualHelper.UseSystemFocusVisuals" Value="{DynamicResource UseSystemFocusVisuals}" />
         <Setter Property="Template">
             <Setter.Value>
-                <ControlTemplate TargetType="local:ListViewExItem">
+                <ControlTemplate TargetType="local:StackPanelViewExItem">
                     <Border
                         x:Name="LayoutRoot"
-                        Margin="{StaticResource ListViewExItemLayoutRootMargin}"
+                        Margin="{StaticResource StackPanelViewExItemLayoutRootMargin}"
                         Background="{TemplateBinding Background}"
                         BorderBrush="{TemplateBinding BorderBrush}"
                         BorderThickness="{TemplateBinding BorderThickness}"
@@ -64,9 +64,9 @@
         </Setter>
     </Style>
 
-    <Style BasedOn="{StaticResource DefaultListViewItemStyle}" TargetType="local:ListViewExItem" />
+    <Style BasedOn="{StaticResource DefaultStackPanelViewExItemStyle}" TargetType="local:StackPanelViewExItem" />
 
-    <Style x:Key="BaseListViewStyle" TargetType="local:ListViewEx">
+    <Style x:Key="BaseStackPanelViewExStyle" TargetType="local:StackPanelViewEx">
         <Setter Property="OverridesDefaultStyle" Value="True" />
         <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto" />
         <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto" />
@@ -75,18 +75,18 @@
         <Setter Property="Stylus.IsFlicksEnabled" Value="False" />
         <Setter Property="HorizontalContentAlignment" Value="Stretch" />
         <Setter Property="VerticalContentAlignment" Value="Center" />
-        <Setter Property="ItemContainerStyle" Value="{StaticResource DefaultListViewItemStyle}" />
+        <Setter Property="ItemContainerStyle" Value="{StaticResource DefaultStackPanelViewExItemStyle}" />
         <Setter Property="ui:ScrollViewerHelper.AutoHideScrollBars" Value="{DynamicResource AutoHideScrollBars}" />
         <Setter Property="ItemsPanel">
             <Setter.Value>
                 <ItemsPanelTemplate>
-                    <VirtualizingStackPanel Orientation="{Binding Orientation, RelativeSource={RelativeSource AncestorType=local:ListViewEx}}" />
+                    <VirtualizingStackPanel Orientation="{Binding Orientation, RelativeSource={RelativeSource AncestorType=local:StackPanelViewEx}}" />
                 </ItemsPanelTemplate>
             </Setter.Value>
         </Setter>
         <Setter Property="Template">
             <Setter.Value>
-                <ControlTemplate TargetType="local:ListViewEx">
+                <ControlTemplate TargetType="local:StackPanelViewEx">
                     <Border
                         x:Name="Bd"
                         Background="{TemplateBinding Background}"
@@ -102,7 +102,7 @@
                             <ItemsPresenter
                                 x:Name="ItemsPresenter"
                                 Grid.Row="1"
-                                Margin="{StaticResource ListViewExItemsPresenterMargin}"
+                                Margin="{StaticResource StackPanelViewExItemsPresenterMargin}"
                                 HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                                 VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
                                 SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
@@ -129,10 +129,10 @@
     </Style>
 
     <Style
-        x:Key="DefaultListViewStyle"
-        BasedOn="{StaticResource BaseListViewStyle}"
-        TargetType="local:ListViewEx" />
+        x:Key="DefaultStackPanelViewExStyle"
+        BasedOn="{StaticResource BaseStackPanelViewExStyle}"
+        TargetType="local:StackPanelViewEx" />
 
-    <Style BasedOn="{StaticResource DefaultListViewStyle}" TargetType="local:ListViewEx" />
+    <Style BasedOn="{StaticResource DefaultStackPanelViewExStyle}" TargetType="local:StackPanelViewEx" />
 
 </ResourceDictionary>

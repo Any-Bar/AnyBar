@@ -3,16 +3,15 @@ using System.Windows.Controls;
 
 namespace Flow.Bar.Controls;
 
-public class ListViewEx : ListViewExBase
+public class StackPanelViewEx : StackPanelViewExBase
 {
-    static ListViewEx()
+    static StackPanelViewEx()
     {
-        DefaultStyleKeyProperty.OverrideMetadata(typeof(ListViewEx), new FrameworkPropertyMetadata(typeof(ListViewEx)));
+        DefaultStyleKeyProperty.OverrideMetadata(typeof(StackPanelViewEx), new FrameworkPropertyMetadata(typeof(StackPanelViewEx)));
     }
 
-    public ListViewEx()
+    public StackPanelViewEx()
     {
-
     }
 
     #region Orientation
@@ -21,7 +20,7 @@ public class ListViewEx : ListViewExBase
         DependencyProperty.Register(
             nameof(Orientation),
             typeof(Orientation),
-            typeof(ListViewEx),
+            typeof(StackPanelViewEx),
             new FrameworkPropertyMetadata(Orientation.Vertical, FrameworkPropertyMetadataOptions.AffectsMeasure));
 
     public Orientation Orientation
@@ -34,11 +33,11 @@ public class ListViewEx : ListViewExBase
 
     protected override bool IsItemItsOwnContainerOverride(object item)
     {
-        return item is ListViewExItem;
+        return item is StackPanelViewExItem;
     }
 
     protected override DependencyObject GetContainerForItemOverride()
     {
-        return new ListViewExItem();
+        return new StackPanelViewExItem();
     }
 }

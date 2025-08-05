@@ -4,11 +4,10 @@ using System.Windows.Controls;
 
 namespace Flow.Bar.Controls;
 
-public class ListViewExBase : ListBox
+public class StackPanelViewExBase : ListBox
 {
-    protected ListViewExBase()
+    protected StackPanelViewExBase()
     {
-
     }
 
     #region UseSystemFocusVisuals
@@ -17,7 +16,7 @@ public class ListViewExBase : ListBox
     /// Identifies the UseSystemFocusVisuals dependency property.
     /// </summary>
     public static readonly DependencyProperty UseSystemFocusVisualsProperty =
-        FocusVisualHelper.UseSystemFocusVisualsProperty.AddOwner(typeof(ListViewExBase));
+        FocusVisualHelper.UseSystemFocusVisualsProperty.AddOwner(typeof(StackPanelViewExBase));
 
     /// <summary>
     /// Gets or sets a value that indicates whether the control uses focus visuals that
@@ -37,7 +36,7 @@ public class ListViewExBase : ListBox
     /// Identifies the FocusVisualMargin dependency property.
     /// </summary>
     public static readonly DependencyProperty FocusVisualMarginProperty =
-        FocusVisualHelper.FocusVisualMarginProperty.AddOwner(typeof(ListViewExBase));
+        FocusVisualHelper.FocusVisualMarginProperty.AddOwner(typeof(StackPanelViewExBase));
 
     /// <summary>
     /// Gets or sets the outer margin of the focus visual for a FrameworkElement.
@@ -56,7 +55,7 @@ public class ListViewExBase : ListBox
     /// Identifies the CornerRadius dependency property.
     /// </summary>
     public static readonly DependencyProperty CornerRadiusProperty =
-        ControlHelper.CornerRadiusProperty.AddOwner(typeof(ListViewExBase));
+        ControlHelper.CornerRadiusProperty.AddOwner(typeof(StackPanelViewExBase));
 
     /// <summary>
     /// Gets or sets the radius for the corners of the control's border.
@@ -71,9 +70,9 @@ public class ListViewExBase : ListBox
 
     public event ItemClickEventHandler? ItemClick;
 
-    internal void NotifyListItemClicked(ListViewExBaseItem item)
+    internal void NotifyListItemClicked(StackPanelViewExBaseItem item)
     {
         var clickedItem = ItemContainerGenerator.ItemFromContainer(item);
-        ItemClick?.Invoke(this, new ItemClickEventArgs { ClickedItem = clickedItem });
+        ItemClick?.Invoke(this, new StackPanelViewExItemClickEventArgs { ClickedItem = clickedItem });
     }
 }
