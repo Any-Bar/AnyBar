@@ -88,7 +88,9 @@ public class NavigationViewService(PageService pageService)
 
         if (_frame.CanGoBack)
         {
-            _frame.GoBack();
+            _frame.GoBack(
+                transitionInfoOverride: App.Settings.EnableAnimationEffects ? null : // Default transition animation
+                new SuppressNavigationTransitionInfo()); // Suppress animation if disabled);
             _parameterStack.Pop();
             return true;
         }
