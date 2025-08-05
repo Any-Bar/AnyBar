@@ -106,7 +106,10 @@
             </DataTemplate>
         </controls:NavigationView.HeaderTemplate>
 
-        <ui:ScrollViewerEx HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+        <ui:ScrollViewerEx
+            x:Name="RootFrameScrollViewer"
+            HorizontalScrollBarVisibility="Disabled"
+            VerticalScrollBarVisibility="Auto">
             <ui:Frame
                 x:Name="RootFrame"
                 Margin="0 10 0 0"
