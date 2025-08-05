@@ -665,7 +665,6 @@ public partial class NavigationView : ContentControl, IControlProtected
     {
         LayoutUpdated -= OnLayoutUpdated;
         LayoutUpdated += OnLayoutUpdated;
-        m_layoutUpdatedToken = true;
 
         return base.MeasureOverride(availableSize);
     }
@@ -674,7 +673,6 @@ public partial class NavigationView : ContentControl, IControlProtected
     {
         // We only need to handle once after MeasureOverride, so revoke the token.
         LayoutUpdated -= OnLayoutUpdated;
-        m_layoutUpdatedToken = false;
 
         if (m_orientationChangedPendingAnimation)
         {
@@ -2752,7 +2750,6 @@ public partial class NavigationView : ContentControl, IControlProtected
     private ContentControl? m_leftNavPaneAutoSuggestBoxPresenter;
 
     // Event Tokens
-    private bool m_layoutUpdatedToken;
     private FrameworkElementSizeChangedRevoker? m_itemsContainerSizeChangedRevoker;
 
     private ItemsSourceView.CollectionChangedRevoker? m_menuItemsCollectionChangedRevoker;
