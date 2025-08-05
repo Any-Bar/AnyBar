@@ -4,6 +4,7 @@ using Flow.Bar.Models.Enums;
 using iNKORE.UI.WPF.Modern.Media.Animation;
 using System;
 using System.Collections.Generic;
+using System.Windows.Controls;
 using System.Windows.Navigation;
 using Frame = iNKORE.UI.WPF.Modern.Controls.Frame;
 using Page = iNKORE.UI.WPF.Modern.Controls.Page;
@@ -15,6 +16,7 @@ public class NavigationViewService(PageService pageService)
     private readonly PageService _pageService = pageService;
 
     private NavigationView? _navigationView;
+    private ScrollViewer? _scrollViewer;
     private Frame? _frame;
 
     private readonly Dictionary<Type, object?> _nextParameter = [];
@@ -23,27 +25,32 @@ public class NavigationViewService(PageService pageService)
     // we cannot use a stack for the parameters so that we can go back to the previous parameter.
     private readonly Stack<object?> _parameterStack = [];
 
+    public NavigationView? NavigationView => _navigationView;
+    public ScrollViewer? ScrollViewer => _scrollViewer;
+    public Frame? Frame => _frame;
+
     /// <summary>
     /// Registers the frame events for navigation.
     /// </summary>
-    /// <param name="view"></param>
+    /// <param name="navigationView"></param>
     /// <param name="frame"></param>
     /// <param name="parameter"></param>
     /// <param name="navigate"></param>
-    public void RegisterFrameEvents(NavigationView view, Frame frame, object? parameter = null, bool navigate = true)
+    public void RegisterFrameEvents(NavigationView navigationView, ScrollViewer scrollViewer, Frame frame, object? parameter = null, bool navigate = true)
     {
-        ArgumentNullException.ThrowIfNull(view);
+        ArgumentNullException.ThrowIfNull(navigationView);
         ArgumentNullException.ThrowIfNull(frame);
 
         UnregisterFrameEvents(frame);
-        _navigationView = view;
+        _navigationView = navigationView;
         _navigationView.BackRequested += NavigationView_BackRequested;
         _navigationView.ItemInvoked += NavigationView_ItemInvoked;
+        _scrollViewer = scrollViewer;
         _frame = frame;
         _frame.Navigating += Frame_OnNavigating;
         _frame.Navigated += Frame_OnNavigated;
 
-        if (navigate && view.SelectedItem is NavigationViewItem item && item.Tag is SettingPageTag tag)
+        if (navigate && navigationView.SelectedItem is NavigationViewItem item && item.Tag is SettingPageTag tag)
         {
             // Navigate to the default page
             NavigateTo(tag, parameter);
@@ -61,6 +68,7 @@ public class NavigationViewService(PageService pageService)
             _frame.Navigating -= Frame_OnNavigating;
             _frame.Navigated -= Frame_OnNavigated;
             _navigationView = null;
+            _scrollViewer = null;
             _frame = null;
         }
         if (frame != null)
