@@ -192,7 +192,6 @@ public class JsonStorage<T> where T : new()
         var backupName = $"{originName}-{timestamp}{FileSuffix}";
         var backupPath = Path.Combine(directory, backupName);
         File.Copy(FilePath, backupPath, true);
-        // todo give user notification for the backup process
     }
 
     public void Save()

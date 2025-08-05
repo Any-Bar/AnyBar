@@ -112,13 +112,6 @@ public class NavigationViewItemsFactory : ElementFactory
 
                     // Retain the NVI that we created for future re-use
                     m_navigationViewItemPool.Add(nvi);
-
-                    // Retrieve the proper element that requires recycling for a user defined item template
-                    // and update the args correspondingly
-                    if (m_itemTemplateWrapper != null)
-                    {
-                        // TODO: Retrieve the element and add to the args
-                    }
                 }
             }
 

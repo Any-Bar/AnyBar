@@ -119,7 +119,7 @@ public partial class SplitViewEx : Control
             }
         }
 
-        // TODO: Check if we need to support this?
+        // We do not use iNKORE.UI.WPF.Modern.Controls.Primitives.TitleBarControl so we do not need to check it.
         /*if (e.OriginalSource is UIElement originalElement &&
             TitleBarControl.GetInsideTitleBar(originalElement))
         {

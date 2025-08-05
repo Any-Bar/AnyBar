@@ -130,7 +130,6 @@ public class NavigationViewItemBase : ContentControl, IControlProtected
         return GetTemplateChild(childName);
     }
 
-    // TODO: Constant is a temporary measure. Potentially expose using TemplateSettings.
     internal const int c_itemIndentation = 25;
 
     internal bool IsTopLevelItem

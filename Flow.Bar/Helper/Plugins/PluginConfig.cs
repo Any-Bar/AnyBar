@@ -21,7 +21,6 @@ internal class PluginConfig
         var allPluginMetadata = new List<PluginMetadata>();
         var directories = pluginDirectories.SelectMany(Directory.EnumerateDirectories);
 
-        // todo use linq when diable plugin is implmented since parallel.foreach + list is not thread saft
         foreach (var directory in directories)
         {
             if (File.Exists(Path.Combine(directory, "NeedDelete.txt")))

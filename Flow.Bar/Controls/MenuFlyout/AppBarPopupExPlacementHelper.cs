@@ -137,7 +137,7 @@ internal static class AppBarPopupExPlacementHelper
             point -= childToParentOffset;
         }
 
-        // TODO: There is a very strange issue and I do not know how to fix it.
+        // TODO: There is a very strange issue and I do not know how to fix it:
         // If the popup is placed at the top or left of the target,
         // After the popup is opened once, the popup position will have offset with the target.
         return new CustomPopupPlacement(point, primaryAxis);

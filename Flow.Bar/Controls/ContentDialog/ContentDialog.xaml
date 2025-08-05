@@ -8,7 +8,7 @@
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary>
             <ikw:CornerRadiusFilterConverter x:Key="BottomCornerRadiusDoubleValueConverter" Filter="Bottom" />
-            <!--  TODO: Create PR for this change  -->
+            <!--  We use these two thickness to make ContentScrollViewer is only for Content  -->
             <Thickness x:Key="ContentDialogTitleMargin">24 24 24 12</Thickness>
             <Thickness x:Key="ContentDialogContentScrollViewerPadding">24 0 24 24</Thickness>
         </ResourceDictionary>

@@ -185,7 +185,6 @@ public partial class NavigationView : ContentControl, IControlProtected
         //    via API and we are just updating the m_selectionModel state to accurately reflect the new selection.
         // 2. Template has not been applied yet. SelectionModel's selectedIndex state will get properly updated
         //    after the repeater finishes loading.
-        // TODO: Update SelectedItem comparison to work for the exact same item datasource scenario
         if (m_shouldIgnoreNextSelectionChange || selectedItem == SelectedItem || !m_appliedTemplate)
         {
             return;
@@ -533,8 +532,6 @@ public partial class NavigationView : ContentControl, IControlProtected
 
     private NavigationViewItem? GetParentNavigationViewItemForContainer(NavigationViewItemBase nvib)
     {
-        // TODO: This scenario does not find parent items when in a flyout, which causes problems if item if first loaded
-        // straight in the flyout. Fix. This logic can be merged with the 'GetIndexPathForContainer' logic below.
         DependencyObject? parent = GetParentItemsRepeaterForContainer(nvib);
         if (!IsRootItemsRepeater(parent))
         {
@@ -1945,11 +1942,6 @@ public partial class NavigationView : ContentControl, IControlProtected
             // PR 1895355: Bug 17724768: Remove Side-to-Side navigation transition velocity key
             // https://microsoft.visualstudio.com/_git/os/commit/7d58531e69bc8ad1761cff938d8db25f6fb6a841
             // We want to use Effect, but it's not in all os of rs5. as a workaround, we only apply effect to the os which is already remove velocity key.
-            /*if (sliderNav is ISlideNavigationTransitionInfo2)
-            {
-                sliderNav.Effect = effect;
-            }*/
-            // TODO: Check if we will get issue here?
             sliderNav.Effect = effect;
             return sliderNav;
         }
@@ -2564,7 +2556,6 @@ public partial class NavigationView : ContentControl, IControlProtected
         }
 
         // If unsuccessful, unfortunately we are going to have to search through the whole tree
-        // TODO: Either fix or remove implementation for TopNav.
         // It may not be required due to top nav rarely having realized children in its default state.
         {
             if (SearchEntireTreeForContainer(mainRepeater!, data) is { } container)
@@ -2578,7 +2569,6 @@ public partial class NavigationView : ContentControl, IControlProtected
 
     private static UIElement? SearchEntireTreeForContainer(ItemsRepeater rootRepeater, object data)
     {
-        // TODO: Temporary inefficient solution that results in unnecessary time complexity, fix.
         var index = GetIndexFromItem(rootRepeater, data);
         if (index != -1)
         {
@@ -2644,7 +2634,6 @@ public partial class NavigationView : ContentControl, IControlProtected
                     }
                 }
 
-                // TODO: Fix below for top flyout scenario once the flyout is introduced in the XAML.
                 // We want to be able to retrieve containers for items that are in the flyout.
                 // This will return null if requesting children containers of
                 // items in the primary list, or unrealized items in the overflow popup.

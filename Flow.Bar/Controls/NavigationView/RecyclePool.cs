@@ -72,7 +72,6 @@ public class RecyclePool
                 ElementInfo elementInfo = new(null, null);
                 // Prefer an element from the same owner or with no owner so that we don't incur
                 // the enter/leave cost during recycling.
-                // TODO: prioritize elements with the same owner to those without an owner.
                 var winrtOwner = owner;
                 var index = elements.FindIndex(elemInfo => elemInfo.Owner == winrtOwner || elemInfo.Owner == null);
 
