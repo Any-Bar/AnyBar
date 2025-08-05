@@ -11,6 +11,7 @@ public class ListViewEx : ListViewExBase
 
     public ListViewEx()
     {
+
     }
 
     protected override bool IsItemItsOwnContainerOverride(object item)

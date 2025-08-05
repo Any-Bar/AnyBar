@@ -8,4 +8,9 @@ public class ListViewExItem : ListViewExBaseItem
     {
         DefaultStyleKeyProperty.OverrideMetadata(typeof(ListViewExItem), new FrameworkPropertyMetadata(typeof(ListViewExItem)));
     }
+
+    public ListViewExItem()
+    {
+
+    }
 }
