@@ -27,9 +27,9 @@ public class FlowBarJsonStorage<T> : JsonStorage<T> where T : new()
         {
             base.Save();
         }
-        catch (Exception)
+        catch (Exception e)
         {
-
+            App.API.LogException(ClassName, $"Failed to save settings to path: {FilePath}", e);
         }
     }
 
@@ -39,9 +39,9 @@ public class FlowBarJsonStorage<T> : JsonStorage<T> where T : new()
         {
             await base.SaveAsync();
         }
-        catch (Exception)
+        catch (Exception e)
         {
-
+            App.API.LogException(ClassName, $"Failed to save settings to path: {FilePath}", e);
         }
     }
 }
