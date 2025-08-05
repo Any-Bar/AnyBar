@@ -23,6 +23,7 @@
     ui:WindowHelper.UseModernWindowStyle="True"
     Closed="Window_Closed"
     DataContext="{Binding RelativeSource={RelativeSource Self}}"
+    Loaded="Window_Loaded"
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
 
