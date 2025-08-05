@@ -370,7 +370,7 @@ public partial class AppBarWindow : Window
 
     #region HWND Hook
 
-    public IntPtr WndProc(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
+    private IntPtr WndProc(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
     {
         if (msg == PInvoke.WM_SIZE)
         {
