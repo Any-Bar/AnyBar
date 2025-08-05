@@ -323,6 +323,7 @@ public partial class AppBarWindow : Window
 
         // set our initial location
         _isAppBarRegistered = true;
+        OnDockLocationChanged();
     }
 
     private void Window_Loaded(object sender, RoutedEventArgs e)
