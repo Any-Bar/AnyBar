@@ -298,6 +298,11 @@ public class AppBarMenuFlyout : DependencyObject
         Opened?.Invoke(this, null);
     }
 
+    internal virtual void OnClosing()
+    {
+        Closing?.Invoke(this, null);
+    }
+
     internal virtual void OnClosed()
     {
         Closed?.Invoke(this, null);
