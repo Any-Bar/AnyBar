@@ -9,6 +9,7 @@ public class ListViewExBaseItem : ListBoxItem
 {
     protected ListViewExBaseItem()
     {
+
     }
 
     #region UseSystemFocusVisuals
