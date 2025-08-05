@@ -7,11 +7,10 @@
     xmlns:ui="http://schemas.inkore.net/lib/ui/wpf/modern">
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary>
-            <HorizontalAlignment x:Key="ListViewExItemHorizontalAlignment">Stretch</HorizontalAlignment>
-            <VerticalAlignment x:Key="ListViewExItemVerticalAlignment">Center</VerticalAlignment>
-            <Thickness x:Key="ListViewExItemLayoutRootMargin">0 2 0 2</Thickness>
-            <!--  This margin is to remove the top margin of the first item and the bottom margin of the last item  -->
-            <Thickness x:Key="ListViewExItemsPresenterMargin">0 -2 0 -2</Thickness>
+            <Thickness x:Key="ListViewExItemLayoutRootMargin">2</Thickness>
+            <!--  This margin is to remove the top/left margin of the first item and the bottom/right margin of the last item  -->
+            <!--  And the left/top and right/bottom margin of the items  -->
+            <Thickness x:Key="ListViewExItemsPresenterMargin">-2</Thickness>
         </ResourceDictionary>
     </ResourceDictionary.MergedDictionaries>
 
@@ -20,8 +19,8 @@
         <Setter Property="FontSize" Value="{DynamicResource ControlContentThemeFontSize}" />
         <Setter Property="Background" Value="{DynamicResource ListViewItemBackground}" />
         <Setter Property="Foreground" Value="{DynamicResource ListViewItemForeground}" />
-        <Setter Property="HorizontalContentAlignment" Value="{StaticResource ListViewExItemHorizontalAlignment}" />
-        <Setter Property="VerticalContentAlignment" Value="{StaticResource ListViewExItemVerticalAlignment}" />
+        <Setter Property="HorizontalAlignment" Value="{Binding HorizontalAlignment, RelativeSource={RelativeSource AncestorType=ItemsPresenter}}" />
+        <Setter Property="VerticalAlignment" Value="{Binding VerticalAlignment, RelativeSource={RelativeSource AncestorType=ItemsPresenter}}" />
         <Setter Property="MinWidth" Value="{DynamicResource ListViewItemMinWidth}" />
         <Setter Property="MinHeight" Value="{DynamicResource ListViewItemMinHeight}" />
         <Setter Property="SnapsToDevicePixels" Value="True" />
@@ -46,8 +45,8 @@
                             <ui:ContentPresenterEx
                                 x:Name="ContentPresenter"
                                 Margin="{TemplateBinding Padding}"
-                                HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-                                VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
+                                VerticalAlignment="{TemplateBinding VerticalAlignment}"
                                 SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
                         </Grid>
                     </Border>
@@ -74,9 +73,17 @@
         <Setter Property="ScrollViewer.CanContentScroll" Value="true" />
         <Setter Property="ScrollViewer.PanningMode" Value="Both" />
         <Setter Property="Stylus.IsFlicksEnabled" Value="False" />
+        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
         <Setter Property="VerticalContentAlignment" Value="Center" />
         <Setter Property="ItemContainerStyle" Value="{StaticResource DefaultListViewItemStyle}" />
         <Setter Property="ui:ScrollViewerHelper.AutoHideScrollBars" Value="{DynamicResource AutoHideScrollBars}" />
+        <Setter Property="ItemsPanel">
+            <Setter.Value>
+                <ItemsPanelTemplate>
+                    <VirtualizingStackPanel Orientation="{Binding Orientation, RelativeSource={RelativeSource AncestorType=local:ListViewEx}}" />
+                </ItemsPanelTemplate>
+            </Setter.Value>
+        </Setter>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="local:ListViewEx">
@@ -96,6 +103,8 @@
                                 x:Name="ItemsPresenter"
                                 Grid.Row="1"
                                 Margin="{StaticResource ListViewExItemsPresenterMargin}"
+                                HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
                                 SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
                         </ui:ScrollViewerEx>
                     </Border>
@@ -111,6 +120,12 @@
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
+        <Style.Triggers>
+            <Trigger Property="Orientation" Value="Horizontal">
+                <Setter Property="HorizontalContentAlignment" Value="Left" />
+                <Setter Property="VerticalContentAlignment" Value="Stretch" />
+            </Trigger>
+        </Style.Triggers>
     </Style>
 
     <Style
