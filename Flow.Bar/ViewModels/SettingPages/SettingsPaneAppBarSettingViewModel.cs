@@ -111,7 +111,7 @@ public partial class SettingsPaneAppBarSettingViewModel(AppBarManagementService 
         }
         else
         {
-            App.API.LogError(ClassName, "Parameter is not of type AppBarModel.");
+            App.API.LogError(ClassName, "Parameter is not of type AppBarModel");
         }
     }
 

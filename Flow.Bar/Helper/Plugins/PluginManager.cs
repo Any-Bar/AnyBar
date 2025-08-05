@@ -114,7 +114,7 @@ public static class PluginManager
         var plugin = AllPlugins.FirstOrDefault(p => p.Metadata.ID == pluginId);
         if (plugin == null)
         {
-            App.API.LogError(ClassName, $"Plugin with ID {pluginId} not found.");
+            App.API.LogError(ClassName, $"Plugin with ID {pluginId} not found");
             return null;
         }
 
