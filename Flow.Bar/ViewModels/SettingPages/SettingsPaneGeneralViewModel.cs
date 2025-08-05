@@ -7,8 +7,6 @@ namespace Flow.Bar.ViewModels.SettingPages;
 
 public partial class SettingsPaneGeneralViewModel(Settings settings, Internationalization translater) : ObservableObject
 {
-    private static readonly string ClassName = nameof(SettingsPaneGeneralViewModel);
-
     public Settings Settings { get; init; } = settings;
 
     private readonly Internationalization _translater = translater;
