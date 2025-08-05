@@ -44,6 +44,7 @@
             dd:DragDrop.IsDropTarget="True"
             dd:DragDrop.UseDefaultEffectDataTemplate="False"
             ItemsSource="{Binding AppBars, Mode=OneWay}"
+            Orientation="Vertical"
             ScrollViewer.HorizontalScrollBarVisibility="Disabled"
             ScrollViewer.VerticalScrollBarVisibility="Disabled">
             <controls:ListViewEx.ItemTemplate>
