@@ -175,13 +175,8 @@ public partial class AppBarWindow : Window
         {
             case AppBarDockMode.Left:
             case AppBarDockMode.Right:
-                // Set thumb
-                BarThumb.Width = 2;
-                BarThumb.Height = double.NaN;
-                BarThumb.Cursor = Cursors.SizeWE;
-                DockPanel.SetDock(BarThumb, ViewModel.DockMode == AppBarDockMode.Left ? Dock.Right : Dock.Left);
                 // Set grid
-                BarElementsGrid.Margin = ViewModel.DockMode == AppBarDockMode.Left ? new Thickness(0, 8, BarThumb.Width, 8) : new Thickness(BarThumb.Width, 8, 0, 8);
+                BarElementsGrid.Margin = ViewModel.DockMode == AppBarDockMode.Left ? new Thickness(0, 8, 2, 8) : new Thickness(2, 8, 0, 8);
                 // Set stack panel
                 LeftOrTopStackPanel.Orientation = Orientation.Vertical;
                 Grid.SetRow(LeftOrTopStackPanel, 0);
@@ -223,13 +218,8 @@ public partial class AppBarWindow : Window
                 break;
             case AppBarDockMode.Top:
             case AppBarDockMode.Bottom:
-                // Set thumb
-                BarThumb.Height = 2;
-                BarThumb.Width = double.NaN;
-                BarThumb.Cursor = Cursors.SizeNS;
-                DockPanel.SetDock(BarThumb, ViewModel.DockMode == AppBarDockMode.Top ? Dock.Bottom : Dock.Top);
                 // Set grid
-                BarElementsGrid.Margin = ViewModel.DockMode == AppBarDockMode.Top ? new Thickness(8, 0, 8, BarThumb.Height) : new Thickness(8, BarThumb.Height, 8, 0);
+                BarElementsGrid.Margin = ViewModel.DockMode == AppBarDockMode.Top ? new Thickness(8, 0, 8, 2) : new Thickness(8, 2, 8, 0);
                 // Set stack panel
                 LeftOrTopStackPanel.Orientation = Orientation.Horizontal;
                 Grid.SetRow(LeftOrTopStackPanel, 0);
@@ -449,17 +439,10 @@ public partial class AppBarWindow : Window
     {
         if (ViewModel.IsResizable)
         {
-            BarThumb.Cursor = ViewModel.DockMode switch
-            {
-                AppBarDockMode.Left or AppBarDockMode.Right => Cursors.SizeWE,
-                AppBarDockMode.Top or AppBarDockMode.Bottom => Cursors.SizeNS,
-                _ => throw new InvalidOperationException($"Dock mode {ViewModel.DockMode} is not supported for resizing."),
-            };
             BarThumb.DragCompleted += BarThumb_DragCompleted;
         }
         else
         {
-            BarThumb.Cursor = Cursors.Arrow;
             BarThumb.DragCompleted -= BarThumb_DragCompleted;
         }
     }
