@@ -220,133 +220,141 @@ public partial class NavigationView : ContentControl, IControlProtected
 
         // Stop update anything because of PropertyChange during OnApplyTemplate. Update them all together at the end of this function
         m_appliedTemplate = false;
+        m_fromOnApplyTemplate = true;
 
-        UnhookEventsAndClearFields();
-
-        IControlProtected controlProtected = this;
-
-        // Set up the pane toggle button click handler
-        if (GetTemplateChild(c_togglePaneButtonName) is Button paneToggleButton)
+        try
         {
-            m_paneToggleButton = paneToggleButton;
-            paneToggleButton.Click += OnPaneToggleButtonClick;
+            UnhookEventsAndClearFields();
 
-            WindowChrome.SetIsHitTestVisibleInChrome(paneToggleButton, true);
-        }
+            IControlProtected controlProtected = this;
 
-        // Get a pointer to the root SplitView
-        if (GetTemplateChild(c_rootSplitViewName) is SplitViewEx splitView)
-        {
-            m_rootSplitView = splitView;
-            splitView.IsPaneOpenChanged += OnSplitViewClosedCompactChanged;
-            splitView.DisplayModeChanged += OnSplitViewClosedCompactChanged;
-
-            // These events are new to RS3/v5 API
-            splitView.PaneClosed += OnSplitViewPaneClosed;
-            splitView.PaneClosing += OnSplitViewPaneClosing;
-            splitView.PaneOpened += OnSplitViewPaneOpened;
-            splitView.PaneOpening += OnSplitViewPaneOpening;
-
-            UpdateIsClosedCompact();
-        }
-
-        // Change code to NOT do this if we're in top nav mode, to prevent it from being realized:
-        if (GetTemplateChild(c_menuItemsHost) is ItemsRepeater leftNavRepeater)
-        {
-            m_leftNavRepeater = leftNavRepeater;
-
-            // API is currently in preview, so setting this via code.
-            // Disabling virtualization for now because of https://github.com/microsoft/microsoft-ui-xaml/issues/2095
-            if (leftNavRepeater.Layout is StackLayout stackLayout)
+            // Set up the pane toggle button click handler
+            if (GetTemplateChild(c_togglePaneButtonName) is Button paneToggleButton)
             {
-                var stackLayoutImpl = stackLayout;
-                stackLayoutImpl.DisableVirtualization = true;
+                m_paneToggleButton = paneToggleButton;
+                paneToggleButton.Click += OnPaneToggleButtonClick;
+
+                WindowChrome.SetIsHitTestVisibleInChrome(paneToggleButton, true);
             }
 
-            leftNavRepeater.ElementPrepared += OnRepeaterElementPrepared;
-            leftNavRepeater.ElementClearing += OnRepeaterElementClearing;
+            // Get a pointer to the root SplitView
+            if (GetTemplateChild(c_rootSplitViewName) is SplitViewEx splitView)
+            {
+                m_rootSplitView = splitView;
+                splitView.IsPaneOpenChanged += OnSplitViewClosedCompactChanged;
+                splitView.DisplayModeChanged += OnSplitViewClosedCompactChanged;
 
-            leftNavRepeater.IsVisibleChanged += OnRepeaterIsVisibleChanged;
+                // These events are new to RS3/v5 API
+                splitView.PaneClosed += OnSplitViewPaneClosed;
+                splitView.PaneClosing += OnSplitViewPaneClosing;
+                splitView.PaneOpened += OnSplitViewPaneOpened;
+                splitView.PaneOpening += OnSplitViewPaneOpening;
 
-            m_leftNavRepeaterGettingFocusHelper = new GettingFocusHelper(leftNavRepeater);
-            m_leftNavRepeaterGettingFocusHelper.GettingFocus += OnRepeaterGettingFocus;
+                UpdateIsClosedCompact();
+            }
 
-            leftNavRepeater.ItemTemplate = m_navigationViewItemsFactory;
+            // Change code to NOT do this if we're in top nav mode, to prevent it from being realized:
+            if (GetTemplateChild(c_menuItemsHost) is ItemsRepeater leftNavRepeater)
+            {
+                m_leftNavRepeater = leftNavRepeater;
+
+                // API is currently in preview, so setting this via code.
+                // Disabling virtualization for now because of https://github.com/microsoft/microsoft-ui-xaml/issues/2095
+                if (leftNavRepeater.Layout is StackLayout stackLayout)
+                {
+                    var stackLayoutImpl = stackLayout;
+                    stackLayoutImpl.DisableVirtualization = true;
+                }
+
+                leftNavRepeater.ElementPrepared += OnRepeaterElementPrepared;
+                leftNavRepeater.ElementClearing += OnRepeaterElementClearing;
+
+                leftNavRepeater.IsVisibleChanged += OnRepeaterIsVisibleChanged;
+
+                m_leftNavRepeaterGettingFocusHelper = new GettingFocusHelper(leftNavRepeater);
+                m_leftNavRepeaterGettingFocusHelper.GettingFocus += OnRepeaterGettingFocus;
+
+                leftNavRepeater.ItemTemplate = m_navigationViewItemsFactory;
+            }
+
+            m_leftNavPaneAutoSuggestBoxPresenter = GetTemplateChild(c_leftNavPaneAutoSuggestBoxPresenter) as ContentControl;
+
+            // Get pointer to the pane content area, for use in the selection indicator animation
+            m_paneContentGrid = GetTemplateChild(c_paneContentGridName) as UIElement;
+
+            // Set automation name on search button
+            if (GetTemplateChild(c_searchButtonName) is Button button)
+            {
+                m_paneSearchButton = button;
+                button.Click += OnPaneSearchButtonClick;
+            }
+
+            if (GetTemplateChild(c_navViewBackButton) is Button backButton)
+            {
+                m_backButton = backButton;
+                backButton.Click += OnBackButtonClicked;
+
+                WindowChrome.SetIsHitTestVisibleInChrome(backButton, true);
+            }
+
+            // Register for changes in title bar layout
+            if (CoreApplicationViewTitleBar.GetTitleBar(this) is { } coreTitleBar)
+            {
+                m_coreTitleBar = coreTitleBar;
+                coreTitleBar.LayoutMetricsChanged += OnTitleBarMetricsChanged;
+                coreTitleBar.IsVisibleChanged += OnTitleBarIsVisibleChanged;
+
+                m_togglePaneTopPadding = GetTemplateChild(c_togglePaneTopPadding) as FrameworkElement;
+                m_contentPaneTopPadding = GetTemplateChild(c_contentPaneTopPadding) as FrameworkElement;
+            }
+
+            if (GetTemplateChild(c_navViewCloseButton) is Button closeButton)
+            {
+                m_closeButton = closeButton;
+                closeButton.Click += OnPaneToggleButtonClick;
+
+                WindowChrome.SetIsHitTestVisibleInChrome(closeButton, true);
+            }
+
+            m_itemsContainerRow = GetTemplateChildT<RowDefinition>(c_itemsContainerRow, controlProtected);
+            m_menuItemsScrollViewer = GetTemplateChildT<FrameworkElement>(c_menuItemsScrollViewer, controlProtected);
+
+            m_itemsContainerSizeChangedRevoker?.Revoke();
+            if (GetTemplateChildT<FrameworkElement>(c_itemsContainer, controlProtected) is { } itemsContainerRow)
+            {
+                m_itemsContainerSizeChangedRevoker = new FrameworkElementSizeChangedRevoker(itemsContainerRow, OnItemsContainerSizeChanged);
+            }
+
+            // Get hold of the outermost grid and enable XYKeyboardNavigationMode
+            // However, we only want this to work in the content pane + the hamburger button (which is not inside the splitview)
+            // so disable it on the grid in the content area of the SplitView
+            if (GetTemplateChildT<Grid>(c_rootGridName, controlProtected) is { } rootGrid)
+            {
+                KeyboardNavigation.SetDirectionalNavigation(rootGrid, KeyboardNavigationMode.Contained);
+            }
+
+            if (GetTemplateChildT<Grid>(c_contentGridName, controlProtected) is { } contentGrid)
+            {
+                KeyboardNavigation.SetDirectionalNavigation(contentGrid, KeyboardNavigationMode.None);
+            }
+
+            m_appliedTemplate = true;
+
+            // Do initial setup
+            UpdatePaneDisplayMode();
+            UpdateHeaderVisibility();
+            UpdateTitleBarPadding();
+            UpdatePaneTabFocusNavigation();
+            UpdateBackAndCloseButtonsVisibility();
+            UpdatePaneVisibility();
+            UpdateVisualState();
+            UpdatePaneLayout();
+            UpdatePaneOverlayGroup();
         }
-
-        m_leftNavPaneAutoSuggestBoxPresenter = GetTemplateChild(c_leftNavPaneAutoSuggestBoxPresenter) as ContentControl;
-
-        // Get pointer to the pane content area, for use in the selection indicator animation
-        m_paneContentGrid = GetTemplateChild(c_paneContentGridName) as UIElement;
-
-        // Set automation name on search button
-        if (GetTemplateChild(c_searchButtonName) is Button button)
+        finally
         {
-            m_paneSearchButton = button;
-            button.Click += OnPaneSearchButtonClick;
+            m_fromOnApplyTemplate = false;
         }
-
-        if (GetTemplateChild(c_navViewBackButton) is Button backButton)
-        {
-            m_backButton = backButton;
-            backButton.Click += OnBackButtonClicked;
-
-            WindowChrome.SetIsHitTestVisibleInChrome(backButton, true);
-        }
-
-        // Register for changes in title bar layout
-        if (CoreApplicationViewTitleBar.GetTitleBar(this) is { } coreTitleBar)
-        {
-            m_coreTitleBar = coreTitleBar;
-            coreTitleBar.LayoutMetricsChanged += OnTitleBarMetricsChanged;
-            coreTitleBar.IsVisibleChanged += OnTitleBarIsVisibleChanged;
-
-            m_togglePaneTopPadding = GetTemplateChild(c_togglePaneTopPadding) as FrameworkElement;
-            m_contentPaneTopPadding = GetTemplateChild(c_contentPaneTopPadding) as FrameworkElement;
-        }
-
-        if (GetTemplateChild(c_navViewCloseButton) is Button closeButton)
-        {
-            m_closeButton = closeButton;
-            closeButton.Click += OnPaneToggleButtonClick;
-
-            WindowChrome.SetIsHitTestVisibleInChrome(closeButton, true);
-        }
-
-        m_itemsContainerRow = GetTemplateChildT<RowDefinition>(c_itemsContainerRow, controlProtected);
-        m_menuItemsScrollViewer = GetTemplateChildT<FrameworkElement>(c_menuItemsScrollViewer, controlProtected);
-
-        m_itemsContainerSizeChangedRevoker?.Revoke();
-        if (GetTemplateChildT<FrameworkElement>(c_itemsContainer, controlProtected) is { } itemsContainerRow)
-        {
-            m_itemsContainerSizeChangedRevoker = new FrameworkElementSizeChangedRevoker(itemsContainerRow, OnItemsContainerSizeChanged);
-        }
-
-        // Get hold of the outermost grid and enable XYKeyboardNavigationMode
-        // However, we only want this to work in the content pane + the hamburger button (which is not inside the splitview)
-        // so disable it on the grid in the content area of the SplitView
-        if (GetTemplateChildT<Grid>(c_rootGridName, controlProtected) is { } rootGrid)
-        {
-            KeyboardNavigation.SetDirectionalNavigation(rootGrid, KeyboardNavigationMode.Contained);
-        }
-
-        if (GetTemplateChildT<Grid>(c_contentGridName, controlProtected) is { } contentGrid)
-        {
-            KeyboardNavigation.SetDirectionalNavigation(contentGrid, KeyboardNavigationMode.None);
-        }
-
-        m_appliedTemplate = true;
-
-        // Do initial setup
-        UpdatePaneDisplayMode();
-        UpdateHeaderVisibility();
-        UpdateTitleBarPadding();
-        UpdatePaneTabFocusNavigation();
-        UpdateBackAndCloseButtonsVisibility();
-        UpdatePaneVisibility();
-        UpdateVisualState();
-        UpdatePaneLayout();
-        UpdatePaneOverlayGroup();
     }
 
     private void UpdateRepeaterItemsSource(bool forceSelectionModelUpdate)
@@ -1644,7 +1652,18 @@ public partial class NavigationView : ContentControl, IControlProtected
             }
 
             VisualStateManager.GoToState(this, visualStateName, App.Settings.EnableAnimationEffects);
-            splitView.DisplayMode = splitViewDisplayMode;
+
+            // Updating the splitview 'DisplayMode' property in some diplaymodes causes children to be added to the popup root.
+            // This causes an exception if the NavigationView is in the popup root itself (as SplitView is trying to add children to the tree while it is being measured).
+            // Due to this, we want to defer updating this property for all calls coming from `OnApplyTemplate`to the OnLoaded function.
+            if (m_fromOnApplyTemplate)
+            {
+                m_updateVisualStateForDisplayModeFromOnLoaded = true;
+            }
+            else
+            {
+                splitView.DisplayMode = splitViewDisplayMode;
+            }
         }
     }
 
@@ -2185,6 +2204,12 @@ public partial class NavigationView : ContentControl, IControlProtected
 
     private void OnLoaded(object sender, RoutedEventArgs args)
     {
+        if (m_updateVisualStateForDisplayModeFromOnLoaded)
+        {
+            m_updateVisualStateForDisplayModeFromOnLoaded = false;
+            UpdateVisualStateForDisplayModeGroup(DisplayMode);
+        }
+
         if (m_coreTitleBar is { } coreTitleBar)
         {
             coreTitleBar.LayoutMetricsChanged += OnTitleBarMetricsChanged;
@@ -2221,7 +2246,6 @@ public partial class NavigationView : ContentControl, IControlProtected
 
         UpdatePaneTabFocusNavigation();
         UpdatePaneOverlayGroup();
-
         UpdatePaneButtonsWidths();
     }
 
@@ -2765,6 +2789,12 @@ public partial class NavigationView : ContentControl, IControlProtected
     private ItemsSourceView? m_menuItemsSource = null;
 
     private bool m_appliedTemplate = false;
+
+    // Identifies whenever a call is the result of OnApplyTemplate
+    private bool m_fromOnApplyTemplate = false;
+
+    // Used to defer updating the SplitView displaymode property
+    private bool m_updateVisualStateForDisplayModeFromOnLoaded = false;
 
     // flag is used to stop recursive call. eg:
     // Customer select an item from SelectedItem property->ChangeSelection update ListView->LIstView raise OnSelectChange(we want stop here)->change property do do animation again.
