@@ -25,7 +25,11 @@
                 Content="{DynamicResource SettingPaneAppBar_AddAppBar}"
                 Style="{DynamicResource {x:Static ui:ThemeKeys.AccentButtonStyleKey}}" />
         </ui:SettingsCard>
-        <controls:ListViewEx x:Name="AppBarListView" ItemsSource="{Binding AppBars}">
+        <controls:ListViewEx
+            x:Name="AppBarListView"
+            ItemsSource="{Binding AppBars}"
+            ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+            ScrollViewer.VerticalScrollBarVisibility="Disabled">
             <controls:ListViewEx.ItemTemplate>
                 <DataTemplate DataType="models:AppBarModel">
                     <ui:SettingsCard
