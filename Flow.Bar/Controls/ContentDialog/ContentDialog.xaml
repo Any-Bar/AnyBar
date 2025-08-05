@@ -37,18 +37,20 @@
                         </VisualStateManager.CustomVisualStateManager>
                         <Grid
                             x:Name="LayoutRoot"
-                            Background="{DynamicResource SystemControlPageBackgroundMediumAltMediumBrush}"
                             SnapsToDevicePixels="True"
                             Visibility="Collapsed">
                             <ui:ThemeShadowChrome
                                 x:Name="Shdw"
                                 CornerRadius="{TemplateBinding CornerRadius}"
                                 IsShadowEnabled="{TemplateBinding IsShadowEnabled}" />
+                            <!--  microsoft-ui-xaml has this but the final display effect is weird so I remove it here  -->
+                            <!--
                             <Rectangle
                                 x:Name="SmokeLayerBackground"
                                 HorizontalAlignment="Stretch"
                                 VerticalAlignment="Stretch"
                                 Fill="{DynamicResource ContentDialogSmokeFill}" />
+                            -->
                             <Border
                                 x:Name="BackgroundElement"
                                 MinWidth="{DynamicResource ContentDialogMinWidth}"
