@@ -14,11 +14,13 @@ using System.Windows.Controls;
 
 namespace Flow.Bar.ViewModels.SettingPages;
 
-public partial class SettingsPaneAppBarViewModel(AppBarManagementService appBarManagementService) : ObservableObject, INavigationAware
+public partial class SettingsPaneAppBarViewModel(AppBarManagementService appBarManagementService, NavigationViewService navigationService) : ObservableObject, INavigationAware
 {
     private static readonly string ClassName = nameof(SettingsPaneAppBarViewModel);
 
     public ObservableCollection<AppBarModel> AppBars { get; } = [];
+
+    public ScrollViewer? RootFrameScrollViewer { get; } = navigationService.ScrollViewer;
 
     private readonly AppBarManagementService _appBarManagementService = appBarManagementService;
 

@@ -4,6 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:controls="clr-namespace:Flow.Bar.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:dd="urn:gong-wpf-dragdrop"
     xmlns:ikw="http://schemas.inkore.net/lib/ui/wpf"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:models="clr-namespace:Flow.Bar.Models.AppBar"
@@ -15,6 +16,9 @@
     d:DesignHeight="450"
     d:DesignWidth="800"
     mc:Ignorable="d">
+    <ui:Page.Resources>
+        <DataTemplate x:Key="EmptyEffectAdornerTemplate" />
+    </ui:Page.Resources>
 
     <ikw:SimpleStackPanel Orientation="Vertical" Spacing="{StaticResource SettingsCardSpacing}">
         <ui:SettingsCard x:Name="AddAppBarCard" Header="{DynamicResource SettingPaneAppBar_AddAppBarHeader}">
@@ -27,6 +31,18 @@
         </ui:SettingsCard>
         <controls:ListViewEx
             x:Name="AppBarListView"
+            dd:DragDrop.DropScrollingMode="VerticalOnly"
+            dd:DragDrop.DropTargetAdornerBrush="{ui:ThemeResource AccentFillColorDefaultBrush}"
+            dd:DragDrop.DropTargetScrollViewer="{Binding RootFrameScrollViewer, Mode=OneTime}"
+            dd:DragDrop.EffectAllAdornerTemplate="{StaticResource EmptyEffectAdornerTemplate}"
+            dd:DragDrop.EffectCopyAdornerTemplate="{StaticResource EmptyEffectAdornerTemplate}"
+            dd:DragDrop.EffectLinkAdornerTemplate="{StaticResource EmptyEffectAdornerTemplate}"
+            dd:DragDrop.EffectMoveAdornerTemplate="{StaticResource EmptyEffectAdornerTemplate}"
+            dd:DragDrop.EffectNoneAdornerTemplate="{StaticResource EmptyEffectAdornerTemplate}"
+            dd:DragDrop.EffectScrollAdornerTemplate="{StaticResource EmptyEffectAdornerTemplate}"
+            dd:DragDrop.IsDragSource="True"
+            dd:DragDrop.IsDropTarget="True"
+            dd:DragDrop.UseDefaultEffectDataTemplate="False"
             ItemsSource="{Binding AppBars}"
             ScrollViewer.HorizontalScrollBarVisibility="Disabled"
             ScrollViewer.VerticalScrollBarVisibility="Disabled">
