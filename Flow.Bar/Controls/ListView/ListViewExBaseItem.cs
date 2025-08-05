@@ -1,5 +1,4 @@
 ﻿using iNKORE.UI.WPF.Modern.Controls.Helpers;
-using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -51,13 +50,6 @@ public class ListViewExBaseItem : ListBoxItem
 
     #endregion
 
-    public override void OnApplyTemplate()
-    {
-        base.OnApplyTemplate();
-
-        UpdateMultiSelectStates(ParentListViewBase);
-    }
-
     protected override void OnMouseLeftButtonDown(MouseButtonEventArgs e)
     {
         if (!e.Handled)
@@ -94,32 +86,6 @@ public class ListViewExBaseItem : ListBoxItem
         {
             OnClick();
             e.Handled = true;
-        }
-    }
-
-    internal void SubscribeToMultiSelectEnabledChanged(ListViewExBase parent)
-    {
-        parent.MultiSelectEnabledChanged += OnMultiSelectEnabledChanged;
-        UpdateMultiSelectStates(parent);
-    }
-
-    internal void UnsubscribeFromMultiSelectEnabledChanged(ListViewExBase parent)
-    {
-        parent.MultiSelectEnabledChanged -= OnMultiSelectEnabledChanged;
-        UpdateMultiSelectStates(parent);
-    }
-
-    private void OnMultiSelectEnabledChanged(object? sender, EventArgs e)
-    {
-        UpdateMultiSelectStates(sender as ListViewExBase);
-    }
-
-    private void UpdateMultiSelectStates(ListViewExBase? parent)
-    {
-        if (parent != null)
-        {
-            bool enabled = parent.MultiSelectEnabled && parent.IsMultiSelectCheckBoxEnabled;
-            VisualStateManager.GoToState(this, enabled ? "MultiSelectEnabled" : "MultiSelectDisabled", App.Settings.EnableAnimationEffects);
         }
     }
 
