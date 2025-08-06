@@ -78,10 +78,6 @@ public class AppBarManagementService(Settings settings)
         }
     }
 
-    #endregion
-
-    #region Model Management
-
     public void ChangeAppBarOrder(int oldOrder, int newOrder, int itemsCount)
     {
         if (oldOrder == newOrder || itemsCount == 0) return;
@@ -129,6 +125,10 @@ public class AppBarManagementService(Settings settings)
             RestartAppBarsFrom(Math.Min(oldOrder, newOrder));
         }
     }
+
+    #endregion
+
+    #region Model Management
 
     public void SetEnabled(int order, bool isEnabled)
     {
