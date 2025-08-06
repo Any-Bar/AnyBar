@@ -36,6 +36,8 @@ public class AppBarManagementService(Settings settings)
         }
     }
 
+    #region List Management
+
     public List<AppBarModel> GetAllAppBars()
     {
         lock (_appBarWindowLock)
@@ -59,6 +61,10 @@ public class AppBarManagementService(Settings settings)
             }
         }
     }
+
+    #endregion
+
+    #region Model Management
 
     public void ChangeAppBarOrder(int oldOrder, int newOrder, int itemsCount)
     {
@@ -235,6 +241,8 @@ public class AppBarManagementService(Settings settings)
             }
         }
     }
+
+    #endregion
 
     #region AppBarWindow Management
 
