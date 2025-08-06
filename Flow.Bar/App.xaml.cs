@@ -336,7 +336,6 @@ public partial class App : Application, IDisposable, ISingleInstanceApp
                 _notifyIcon.Visible = false;
                 ToastNotificationManagerCompat.Uninstall();
                 API.SaveAppAllSettings();
-                ImageLoader.WaitSaveAsync().Wait();
             }
 
             API.LogInfo(ClassName, "End Flow Bar dispose ---------------------------------------------------");

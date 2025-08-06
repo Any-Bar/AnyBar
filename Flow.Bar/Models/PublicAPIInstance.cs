@@ -34,8 +34,8 @@ public class PublicAPIInstance(Settings settings) : IPublicAPI
         lock (_saveSettingsLock)
         {
             _settings.Save();
+            ImageLoader.Save();
         }
-        _ = ImageLoader.SaveAsync();
     }
 
     public string GetTranslation(string key)

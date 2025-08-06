@@ -20,7 +20,7 @@ public static class ImageLoader
     private static readonly string ClassName = nameof(ImageLoader);
 
     private static readonly ImageCache ImageCache = new();
-    private static SemaphoreSlim StorageLock { get; } = new SemaphoreSlim(1, 1);
+    private static Lock StorageLock { get; } = new();
     private static BinaryStorage<List<(string, bool)>> _storage = null!;
     private static readonly ConcurrentDictionary<string, string> GuidToKey = new();
     private static ImageHashGenerator HashGenerator = null!;
@@ -36,20 +36,25 @@ public static class ImageLoader
 
     public static async Task InitializeAsync()
     {
-        _storage = new BinaryStorage<List<(string, bool)>>(Constants.Images);
-        HashGenerator = new ImageHashGenerator();
-
-        var usage = await LoadStorageToConcurrentDictionaryAsync();
-        _storage.ClearData();
-
-        ImageCache.Initialize(usage);
-
-        foreach (var icon in new[] { Constants.DefaultIcon, Constants.MissingImgIcon })
+        var usage = await Task.Run(() =>
         {
-            ImageSource img = new BitmapImage(new Uri(icon));
-            img.Freeze();
-            ImageCache[icon, false] = img;
-        }
+            _storage = new BinaryStorage<List<(string, bool)>>(Constants.Images);
+            HashGenerator = new ImageHashGenerator();
+
+            var usage = LoadStorageToConcurrentDictionary();
+            _storage.ClearData();
+
+            ImageCache.Initialize(usage);
+
+            foreach (var icon in new[] { Constants.DefaultIcon, Constants.MissingImgIcon })
+            {
+                ImageSource img = new BitmapImage(new Uri(icon));
+                img.Freeze();
+                ImageCache[icon, false] = img;
+            }
+
+            return usage;
+        });
 
         _ = Task.Run(async () =>
         {
@@ -65,40 +70,26 @@ public static class ImageLoader
         });
     }
 
-    public static async Task SaveAsync()
+    public static void Save()
     {
-        await StorageLock.WaitAsync();
-
-        try
+        lock (StorageLock)
         {
-            await _storage.SaveAsync([.. ImageCache.EnumerateEntries().Select(x => x.Key)]);
-        }
-        catch (Exception e)
-        {
-            App.API.LogFatal(ClassName, "Failed to save image cache to file", e);
-        }
-        finally
-        {
-            StorageLock.Release();
+            try
+            {
+                _storage.Save([.. ImageCache.EnumerateEntries().Select(x => x.Key)]);
+            }
+            catch (Exception e)
+            {
+                App.API.LogFatal(ClassName, "Failed to save image cache to file", e);
+            }
         }
     }
 
-    public static async Task WaitSaveAsync()
+    private static List<(string, bool)> LoadStorageToConcurrentDictionary()
     {
-        await StorageLock.WaitAsync();
-        StorageLock.Release();
-    }
-
-    private static async Task<List<(string, bool)>> LoadStorageToConcurrentDictionaryAsync()
-    {
-        await StorageLock.WaitAsync();
-        try
+        lock (StorageLock)
         {
-            return await _storage.TryLoadAsync([]);
-        }
-        finally
-        {
-            StorageLock.Release();
+            return _storage.TryLoad([]);
         }
     }
 

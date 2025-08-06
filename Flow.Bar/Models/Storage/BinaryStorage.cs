@@ -54,6 +54,45 @@ public class BinaryStorage<T>
         FilePath = Path.Combine(DirectoryPath, $"{filename}{FileSuffix}");
     }
 
+    public T TryLoad(T defaultData)
+    {
+        if (Data != null) return Data;
+
+        if (File.Exists(FilePath))
+        {
+            if (new FileInfo(FilePath).Length == 0)
+            {
+                App.API.LogError(ClassName, $"Zero length cache file <{FilePath}>");
+                Data = defaultData;
+                Save();
+            }
+
+            var bytes = File.ReadAllBytes(FilePath);
+            Data = Deserialize(bytes, defaultData);
+        }
+        else
+        {
+            App.API.LogInfo(ClassName, "Cache file not exist, load default data");
+            Data = defaultData;
+            Save();
+        }
+        return Data;
+    }
+
+    private T Deserialize(ReadOnlySpan<byte> bytes, T defaultData)
+    {
+        try
+        {
+            var t = MemoryPackSerializer.Deserialize<T>(bytes);
+            return t ?? defaultData;
+        }
+        catch (Exception e)
+        {
+            App.API.LogFatal(ClassName, $"Deserialize error for file <{FilePath}>", e);
+            return defaultData;
+        }
+    }
+
     public async ValueTask<T> TryLoadAsync(T defaultData)
     {
         if (Data != null) return Data;
@@ -80,21 +119,26 @@ public class BinaryStorage<T>
         return Data;
     }
 
-    private static async ValueTask<T> DeserializeAsync(Stream stream, T defaultData)
+    private async ValueTask<T> DeserializeAsync(Stream stream, T defaultData)
     {
         try
         {
             var t = await MemoryPackSerializer.DeserializeAsync<T>(stream);
             return t ?? defaultData;
         }
-        catch (Exception)
+        catch (Exception e)
         {
-            // Log.Exception($"|BinaryStorage.Deserialize|Deserialize error for file <{FilePath}>", e);
+            App.API.LogFatal(ClassName, $"Deserialize error for file <{FilePath}>", e);
             return defaultData;
         }
     }
 
     public void Save()
+    {
+        Save(Data!);
+    }
+
+    public void Save(T data)
     {
         // User may delete the directory, so we need to check it
         if (!Directory.Exists(DirectoryPath))
@@ -102,7 +146,7 @@ public class BinaryStorage<T>
             Directory.CreateDirectory(DirectoryPath);
         }
 
-        var serialized = MemoryPackSerializer.Serialize(Data);
+        var serialized = MemoryPackSerializer.Serialize(data);
         File.WriteAllBytes(FilePath, serialized);
     }
 
@@ -111,15 +155,6 @@ public class BinaryStorage<T>
         await SaveAsync(Data!);
     }
 
-    // ImageCache need to convert data into concurrent dictionary for usage,
-    // so we would better to clear the data
-    public void ClearData()
-    {
-        Data = default;
-    }
-
-    // ImageCache storages data in its class,
-    // so we need to pass it to SaveAsync
     public async ValueTask SaveAsync(T data)
     {
         // User may delete the directory, so we need to check it
@@ -130,5 +165,12 @@ public class BinaryStorage<T>
 
         await using var stream = new FileStream(FilePath, FileMode.Create);
         await MemoryPackSerializer.SerializeAsync(stream, data);
+    }
+
+    // ImageCache need to convert data into concurrent dictionary for usage,
+    // so we would better to clear the data
+    public void ClearData()
+    {
+        Data = default;
     }
 }
