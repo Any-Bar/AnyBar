@@ -63,7 +63,19 @@ public class AppBarManagementService(Settings settings)
                 {
                     if (isEnabled)
                     {
+                        RestartAppBarsFrom(order + 1, () =>
+                        {
+                            try
+                            {
                         appBarWindow.Show();
+                    }
+                            catch
+                            {
+                                var newAppBarWindow = new AppBarWindow(model);
+                                newAppBarWindow.Show();
+                                AppBarWindowPairs[order] = newAppBarWindow;
+                            }
+                        });
                     }
                     else
                     {
@@ -75,9 +87,12 @@ public class AppBarManagementService(Settings settings)
                 {
                     if (isEnabled)
                     {
+                        RestartAppBarsFrom(order + 1, () =>
+                        {
                         var newAppBarWindow = new AppBarWindow(model);
                         newAppBarWindow.Show();
                         AppBarWindowPairs.TryAdd(order, newAppBarWindow);
+                        });
                     }
                 }
             }
@@ -177,6 +192,26 @@ public class AppBarManagementService(Settings settings)
                     AppBarWindowPairs.TryAdd(model.Order, barWindow);
                 }
             }
+        }
+    }
+
+    private void RestartAppBarsFrom(int startOrder, Action? action = null)
+    {
+        lock (_appBarWindowLock)
+        {
+            var pairs = new List<AppBarModel>();
+            foreach (var order in AppBarWindowPairs.Keys.Where(o => o >= startOrder))
+            {
+                if (AppBarWindowPairs.TryGetValue(order, out var appBarWindow))
+                {
+                    appBarWindow.Close();
+                    AppBarWindowPairs.Remove(order);
+                    var model = _settings.AppBars[order];
+                    pairs.Add(model);
+                }
+            }
+            action?.Invoke();
+            StartAppBars(pairs);
         }
     }
 }
