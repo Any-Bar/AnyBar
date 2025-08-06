@@ -8,6 +8,7 @@ using Flow.Bar.Services;
 using Flow.Bar.Views;
 using System;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -78,10 +79,26 @@ public partial class SettingsPaneAppBarViewModel(AppBarManagementService appBarM
     public void OnNavigatedTo(object? parameter)
     {
         RefreshAppBars();
+        AppBars.CollectionChanged += AppBars_CollectionChanged;
     }
 
     public void OnNavigatedFrom()
     {
+        AppBars.CollectionChanged -= AppBars_CollectionChanged;
+    }
 
+    private void AppBars_CollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
+    {
+        if (e.Action == NotifyCollectionChangedAction.Move)
+        {
+            if (e.OldItems == null ||
+                e.NewItems == null ||
+                e.OldItems.Count != e.NewItems.Count)
+            {
+                App.API.LogError(ClassName, "Move action in AppBars collection changed with different item counts");
+                return;
+            }
+            _appBarManagementService.ChangeAppBarOrder(e.OldStartingIndex, e.NewStartingIndex, e.OldItems.Count);
+        }
     }
 }
