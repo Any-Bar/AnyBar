@@ -31,3 +31,9 @@ ABN_POSCHANGED
 
 SetForegroundWindow
 GetActiveWindow
+
+SHCreateItemFromParsingName
+DeleteObject
+IShellItem
+IShellItemImageFactory
+S_OK

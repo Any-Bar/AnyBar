@@ -24,8 +24,11 @@ public static class Constants
     public static readonly string Version = FileVersionInfo.GetVersionInfo(Assembly.Location).ProductVersion!;
     public static readonly string Dev = "Dev";
 
-    private static readonly string ImagesDirectory = Path.Combine(ProgramDirectory, "Images");
+    public static readonly string Images = "Images";
+    private static readonly string ImagesDirectory = Path.Combine(ProgramDirectory, Images);
     public static readonly string DefaultIcon = Path.Combine(ImagesDirectory, "app.png");
+    public static readonly string MissingImgIcon = Path.Combine(ImagesDirectory, "app_missing_img.png");
+    public static readonly string ImageIcon = Path.Combine(ImagesDirectory, "image.png");
 
     public const string Themes = "Themes";
     public const string Settings = "Settings";

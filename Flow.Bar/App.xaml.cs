@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.DependencyInjection;
 using Flow.Bar.Helper;
 using Flow.Bar.Helper.Application;
+using Flow.Bar.Helper.Image;
 using Flow.Bar.Helper.Plugins;
 using Flow.Bar.Models;
 using Flow.Bar.Models.Language;
@@ -156,11 +157,13 @@ public partial class App : Application, IDisposable, ISingleInstanceApp
             RegisterAppDomainExceptions();
             RegisterDispatcherUnhandledException();
 
+            var imageLoadertask = ImageLoader.InitializeAsync();
+
             PluginManager.LoadPlugins();
 
             await PluginManager.InitializePluginsAsync();
 
-            var allPlugins = PluginManager.AllPlugins;
+            await imageLoadertask;
 
             if (!Settings.HideSettingWindow)
             {
