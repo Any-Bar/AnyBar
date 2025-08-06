@@ -7,9 +7,11 @@ namespace Flow.Bar.Helper.Logging;
 
 public static class ErrorReporting
 {
+    private static readonly string ClassName = nameof(ErrorReporting);
+
     private static void Report(Exception e, [CallerMemberName] string methodName = "UnHandledException")
     {
-        var logger = Log.ForContext("SourceContext", methodName);
+        var logger = Log.ForContext("SourceContext", $"{ClassName}|{methodName}");
         logger.Fatal(e, ExceptionFormatter.FormatExcpetion(e));
         /*var reportWindow = new ReportWindow(e);
         reportWindow.Show();*/
