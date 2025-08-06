@@ -62,7 +62,7 @@ public partial class SettingsPaneAppBarViewModel(AppBarManagementService appBarM
                 DockedWidthOrHeight = dialog.DockedWidthOrHeight,
                 IsResizable = dialog.IsResizable
             };
-            _appBarManagementService.AddAppBar(model);
+            _appBarManagementService.AddAppBar(model, AppBars.Add);
         }
     }
 

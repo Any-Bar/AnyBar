@@ -3,6 +3,7 @@ using Flow.Bar.Models.Enums;
 using Flow.Bar.Models.Monitor;
 using Flow.Bar.Models.UserSettings;
 using Flow.Bar.Views;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
@@ -46,16 +47,19 @@ public class AppBarManagementService(Settings settings)
         return [.. _settings.AppBars.Values.OrderBy(bar => bar.Order)];
     }
 
-    public void AddAppBar(AppBarModel model)
+    public void AddAppBar(AppBarModel model, Action<AppBarModel> added)
     {
         model.Order = _settings.AppBars.Keys.Max() + 1;
-        _settings.AppBars.TryAdd(model.Order, model);
-        _settings.Save();
-        lock (_appBarWindowLock)
+        if (_settings.AppBars.TryAdd(model.Order, model))
         {
-            var newAppBarWindow = new AppBarWindow(model);
-            newAppBarWindow.Show();
-            AppBarWindowPairs.TryAdd(model.Order, newAppBarWindow);
+            added(model);
+            _settings.Save();
+            lock (_appBarWindowLock)
+            {
+                var newAppBarWindow = new AppBarWindow(model);
+                newAppBarWindow.Show();
+                AppBarWindowPairs.TryAdd(model.Order, newAppBarWindow);
+            }
         }
     }
 
