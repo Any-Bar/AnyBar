@@ -3,7 +3,7 @@ using Flow.Bar.Models.AppBar;
 using Flow.Bar.Models.Enums;
 using Flow.Bar.Models.Storage;
 using System;
-using System.Collections.Concurrent;
+using System.Collections.Generic;
 
 namespace Flow.Bar.Models.UserSettings;
 
@@ -33,15 +33,15 @@ public class Settings
 
     public bool EnableAnimationEffects { get; set; } = true;
 
-    private ConcurrentDictionary<int, AppBarModel>? _appBars = null;
+    private Dictionary<int, AppBarModel>? _appBars = null;
     [Obsolete("This property is for storage only. Please use AppBarManagementService instead of calling this property directly.")]
-    public ConcurrentDictionary<int, AppBarModel> AppBars
+    public Dictionary<int, AppBarModel> AppBars
     {
         get
         {
             if (_appBars == null)
             {
-                _appBars = new();
+                _appBars = [];
                 var monitor = MonitorInfoHelper.GetMonitorInfoFromName(null);
                 var dockedWidthOrHeight = MonitorInfoHelper.GetMonitorTaskBarWidthOrHeight(monitor);
                 var defaultAppBar = new AppBarModel
