@@ -79,11 +79,15 @@ public partial class AppBarWindow : Window
             {
                 if (_isAppBarRegistered)
                 {
+                    {
                     var abd = GetAppBarData();
                     PInvoke.SHAppBarMessage(PInvoke.ABM_REMOVE, ref abd);
+                    }
 
-                    var abd1 = GetAppBarData();
-                    PInvoke.SHAppBarMessage(PInvoke.ABM_NEW, ref abd1);
+                    {
+                        var abd = GetAppBarData();
+                        PInvoke.SHAppBarMessage(PInvoke.ABM_NEW, ref abd);
+                    }
 
                     // set our initial location
                     OnDockLocationChanged();
