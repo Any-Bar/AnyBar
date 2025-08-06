@@ -1,4 +1,5 @@
 ﻿using Flow.Bar.Helper.Image;
+using Flow.Bar.Helper.Notification;
 using Flow.Bar.Helper.Windows;
 using Flow.Bar.Models.Language;
 using Flow.Bar.Models.UserSettings;
@@ -37,6 +38,11 @@ public class PublicAPIInstance(Settings settings) : IPublicAPI
     }
 
     public string GetTranslation(string key) => Internationalization.GetTranslation(key);
+
+    public void ShowMsg(string title, string subTitle = "", string iconPath = "")
+    {
+        NotificationHelper.Show(title, subTitle, iconPath);
+    }
 
     public MessageBoxResult ShowMsgBox(string messageBoxText, string caption = "", MessageBoxButton button = MessageBoxButton.OK, MessageBoxImage icon = MessageBoxImage.None, MessageBoxResult defaultResult = MessageBoxResult.OK)
     {

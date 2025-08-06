@@ -30,6 +30,14 @@ public interface IPublicAPI
     string GetTranslation(string key);
 
     /// <summary>
+    /// Show message box
+    /// </summary>
+    /// <param name="title">Message title</param>
+    /// <param name="subTitle">Message subtitle</param>
+    /// <param name="iconPath">Message icon path (relative path to your plugin folder)</param>
+    void ShowMsg(string title, string subTitle = "", string iconPath = "");
+
+    /// <summary>
     /// Displays a standardised Flow message box.
     /// </summary>
     /// <param name="messageBoxText">The message of the message box.</param>

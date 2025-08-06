@@ -96,16 +96,10 @@ public static class PluginManager
 
         if (!failedPlugins.IsEmpty)
         {
-            var failed = string.Join(",", failedPlugins.Select(x => x.Metadata.Name));
-            /*App.API.ShowMsg(
-                App.API.GetTranslation("failedToInitializePluginsTitle"),
-                string.Format(
-                    App.API.GetTranslation("failedToInitializePluginsMessage"),
-                    failed
-                ),
-                "",
-                false
-            );*/
+            var failedPluginsStr = string.Join(",", failedPlugins.Select(x => x.Metadata.Name));
+            App.API.ShowMsg(
+                Localize.PluginManager_FailedToInitializePluginsTitle(),
+                Localize.PluginManager_FailedToInitializePluginsMessage(failedPluginsStr));
         }
     }
 

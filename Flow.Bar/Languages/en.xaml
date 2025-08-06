@@ -48,17 +48,6 @@
     <!--  Setting Pane About  -->
     <system:String x:Key="SettingPaneAbout_Version">Version</system:String>
 
-    <!--  Enums  -->
-    <system:String x:Key="AppBarDockMode_Left">Left</system:String>
-    <system:String x:Key="AppBarDockMode_Top">Top</system:String>
-    <system:String x:Key="AppBarDockMode_Right">Right</system:String>
-    <system:String x:Key="AppBarDockMode_Bottom">Bottom</system:String>
-
-    <!--  Plugin Loader  -->
-    <system:String x:Key="PluginLoader_PluginHasErrored">The following plugin has errored and cannot be loaded:</system:String>
-    <system:String x:Key="PluginLoader_PluginsHaveErrored">The following plugins have errored and cannot be loaded:</system:String>
-    <system:String x:Key="PluginLoader_ReferToLogs">Please refer to the logs for more information</system:String>
-
     <!--  Navigation View  -->
     <system:String x:Key="NavigationView_Back">Back</system:String>
     <system:String x:Key="NavigationView_CloseNavigation">Close navigation</system:String>
@@ -71,5 +60,25 @@
     <!--  Add AppBar Content Dialog  -->
     <system:String x:Key="AddAppBarContentDialog_Add">Add</system:String>
     <system:String x:Key="AddAppBarContentDialog_Cancel">Cancel</system:String>
+
+    <!--  Enums  -->
+    <system:String x:Key="AppBarDockMode_Left">Left</system:String>
+    <system:String x:Key="AppBarDockMode_Top">Top</system:String>
+    <system:String x:Key="AppBarDockMode_Right">Right</system:String>
+    <system:String x:Key="AppBarDockMode_Bottom">Bottom</system:String>
+
+    <!--  Plugin Loader  -->
+    <system:String x:Key="PluginLoader_PluginHasErrored">The following plugin has errored and cannot be loaded:</system:String>
+    <system:String x:Key="PluginLoader_PluginsHaveErrored">The following plugins have errored and cannot be loaded:</system:String>
+    <system:String x:Key="PluginLoader_ReferToLogs">Please refer to the logs for more information</system:String>
+
+    <!--  Plugin Manager  -->
+    <system:String x:Key="PluginManager_FailedToInitializePluginsTitle">Fail to initialize plugins</system:String>
+    <!-- <param index="0" name="plugins" type="string" />-->
+    <system:String x:Key="PluginManager_FailedToInitializePluginsMessage">Plugins: {0} - fail to load and would be disabled, please contact plugin creator for help</system:String>
+
+    <!--  Http Helper  -->
+    <system:String x:Key="HTTPHelper_PleaseTryAgain">Please try again</system:String>
+    <system:String x:Key="HTTPHelper_ParseProxyFailed">Failed to parse Http Proxy</system:String>
 
 </ResourceDictionary>
