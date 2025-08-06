@@ -182,7 +182,7 @@ public static class ImageLoader
         {
             /* Directories can also have thumbnails instead of shell icons.
              * Generating thumbnails for a bunch of folder results while scrolling
-             * could have a big impact on performance and Flow.Launcher responsibility.
+             * could have a big impact on performance and Flow responsibility.
              * - Solution: just load the icon
              */
             type = ImageType.Folder;
