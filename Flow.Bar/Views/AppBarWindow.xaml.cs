@@ -54,6 +54,7 @@ public partial class AppBarWindow : Window
     {
         _model = model;
         ViewModel.Initialize(model);
+        DataContext = ViewModel;
         InitializeComponent();
         WindowStyle = WindowStyle.None;
         ResizeMode = ResizeMode.NoResize;
