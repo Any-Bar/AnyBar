@@ -17,10 +17,10 @@ public class DockModeToImageSourceConverter : IValueConverter
     {
         if (!_isInitialized)
         {
-            _cache[AppBarDockMode.Top] = await App.API.LoadImageAsync(Constants.TopAppBarIcon);
-            _cache[AppBarDockMode.Bottom] = await App.API.LoadImageAsync(Constants.BottomAppBarIcon);
-            _cache[AppBarDockMode.Left] = await App.API.LoadImageAsync(Constants.LeftAppBarIcon);
-            _cache[AppBarDockMode.Right] = await App.API.LoadImageAsync(Constants.RightAppBarIcon);
+            _cache[AppBarDockMode.Top] = await App.API.LoadImageAsync(Constants.TopAppBarIcon, true);
+            _cache[AppBarDockMode.Bottom] = await App.API.LoadImageAsync(Constants.BottomAppBarIcon, true);
+            _cache[AppBarDockMode.Left] = await App.API.LoadImageAsync(Constants.LeftAppBarIcon, true);
+            _cache[AppBarDockMode.Right] = await App.API.LoadImageAsync(Constants.RightAppBarIcon, true);
             _isInitialized = true;
         }
     }
