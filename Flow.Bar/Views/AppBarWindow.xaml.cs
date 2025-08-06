@@ -190,8 +190,6 @@ public partial class AppBarWindow : Window
         {
             case AppBarDockMode.Left:
             case AppBarDockMode.Right:
-                // Set grid
-                BarElementsGrid.Margin = ViewModel.DockMode == AppBarDockMode.Left ? new Thickness(0, 8, 2, 8) : new Thickness(2, 8, 0, 8);
                 // Set stack panel
                 LeftOrTopStackPanel.Orientation = Orientation.Vertical;
                 Grid.SetRow(LeftOrTopStackPanel, 0);
@@ -233,8 +231,6 @@ public partial class AppBarWindow : Window
                 break;
             case AppBarDockMode.Top:
             case AppBarDockMode.Bottom:
-                // Set grid
-                BarElementsGrid.Margin = ViewModel.DockMode == AppBarDockMode.Top ? new Thickness(8, 0, 8, 2) : new Thickness(8, 2, 8, 0);
                 // Set stack panel
                 LeftOrTopStackPanel.Orientation = Orientation.Horizontal;
                 Grid.SetRow(LeftOrTopStackPanel, 0);

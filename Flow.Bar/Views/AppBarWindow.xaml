@@ -101,10 +101,23 @@
             </Thumb.Style>
         </Thumb>
 
-        <Grid
-            x:Name="BarElementsGrid"
-            Margin="8 0 8 5"
-            Background="Transparent">
+        <Grid x:Name="BarElementsGrid" Background="Transparent">
+            <Grid.Style>
+                <Style TargetType="{x:Type Grid}">
+                    <Setter Property="Margin" Value="8 0 8 2" />
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding DockMode}" Value="{x:Static enum:AppBarDockMode.Bottom}">
+                            <Setter Property="Margin" Value="8 2 8 0" />
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding DockMode}" Value="{x:Static enum:AppBarDockMode.Left}">
+                            <Setter Property="Margin" Value="0 8 2 8" />
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding DockMode}" Value="{x:Static enum:AppBarDockMode.Right}">
+                            <Setter Property="Margin" Value="2 8 0 8" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Grid.Style>
 
             <Grid Background="Transparent">
                 <Grid.RowDefinitions>
