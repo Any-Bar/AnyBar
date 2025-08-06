@@ -41,7 +41,7 @@
                 Margin="10 0 0 0"
                 VerticalAlignment="Center"
                 Style="{StaticResource {x:Static ui:ThemeKeys.SubtitleTextBlockStyleKey}}"
-                Text="AppBar" />
+                Text="{Binding Name, Mode=OneWay}" />
             <Button
                 Grid.Column="3"
                 MinWidth="135"
@@ -49,6 +49,11 @@
                 Command="{Binding RemoveAppBarCommand, Mode=OneTime}"
                 Content="{DynamicResource SettingPaneAppBarSetting_Remove}" />
         </Grid>
+
+        <ui:SettingsCard Header="{DynamicResource SettingPaneAppBarSetting_Name}">
+            <TextBox MinWidth="120" Text="{Binding Name, Mode=TwoWay}" />
+        </ui:SettingsCard>
+
         <TextBlock
             x:Name="BarBehaviourTitle"
             Style="{StaticResource SettingsSectionHeaderTextBlockStyle}"

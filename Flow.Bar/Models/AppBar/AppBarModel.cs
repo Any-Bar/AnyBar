@@ -8,6 +8,8 @@ public class AppBarModel : IEquatable<AppBarModel>
 {
     public int Order { get; set; } = -1;
 
+    public string Name { get; set; } = string.Empty;
+
     public bool IsEnabled { get; set; } = true;
 
     public AppBarDockMode DockMode { get; set; } = AppBarDockMode.Top;

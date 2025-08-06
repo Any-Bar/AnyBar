@@ -42,7 +42,7 @@
                     <ui:SettingsCard
                         x:Name="AppBarSettingsCard"
                         Click="AppBarSettingsCard_Click"
-                        Header="{DynamicResource SettingWindow_AppBar}"
+                        Header="{Binding Name, Mode=OneWay}"
                         IsClickEnabled="True"
                         Tag="{Binding}">
                         <ui:SettingsCard.HeaderIcon>

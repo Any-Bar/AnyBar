@@ -130,6 +130,18 @@ public class AppBarManagementService(Settings settings)
 
     #region Model Management
 
+    public void SetName(int order, string name)
+    {
+        lock (_appBarWindowLock)
+        {
+            if (_settings.AppBars.TryGetValue(order, out var model))
+            {
+                model.Name = name;
+                _settings.Save();
+            }
+        }
+    }
+
     public void SetEnabled(int order, bool isEnabled)
     {
         lock (_appBarWindowLock)

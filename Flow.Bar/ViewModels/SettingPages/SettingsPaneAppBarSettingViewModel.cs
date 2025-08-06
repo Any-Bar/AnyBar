@@ -22,6 +22,15 @@ public partial class SettingsPaneAppBarSettingViewModel(AppBarManagementService 
     private bool _isInitialized = false;
 
     [ObservableProperty]
+    private string _name = string.Empty;
+
+    partial void OnNameChanged(string value)
+    {
+        if (!_isInitialized) return;
+        _appBarManagementService.SetName(AppBarModel.Order, value);
+    }
+
+    [ObservableProperty]
     private AppBarModel _appBarModel = null!;
 
     [ObservableProperty]
@@ -102,6 +111,7 @@ public partial class SettingsPaneAppBarSettingViewModel(AppBarManagementService 
     {
         if (parameter is AppBarModel model)
         {
+            Name = model.Name;
             AppBarModel = model;
             IsEnabled = model.IsEnabled;
             DockMode = model.DockMode;

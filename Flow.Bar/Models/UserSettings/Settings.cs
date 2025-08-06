@@ -45,9 +45,10 @@ public class Settings
                 _appBars = [];
                 var monitor = MonitorInfoHelper.GetMonitorInfoFromName(null);
                 var dockedWidthOrHeight = MonitorInfoHelper.GetMonitorTaskBarWidthOrHeight(monitor);
-                var defaultAppBar = new AppBarModel
+                var demoAppBar = new AppBarModel
                 {
                     Order = 0,
+                    Name = "Demo AppBar",
                     DockMode = AppBarDockMode.Top,
                     MonitorName = null,
                     FollowSystemTaskbarWidthOrHeight = true,
@@ -62,7 +63,7 @@ public class Settings
                         }
                     ]
                 };
-                _appBars.TryAdd(0, defaultAppBar);
+                _appBars.TryAdd(0, demoAppBar);
             }
             return _appBars;
         }
