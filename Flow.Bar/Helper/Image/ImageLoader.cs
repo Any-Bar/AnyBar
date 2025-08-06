@@ -1,4 +1,5 @@
-﻿using Flow.Bar.Helper.Http;
+﻿using Flow.Bar.Converters;
+using Flow.Bar.Helper.Http;
 using Flow.Bar.Models.Image;
 using Flow.Bar.Models.Storage;
 using SharpVectors.Converters;
@@ -36,7 +37,7 @@ public static class ImageLoader
 
     public static async Task InitializeAsync()
     {
-        var usage = await Task.Run(() =>
+        var usage = await Task.Run(async () =>
         {
             _storage = new BinaryStorage<List<(string, bool)>>(Constants.Images);
             HashGenerator = new ImageHashGenerator();
@@ -52,6 +53,8 @@ public static class ImageLoader
                 img.Freeze();
                 ImageCache[icon, false] = img;
             }
+
+            await DockModeToImageSourceConverter.InitializeAsync();
 
             return usage;
         });

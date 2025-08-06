@@ -78,9 +78,8 @@ public partial class SettingsPaneAppBarViewModel(AppBarManagementService appBarM
         }
     }
 
-    public async void OnNavigatedTo(object? parameter)
+    public void OnNavigatedTo(object? parameter)
     {
-        await DockModeToImageSourceConverter.InitializeAsync();
         RefreshAppBars();
         AppBars.CollectionChanged += AppBars_CollectionChanged;
     }

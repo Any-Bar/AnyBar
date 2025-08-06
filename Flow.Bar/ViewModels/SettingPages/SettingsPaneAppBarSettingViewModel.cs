@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Flow.Bar.Converters;
 using Flow.Bar.Helper.Monitor;
 using Flow.Bar.Interfaces;
 using Flow.Bar.Models.AppBar;
