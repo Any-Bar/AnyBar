@@ -290,14 +290,17 @@ public class AppBarManagementService(Settings settings)
     private void RestartAppBarsFrom(int startOrder, Action? action = null)
     {
         var pairs = new List<AppBarModel>();
-        foreach (var order in AppBarWindowPairs.Keys.Where(o => o >= startOrder))
+        foreach (var order in AppBarWindowPairs.Keys)
         {
             if (AppBarWindowPairs.TryGetValue(order, out var appBarWindow))
             {
-                appBarWindow.Close();
-                AppBarWindowPairs.Remove(order);
-                var model = _settings.AppBars[order];
-                pairs.Add(model);
+                var model = appBarWindow.Model;
+                if (model.Order >= startOrder)
+                {
+                    appBarWindow.Close();
+                    AppBarWindowPairs.Remove(order);
+                    pairs.Add(model);
+                }
             }
         }
         action?.Invoke();

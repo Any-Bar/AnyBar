@@ -30,6 +30,7 @@ namespace Flow.Bar.Views;
 public partial class AppBarWindow : Window
 {
     public AppBarViewModel ViewModel { get; } = Ioc.Default.GetRequiredService<AppBarViewModel>();
+    public AppBarModel Model { get; }
 
     private readonly AppBarManagementService _appBarManagementService = Ioc.Default.GetRequiredService<AppBarManagementService>();
 
@@ -45,14 +46,11 @@ public partial class AppBarWindow : Window
 
     private readonly AppBarMenuFlyout _contextMenu = new();
 
-    // TODO: Use Binding and remove this field
-    private readonly AppBarModel _model;
-
     #region Constructor
 
     public AppBarWindow(AppBarModel model)
     {
-        _model = model;
+        Model = model;
         ViewModel.Initialize(model);
         DataContext = ViewModel;
         InitializeComponent();
@@ -116,7 +114,7 @@ public partial class AppBarWindow : Window
         LeftOrTopStackPanel.Children.Clear();
         RightOrBottomStackPanel.Children.Clear();
         CenterStackPanel.Children.Clear();
-        foreach (var element in _model.LeftOrTopBarElements.OrderBy(c => c.Order))
+        foreach (var element in Model.LeftOrTopBarElements.OrderBy(c => c.Order))
         {
             var control = PluginManager.GetBarElement(element.ID,
                 ViewModel.IsHorizontal ? BarElementPosition.Left : BarElementPosition.Top);
@@ -133,7 +131,7 @@ public partial class AppBarWindow : Window
                 control.HorizontalAlignment = HorizontalAlignment.Left;
             }
         }
-        foreach (var element in _model.RightOrBottomBarElements.OrderBy(c => c.Order))
+        foreach (var element in Model.RightOrBottomBarElements.OrderBy(c => c.Order))
         {
             var control = PluginManager.GetBarElement(element.ID,
                 ViewModel.IsHorizontal ? BarElementPosition.Right : BarElementPosition.Bottom);
@@ -150,7 +148,7 @@ public partial class AppBarWindow : Window
                 control.HorizontalAlignment = HorizontalAlignment.Left;
             }
         }
-        foreach (var element in _model.CenterBarElements.OrderBy(c => c.Order))
+        foreach (var element in Model.CenterBarElements.OrderBy(c => c.Order))
         {
             var control = PluginManager.GetBarElement(element.ID,
                 ViewModel.IsHorizontal ? BarElementPosition.HorizontalCenter : BarElementPosition.VerticalCenter);
