@@ -50,6 +50,9 @@
     <!--  Setting Pane About  -->
     <system:String x:Key="SettingPaneAbout_Version">Version</system:String>
 
+    <!--  AppBar Window  -->
+    <system:String x:Key="SettingAppBarWindow_AppBarSettings">Appbar settings</system:String>
+
     <!--  Navigation View  -->
     <system:String x:Key="NavigationView_Back">Back</system:String>
     <system:String x:Key="NavigationView_CloseNavigation">Close navigation</system:String>

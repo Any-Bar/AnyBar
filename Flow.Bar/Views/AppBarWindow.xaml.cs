@@ -102,9 +102,9 @@ public partial class AppBarWindow : Window
     {
         var settingItem = new MenuItem
         {
-            Header = "Appbar settings",
             Icon = new iNKORE.UI.WPF.Modern.Controls.FontIcon { Glyph = "\ue713" }
         };
+        settingItem.SetResourceReference(HeaderedItemsControl.HeaderProperty, nameof(Localize.SettingAppBarWindow_AppBarSettings));
         settingItem.Click += (o, e) =>
         {
             App.API.ShowSettingWindow();
