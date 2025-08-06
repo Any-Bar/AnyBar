@@ -22,28 +22,37 @@ public class AppBarManagementService(Settings settings)
 
     public void InitializeAllAppBarWindows()
     {
-        StartAppBars([.. _settings.AppBars.Values]);
+        lock (_appBarWindowLock)
+        {
+            StartAppBars([.. _settings.AppBars.Values]);
+        }
     }
 
     public List<MonitorNameLocalized> GetAllMonitorNames(bool includeSettingMonitors)
     {
-        return MonitorNameLocalized.GetValues(includeSettingMonitors ? _settings.AppBars.Values : null);
+        lock (_appBarWindowLock)
+        {
+            return MonitorNameLocalized.GetValues(includeSettingMonitors ? _settings.AppBars.Values : null);
+        }
     }
 
     public List<AppBarModel> GetAllAppBars()
     {
-        return [.. _settings.AppBars.Values.OrderBy(bar => bar.Order)];
+        lock (_appBarWindowLock)
+        {
+            return [.. _settings.AppBars.Values.OrderBy(bar => bar.Order)];
+        }
     }
 
     public void AddAppBar(AppBarModel model, Action<AppBarModel> added)
     {
-        model.Order = _settings.AppBars.Keys.Max() + 1;
-        if (_settings.AppBars.TryAdd(model.Order, model))
+        lock (_appBarWindowLock)
         {
-            added(model);
-            _settings.Save();
-            lock (_appBarWindowLock)
+            model.Order = _settings.AppBars.Keys.Max() + 1;
+            if (_settings.AppBars.TryAdd(model.Order, model))
             {
+                added(model);
+                _settings.Save();
                 var newAppBarWindow = new AppBarWindow(model);
                 newAppBarWindow.Show();
                 AppBarWindowPairs.TryAdd(model.Order, newAppBarWindow);
@@ -53,12 +62,12 @@ public class AppBarManagementService(Settings settings)
 
     public void SetEnabled(int order, bool isEnabled)
     {
-        if (_settings.AppBars.TryGetValue(order, out var model))
+        lock (_appBarWindowLock)
         {
-            model.IsEnabled = isEnabled;
-            _settings.Save();
-            lock (_appBarWindowLock)
+            if (_settings.AppBars.TryGetValue(order, out var model))
             {
+                model.IsEnabled = isEnabled;
+                _settings.Save();
                 if (AppBarWindowPairs.TryGetValue(order, out var appBarWindow))
                 {
                     if (isEnabled)
@@ -67,8 +76,8 @@ public class AppBarManagementService(Settings settings)
                         {
                             try
                             {
-                        appBarWindow.Show();
-                    }
+                                appBarWindow.Show();
+                            }
                             catch
                             {
                                 var newAppBarWindow = new AppBarWindow(model);
@@ -89,9 +98,9 @@ public class AppBarManagementService(Settings settings)
                     {
                         RestartAppBarsFrom(order + 1, () =>
                         {
-                        var newAppBarWindow = new AppBarWindow(model);
-                        newAppBarWindow.Show();
-                        AppBarWindowPairs.TryAdd(order, newAppBarWindow);
+                            var newAppBarWindow = new AppBarWindow(model);
+                            newAppBarWindow.Show();
+                            AppBarWindowPairs.TryAdd(order, newAppBarWindow);
                         });
                     }
                 }
@@ -101,12 +110,12 @@ public class AppBarManagementService(Settings settings)
 
     public void SetDockMode(int order, AppBarDockMode dockMode)
     {
-        if (_settings.AppBars.TryGetValue(order, out var model))
+        lock (_appBarWindowLock)
         {
-            model.DockMode = dockMode;
-            _settings.Save();
-            lock (_appBarWindowLock)
+            if (_settings.AppBars.TryGetValue(order, out var model))
             {
+                model.DockMode = dockMode;
+                _settings.Save();
                 if (AppBarWindowPairs.TryGetValue(order, out var appBarWindow))
                 {
                     appBarWindow.ViewModel.DockMode = dockMode;
@@ -117,12 +126,12 @@ public class AppBarManagementService(Settings settings)
 
     public void SetMonitorName(int order, string? monitorName)
     {
-        if (_settings.AppBars.TryGetValue(order, out var model))
+        lock (_appBarWindowLock)
         {
-            model.MonitorName = monitorName;
-            _settings.Save();
-            lock (_appBarWindowLock)
+            if (_settings.AppBars.TryGetValue(order, out var model))
             {
+                model.MonitorName = monitorName;
+                _settings.Save();
                 if (AppBarWindowPairs.TryGetValue(order, out var appBarWindow))
                 {
                     appBarWindow.ViewModel.MonitorName = monitorName;
@@ -133,12 +142,12 @@ public class AppBarManagementService(Settings settings)
 
     public void SetFollowSystemTaskbarWidthOrHeight(int order, bool followSystemTaskbarWidthOrHeight)
     {
-        if (_settings.AppBars.TryGetValue(order, out var model))
+        lock (_appBarWindowLock)
         {
-            model.FollowSystemTaskbarWidthOrHeight = followSystemTaskbarWidthOrHeight;
-            _settings.Save();
-            lock (_appBarWindowLock)
+            if (_settings.AppBars.TryGetValue(order, out var model))
             {
+                model.FollowSystemTaskbarWidthOrHeight = followSystemTaskbarWidthOrHeight;
+                _settings.Save();
                 if (AppBarWindowPairs.TryGetValue(order, out var appBarWindow))
                 {
                     appBarWindow.ViewModel.FollowSystemTaskbarWidthOrHeight = followSystemTaskbarWidthOrHeight;
@@ -149,12 +158,12 @@ public class AppBarManagementService(Settings settings)
 
     public void SetDockedWidthOrHeight(int order, int dockedWidthOrHeight)
     {
-        if (_settings.AppBars.TryGetValue(order, out var model))
+        lock (_appBarWindowLock)
         {
-            model.DockedWidthOrHeight = dockedWidthOrHeight;
-            _settings.Save();
-            lock (_appBarWindowLock)
+            if (_settings.AppBars.TryGetValue(order, out var model))
             {
+                model.DockedWidthOrHeight = dockedWidthOrHeight;
+                _settings.Save();
                 if (AppBarWindowPairs.TryGetValue(order, out var appBarWindow))
                 {
                     appBarWindow.ViewModel.DockedWidthOrHeight = dockedWidthOrHeight;
@@ -165,12 +174,12 @@ public class AppBarManagementService(Settings settings)
 
     public void SetIsResizable(int order, bool isResizable)
     {
-        if (_settings.AppBars.TryGetValue(order, out var model))
+        lock (_appBarWindowLock)
         {
-            model.IsResizable = isResizable;
-            _settings.Save();
-            lock (_appBarWindowLock)
+            if (_settings.AppBars.TryGetValue(order, out var model))
             {
+                model.IsResizable = isResizable;
+                _settings.Save();
                 if (AppBarWindowPairs.TryGetValue(order, out var appBarWindow))
                 {
                     appBarWindow.ViewModel.IsResizable = isResizable;
@@ -179,39 +188,37 @@ public class AppBarManagementService(Settings settings)
         }
     }
 
+    #region AppBarWindow Management
+
     private void StartAppBars(List<AppBarModel> models)
     {
         foreach (var model in models.OrderBy(m => m.Order))
         {
             if (model.IsEnabled)
             {
-                lock (_appBarWindowLock)
-                {
-                    var barWindow = new AppBarWindow(model);
-                    barWindow.Show();
-                    AppBarWindowPairs.TryAdd(model.Order, barWindow);
-                }
+                var barWindow = new AppBarWindow(model);
+                barWindow.Show();
+                AppBarWindowPairs.TryAdd(model.Order, barWindow);
             }
         }
     }
 
     private void RestartAppBarsFrom(int startOrder, Action? action = null)
     {
-        lock (_appBarWindowLock)
+        var pairs = new List<AppBarModel>();
+        foreach (var order in AppBarWindowPairs.Keys.Where(o => o >= startOrder))
         {
-            var pairs = new List<AppBarModel>();
-            foreach (var order in AppBarWindowPairs.Keys.Where(o => o >= startOrder))
+            if (AppBarWindowPairs.TryGetValue(order, out var appBarWindow))
             {
-                if (AppBarWindowPairs.TryGetValue(order, out var appBarWindow))
-                {
-                    appBarWindow.Close();
-                    AppBarWindowPairs.Remove(order);
-                    var model = _settings.AppBars[order];
-                    pairs.Add(model);
-                }
+                appBarWindow.Close();
+                AppBarWindowPairs.Remove(order);
+                var model = _settings.AppBars[order];
+                pairs.Add(model);
             }
-            action?.Invoke();
-            StartAppBars(pairs);
         }
+        action?.Invoke();
+        StartAppBars(pairs);
     }
+
+    #endregion
 }
