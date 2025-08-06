@@ -3,6 +3,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Serilog;
 using System;
+using System.Diagnostics;
 using System.Runtime.CompilerServices;
 
 namespace Flow.Bar.Helper.Logging;
@@ -69,6 +70,9 @@ public static class FBLogger
         {
             logger.Fatal(message);
         }
+#if DEBUG
+        Debugger.Break();
+#endif
     }
 
     private static ILogger GetLogger(string className, string message, [CallerMemberName] string methodName = "")
