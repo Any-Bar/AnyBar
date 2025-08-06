@@ -13,6 +13,7 @@ public static class ErrorReporting
     {
         var logger = Log.ForContext("SourceContext", $"{ClassName}|{methodName}");
         logger.Fatal(e, ExceptionFormatter.FormatExcpetion(e));
+        // TODO: Add ReportWindow
         /*var reportWindow = new ReportWindow(e);
         reportWindow.Show();*/
     }
