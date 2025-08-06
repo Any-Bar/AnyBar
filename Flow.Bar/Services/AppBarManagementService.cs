@@ -22,19 +22,7 @@ public class AppBarManagementService(Settings settings)
 
     public void InitializeAllAppBarWindows()
     {
-        foreach (var key in _settings.AppBars.Keys.OrderBy(k => k))
-        {
-            var model = _settings.AppBars[key];
-            if (model.IsEnabled)
-            {
-                lock (_appBarWindowLock)
-                {
-                    var barWindow = new AppBarWindow(model);
-                    barWindow.Show();
-                    AppBarWindowPairs.TryAdd(model.Order, barWindow);
-                }
-            }
-        }
+        StartAppBars([.. _settings.AppBars.Values]);
     }
 
     public List<MonitorNameLocalized> GetAllMonitorNames(bool includeSettingMonitors)
@@ -171,6 +159,22 @@ public class AppBarManagementService(Settings settings)
                 if (AppBarWindowPairs.TryGetValue(order, out var appBarWindow))
                 {
                     appBarWindow.ViewModel.IsResizable = isResizable;
+                }
+            }
+        }
+    }
+
+    private void StartAppBars(List<AppBarModel> models)
+    {
+        foreach (var model in models.OrderBy(k => k))
+        {
+            if (model.IsEnabled)
+            {
+                lock (_appBarWindowLock)
+                {
+                    var barWindow = new AppBarWindow(model);
+                    barWindow.Show();
+                    AppBarWindowPairs.TryAdd(model.Order, barWindow);
                 }
             }
         }
