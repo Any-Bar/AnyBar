@@ -2,6 +2,7 @@
 using Flow.Bar.Helper;
 using Flow.Bar.Helper.Application;
 using Flow.Bar.Helper.Image;
+using Flow.Bar.Helper.Logging;
 using Flow.Bar.Helper.Plugins;
 using Flow.Bar.Models;
 using Flow.Bar.Models.Language;
@@ -152,7 +153,7 @@ public partial class App : Application, IDisposable, ISingleInstanceApp
             await Ioc.Default.GetRequiredService<Internationalization>().InitializeLanguageAsync();
 
             API.LogInfo(ClassName, "Begin Flow Bar startup ----------------------------------------------------");
-            API.LogInfo(ClassName, $"Runtime info:{ErrorReporting.RuntimeInfo()}");
+            API.LogInfo(ClassName, $"Runtime info:{ExceptionFormatter.RuntimeInfo()}");
 
             RegisterAppDomainExceptions();
             RegisterDispatcherUnhandledException();
