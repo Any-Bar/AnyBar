@@ -6,7 +6,7 @@ namespace Flow.Bar.Helper.Windows;
 
 public static class SingletonWindowOpener
 {
-    public static void Open<T>(params object[] args) where T : Window
+    public static T Open<T>(params object[] args) where T : Window
     {
         var window = (System.Windows.Application.Current.Windows.OfType<Window>().FirstOrDefault(x => x.GetType() == typeof(T))
             ?? (T?)Activator.CreateInstance(typeof(T), args))
@@ -35,5 +35,7 @@ public static class SingletonWindowOpener
         }
 
         window.Focus();
+
+        return (T)window;
     }
 }

@@ -25,7 +25,7 @@ public class PublicAPIInstance(Settings settings) : IPublicAPI
     {
         Application.Current.Dispatcher.Invoke(() =>
         {
-            SingletonWindowOpener.Open<SettingWindow>();
+            var settingWindow = SingletonWindowOpener.Open<SettingWindow>();
         });
     }
 
