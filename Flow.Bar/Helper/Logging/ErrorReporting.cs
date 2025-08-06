@@ -32,7 +32,7 @@ public static class ErrorReporting
         e.Handled = true;
     }
 
-    public static void TaskSchedulerUnobservedTaskException(object sender, UnobservedTaskExceptionEventArgs e)
+    public static void TaskSchedulerUnobservedTaskException(object? sender, UnobservedTaskExceptionEventArgs e)
     {
         // log exception but do not handle unobserved task exceptions on UI thread
         Report(e.Exception, true);
