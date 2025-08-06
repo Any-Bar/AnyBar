@@ -166,7 +166,7 @@ public class AppBarManagementService(Settings settings)
 
     private void StartAppBars(List<AppBarModel> models)
     {
-        foreach (var model in models.OrderBy(k => k))
+        foreach (var model in models.OrderBy(m => m.Order))
         {
             if (model.IsEnabled)
             {
