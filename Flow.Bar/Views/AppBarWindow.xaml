@@ -29,77 +29,77 @@
         Background="Transparent"
         PreviewMouseRightButtonDown="MainGrid_PreviewMouseRightButtonDown"
         PreviewMouseRightButtonUp="MainGrid_PreviewMouseRightButtonUp">
-        <DockPanel Background="Transparent" LastChildFill="False">
-            <Thumb
-                x:Name="BarThumb"
-                Height="2"
-                Background="{DynamicResource AppBarSeparatorForeground}"
-                BorderThickness="0"
-                Cursor="Arrow"
-                DockPanel.Dock="Bottom">
-                <Thumb.Style>
-                    <Style TargetType="{x:Type Thumb}">
-                        <Setter Property="Template">
-                            <Setter.Value>
-                                <ControlTemplate TargetType="Thumb">
-                                    <Border
-                                        Width="{TemplateBinding Width}"
-                                        Height="{TemplateBinding Height}"
-                                        Background="{TemplateBinding Background}"
-                                        BorderBrush="{TemplateBinding BorderBrush}"
-                                        BorderThickness="{TemplateBinding BorderThickness}" />
-                                </ControlTemplate>
-                            </Setter.Value>
-                        </Setter>
-                        <Setter Property="Cursor" Value="Arrow" />
-                        <Setter Property="Height" Value="2" />
-                        <Setter Property="DockPanel.Dock" Value="Bottom" />
-                        <Style.Triggers>
-                            <MultiDataTrigger>
-                                <MultiDataTrigger.Conditions>
-                                    <Condition Binding="{Binding DockMode}" Value="{x:Static enum:AppBarDockMode.Top}" />
-                                    <Condition Binding="{Binding IsResizable}" Value="False" />
-                                </MultiDataTrigger.Conditions>
-                                <Setter Property="Cursor" Value="SizeNS" />
-                            </MultiDataTrigger>
-                            <MultiDataTrigger>
-                                <MultiDataTrigger.Conditions>
-                                    <Condition Binding="{Binding DockMode}" Value="{x:Static enum:AppBarDockMode.Bottom}" />
-                                    <Condition Binding="{Binding IsResizable}" Value="False" />
-                                </MultiDataTrigger.Conditions>
-                                <Setter Property="Cursor" Value="SizeNS" />
-                            </MultiDataTrigger>
-                            <MultiDataTrigger>
-                                <MultiDataTrigger.Conditions>
-                                    <Condition Binding="{Binding DockMode}" Value="{x:Static enum:AppBarDockMode.Left}" />
-                                    <Condition Binding="{Binding IsResizable}" Value="False" />
-                                </MultiDataTrigger.Conditions>
-                                <Setter Property="Cursor" Value="SizeWE" />
-                            </MultiDataTrigger>
-                            <MultiDataTrigger>
-                                <MultiDataTrigger.Conditions>
-                                    <Condition Binding="{Binding DockMode}" Value="{x:Static enum:AppBarDockMode.Right}" />
-                                    <Condition Binding="{Binding IsResizable}" Value="False" />
-                                </MultiDataTrigger.Conditions>
-                                <Setter Property="Cursor" Value="SizeWE" />
-                            </MultiDataTrigger>
-                            <DataTrigger Binding="{Binding DockMode}" Value="{x:Static enum:AppBarDockMode.Bottom}">
-                                <Setter Property="Height" Value="2" />
-                                <Setter Property="DockPanel.Dock" Value="Top" />
-                            </DataTrigger>
-                            <DataTrigger Binding="{Binding DockMode}" Value="{x:Static enum:AppBarDockMode.Left}">
-                                <Setter Property="Width" Value="2" />
-                                <Setter Property="DockPanel.Dock" Value="Right" />
-                            </DataTrigger>
-                            <DataTrigger Binding="{Binding DockMode}" Value="{x:Static enum:AppBarDockMode.Right}">
-                                <Setter Property="Width" Value="2" />
-                                <Setter Property="DockPanel.Dock" Value="Left" />
-                            </DataTrigger>
-                        </Style.Triggers>
-                    </Style>
-                </Thumb.Style>
-            </Thumb>
-        </DockPanel>
+        <Thumb x:Name="BarThumb">
+            <Thumb.Style>
+                <Style TargetType="{x:Type Thumb}">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="Thumb">
+                                <Border
+                                    Width="{TemplateBinding Width}"
+                                    Height="{TemplateBinding Height}"
+                                    HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
+                                    VerticalAlignment="{TemplateBinding VerticalAlignment}"
+                                    Background="{DynamicResource AppBarSeparatorForeground}"
+                                    BorderThickness="0"
+                                    Cursor="{TemplateBinding Cursor}" />
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                    <Setter Property="Cursor" Value="Arrow" />
+                    <Style.Triggers>
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding DockMode}" Value="{x:Static enum:AppBarDockMode.Top}" />
+                                <Condition Binding="{Binding IsResizable}" Value="False" />
+                            </MultiDataTrigger.Conditions>
+                            <Setter Property="Cursor" Value="SizeNS" />
+                        </MultiDataTrigger>
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding DockMode}" Value="{x:Static enum:AppBarDockMode.Bottom}" />
+                                <Condition Binding="{Binding IsResizable}" Value="False" />
+                            </MultiDataTrigger.Conditions>
+                            <Setter Property="Cursor" Value="SizeNS" />
+                        </MultiDataTrigger>
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding DockMode}" Value="{x:Static enum:AppBarDockMode.Left}" />
+                                <Condition Binding="{Binding IsResizable}" Value="False" />
+                            </MultiDataTrigger.Conditions>
+                            <Setter Property="Cursor" Value="SizeWE" />
+                        </MultiDataTrigger>
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding DockMode}" Value="{x:Static enum:AppBarDockMode.Right}" />
+                                <Condition Binding="{Binding IsResizable}" Value="False" />
+                            </MultiDataTrigger.Conditions>
+                            <Setter Property="Cursor" Value="SizeWE" />
+                        </MultiDataTrigger>
+                        <DataTrigger Binding="{Binding DockMode}" Value="{x:Static enum:AppBarDockMode.Top}">
+                            <Setter Property="Height" Value="2" />
+                            <Setter Property="HorizontalAlignment" Value="Stretch" />
+                            <Setter Property="VerticalAlignment" Value="Bottom" />
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding DockMode}" Value="{x:Static enum:AppBarDockMode.Bottom}">
+                            <Setter Property="Height" Value="2" />
+                            <Setter Property="HorizontalAlignment" Value="Stretch" />
+                            <Setter Property="VerticalAlignment" Value="Top" />
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding DockMode}" Value="{x:Static enum:AppBarDockMode.Left}">
+                            <Setter Property="Width" Value="2" />
+                            <Setter Property="HorizontalAlignment" Value="Right" />
+                            <Setter Property="VerticalAlignment" Value="Stretch" />
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding DockMode}" Value="{x:Static enum:AppBarDockMode.Right}">
+                            <Setter Property="Width" Value="2" />
+                            <Setter Property="HorizontalAlignment" Value="Left" />
+                            <Setter Property="VerticalAlignment" Value="Stretch" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Thumb.Style>
+        </Thumb>
 
         <Grid
             x:Name="BarElementsGrid"
