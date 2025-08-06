@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.DependencyInjection;
+using Flow.Bar.Helper.Windows;
 using Flow.Bar.Services;
 using System;
 using System.Windows;
@@ -16,6 +17,7 @@ public partial class SettingWindow : Window
     public SettingWindow()
     {
         InitializeComponent();
+        WindowTracker.TrackWindow(this);
     }
 
     #region Window Events
