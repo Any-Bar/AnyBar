@@ -29,15 +29,15 @@
                 Content="{DynamicResource SettingPaneAppBar_AddAppBar}"
                 Style="{DynamicResource {x:Static ui:ThemeKeys.AccentButtonStyleKey}}" />
         </ui:SettingsCard>
-        <controls:StackPanelViewEx
-            x:Name="AppBarStackPanelView"
+        <controls:StackView
+            x:Name="AppBarStackView"
             CanReorderItems="True"
             DropScrollViewer="{Binding RootFrameScrollViewer, Mode=OneWay}"
             ItemsSource="{Binding AppBars, Mode=OneWay}"
             Orientation="Vertical"
             ScrollViewer.HorizontalScrollBarVisibility="Disabled"
             ScrollViewer.VerticalScrollBarVisibility="Disabled">
-            <controls:StackPanelViewEx.ItemTemplate>
+            <controls:StackView.ItemTemplate>
                 <DataTemplate DataType="models:AppBarModel">
                     <ui:SettingsCard
                         x:Name="AppBarSettingsCard"
@@ -59,7 +59,7 @@
                             Toggled="AppBarToggleSwitch_Toggled" />
                     </ui:SettingsCard>
                 </DataTemplate>
-            </controls:StackPanelViewEx.ItemTemplate>
-        </controls:StackPanelViewEx>
+            </controls:StackView.ItemTemplate>
+        </controls:StackView>
     </ikw:SimpleStackPanel>
 </ui:Page>

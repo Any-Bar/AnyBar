@@ -5,16 +5,16 @@ using System.Windows.Input;
 
 namespace Flow.Bar.Controls;
 
-public class StackPanelViewExBaseItem : ListBoxItem
+public class StackViewBaseItem : ListBoxItem
 {
-    protected StackPanelViewExBaseItem()
+    protected StackViewBaseItem()
     {
     }
 
     #region UseSystemFocusVisuals
 
     public static readonly DependencyProperty UseSystemFocusVisualsProperty =
-        FocusVisualHelper.UseSystemFocusVisualsProperty.AddOwner(typeof(StackPanelViewExBaseItem));
+        FocusVisualHelper.UseSystemFocusVisualsProperty.AddOwner(typeof(StackViewBaseItem));
 
     public bool UseSystemFocusVisuals
     {
@@ -27,7 +27,7 @@ public class StackPanelViewExBaseItem : ListBoxItem
     #region FocusVisualMargin
 
     public static readonly DependencyProperty FocusVisualMarginProperty =
-        FocusVisualHelper.FocusVisualMarginProperty.AddOwner(typeof(StackPanelViewExBaseItem));
+        FocusVisualHelper.FocusVisualMarginProperty.AddOwner(typeof(StackViewBaseItem));
 
     public Thickness FocusVisualMargin
     {
@@ -40,7 +40,7 @@ public class StackPanelViewExBaseItem : ListBoxItem
     #region CornerRadius
 
     public static readonly DependencyProperty CornerRadiusProperty =
-        ControlHelper.CornerRadiusProperty.AddOwner(typeof(StackPanelViewExBaseItem));
+        ControlHelper.CornerRadiusProperty.AddOwner(typeof(StackViewBaseItem));
 
     public CornerRadius CornerRadius
     {
@@ -107,7 +107,7 @@ public class StackPanelViewExBaseItem : ListBoxItem
         ParentStackPanelViewBase?.NotifyListItemClicked(this);
     }
 
-    private StackPanelViewExBase? ParentStackPanelViewBase => ItemsControl.ItemsControlFromItemContainer(this) as StackPanelViewExBase;
+    private StackViewBase? ParentStackPanelViewBase => ItemsControl.ItemsControlFromItemContainer(this) as StackViewBase;
 
     private bool m_isPressed;
 }

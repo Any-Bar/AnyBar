@@ -4,14 +4,14 @@ using System.Windows.Controls;
 
 namespace Flow.Bar.Controls;
 
-public class StackPanelViewEx : StackPanelViewExBase
+public class StackView : StackViewBase
 {
-    static StackPanelViewEx()
+    static StackView()
     {
-        DefaultStyleKeyProperty.OverrideMetadata(typeof(StackPanelViewEx), new FrameworkPropertyMetadata(typeof(StackPanelViewEx)));
+        DefaultStyleKeyProperty.OverrideMetadata(typeof(StackView), new FrameworkPropertyMetadata(typeof(StackView)));
     }
 
-    public StackPanelViewEx()
+    public StackView()
     {
     }
 
@@ -21,7 +21,7 @@ public class StackPanelViewEx : StackPanelViewExBase
         DependencyProperty.Register(
             nameof(Orientation),
             typeof(Orientation),
-            typeof(StackPanelViewEx),
+            typeof(StackView),
             new FrameworkPropertyMetadata(Orientation.Vertical, FrameworkPropertyMetadataOptions.AffectsMeasure));
 
     public Orientation Orientation
@@ -38,7 +38,7 @@ public class StackPanelViewEx : StackPanelViewExBase
         DependencyProperty.Register(
             nameof(CanReorderItems),
             typeof(bool),
-            typeof(StackPanelViewEx),
+            typeof(StackView),
             new FrameworkPropertyMetadata(false, OnCanReorderItemsPropertyChanged));
 
     private static void OnCanReorderItemsPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
@@ -67,7 +67,7 @@ public class StackPanelViewEx : StackPanelViewExBase
         DependencyProperty.Register(
             nameof(DropScrollViewer),
             typeof(ScrollViewer),
-            typeof(StackPanelViewEx),
+            typeof(StackView),
             new FrameworkPropertyMetadata(null, OnDropScrollViewerPropertyChanged));
 
     private static void OnDropScrollViewerPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
@@ -88,11 +88,11 @@ public class StackPanelViewEx : StackPanelViewExBase
 
     protected override bool IsItemItsOwnContainerOverride(object item)
     {
-        return item is StackPanelViewExItem;
+        return item is StackViewItem;
     }
 
     protected override DependencyObject GetContainerForItemOverride()
     {
-        return new StackPanelViewExItem();
+        return new StackViewItem();
     }
 }
