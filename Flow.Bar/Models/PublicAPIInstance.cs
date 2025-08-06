@@ -38,7 +38,10 @@ public class PublicAPIInstance(Settings settings) : IPublicAPI
         _ = ImageLoader.SaveAsync();
     }
 
-    public string GetTranslation(string key) => Internationalization.GetTranslation(key);
+    public string GetTranslation(string key)
+    {
+        return Internationalization.GetTranslation(key);
+    }
 
     public void ShowMsg(string title, string subTitle = "", string iconPath = "")
     {
@@ -95,6 +98,8 @@ public class PublicAPIInstance(Settings settings) : IPublicAPI
         return Stopwatch.InfoAsync(className, message, action, methodName);
     }
 
-    public ValueTask<ImageSource?> LoadImageAsync(string path, bool loadFullImage = false, bool cacheImage = true) =>
-        ImageLoader.LoadAsync(path, loadFullImage, cacheImage);
+    public ValueTask<ImageSource?> LoadImageAsync(string path, bool loadFullImage = false, bool cacheImage = true)
+    {
+        return ImageLoader.LoadAsync(path, loadFullImage, cacheImage);
+    }
 }
