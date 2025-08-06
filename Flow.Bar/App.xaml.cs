@@ -22,6 +22,7 @@ using System;
 using System.Diagnostics;
 using System.Text;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Interop;
@@ -166,6 +167,7 @@ public partial class App : Application, IDisposable, ISingleInstanceApp
 
             RegisterAppDomainExceptions();
             RegisterDispatcherUnhandledException();
+            RegisterTaskSchedulerUnhandledException();
 
             var imageLoadertask = ImageLoader.InitializeAsync();
 
@@ -235,6 +237,14 @@ public partial class App : Application, IDisposable, ISingleInstanceApp
     private static void RegisterAppDomainExceptions()
     {
         AppDomain.CurrentDomain.UnhandledException += ErrorReporting.UnhandledException;
+    }
+
+    /// <summary>
+    /// Let exception throw as normal is better for Debug
+    /// </summary>
+    private static void RegisterTaskSchedulerUnhandledException()
+    {
+        TaskScheduler.UnobservedTaskException += ErrorReporting.TaskSchedulerUnobservedTaskException;
     }
 
     #endregion
