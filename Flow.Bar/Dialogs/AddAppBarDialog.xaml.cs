@@ -13,6 +13,9 @@ public partial class AddAppBarDialog : ContentDialog
 {
     private static readonly string ClassName = nameof(AddAppBarDialog);
 
+    [ObservableProperty]
+    private string _appBarName = string.Empty;
+
     public List<AppBarDockModeLocalized> AllDockModes { get; } = AppBarDockModeLocalized.GetValues();
 
     [ObservableProperty]

@@ -22,6 +22,11 @@
     mc:Ignorable="d">
 
     <ikw:SimpleStackPanel Spacing="{StaticResource ContentDialogItemSpacing}">
+        <TextBlock Text="{DynamicResource SettingPaneAppBarSetting_Name}" />
+        <TextBox
+            Margin="{StaticResource ContentDialogContentMargin}"
+            HorizontalAlignment="Stretch"
+            Text="{Binding AppBarName, Mode=TwoWay}" />
         <TextBlock Text="{DynamicResource SettingPaneAppBarSetting_BarBehaviour}" />
         <ComboBox
             Margin="{StaticResource ContentDialogContentMargin}"

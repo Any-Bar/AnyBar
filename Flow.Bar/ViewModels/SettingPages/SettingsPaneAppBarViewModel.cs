@@ -58,6 +58,7 @@ public partial class SettingsPaneAppBarViewModel(AppBarManagementService appBarM
         {
             var model = new AppBarModel
             {
+                Name = dialog.AppBarName,
                 DockMode = dialog.DockMode,
                 MonitorName = dialog.MonitorName,
                 FollowSystemTaskbarWidthOrHeight = dialog.FollowSystemTaskbarWidthOrHeight,
