@@ -270,7 +270,7 @@ public partial class App : Application, IDisposable, ISingleInstanceApp
         };
         settingItem.Click += (o, e) =>
         {
-            API.OpenSettingDialog();
+            API.ShowSettingWindow();
         };
         _contextMenu.Items.Add(settingItem);
         _contextMenu.Items.Add(exitItem);
@@ -356,7 +356,7 @@ public partial class App : Application, IDisposable, ISingleInstanceApp
 
     public void OnSecondAppStarted()
     {
-        API.OpenSettingDialog();
+        API.ShowSettingWindow();
     }
 
     #endregion

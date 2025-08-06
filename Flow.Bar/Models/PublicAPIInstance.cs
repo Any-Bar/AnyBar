@@ -21,7 +21,7 @@ public class PublicAPIInstance(Settings settings) : IPublicAPI
 
     private readonly Lock _saveSettingsLock = new();
 
-    public void OpenSettingDialog()
+    public void ShowSettingWindow()
     {
         Application.Current.Dispatcher.Invoke(() =>
         {

@@ -12,19 +12,21 @@ namespace Flow.Bar.Plugin;
 public interface IPublicAPI
 {
     /// <summary>
-    /// Open setting dialog
+    /// Show setting window
     /// </summary>
-    void OpenSettingDialog();
+    void ShowSettingWindow();
 
     /// <summary>
-    /// Save everything, all of Flow Bar and plugins' data and settings
+    /// Save all settings, including Flow Bar settings and image cache
     /// </summary>
     void SaveAppAllSettings();
 
     /// <summary>
     /// Get translation of current language
-    /// You need to implement IPluginI18n if you want to support multiple languages for your plugin
     /// </summary>
+    /// <remarks>
+    /// You need to implement IPluginI18n to enable multiple languages for your plugin
+    /// </remarks>
     /// <param name="key"></param>
     /// <returns></returns>
     string GetTranslation(string key);
@@ -38,7 +40,7 @@ public interface IPublicAPI
     void ShowMsg(string title, string subTitle = "", string iconPath = "");
 
     /// <summary>
-    /// Displays a standardised Flow message box.
+    /// Displays a standardised Flow message box
     /// </summary>
     /// <param name="messageBoxText">The message of the message box.</param>
     /// <param name="caption">The caption of the message box.</param>
@@ -106,11 +108,13 @@ public interface IPublicAPI
     public Task<long> StopwatchLogInfoAsync(string className, string message, Func<Task> action, [CallerMemberName] string methodName = "");
 
     /// <summary>
-    /// Load image from path.
+    /// Load image from path
+    /// </summary>
+    /// <remarks>
     /// Support local, remote and data:image url.
     /// Support png, jpg, jpeg, gif, bmp, tiff, ico, svg image files.
     /// If image path is missing, it will return a missing icon.
-    /// </summary>
+    /// </remarks>
     /// <param name="path">The path of the image.</param>
     /// <param name="loadFullImage">
     /// Load full image or not.

@@ -103,7 +103,7 @@ public partial class AppBarWindow : Window
         };
         settingItem.Click += (o, e) =>
         {
-            App.API.OpenSettingDialog();
+            App.API.ShowSettingWindow();
         };
         _contextMenu.Items.Add(settingItem);
     }
