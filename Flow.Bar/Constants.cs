@@ -29,6 +29,10 @@ public static class Constants
     public static readonly string DefaultIcon = Path.Combine(ImagesDirectory, "app.png");
     public static readonly string MissingImgIcon = Path.Combine(ImagesDirectory, "app_missing_img.png");
     public static readonly string ImageIcon = Path.Combine(ImagesDirectory, "image.png");
+    public static readonly string TopAppBarIcon = Path.Combine(ImagesDirectory, "top-toolbar.png");
+    public static readonly string BottomAppBarIcon = Path.Combine(ImagesDirectory, "bottom-toolbar.png");
+    public static readonly string LeftAppBarIcon = Path.Combine(ImagesDirectory, "left-toolbar.png");
+    public static readonly string RightAppBarIcon = Path.Combine(ImagesDirectory, "right-toolbar.png");
 
     public const string Themes = "Themes";
     public const string Settings = "Settings";

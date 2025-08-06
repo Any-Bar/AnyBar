@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Flow.Bar.Controls;
+using Flow.Bar.Converters;
 using Flow.Bar.Dialogs;
 using Flow.Bar.Interfaces;
 using Flow.Bar.Models.AppBar;
@@ -76,8 +77,9 @@ public partial class SettingsPaneAppBarViewModel(AppBarManagementService appBarM
         }
     }
 
-    public void OnNavigatedTo(object? parameter)
+    public async void OnNavigatedTo(object? parameter)
     {
+        await DockModeToImageSourceConverter.InitializeAsync();
         RefreshAppBars();
         AppBars.CollectionChanged += AppBars_CollectionChanged;
     }
