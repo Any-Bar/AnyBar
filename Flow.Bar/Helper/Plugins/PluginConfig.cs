@@ -31,7 +31,7 @@ internal class PluginConfig
                 }
                 catch (Exception e)
                 {
-                    App.API.LogException(ClassName, $"Can't delete <{directory}>", e);
+                    App.API.LogFatal(ClassName, $"Can't delete <{directory}>", e);
                 }
             }
             else
@@ -48,7 +48,7 @@ internal class PluginConfig
 
         duplicateList
             .ForEach(
-                x => App.API.LogWarn(ClassName, 
+                x => App.API.LogWarning(ClassName, 
                     string.Format("Duplicate plugin name: {0}, id: {1}, version: {2} " +
                         "not loaded due to version not the highest of the duplicates",
                         x.Name, x.ID, x.Version),
@@ -112,13 +112,13 @@ internal class PluginConfig
         }
         catch (Exception e)
         {
-            App.API.LogException(ClassName, $"Invalid json for config <{configPath}>", e);
+            App.API.LogFatal(ClassName, $"Invalid json for config <{configPath}>", e);
             return null;
         }
 
         if (!File.Exists(metadata.ExecuteFilePath))
         {
-            App.API.LogError(ClassName, $"Execute file path didn't exist <{metadata.ExecuteFilePath}> for conifg <{configPath}");
+            App.API.LogError(ClassName, $"Execute file path didn't exist <{metadata.ExecuteFilePath}> for config <{configPath}");
             return null;
         }
 

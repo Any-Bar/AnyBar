@@ -48,6 +48,9 @@ public partial class App : Application, IDisposable, ISingleInstanceApp
     [STAThread]
     public static void Main()
     {
+        // Set up Logging
+        FBLogger.Initialize();
+
         // Initialize settings so that we can get language code
         try
         {
@@ -76,6 +79,7 @@ public partial class App : Application, IDisposable, ISingleInstanceApp
             using var application = new App();
             application.InitializeComponent();
             application.Run();
+            FBLogger.Close();
         }
     }
 
@@ -92,19 +96,24 @@ public partial class App : Application, IDisposable, ISingleInstanceApp
         try
         {
             var host = Host.CreateDefaultBuilder()
-            .UseContentRoot(AppContext.BaseDirectory)
-            .ConfigureServices(services => services
-                .AddSingleton(_ => Settings)
-                .AddSingleton<IPublicAPI, PublicAPIInstance>()
-                .AddSingleton<Internationalization>()
-                .AddSingleton<NavigationViewService>()
-                .AddSingleton<PageService>()
-                .AddSingleton<AppBarManagementService>()
-                .AddTransient<AppBarViewModel>()
-                .AddTransient<SettingsPaneAboutViewModel>()
-                .AddTransient<SettingsPaneAppBarViewModel>()
-                .AddTransient<SettingsPaneGeneralViewModel>()
-                .AddTransient<SettingsPaneAppBarSettingViewModel>()
+                .UseContentRoot(AppContext.BaseDirectory)
+                .ConfigureFBLogger()
+                .UseDefaultServiceProvider((context, options) =>
+                {
+                    options.ValidateOnBuild = true;
+                })
+                .ConfigureServices(services => services
+                    .AddSingleton(_ => Settings)
+                    .AddSingleton<IPublicAPI, PublicAPIInstance>()
+                    .AddSingleton<Internationalization>()
+                    .AddSingleton<NavigationViewService>()
+                    .AddSingleton<PageService>()
+                    .AddSingleton<AppBarManagementService>()
+                    .AddTransient<AppBarViewModel>()
+                    .AddTransient<SettingsPaneAboutViewModel>()
+                    .AddTransient<SettingsPaneAppBarViewModel>()
+                    .AddTransient<SettingsPaneGeneralViewModel>()
+                    .AddTransient<SettingsPaneAppBarSettingViewModel>()
             ).Build();
             Ioc.Default.ConfigureServices(host.Services);
         }
@@ -152,7 +161,7 @@ public partial class App : Application, IDisposable, ISingleInstanceApp
             // Initialize language before portable clean up since it needs translations
             await Ioc.Default.GetRequiredService<Internationalization>().InitializeLanguageAsync();
 
-            API.LogInfo(ClassName, "Begin Flow Bar startup ----------------------------------------------------");
+            API.LogInfo(ClassName, "Begin Flow Bar startup -------------------------------------------------");
             API.LogInfo(ClassName, $"Runtime info:{ExceptionFormatter.RuntimeInfo()}");
 
             RegisterAppDomainExceptions();
@@ -181,7 +190,7 @@ public partial class App : Application, IDisposable, ISingleInstanceApp
             RegisterExitEvents();
 
             API.SaveAppAllSettings();
-            API.LogInfo(ClassName, "End Flow Bar startup ------------------------------------------------------");
+            API.LogInfo(ClassName, "End Flow Bar startup ---------------------------------------------------");
         });
     }
 
@@ -308,7 +317,7 @@ public partial class App : Application, IDisposable, ISingleInstanceApp
 
         API.StopwatchLogInfo(ClassName, "Dispose cost", () =>
         {
-            API.LogInfo(ClassName, "Begin Flow Bar dispose ----------------------------------------------------");
+            API.LogInfo(ClassName, "Begin Flow Bar dispose -------------------------------------------------");
 
             if (disposing)
             {
@@ -320,7 +329,7 @@ public partial class App : Application, IDisposable, ISingleInstanceApp
                 ImageLoader.WaitSaveAsync().Wait();
             }
 
-            API.LogInfo(ClassName, "End Flow Bar dispose ------------------------------------------------------");
+            API.LogInfo(ClassName, "End Flow Bar dispose ---------------------------------------------------");
         });
     }
 

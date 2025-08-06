@@ -1,4 +1,5 @@
 ﻿using Flow.Bar.Helper.Image;
+using Flow.Bar.Helper.Logging;
 using Flow.Bar.Helper.Notification;
 using Flow.Bar.Helper.Windows;
 using Flow.Bar.Models.Language;
@@ -51,51 +52,47 @@ public class PublicAPIInstance(Settings settings) : IPublicAPI
 
     public void LogDebug(string className, string message, [CallerMemberName] string methodName = "")
     {
-
+        FBLogger.Debug(className, message, methodName);
     }
 
     public void LogInfo(string className, string message, [CallerMemberName] string methodName = "")
     {
-
+        FBLogger.Information(className, message, methodName);
     }
 
-    public void LogWarn(string className, string message, [CallerMemberName] string methodName = "")
+    public void LogWarning(string className, string message, [CallerMemberName] string methodName = "")
     {
-
+        FBLogger.Warning(className, message, methodName);
     }
 
-    public void LogError(string className, string message, [CallerMemberName] string methodName = "")
+    public void LogError(string className, string message, Exception? e = null, [CallerMemberName] string methodName = "")
     {
-
+        FBLogger.Error(className, message, e, methodName);
     }
 
-    public void LogException(string className, string message, Exception e, [CallerMemberName] string methodName = "")
+    public void LogFatal(string className, string message, Exception? e = null, [CallerMemberName] string methodName = "")
     {
-
+        FBLogger.Fatal(className, message, e, methodName);
     }
 
     public long StopwatchLogDebug(string className, string message, Action action, [CallerMemberName] string methodName = "")
     {
-        action();
-        return 0;
+        return Stopwatch.Debug(className, message, action, methodName);
     }
 
-    public async Task<long> StopwatchLogDebugAsync(string className, string message, Func<Task> action, [CallerMemberName] string methodName = "")
+    public Task<long> StopwatchLogDebugAsync(string className, string message, Func<Task> action, [CallerMemberName] string methodName = "")
     {
-        await action();
-        return 0;
+        return Stopwatch.DebugAsync(className, message, action, methodName);
     }
 
     public long StopwatchLogInfo(string className, string message, Action action, [CallerMemberName] string methodName = "")
     {
-        action();
-        return 0;
+        return Stopwatch.Info(className, message, action, methodName);
     }
 
-    public async Task<long> StopwatchLogInfoAsync(string className, string message, Func<Task> action, [CallerMemberName] string methodName = "")
+    public Task<long> StopwatchLogInfoAsync(string className, string message, Func<Task> action, [CallerMemberName] string methodName = "")
     {
-        await action();
-        return 0;
+        return Stopwatch.InfoAsync(className, message, action, methodName);
     }
 
     public ValueTask<ImageSource?> LoadImageAsync(string path, bool loadFullImage = false, bool cacheImage = true) =>

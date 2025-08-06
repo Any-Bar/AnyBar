@@ -28,7 +28,7 @@ public class NotificationHelper
         }
         catch (Exception e)
         {
-            App.API.LogException(ClassName, "Failed to show notification", e);
+            App.API.LogFatal(ClassName, "Failed to show notification", e);
         }
     }
 }

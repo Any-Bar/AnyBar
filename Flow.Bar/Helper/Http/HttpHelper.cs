@@ -97,7 +97,7 @@ public static class HttpHelper
         catch (UriFormatException e)
         {
             App.API.ShowMsg(Localize.HTTPHelper_PleaseTryAgain(), Localize.HTTPHelper_ParseProxyFailed());
-            App.API.LogException(ClassName, "Unable to parse Uri", e);
+            App.API.LogFatal(ClassName, "Unable to parse Uri", e);
         }
     }
 
@@ -155,7 +155,7 @@ public static class HttpHelper
         }
         catch (HttpRequestException e)
         {
-            App.API.LogException(ClassName, "Http Request Error", e, "DownloadAsync");
+            App.API.LogFatal(ClassName, "Http Request Error", e, "DownloadAsync");
             throw;
         }
     }

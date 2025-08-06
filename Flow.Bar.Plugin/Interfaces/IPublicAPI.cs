@@ -62,18 +62,18 @@ public interface IPublicAPI
     /// <summary>
     /// Log warning message
     /// </summary>
-    void LogWarn(string className, string message, [CallerMemberName] string methodName = "");
+    void LogWarning(string className, string message, [CallerMemberName] string methodName = "");
 
     /// <summary>
     /// Log error message. Preferred error logging method for plugins.
     /// </summary>
-    void LogError(string className, string message, [CallerMemberName] string methodName = "");
+    void LogError(string className, string message, Exception e = null, [CallerMemberName] string methodName = "");
 
     /// <summary>
-    /// Log an Exception. Will throw if in debug mode so developer will be aware,
+    /// Log fatal message. Will throw if in debug mode so developer will be aware,
     /// otherwise logs the eror message. This is the primary logging method used for Flow
     /// </summary>
-    void LogException(string className, string message, Exception e, [CallerMemberName] string methodName = "");
+    void LogFatal(string className, string message, Exception e = null, [CallerMemberName] string methodName = "");
 
     /// <summary>
     /// Log debug message of the time taken to execute a method

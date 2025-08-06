@@ -45,7 +45,7 @@ public partial class SettingsPaneAppBarViewModel(AppBarManagementService appBarM
             }
             catch (Exception ex)
             {
-                App.API.LogException(ClassName, "Failed to show AddAppBarDialog", ex);
+                App.API.LogFatal(ClassName, "Failed to show AddAppBarDialog", ex);
                 return;
             }
         }

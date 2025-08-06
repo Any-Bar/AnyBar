@@ -75,7 +75,7 @@ public static class ImageLoader
         }
         catch (Exception e)
         {
-            App.API.LogException(ClassName, "Failed to save image cache to file", e);
+            App.API.LogFatal(ClassName, "Failed to save image cache to file", e);
         }
         finally
         {
@@ -147,8 +147,8 @@ public static class ImageLoader
             }
             catch (Exception e2)
             {
-                App.API.LogException(ClassName, $"Failed to get thumbnail for {path} on first try", e);
-                App.API.LogException(ClassName, $"Failed to get thumbnail for {path} on second try", e2);
+                App.API.LogFatal(ClassName, $"Failed to get thumbnail for {path} on first try", e);
+                App.API.LogFatal(ClassName, $"Failed to get thumbnail for {path} on second try", e2);
 
                 ImageSource? image = ImageCache[Constants.MissingImgIcon, false];
                 ImageCache[path, false] = image;
@@ -214,7 +214,7 @@ public static class ImageLoader
                     {
                         image = Image;
                         type = ImageType.Error;
-                        App.API.LogException(ClassName, $"Failed to load image file from path {path}: {ex.Message}", ex);
+                        App.API.LogFatal(ClassName, $"Failed to load image file from path {path}: {ex.Message}", ex);
                     }
                 }
                 else
@@ -238,7 +238,7 @@ public static class ImageLoader
                 {
                     image = Image;
                     type = ImageType.Error;
-                    App.API.LogException(ClassName, $"Failed to load SVG image from path {path}: {ex.Message}", ex);
+                    App.API.LogFatal(ClassName, $"Failed to load SVG image from path {path}: {ex.Message}", ex);
                 }
             }
             else

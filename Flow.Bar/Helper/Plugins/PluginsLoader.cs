@@ -54,19 +54,19 @@ public static class PluginsLoader
 #else
                 catch (Exception e) when (assembly == null)
                 {
-                    App.API.LogException(ClassName, $"Couldn't load assembly for the plugin: {metadata.Name}", e);
+                    App.API.LogFatal(ClassName, $"Couldn't load assembly for the plugin: {metadata.Name}", e);
                 }
                 catch (InvalidOperationException e)
                 {
-                    App.API.LogException(ClassName, $"Can't find the required IPlugin interface for the plugin: <{metadata.Name}>", e);
+                    App.API.LogFatal(ClassName, $"Can't find the required IPlugin interface for the plugin: <{metadata.Name}>", e);
                 }
                 catch (ReflectionTypeLoadException e)
                 {
-                    App.API.LogException(ClassName, $"The GetTypes method was unable to load assembly types for the plugin: <{metadata.Name}>", e);
+                    App.API.LogFatal(ClassName, $"The GetTypes method was unable to load assembly types for the plugin: <{metadata.Name}>", e);
                 }
                 catch (Exception e)
                 {
-                    App.API.LogException(ClassName, $"The following plugin has errored and can not be loaded: <{metadata.Name}>", e);
+                    App.API.LogFatal(ClassName, $"The following plugin has errored and can not be loaded: <{metadata.Name}>", e);
                 }
 #endif
 

@@ -51,7 +51,7 @@ public static class PluginManager
         {
             if (string.IsNullOrEmpty(metadata.AssemblyName))
             {
-                App.API.LogWarn(ClassName, $"AssemblyName is empty for plugin with metadata: {metadata.Name}");
+                App.API.LogWarning(ClassName, $"AssemblyName is empty for plugin with metadata: {metadata.Name}");
                 continue; // Skip if AssemblyName is not set, which can happen for erroneous plugins
             }
             metadata.PluginSettingsDirectoryPath = Path.Combine(DataLocation.PluginSettingsDirectory, metadata.AssemblyName);
@@ -76,7 +76,7 @@ public static class PluginManager
             }
             catch (Exception e)
             {
-                App.API.LogException(ClassName, $"Fail to Init plugin: {pair.Metadata.Name}", e);
+                App.API.LogFatal(ClassName, $"Fail to Init plugin: {pair.Metadata.Name}", e);
                 if (pair.Metadata.Disabled)
                 {
                     // If this plugin is already disabled, do not show error message again

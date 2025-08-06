@@ -1,5 +1,4 @@
-﻿using Serilog;
-using System;
+﻿using System;
 using System.Runtime.CompilerServices;
 using System.Windows.Threading;
 
@@ -11,8 +10,7 @@ public static class ErrorReporting
 
     private static void Report(Exception e, [CallerMemberName] string methodName = "UnHandledException")
     {
-        var logger = Log.ForContext("SourceContext", $"{ClassName}|{methodName}");
-        logger.Fatal(e, ExceptionFormatter.FormatExcpetion(e));
+        App.API.LogFatal(ClassName, ExceptionFormatter.FormatExcpetion(e), e, methodName);
         // TODO: Add ReportWindow
         /*var reportWindow = new ReportWindow(e);
         reportWindow.Show();*/
