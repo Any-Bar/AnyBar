@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.DependencyInjection;
 using Flow.Bar.Controls;
 using Flow.Bar.Helper.Plugins;
+using Flow.Bar.Helper.Windows;
 using Flow.Bar.Models;
 using Flow.Bar.Models.AppBar;
 using Flow.Bar.Models.Enums;
@@ -33,6 +34,7 @@ public partial class AppBarWindow : Window
     public AppBarModel Model { get; }
 
     private readonly AppBarManagementService _appBarManagementService = Ioc.Default.GetRequiredService<AppBarManagementService>();
+    private readonly NavigationViewService _navigationViewService = Ioc.Default.GetRequiredService<NavigationViewService>();
 
     private HWND _hwnd;
     private HwndSource? _hwndSource;
@@ -80,8 +82,8 @@ public partial class AppBarWindow : Window
                 if (_isAppBarRegistered)
                 {
                     {
-                    var abd = GetAppBarData();
-                    PInvoke.SHAppBarMessage(PInvoke.ABM_REMOVE, ref abd);
+                        var abd = GetAppBarData();
+                        PInvoke.SHAppBarMessage(PInvoke.ABM_REMOVE, ref abd);
                     }
 
                     {
@@ -107,7 +109,17 @@ public partial class AppBarWindow : Window
         settingItem.SetResourceReference(HeaderedItemsControl.HeaderProperty, nameof(Localize.SettingAppBarWindow_AppBarSettings));
         settingItem.Click += (o, e) =>
         {
-            App.API.ShowSettingWindow();
+            // Setting window is already opened
+            if (WindowTracker.GetActiveWindow<SettingWindow>().Count > 0)
+            {
+                App.API.ShowSettingWindow();
+                _navigationViewService.NavigateTo(SettingPageTag.AppBarSetting, Model);
+            }
+            else
+            {
+                _navigationViewService.SetNextNavigation(SettingPageTag.AppBarSetting, Model);
+                App.API.ShowSettingWindow();
+            }
         };
         _contextMenu.Items.Add(settingItem);
     }

@@ -19,6 +19,7 @@ public class NavigationViewService(PageService pageService)
     private ScrollViewer? _scrollViewer;
     private Frame? _frame;
 
+    private Tuple<SettingPageTag, object?>? _nextNavigation;
     private readonly Dictionary<Type, object?> _nextParameter = [];
 
     // Due to the limitation of WPF & iNKORE.UI.WPF.Modern framewoork.
@@ -136,6 +137,16 @@ public class NavigationViewService(PageService pageService)
     }
 
     /// <summary>
+    /// Set the next navigation after the frame is navigated.
+    /// </summary>
+    /// <param name="tag"></param>
+    /// <param name="parameter"></param>
+    public void SetNextNavigation(SettingPageTag pageTag, object? parameter)
+    {
+        _nextNavigation = new Tuple<SettingPageTag, object?>(pageTag, parameter);
+    }
+
+    /// <summary>
     /// Sets the next parameter for a specific page key.
     /// </summary>
     /// <param name="pageKey"></param>
@@ -217,6 +228,14 @@ public class NavigationViewService(PageService pageService)
         // TODO: Use DynamicResource for Binding
         // Update the header of the NavigationView
         _navigationView.Header = page.Title;
+
+        if (_nextNavigation != null)
+        {
+            var nextNavigationTag = _nextNavigation.Item1;
+            var nextNavigationParameter = _nextNavigation.Item2;
+            _nextNavigation = null;
+            NavigateTo(nextNavigationTag, nextNavigationParameter);
+        }
     }
 
     private static object? GetPageViewModel(Page page) => page.DataContext as INavigationAware;
