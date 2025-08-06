@@ -29,6 +29,7 @@
     <system:String x:Key="SettingPaneAppBar_AddAppBar">Add AppBar</system:String>
 
     <!--  Setting Pane AppBar Setting  -->
+    <system:String x:Key="SettingPaneAppBarSetting_Remove">Remove</system:String>
     <system:String x:Key="SettingPaneAppBarSetting_BarBehaviour">Bar behaviour</system:String>
     <system:String x:Key="SettingPaneAppBarSetting_DockMode">Dock mode</system:String>
     <system:String x:Key="SettingPaneAppBarSetting_Monitor">Monitor</system:String>

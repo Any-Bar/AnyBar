@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using Flow.Bar.Helper.Monitor;
 using Flow.Bar.Interfaces;
 using Flow.Bar.Models.AppBar;
@@ -10,11 +11,13 @@ using System.Collections.Generic;
 
 namespace Flow.Bar.ViewModels.SettingPages;
 
-public partial class SettingsPaneAppBarSettingViewModel(AppBarManagementService appBarManagementService) : ObservableObject, INavigationAware
+public partial class SettingsPaneAppBarSettingViewModel(AppBarManagementService appBarManagementService, NavigationViewService navigationViewService) : ObservableObject, INavigationAware
 {
     private static readonly string ClassName = nameof(SettingsPaneAppBarSettingViewModel);
 
     private readonly AppBarManagementService _appBarManagementService = appBarManagementService;
+
+    private readonly NavigationViewService _navigationViewService = navigationViewService;
 
     private bool _isInitialized = false;
 
@@ -118,6 +121,13 @@ public partial class SettingsPaneAppBarSettingViewModel(AppBarManagementService 
     public void OnNavigatedFrom()
     {
         _isInitialized = false;
+    }
+
+    [RelayCommand]
+    private void RemoveAppBar()
+    {
+        _appBarManagementService.RemoveAppBar(AppBarModel.Order);
+        _navigationViewService.GoBack();
     }
 
     private void UpdateActualMonitor(string? monitorName)

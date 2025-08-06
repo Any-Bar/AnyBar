@@ -46,7 +46,8 @@
                 Grid.Column="3"
                 MinWidth="135"
                 MinHeight="30"
-                Content="Remove" />
+                Command="{Binding RemoveAppBarCommand, Mode=OneTime}"
+                Content="{DynamicResource SettingPaneAppBarSetting_Remove}" />
         </Grid>
         <TextBlock
             x:Name="BarBehaviourTitle"

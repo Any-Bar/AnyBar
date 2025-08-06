@@ -62,6 +62,22 @@ public class AppBarManagementService(Settings settings)
         }
     }
 
+    public void RemoveAppBar(int order)
+    {
+        lock (_appBarWindowLock)
+        {
+            if (_settings.AppBars.Remove(order, out var _))
+            {
+                _settings.Save();
+                if (AppBarWindowPairs.TryGetValue(order, out var appBarWindow))
+                {
+                    appBarWindow.Close();
+                    AppBarWindowPairs.Remove(order);
+                }
+            }
+        }
+    }
+
     #endregion
 
     #region Model Management
