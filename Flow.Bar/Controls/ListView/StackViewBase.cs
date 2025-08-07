@@ -1,6 +1,7 @@
 ﻿using iNKORE.UI.WPF.Modern.Controls.Helpers;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace Flow.Bar.Controls;
 
@@ -74,5 +75,63 @@ public class StackViewBase : ListBox
     {
         var clickedItem = ItemContainerGenerator.ItemFromContainer(item);
         ItemClick?.Invoke(this, new StackViewItemClickEventArgs { ClickedItem = clickedItem });
+    }
+
+    public event ItemMouseButtonEventHandler? ItemPreviewMouseLeftButtonDown;
+    public event ItemMouseButtonEventHandler? ItemPreviewMouseLeftButtonUp;
+    public event ItemMouseButtonEventHandler? ItemMouseLeftButtonDown;
+    public event ItemMouseButtonEventHandler? ItemMouseLeftButtonUp;
+
+    internal void NotifyListItemPreviewMouseLeftButtonDown(StackViewBaseItem item, MouseButtonEventArgs e)
+    {
+        var clickedItem = ItemContainerGenerator.ItemFromContainer(item);
+        ItemPreviewMouseLeftButtonDown?.Invoke(this, new StackViewItemMouseButtonEventArgs(item, e));
+    }
+
+    internal void NotifyListItemPreviewMouseLeftButtonUp(StackViewBaseItem item, MouseButtonEventArgs e)
+    {
+        var clickedItem = ItemContainerGenerator.ItemFromContainer(item);
+        ItemPreviewMouseLeftButtonUp?.Invoke(this, new StackViewItemMouseButtonEventArgs(item, e));
+    }
+
+    internal void NotifyListItemMouseLeftButtonDown(StackViewBaseItem item, MouseButtonEventArgs e)
+    {
+        var clickedItem = ItemContainerGenerator.ItemFromContainer(item);
+        ItemMouseLeftButtonDown?.Invoke(this, new StackViewItemMouseButtonEventArgs(item, e));
+    }
+
+    internal void NotifyListItemMouseLeftButtonUp(StackViewBaseItem item, MouseButtonEventArgs e)
+    {
+        var clickedItem = ItemContainerGenerator.ItemFromContainer(item);
+        ItemMouseLeftButtonUp?.Invoke(this, new StackViewItemMouseButtonEventArgs(item, e));
+    }
+
+    public event ItemMouseButtonEventHandler? ItemPreviewMouseRightButtonDown;
+    public event ItemMouseButtonEventHandler? ItemPreviewMouseRightButtonUp;
+    public event ItemMouseButtonEventHandler? ItemMouseRightButtonDown;
+    public event ItemMouseButtonEventHandler? ItemMouseRightButtonUp;
+
+    internal void NotifyListItemPreviewMouseRightButtonDown(StackViewBaseItem item, MouseButtonEventArgs e)
+    {
+        var clickedItem = ItemContainerGenerator.ItemFromContainer(item);
+        ItemPreviewMouseRightButtonDown?.Invoke(this, new StackViewItemMouseButtonEventArgs(item, e));
+    }
+
+    internal void NotifyListItemPreviewMouseRightButtonUp(StackViewBaseItem item, MouseButtonEventArgs e)
+    {
+        var clickedItem = ItemContainerGenerator.ItemFromContainer(item);
+        ItemPreviewMouseRightButtonUp?.Invoke(this, new StackViewItemMouseButtonEventArgs(item, e));
+    }
+
+    internal void NotifyListItemMouseRightButtonDown(StackViewBaseItem item, MouseButtonEventArgs e)
+    {
+        var clickedItem = ItemContainerGenerator.ItemFromContainer(item);
+        ItemMouseRightButtonDown?.Invoke(this, new StackViewItemMouseButtonEventArgs(item, e));
+    }
+
+    internal void NotifyListItemMouseRightButtonUp(StackViewBaseItem item, MouseButtonEventArgs e)
+    {
+        var clickedItem = ItemContainerGenerator.ItemFromContainer(item);
+        ItemMouseRightButtonUp?.Invoke(this, new StackViewItemMouseButtonEventArgs(item, e));
     }
 }

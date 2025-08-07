@@ -50,13 +50,32 @@ public class StackViewBaseItem : ListBoxItem
 
     #endregion
 
+    protected override void OnPreviewMouseLeftButtonDown(MouseButtonEventArgs e)
+    {
+        if (!e.Handled)
+        {
+            ParentStackPanelViewBase?.NotifyListItemPreviewMouseLeftButtonDown(this, e);
+        }
+        base.OnPreviewMouseLeftButtonDown(e);
+    }
+
     protected override void OnMouseLeftButtonDown(MouseButtonEventArgs e)
     {
         if (!e.Handled)
         {
             m_isPressed = true;
+            ParentStackPanelViewBase?.NotifyListItemMouseLeftButtonDown(this, e);
         }
         base.OnMouseLeftButtonDown(e);
+    }
+
+    protected override void OnPreviewMouseLeftButtonUp(MouseButtonEventArgs e)
+    {
+        if (!e.Handled)
+        {
+            ParentStackPanelViewBase?.NotifyListItemPreviewMouseLeftButtonUp(this, e);
+        }
+        base.OnPreviewMouseLeftButtonUp(e);
     }
 
     protected override void OnMouseLeftButtonUp(MouseButtonEventArgs e)
@@ -65,8 +84,45 @@ public class StackViewBaseItem : ListBoxItem
         {
             HandleItemClick(e);
             m_isPressed = false;
+            ParentStackPanelViewBase?.NotifyListItemMouseLeftButtonUp(this, e);
         }
         base.OnMouseLeftButtonUp(e);
+    }
+
+    protected override void OnMouseRightButtonDown(MouseButtonEventArgs e)
+    {
+        if (!e.Handled)
+        {
+            ParentStackPanelViewBase?.NotifyListItemMouseRightButtonDown(this, e);
+        }
+        base.OnMouseRightButtonDown(e);
+    }
+
+    protected override void OnMouseRightButtonUp(MouseButtonEventArgs e)
+    {
+        if (!e.Handled)
+        {
+            ParentStackPanelViewBase?.NotifyListItemMouseRightButtonUp(this, e);
+        }
+        base.OnMouseRightButtonUp(e);
+    }
+
+    protected override void OnPreviewMouseRightButtonDown(MouseButtonEventArgs e)
+    {
+        if (!e.Handled)
+        {
+            ParentStackPanelViewBase?.NotifyListItemPreviewMouseRightButtonDown(this, e);
+        }
+        base.OnPreviewMouseRightButtonDown(e);
+    }
+
+    protected override void OnPreviewMouseRightButtonUp(MouseButtonEventArgs e)
+    {
+        if (!e.Handled)
+        {
+            ParentStackPanelViewBase?.NotifyListItemPreviewMouseRightButtonUp(this, e);
+        }
+        base.OnPreviewMouseRightButtonUp(e);
     }
 
     protected override void OnMouseLeave(MouseEventArgs e)
@@ -98,8 +154,8 @@ public class StackViewBaseItem : ListBoxItem
             if (r.Contains(e.GetPosition(this)))
             {
                 ParentStackPanelViewBase?.NotifyListItemClicked(this);
+            }
         }
-    }
     }
 
     private StackViewBase? ParentStackPanelViewBase => ItemsControl.ItemsControlFromItemContainer(this) as StackViewBase;
