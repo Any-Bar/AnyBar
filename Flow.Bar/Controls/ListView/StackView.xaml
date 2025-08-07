@@ -19,8 +19,8 @@
         <Setter Property="FontSize" Value="{DynamicResource ControlContentThemeFontSize}" />
         <Setter Property="Background" Value="{DynamicResource ListViewItemBackground}" />
         <Setter Property="Foreground" Value="{DynamicResource ListViewItemForeground}" />
-        <Setter Property="HorizontalAlignment" Value="{Binding HorizontalAlignment, RelativeSource={RelativeSource AncestorType=ItemsPresenter}}" />
-        <Setter Property="VerticalAlignment" Value="{Binding VerticalAlignment, RelativeSource={RelativeSource AncestorType=ItemsPresenter}}" />
+        <Setter Property="HorizontalContentAlignment" Value="{Binding HorizontalContentAlignment, RelativeSource={RelativeSource AncestorType=local:StackView}}" />
+        <Setter Property="VerticalContentAlignment" Value="{Binding VerticalContentAlignment, RelativeSource={RelativeSource AncestorType=local:StackView}}" />
         <Setter Property="SnapsToDevicePixels" Value="True" />
         <Setter Property="ui:ControlHelper.CornerRadius" Value="{DynamicResource ListViewItemCornerRadius}" />
         <Setter Property="FocusVisualStyle" Value="{DynamicResource {x:Static SystemParameters.FocusVisualStyleKey}}" />
@@ -43,8 +43,8 @@
                             <ui:ContentPresenterEx
                                 x:Name="ContentPresenter"
                                 Margin="{TemplateBinding Padding}"
-                                HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
-                                VerticalAlignment="{TemplateBinding VerticalAlignment}"
+                                HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
                                 SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
                         </Grid>
                     </Border>
@@ -101,8 +101,6 @@
                                 x:Name="ItemsPresenter"
                                 Grid.Row="1"
                                 Margin="{StaticResource StackViewItemsPresenterMargin}"
-                                HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-                                VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
                                 SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
                         </ui:ScrollViewerEx>
                     </Border>
