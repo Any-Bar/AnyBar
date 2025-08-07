@@ -55,7 +55,6 @@ public partial class AppBarViewModel : ObservableObject
     public void Initialize(AppBarModel model)
     {
         Order = model.Order;
-        Order = model.Order;
         DockMode = model.DockMode;
         MonitorName = model.MonitorName;
         FollowSystemTaskbarWidthOrHeight = model.FollowSystemTaskbarWidthOrHeight;
