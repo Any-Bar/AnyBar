@@ -12,6 +12,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media;
+using MessageBox = iNKORE.UI.WPF.Modern.Controls.MessageBox;
 
 namespace Flow.Bar.Models;
 
@@ -50,7 +51,7 @@ public class PublicAPIInstance(Settings settings) : IPublicAPI
 
     public MessageBoxResult ShowMsgBox(string messageBoxText, string caption = "", MessageBoxButton button = MessageBoxButton.OK, MessageBoxImage icon = MessageBoxImage.None, MessageBoxResult defaultResult = MessageBoxResult.OK)
     {
-        return iNKORE.UI.WPF.Modern.Controls.MessageBox.Show(messageBoxText, caption, button, icon, defaultResult);
+        return MessageBox.Show(messageBoxText, caption, button, icon, defaultResult);
     }
 
     public void LogDebug(string className, string message, [CallerMemberName] string methodName = "")

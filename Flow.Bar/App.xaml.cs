@@ -26,6 +26,9 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Interop;
+using MessageBox = System.Windows.MessageBox;
+using NotifyIcon = System.Windows.Forms.NotifyIcon;
+using MouseButtons = System.Windows.Forms.MouseButtons;
 
 namespace Flow.Bar;
 
@@ -38,7 +41,7 @@ public partial class App : Application, IDisposable, ISingleInstanceApp
 
     private static bool _disposed;
 
-    private System.Windows.Forms.NotifyIcon _notifyIcon = null!;
+    private NotifyIcon _notifyIcon = null!;
     private readonly ContextMenu _contextMenu = new();
 
     // To prevent two disposals running at the same time.
@@ -143,7 +146,7 @@ public partial class App : Application, IDisposable, ISingleInstanceApp
     private static void ShowErrorMsgBoxAndFailFast(string message, Exception e)
     {
         // Firstly show users the message
-        System.Windows.MessageBox.Show(e.ToString(), message, MessageBoxButton.OK, MessageBoxImage.Error);
+        MessageBox.Show(e.ToString(), message, MessageBoxButton.OK, MessageBoxImage.Error);
 
         // Flow cannot construct its App instance, so ensure Flow crashes w/ the exception info.
         Environment.FailFast(message, e);
@@ -274,7 +277,7 @@ public partial class App : Application, IDisposable, ISingleInstanceApp
         };
         _contextMenu.Items.Add(settingItem);
         _contextMenu.Items.Add(exitItem);
-        _notifyIcon = new System.Windows.Forms.NotifyIcon
+        _notifyIcon = new NotifyIcon
         {
             Text = Constants.FlowBarFullName,
 #if DEBUG
@@ -288,7 +291,7 @@ public partial class App : Application, IDisposable, ISingleInstanceApp
         {
             switch (e.Button)
             {
-                case System.Windows.Forms.MouseButtons.Right:
+                case MouseButtons.Right:
 
                     _contextMenu.IsOpen = true;
                     // Get context menu handle and bring it to the foreground at the topmost
