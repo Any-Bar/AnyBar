@@ -19,7 +19,7 @@
                 <ResourceDictionary Source="/Resources/ResourceDictionaries/ContentDialogStyle.xaml" />
                 <!--  Controls  -->
                 <ResourceDictionary Source="/Controls/ContentDialog/ContentDialog.xaml" />
-                <ResourceDictionary Source="/Controls/ListView/StacklView.xaml" />
+                <ResourceDictionary Source="/Controls/ListView/StackView.xaml" />
                 <ResourceDictionary Source="/Controls/MenuFlyout/AppBarMenuFlyout.xaml" />
                 <ResourceDictionary Source="/Controls/NavigationView/NavigationView.xaml" />
                 <ResourceDictionary Source="/Controls/SplitView/SplitViewEx.xaml" />
