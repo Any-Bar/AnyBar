@@ -30,6 +30,7 @@ public class AppBarModel : IEquatable<AppBarModel>
             foreach (var element in _leftOrTopBarElements)
             {
                 element.AppBar = this;
+                element.BarElementPosition = BarElementModel.Position.LeftOrTop;
             }
             return _leftOrTopBarElements;
         }
@@ -39,6 +40,7 @@ public class AppBarModel : IEquatable<AppBarModel>
             foreach (var element in _leftOrTopBarElements)
             {
                 element.AppBar = this;
+                element.BarElementPosition = BarElementModel.Position.LeftOrTop;
             }
         }
     }
@@ -51,6 +53,7 @@ public class AppBarModel : IEquatable<AppBarModel>
             foreach (var element in _centerBarElements)
             {
                 element.AppBar = this;
+                element.BarElementPosition = BarElementModel.Position.Center;
             }
             return _centerBarElements;
         }
@@ -60,6 +63,7 @@ public class AppBarModel : IEquatable<AppBarModel>
             foreach (var element in _centerBarElements)
             {
                 element.AppBar = this;
+                element.BarElementPosition = BarElementModel.Position.Center;
             }
         }
     }
@@ -72,6 +76,7 @@ public class AppBarModel : IEquatable<AppBarModel>
             foreach (var element in _rightOrBottomBarElements)
             {
                 element.AppBar = this;
+                element.BarElementPosition = BarElementModel.Position.RightOrBottom;
             }
             return _rightOrBottomBarElements;
         }
@@ -81,6 +86,7 @@ public class AppBarModel : IEquatable<AppBarModel>
             foreach (var element in _rightOrBottomBarElements)
             {
                 element.AppBar = this;
+                element.BarElementPosition = BarElementModel.Position.RightOrBottom;
             }
         }
     }
