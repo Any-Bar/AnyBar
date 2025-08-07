@@ -50,7 +50,10 @@
                 Content="{DynamicResource SettingPaneAppBarSetting_Remove}" />
         </Grid>
 
-        <ui:SettingsCard Header="{DynamicResource SettingPaneAppBarSetting_Name}">
+        <ui:SettingsCard
+            x:Name="BarNameCard"
+            Margin="{StaticResource SettingsSectionHeaderMargin}"
+            Header="{DynamicResource SettingPaneAppBarSetting_Name}">
             <TextBox MinWidth="120" Text="{Binding Name, Mode=TwoWay}" />
         </ui:SettingsCard>
 
