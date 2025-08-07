@@ -5,7 +5,7 @@ namespace Flow.Bar.Models.AppBar;
 public class BarElementModel
 {
     [JsonIgnore]
-    public required AppBarModel AppBar { get; set; }
+    public AppBarModel AppBar { get; set; } = null!;
 
     public int Order { get; set; } = -1;
 

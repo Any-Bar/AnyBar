@@ -64,14 +64,16 @@ public class Settings
             MonitorName = null,
             FollowSystemTaskbarWidthOrHeight = true,
             DockedWidthOrHeight = dockedWidthOrHeight,
-            IsResizable = false
+            IsResizable = false,
+            RightOrBottomBarElements =
+            [
+                new()
+                {
+                    Order = 0,
+                    ID = Constants.FlowBarPluginClockPluginId,
+                }
+            ]
         };
-        demoAppBar.RightOrBottomBarElements.Add(new BarElementModel
-        {
-            ID = "DemoElement",
-            Order = 0,
-            AppBar = demoAppBar
-        });
         return demoAppBar;
     }
 
