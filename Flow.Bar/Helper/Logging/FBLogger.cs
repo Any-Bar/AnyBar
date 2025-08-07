@@ -30,25 +30,25 @@ public static class FBLogger
 
     public static void Debug(string className, string message, [CallerMemberName] string methodName = "")
     {
-        var logger = GetLogger(className, message, methodName);
+        var logger = GetLogger(className, methodName);
         logger.Debug(message);
     }
 
     public static void Information(string className, string message, [CallerMemberName] string methodName = "")
     {
-        var logger = GetLogger(className, message, methodName);
+        var logger = GetLogger(className, methodName);
         logger.Information(message);
     }
 
     public static void Warning(string className, string message, [CallerMemberName] string methodName = "")
     {
-        var logger = GetLogger(className, message, methodName);
+        var logger = GetLogger(className, methodName);
         logger.Warning(message);
     }
 
     public static void Error(string className, string message, Exception? exception = null, [CallerMemberName] string methodName = "")
     {
-        var logger = GetLogger(className, message, methodName);
+        var logger = GetLogger(className, methodName);
         if (exception is not null)
         {
             logger.Error(exception, message);
@@ -61,7 +61,7 @@ public static class FBLogger
 
     public static void Fatal(string className, string message, Exception? exception = null, [CallerMemberName] string methodName = "")
     {
-        var logger = GetLogger(className, message, methodName);
+        var logger = GetLogger(className, methodName);
         if (exception is not null)
         {
             logger.Fatal(exception, message);
@@ -75,14 +75,14 @@ public static class FBLogger
 #endif
     }
 
-    private static ILogger GetLogger(string className, string message, [CallerMemberName] string methodName = "")
+    private static ILogger GetLogger(string className, [CallerMemberName] string methodName = "")
     {
-        var classNameWithMethod = CheckClassAndMessageAndReturnFullClassWithMethod(className, message, methodName);
+        var classNameWithMethod = CheckClassAndMessageAndReturnFullClassWithMethod(className, methodName);
 
         return Log.ForContext(SourceContext, classNameWithMethod);
     }
 
-    private static string CheckClassAndMessageAndReturnFullClassWithMethod(string className, string message, string methodName)
+    private static string CheckClassAndMessageAndReturnFullClassWithMethod(string className, string methodName)
     {
         if (string.IsNullOrWhiteSpace(className) && string.IsNullOrWhiteSpace(methodName))
         {
