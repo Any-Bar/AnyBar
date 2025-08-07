@@ -43,31 +43,36 @@ public class Settings
             if (_appBars == null)
             {
                 _appBars = [];
-                var monitor = MonitorInfoHelper.GetMonitorInfoFromName(null);
-                var dockedWidthOrHeight = MonitorInfoHelper.GetMonitorTaskBarWidthOrHeight(monitor);
-                var demoAppBar = new AppBarModel
-                {
-                    Order = 0,
-                    Name = "Demo AppBar",
-                    DockMode = AppBarDockMode.Top,
-                    MonitorName = null,
-                    FollowSystemTaskbarWidthOrHeight = true,
-                    DockedWidthOrHeight = dockedWidthOrHeight,
-                    IsResizable = false,
-                    RightOrBottomBarElements =
-                    [
-                        new()
-                        {
-                            Order = 0,
-                            ID = Constants.FlowBarPluginClockPluginId,
-                        }
-                    ]
-                };
+                var demoAppBar = GetDemoAppBar();
                 _appBars.TryAdd(0, demoAppBar);
             }
+
             return _appBars;
         }
         set => _appBars = value;
+    }
+
+    private static AppBarModel GetDemoAppBar()
+    {
+        var monitor = MonitorInfoHelper.GetMonitorInfoFromName(null);
+        var dockedWidthOrHeight = MonitorInfoHelper.GetMonitorTaskBarWidthOrHeight(monitor);
+        var demoAppBar = new AppBarModel
+        {
+            Order = 0,
+            Name = "Demo AppBar",
+            DockMode = AppBarDockMode.Top,
+            MonitorName = null,
+            FollowSystemTaskbarWidthOrHeight = true,
+            DockedWidthOrHeight = dockedWidthOrHeight,
+            IsResizable = false
+        };
+        demoAppBar.RightOrBottomBarElements.Add(new BarElementModel
+        {
+            ID = "DemoElement",
+            Order = 0,
+            AppBar = demoAppBar
+        });
+        return demoAppBar;
     }
 
     public HttpProxy Proxy { get; set; } = new HttpProxy();

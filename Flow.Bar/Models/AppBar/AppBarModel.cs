@@ -22,11 +22,68 @@ public class AppBarModel : IEquatable<AppBarModel>
 
     public bool IsResizable { get; set; } = false;
 
-    public List<BarElementModel> LeftOrTopBarElements { get; set; } = [];
+    private List<BarElementModel> _leftOrTopBarElements = [];
+    public List<BarElementModel> LeftOrTopBarElements
+    {
+        get
+        {
+            foreach (var element in _leftOrTopBarElements)
+            {
+                element.AppBar = this;
+            }
+            return _leftOrTopBarElements;
+        }
+        set
+        {
+            _leftOrTopBarElements = value;
+            foreach (var element in _leftOrTopBarElements)
+            {
+                element.AppBar = this;
+            }
+        }
+    }
 
-    public List<BarElementModel> CenterBarElements { get; set; } = [];
+    private List<BarElementModel> _centerBarElements = [];
+    public List<BarElementModel> CenterBarElements
+    {
+        get
+        {
+            foreach (var element in _centerBarElements)
+            {
+                element.AppBar = this;
+            }
+            return _centerBarElements;
+        }
+        set
+        {
+            _centerBarElements = value;
+            foreach (var element in _centerBarElements)
+            {
+                element.AppBar = this;
+            }
+        }
+    }
 
-    public List<BarElementModel> RightOrBottomBarElements { get; set; } = [];
+    private List<BarElementModel> _rightOrBottomBarElements = [];
+    public List<BarElementModel> RightOrBottomBarElements
+    {
+        get
+        {
+            foreach (var element in _rightOrBottomBarElements)
+            {
+                element.AppBar = this;
+            }
+            return _rightOrBottomBarElements;
+        }
+        set
+        {
+            _rightOrBottomBarElements = value;
+            foreach (var element in _rightOrBottomBarElements)
+            {
+                element.AppBar = this;
+            }
+        }
+    }
 
     /// <inheritdoc />
     public override bool Equals(object? obj)
