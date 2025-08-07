@@ -21,8 +21,6 @@
         <Setter Property="Foreground" Value="{DynamicResource ListViewItemForeground}" />
         <Setter Property="HorizontalAlignment" Value="{Binding HorizontalAlignment, RelativeSource={RelativeSource AncestorType=ItemsPresenter}}" />
         <Setter Property="VerticalAlignment" Value="{Binding VerticalAlignment, RelativeSource={RelativeSource AncestorType=ItemsPresenter}}" />
-        <Setter Property="MinWidth" Value="{DynamicResource ListViewItemMinWidth}" />
-        <Setter Property="MinHeight" Value="{DynamicResource ListViewItemMinHeight}" />
         <Setter Property="SnapsToDevicePixels" Value="True" />
         <Setter Property="ui:ControlHelper.CornerRadius" Value="{DynamicResource ListViewItemCornerRadius}" />
         <Setter Property="FocusVisualStyle" Value="{DynamicResource {x:Static SystemParameters.FocusVisualStyleKey}}" />
