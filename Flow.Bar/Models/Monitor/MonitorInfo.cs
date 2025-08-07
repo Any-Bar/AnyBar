@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Flow.Bar.Helper;
+using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.Windows;
@@ -99,10 +100,7 @@ public class MonitorInfo : IEquatable<MonitorInfo>
     /// <returns>The display monitor that contains the cursor, or null if no monitor is found.</returns>
     public static unsafe MonitorInfo? GetCursorDisplayMonitor()
     {
-        if (!PInvoke.GetCursorPos(out var pt))
-        {
-            Marshal.ThrowExceptionForHR(Marshal.GetLastWin32Error());
-        }
+        var pt = Win32Helper.GetCursorPos();
         var cursorMonitor = PInvoke.MonitorFromPoint(pt, MONITOR_FROM_FLAGS.MONITOR_DEFAULTTONEAREST);
         MonitorInfo? cursorMonitorInfo = null;
         var callback = new MONITORENUMPROC((monitor, deviceContext, rect, data) =>

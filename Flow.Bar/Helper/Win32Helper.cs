@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System.Runtime.InteropServices;
+using System.Windows;
 using System.Windows.Interop;
 using Windows.Win32;
 using Windows.Win32.Foundation;
@@ -40,5 +41,14 @@ public static class Win32Helper
     internal static HWND GetActiveWindowHandle()
     {
         return PInvoke.GetActiveWindow();
+    }
+
+    internal static System.Drawing.Point GetCursorPos()
+    {
+        if (!PInvoke.GetCursorPos(out var pt))
+        {
+            Marshal.ThrowExceptionForHR(Marshal.GetLastWin32Error());
+        }
+        return pt;
     }
 }
