@@ -90,7 +90,7 @@ public static class FBLogger
         }
         else
         {
-            return $"{className}|{methodName}";
+            return $"{className}.{methodName}";
         }
     }
 
