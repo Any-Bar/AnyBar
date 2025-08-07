@@ -84,7 +84,7 @@ public class StackViewBaseItem : ListBoxItem
 
         if (e.Key == Key.Enter)
         {
-            OnClick();
+            ParentStackPanelViewBase?.NotifyListItemClicked(this);
             e.Handled = true;
         }
     }
@@ -97,14 +97,9 @@ public class StackViewBaseItem : ListBoxItem
 
             if (r.Contains(e.GetPosition(this)))
             {
-                OnClick();
-            }
+                ParentStackPanelViewBase?.NotifyListItemClicked(this);
         }
     }
-
-    private void OnClick()
-    {
-        ParentStackPanelViewBase?.NotifyListItemClicked(this);
     }
 
     private StackViewBase? ParentStackPanelViewBase => ItemsControl.ItemsControlFromItemContainer(this) as StackViewBase;
