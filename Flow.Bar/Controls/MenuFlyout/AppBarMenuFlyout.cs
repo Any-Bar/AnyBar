@@ -81,6 +81,31 @@ public class AppBarMenuFlyout : DependencyObject
 
     #endregion
 
+    #region StaysOpen
+
+    private static readonly DependencyPropertyKey StaysOpenPropertyKey =
+        DependencyProperty.RegisterReadOnly(
+            nameof(StaysOpen),
+            typeof(bool),
+            typeof(AppBarMenuFlyout),
+            new PropertyMetadata(false, OnStaysOpenChanged));
+
+    public bool StaysOpen
+    {
+        get => (bool)GetValue(StaysOpenPropertyKey.DependencyProperty);
+        internal set => SetValue(StaysOpenPropertyKey, value);
+    }
+
+    public static readonly DependencyProperty StaysOpenProperty =
+        StaysOpenPropertyKey.DependencyProperty;
+
+    private static void OnStaysOpenChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+    {
+        ((AppBarMenuFlyout)d).OnStaysOpenChanged();
+    }
+
+    #endregion
+
     #region IsOpen
 
     private static readonly DependencyPropertyKey IsOpenPropertyKey =
@@ -155,6 +180,18 @@ public class AppBarMenuFlyout : DependencyObject
 
     internal void OnIsOpenChanged()
     {
+        if (m_presenter != null)
+        {
+            m_presenter.IsOpen = IsOpen;
+        }
+    }
+
+    internal void OnStaysOpenChanged()
+    {
+        if (m_presenter != null)
+        {
+            m_presenter.StaysOpen = true;
+        }
     }
 
     internal void UpdateIsOpen()
@@ -217,6 +254,7 @@ public class AppBarMenuFlyout : DependencyObject
             presenter.SetOwningFlyout(this);
             BindPlacement(presenter);
             presenter.UpdatePopupAnimation();
+            presenter.StaysOpen = StaysOpen;
             presenter.Opened += OnPresenterOpened;
             presenter.Closed += OnPresenterClosed;
             presenter.IsOpenChanged += OnPresenterIsOpenChanged;
