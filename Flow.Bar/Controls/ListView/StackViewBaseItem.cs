@@ -63,7 +63,7 @@ public class StackViewBaseItem : ListBoxItem
     {
         if (!e.Handled)
         {
-            HandleMouseUp(e);
+            HandleItemClick(e);
             m_isPressed = false;
         }
         base.OnMouseLeftButtonUp(e);
@@ -89,7 +89,7 @@ public class StackViewBaseItem : ListBoxItem
         }
     }
 
-    private void HandleMouseUp(MouseButtonEventArgs e)
+    private void HandleItemClick(MouseButtonEventArgs e)
     {
         if (m_isPressed)
         {
