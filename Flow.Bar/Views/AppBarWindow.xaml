@@ -2,11 +2,14 @@
     x:Class="Flow.Bar.Views.AppBarWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="clr-namespace:Flow.Bar.Controls"
+    xmlns:converters="clr-namespace:Flow.Bar.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:enum="clr-namespace:Flow.Bar.Models.Enums"
     xmlns:ikw="http://schemas.inkore.net/lib/ui/wpf"
     xmlns:local="clr-namespace:Flow.Bar"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:models="clr-namespace:Flow.Bar.Models.AppBar"
     xmlns:ui="http://schemas.inkore.net/lib/ui/wpf/modern"
     xmlns:viewModels="clr-namespace:Flow.Bar.ViewModels"
     Width="800"
@@ -23,6 +26,9 @@
     Loaded="Window_Loaded"
     SourceInitialized="Window_SourceInitialized"
     mc:Ignorable="d">
+    <Window.Resources>
+        <converters:BarElementModelConverterToFrameworkElement x:Key="BarElementModelConverterToFrameworkElement" />
+    </Window.Resources>
 
     <Grid
         x:Name="MainGrid"
@@ -119,44 +125,129 @@
                 </Style>
             </Grid.Style>
 
-            <Grid Background="Transparent">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="*" />
-                    <RowDefinition Height="Auto" />
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="Auto" />
-                </Grid.ColumnDefinitions>
+            <DockPanel
+                x:Name="EdgeBarElementsDockPanel"
+                Background="Transparent"
+                LastChildFill="False">
+                <controls:StackView
+                    x:Name="LeftOrTopStackView"
+                    CanReorderItems="False"
+                    ItemsSource="{Binding LeftOrTopBarElements, Mode=OneWay}"
+                    ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                    ScrollViewer.VerticalScrollBarVisibility="Disabled">
+                    <controls:StackView.Style>
+                        <Style BasedOn="{StaticResource DefaultStackViewStyle}" TargetType="controls:StackView">
+                            <Setter Property="HorizontalAlignment" Value="Left" />
+                            <Setter Property="VerticalAlignment" Value="Center" />
+                            <Setter Property="HorizontalContentAlignment" Value="Left" />
+                            <Setter Property="VerticalContentAlignment" Value="Center" />
+                            <Setter Property="Orientation" Value="Horizontal" />
+                            <Setter Property="DockPanel.Dock" Value="Left" />
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding DockMode}" Value="{x:Static enum:AppBarDockMode.Left}">
+                                    <Setter Property="HorizontalAlignment" Value="Center" />
+                                    <Setter Property="VerticalAlignment" Value="Top" />
+                                    <Setter Property="HorizontalContentAlignment" Value="Center" />
+                                    <Setter Property="VerticalContentAlignment" Value="Top" />
+                                    <Setter Property="Orientation" Value="Vertical" />
+                                    <Setter Property="DockPanel.Dock" Value="Top" />
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding DockMode}" Value="{x:Static enum:AppBarDockMode.Right}">
+                                    <Setter Property="HorizontalAlignment" Value="Center" />
+                                    <Setter Property="VerticalAlignment" Value="Top" />
+                                    <Setter Property="HorizontalContentAlignment" Value="Center" />
+                                    <Setter Property="VerticalContentAlignment" Value="Top" />
+                                    <Setter Property="Orientation" Value="Vertical" />
+                                    <Setter Property="DockPanel.Dock" Value="Top" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </controls:StackView.Style>
 
-                <ikw:SimpleStackPanel
-                    x:Name="LeftOrTopStackPanel"
-                    Grid.Row="0"
-                    Grid.RowSpan="3"
-                    Grid.Column="0"
-                    Background="Transparent"
-                    Orientation="Horizontal"
-                    Spacing="8" />
+                    <controls:StackView.ItemTemplate>
+                        <DataTemplate DataType="models:BarElementModel">
+                            <ContentControl Content="{Binding ., Converter={StaticResource BarElementModelConverterToFrameworkElement}}" />
+                        </DataTemplate>
+                    </controls:StackView.ItemTemplate>
+                </controls:StackView>
 
-                <ikw:SimpleStackPanel
-                    x:Name="RightOrBottomStackPanel"
-                    Grid.Row="0"
-                    Grid.RowSpan="3"
-                    Grid.Column="2"
-                    Background="Transparent"
-                    Orientation="Horizontal"
-                    Spacing="8" />
-            </Grid>
+                <controls:StackView
+                    x:Name="RightOrBottomStackView"
+                    CanReorderItems="False"
+                    ItemsSource="{Binding CenterBarElements, Mode=OneWay}"
+                    ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                    ScrollViewer.VerticalScrollBarVisibility="Disabled">
+                    <controls:StackView.Style>
+                        <Style BasedOn="{StaticResource DefaultStackViewStyle}" TargetType="controls:StackView">
+                            <Setter Property="HorizontalAlignment" Value="Right" />
+                            <Setter Property="VerticalAlignment" Value="Center" />
+                            <Setter Property="HorizontalContentAlignment" Value="Left" />
+                            <Setter Property="VerticalContentAlignment" Value="Center" />
+                            <Setter Property="Orientation" Value="Horizontal" />
+                            <Setter Property="DockPanel.Dock" Value="Right" />
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding DockMode}" Value="{x:Static enum:AppBarDockMode.Left}">
+                                    <Setter Property="HorizontalAlignment" Value="Center" />
+                                    <Setter Property="VerticalAlignment" Value="Bottom" />
+                                    <Setter Property="HorizontalContentAlignment" Value="Center" />
+                                    <Setter Property="VerticalContentAlignment" Value="Top" />
+                                    <Setter Property="Orientation" Value="Vertical" />
+                                    <Setter Property="DockPanel.Dock" Value="Bottom" />
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding DockMode}" Value="{x:Static enum:AppBarDockMode.Right}">
+                                    <Setter Property="HorizontalAlignment" Value="Center" />
+                                    <Setter Property="VerticalAlignment" Value="Bottom" />
+                                    <Setter Property="HorizontalContentAlignment" Value="Center" />
+                                    <Setter Property="VerticalContentAlignment" Value="Top" />
+                                    <Setter Property="Orientation" Value="Vertical" />
+                                    <Setter Property="DockPanel.Dock" Value="Bottom" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </controls:StackView.Style>
 
-            <ikw:SimpleStackPanel
-                x:Name="CenterStackPanel"
+                    <controls:StackView.ItemTemplate>
+                        <DataTemplate DataType="models:BarElementModel">
+                            <ContentControl Content="{Binding ., Converter={StaticResource BarElementModelConverterToFrameworkElement}}" />
+                        </DataTemplate>
+                    </controls:StackView.ItemTemplate>
+                </controls:StackView>
+            </DockPanel>
+
+            <controls:StackView
+                x:Name="CenterStackView"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
-                Background="Transparent"
-                Orientation="Horizontal"
-                Spacing="8" />
+                CanReorderItems="False"
+                ItemsSource="{Binding CenterBarElements, Mode=OneWay}"
+                ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                ScrollViewer.VerticalScrollBarVisibility="Disabled">
+                <controls:StackView.Style>
+                    <Style BasedOn="{StaticResource DefaultStackViewStyle}" TargetType="controls:StackView">
+                        <Setter Property="HorizontalContentAlignment" Value="Left" />
+                        <Setter Property="VerticalContentAlignment" Value="Center" />
+                        <Setter Property="Orientation" Value="Horizontal" />
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding DockMode}" Value="{x:Static enum:AppBarDockMode.Left}">
+                                <Setter Property="HorizontalContentAlignment" Value="Center" />
+                                <Setter Property="VerticalContentAlignment" Value="Top" />
+                                <Setter Property="Orientation" Value="Vertical" />
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding DockMode}" Value="{x:Static enum:AppBarDockMode.Right}">
+                                <Setter Property="HorizontalContentAlignment" Value="Center" />
+                                <Setter Property="VerticalContentAlignment" Value="Top" />
+                                <Setter Property="Orientation" Value="Vertical" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </controls:StackView.Style>
+
+                <controls:StackView.ItemTemplate>
+                    <DataTemplate DataType="models:BarElementModel">
+                        <ContentControl Content="{Binding ., Converter={StaticResource BarElementModelConverterToFrameworkElement}}" />
+                    </DataTemplate>
+                </controls:StackView.ItemTemplate>
+            </controls:StackView>
         </Grid>
     </Grid>
 </Window>

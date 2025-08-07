@@ -1,8 +1,11 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using Flow.Bar.Helper.Monitor;
+using Flow.Bar.Helper.Plugins;
 using Flow.Bar.Models.AppBar;
 using Flow.Bar.Models.Enums;
 using Flow.Bar.Models.Monitor;
+using System.Collections.ObjectModel;
+using System.Linq;
 
 namespace Flow.Bar.ViewModels;
 
@@ -10,7 +13,13 @@ public partial class AppBarViewModel : ObservableObject
 {
     private static readonly string ClassName = nameof(AppBarViewModel);
 
-    public int Order { get; set; } = -1;
+    public AppBarModel Model { get; set; } = null!;
+
+    public ObservableCollection<BarElementModel> LeftOrTopBarElements { get; } = [];
+
+    public ObservableCollection<BarElementModel> CenterBarElements { get; } = [];
+
+    public ObservableCollection<BarElementModel> RightOrBottomBarElements { get; } = [];
 
     [ObservableProperty]
     private AppBarDockMode _dockMode = AppBarDockMode.Top;
@@ -50,11 +59,9 @@ public partial class AppBarViewModel : ObservableObject
     [ObservableProperty]
     private bool _isResizable = false;
 
-    public bool IsHorizontal => DockMode is AppBarDockMode.Top or AppBarDockMode.Bottom;
-
     public void Initialize(AppBarModel model)
     {
-        Order = model.Order;
+        Model = model;
         DockMode = model.DockMode;
         MonitorName = model.MonitorName;
         FollowSystemTaskbarWidthOrHeight = model.FollowSystemTaskbarWidthOrHeight;
@@ -66,6 +73,34 @@ public partial class AppBarViewModel : ObservableObject
         }
         // Initialize the MonitorTaskBarWidthOrHeight for the monitor before any AppBarWindow is created on this monitor
         MonitorInfoHelper.GetMonitorTaskBarWidthOrHeight(ActualMonitor);
+    }
+
+    public void InitializeBarElements()
+    {
+        LeftOrTopBarElements.Clear();
+        foreach (var element in Model.LeftOrTopBarElements.OrderBy(c => c.Order))
+        {
+            if (PluginManager.CheckBarElement(element))
+            {
+                LeftOrTopBarElements.Add(element);
+            }
+        }
+        RightOrBottomBarElements.Clear();
+        foreach (var element in Model.RightOrBottomBarElements.OrderBy(c => c.Order))
+        {
+            if (PluginManager.CheckBarElement(element))
+            {
+                RightOrBottomBarElements.Add(element);
+            }
+        }
+        CenterBarElements.Clear();
+        foreach (var element in Model.CenterBarElements.OrderBy(c => c.Order))
+        {
+            if (PluginManager.CheckBarElement(element))
+            {
+                CenterBarElements.Add(element);
+            }
+        }
     }
 
     private void UpdateActualMonitor(string? monitorName)

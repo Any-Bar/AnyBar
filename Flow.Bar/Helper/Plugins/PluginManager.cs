@@ -1,4 +1,5 @@
 ﻿using Flow.Bar.Extensions.Data;
+using Flow.Bar.Models.AppBar;
 using Flow.Bar.Models.Plugins;
 using Flow.Bar.Plugin;
 using System;
@@ -103,8 +104,15 @@ public static class PluginManager
         }
     }
 
-    public static FrameworkElement? GetBarElement(string pluginId, BarElementPosition position)
+    public static bool CheckBarElement(BarElementModel element)
     {
+        var pluginId = element.ID;
+        return AllPlugins.Any(p => p.Metadata.ID == pluginId);
+    }
+
+    public static FrameworkElement? GetBarElement(BarElementModel element, BarElementPosition position)
+    {
+        var pluginId = element.ID;
         var plugin = AllPlugins.FirstOrDefault(p => p.Metadata.ID == pluginId);
         if (plugin == null)
         {

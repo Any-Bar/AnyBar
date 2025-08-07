@@ -1,16 +1,13 @@
 ﻿using CommunityToolkit.Mvvm.DependencyInjection;
 using Flow.Bar.Controls;
-using Flow.Bar.Helper.Plugins;
 using Flow.Bar.Helper.Windows;
 using Flow.Bar.Models;
 using Flow.Bar.Models.AppBar;
 using Flow.Bar.Models.Enums;
-using Flow.Bar.Plugin;
 using Flow.Bar.Services;
 using Flow.Bar.ViewModels;
 using System;
 using System.ComponentModel;
-using System.Linq;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using System.Windows;
@@ -25,6 +22,7 @@ using Windows.Win32.Foundation;
 using Windows.Win32.Graphics.Dwm;
 using Windows.Win32.UI.Shell;
 using Windows.Win32.UI.WindowsAndMessaging;
+using FontIcon = iNKORE.UI.WPF.Modern.Controls.FontIcon;
 
 namespace Flow.Bar.Views;
 
@@ -104,7 +102,7 @@ public partial class AppBarWindow : Window
     {
         var settingItem = new MenuItem
         {
-            Icon = new iNKORE.UI.WPF.Modern.Controls.FontIcon { Glyph = "\ue713" }
+            Icon = new FontIcon { Glyph = "\ue713" }
         };
         settingItem.SetResourceReference(HeaderedItemsControl.HeaderProperty, nameof(Localize.SettingAppBarWindow_AppBarSettings));
         settingItem.Click += (o, e) =>
@@ -122,157 +120,6 @@ public partial class AppBarWindow : Window
             }
         };
         _contextMenu.Items.Add(settingItem);
-    }
-
-    // TODO: Use Binding and remove this method
-    private void InitializeBarElements()
-    {
-        LeftOrTopStackPanel.Children.Clear();
-        RightOrBottomStackPanel.Children.Clear();
-        CenterStackPanel.Children.Clear();
-        foreach (var element in Model.LeftOrTopBarElements.OrderBy(c => c.Order))
-        {
-            var control = PluginManager.GetBarElement(element.ID,
-                ViewModel.IsHorizontal ? BarElementPosition.Left : BarElementPosition.Top);
-            if (control == null) continue;
-            LeftOrTopStackPanel.Children.Add(control);
-            if (ViewModel.DockMode == AppBarDockMode.Left)
-            {
-                control.VerticalAlignment = VerticalAlignment.Top;
-                control.HorizontalAlignment = HorizontalAlignment.Center;
-            }
-            else
-            {
-                control.VerticalAlignment = VerticalAlignment.Center;
-                control.HorizontalAlignment = HorizontalAlignment.Left;
-            }
-        }
-        foreach (var element in Model.RightOrBottomBarElements.OrderBy(c => c.Order))
-        {
-            var control = PluginManager.GetBarElement(element.ID,
-                ViewModel.IsHorizontal ? BarElementPosition.Right : BarElementPosition.Bottom);
-            if (control == null) continue;
-            RightOrBottomStackPanel.Children.Add(control);
-            if (ViewModel.DockMode == AppBarDockMode.Left)
-            {
-                control.VerticalAlignment = VerticalAlignment.Top;
-                control.HorizontalAlignment = HorizontalAlignment.Center;
-            }
-            else
-            {
-                control.VerticalAlignment = VerticalAlignment.Center;
-                control.HorizontalAlignment = HorizontalAlignment.Left;
-            }
-        }
-        foreach (var element in Model.CenterBarElements.OrderBy(c => c.Order))
-        {
-            var control = PluginManager.GetBarElement(element.ID,
-                ViewModel.IsHorizontal ? BarElementPosition.HorizontalCenter : BarElementPosition.VerticalCenter);
-            if (control == null) continue;
-            CenterStackPanel.Children.Add(control);
-            if (ViewModel.DockMode == AppBarDockMode.Left)
-            {
-                control.VerticalAlignment = VerticalAlignment.Top;
-                control.HorizontalAlignment = HorizontalAlignment.Center;
-            }
-            else
-            {
-                control.VerticalAlignment = VerticalAlignment.Center;
-                control.HorizontalAlignment = HorizontalAlignment.Left;
-            }
-        }
-    }
-
-    // TODO: Use VisualStateManager and remove this method
-    private void InitializeDockModeRelatedControls()
-    {
-        switch (ViewModel.DockMode)
-        {
-            case AppBarDockMode.Left:
-            case AppBarDockMode.Right:
-                // Set stack panel
-                LeftOrTopStackPanel.Orientation = Orientation.Vertical;
-                Grid.SetRow(LeftOrTopStackPanel, 0);
-                Grid.SetColumn(LeftOrTopStackPanel, 0);
-                Grid.SetRowSpan(LeftOrTopStackPanel, 1);
-                Grid.SetColumnSpan(LeftOrTopStackPanel, 3);
-                foreach (var child in LeftOrTopStackPanel.Children)
-                {
-                    if (child is FrameworkElement control)
-                    {
-                        control.VerticalAlignment = VerticalAlignment.Top;
-                        control.HorizontalAlignment = HorizontalAlignment.Center;
-                    }
-                }
-
-                RightOrBottomStackPanel.Orientation = Orientation.Vertical;
-                Grid.SetRow(RightOrBottomStackPanel, 2);
-                Grid.SetColumn(RightOrBottomStackPanel, 0);
-                Grid.SetRowSpan(RightOrBottomStackPanel, 1);
-                Grid.SetColumnSpan(RightOrBottomStackPanel, 3);
-                foreach (var child in RightOrBottomStackPanel.Children)
-                {
-                    if (child is FrameworkElement control)
-                    {
-                        control.VerticalAlignment = VerticalAlignment.Top;
-                        control.HorizontalAlignment = HorizontalAlignment.Center;
-                    }
-                }
-
-                CenterStackPanel.Orientation = Orientation.Vertical;
-                foreach (var child in CenterStackPanel.Children)
-                {
-                    if (child is FrameworkElement control)
-                    {
-                        control.VerticalAlignment = VerticalAlignment.Top;
-                        control.HorizontalAlignment = HorizontalAlignment.Center;
-                    }
-                }
-                break;
-            case AppBarDockMode.Top:
-            case AppBarDockMode.Bottom:
-                // Set stack panel
-                LeftOrTopStackPanel.Orientation = Orientation.Horizontal;
-                Grid.SetRow(LeftOrTopStackPanel, 0);
-                Grid.SetColumn(LeftOrTopStackPanel, 0);
-                Grid.SetRowSpan(LeftOrTopStackPanel, 3);
-                Grid.SetColumnSpan(LeftOrTopStackPanel, 1);
-                foreach (var child in LeftOrTopStackPanel.Children)
-                {
-                    if (child is FrameworkElement control)
-                    {
-                        control.VerticalAlignment = VerticalAlignment.Center;
-                        control.HorizontalAlignment = HorizontalAlignment.Left;
-                    }
-                }
-
-                RightOrBottomStackPanel.Orientation = Orientation.Horizontal;
-                Grid.SetRow(RightOrBottomStackPanel, 0);
-                Grid.SetColumn(RightOrBottomStackPanel, 2);
-                Grid.SetRowSpan(RightOrBottomStackPanel, 3);
-                Grid.SetColumnSpan(RightOrBottomStackPanel, 1);
-                foreach (var child in RightOrBottomStackPanel.Children)
-                {
-                    if (child is FrameworkElement control)
-                    {
-                        control.VerticalAlignment = VerticalAlignment.Center;
-                        control.HorizontalAlignment = HorizontalAlignment.Left;
-                    }
-                }
-
-                CenterStackPanel.Orientation = Orientation.Horizontal;
-                foreach (var child in CenterStackPanel.Children)
-                {
-                    if (child is FrameworkElement control)
-                    {
-                        control.VerticalAlignment = VerticalAlignment.Center;
-                        control.HorizontalAlignment = HorizontalAlignment.Left;
-                    }
-                }
-                break;
-            default:
-                throw new InvalidOperationException($"Dock mode {ViewModel.DockMode} is not supported.");
-        }
     }
 
     #endregion
@@ -330,8 +177,7 @@ public partial class AppBarWindow : Window
         // No need to call OnDockLocationChanged - It will be called in property changed handler
         UpdateDockedWidthOrHeight();
         OnIsResizableChanged();
-        InitializeDockModeRelatedControls();
-        InitializeBarElements();
+        ViewModel.InitializeBarElements();
     }
 
     private void Window_DpiChanged(object sender, DpiChangedEventArgs e)
@@ -422,7 +268,6 @@ public partial class AppBarWindow : Window
         {
             case nameof(AppBarViewModel.DockMode):
                 OnDockLocationChanged();
-                InitializeDockModeRelatedControls();
                 break;
             case nameof(AppBarViewModel.ActualMonitor):
                 OnDockLocationChanged();
@@ -484,14 +329,14 @@ public partial class AppBarWindow : Window
     {
         UpdateDockedWidthOrHeight();
 
-        _appBarManagementService.SetFollowSystemTaskbarWidthOrHeight(ViewModel.Order, ViewModel.FollowSystemTaskbarWidthOrHeight);
+        _appBarManagementService.SetFollowSystemTaskbarWidthOrHeight(ViewModel.Model.Order, ViewModel.FollowSystemTaskbarWidthOrHeight);
     }
 
     private void OnDockedWidthOrHeightChanged()
     {
         UpdateDockedWidthOrHeight();
 
-        _appBarManagementService.SetDockedWidthOrHeight(ViewModel.Order, ViewModel.DockedWidthOrHeight);
+        _appBarManagementService.SetDockedWidthOrHeight(ViewModel.Model.Order, ViewModel.DockedWidthOrHeight);
     }
 
     private void UpdateDockedWidthOrHeight()
