@@ -324,11 +324,6 @@ public class AppBarMenuFlyout : DependencyObject
         Opened?.Invoke(this, null);
     }
 
-    internal virtual void OnClosing()
-    {
-        Closing?.Invoke(this, null);
-    }
-
     internal virtual void OnClosed()
     {
         Closed?.Invoke(this, null);
@@ -360,7 +355,6 @@ public class AppBarMenuFlyout : DependencyObject
     public event EventHandler<object?>? Opening;
     public event EventHandler<object?>? Opened;
     public event EventHandler<object?>? Closed;
-    public event EventHandler<object?>? Closing;
 
     private static readonly IValueConverter s_placementConverter = new PlacementConverter();
 
