@@ -29,8 +29,7 @@ public class AppBarMenuFlyout : DependencyObject
     {
         get
         {
-            EnsurePresenter();
-            return m_presenter!.Items;
+            return EnsurePresenter().Items;
         }
     }
 
@@ -221,7 +220,7 @@ public class AppBarMenuFlyout : DependencyObject
         return AppBarPopupExPlacementHelper.PositionPopup(Placement, popupSize, targetSize, ShowOptions.Monitor, ShowOptions.Position, offset, m_target!, m_presenter!);
     }   
 
-    private void EnsurePresenter()
+    private AppBarMenuFlyoutPresenter EnsurePresenter()
     {
         if (m_presenter == null)
         {
@@ -242,6 +241,8 @@ public class AppBarMenuFlyout : DependencyObject
 
             m_presenter = presenter;
         }
+
+        return m_presenter;
     }
 
     private void OnPresenterOpened(object? sender, RoutedEventArgs e)
