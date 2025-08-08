@@ -79,6 +79,15 @@ public class AppBarMenuFlyoutPresenter : ContextMenu
         }
     }
 
+    internal void CancelAsyncShow()
+    {
+        if (m_asyncShow != null)
+        {
+            m_asyncShow.Abort();
+            m_asyncShow = null;
+        }
+    }
+
     private static void OnIsOpenChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
     {
         ((AppBarMenuFlyoutPresenter)d).OnIsOpenChanged(e);
@@ -97,7 +106,7 @@ public class AppBarMenuFlyoutPresenter : ContextMenu
 
             if (App.Settings.EnableAnimationEffects)
             {
-                Dispatcher.BeginInvoke(DispatcherPriority.Loaded, ApplyOpenAnimation);
+                m_asyncShow = Dispatcher.BeginInvoke(DispatcherPriority.Loaded, ApplyOpenAnimation);
             }
         }
     }
@@ -167,6 +176,8 @@ public class AppBarMenuFlyoutPresenter : ContextMenu
 
             translateTransform.BeginAnimation(dp, animation);
         }
+
+        m_asyncShow = null;
     }
 
     private void HandlePopupMouseButtonEvent(object sender, MouseButtonEventArgs e)
@@ -179,6 +190,7 @@ public class AppBarMenuFlyoutPresenter : ContextMenu
 
     private Popup? _parentPopup;
     private WeakReference<AppBarMenuFlyout>? m_owningFlyout;
+    private DispatcherOperation? m_asyncShow;
 
     private const double s_offset = 30;
     private const double vtd_factor = 0.002734375;
