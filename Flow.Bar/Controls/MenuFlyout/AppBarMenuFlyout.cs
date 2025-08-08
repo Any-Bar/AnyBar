@@ -157,6 +157,12 @@ public class AppBarMenuFlyout : DependencyObject
         ShowAtCore(placementTarget);
     }
 
+    public void Hide()
+    {
+        CancelAsyncShow();
+        HideCore();
+    }
+
     internal void ShowAtCore(FrameworkElement placementTarget)
     {
         if (m_presenter != null &&
