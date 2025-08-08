@@ -338,6 +338,7 @@ public class AppBarMenuFlyout : DependencyObject
 
     private void CancelAsyncShow()
     {
+        m_presenter?.CancelAsyncShow();
         m_pendingShow = null;
 
         if (m_asyncShow != null)
