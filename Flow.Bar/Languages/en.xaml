@@ -78,6 +78,13 @@
     <system:String x:Key="AppBarDockMode_Right">Right</system:String>
     <system:String x:Key="AppBarDockMode_Bottom">Bottom</system:String>
 
+    <system:String x:Key="SettingPanePluginsFilterMode_AllPlugins">All plugins</system:String>
+    <system:String x:Key="SettingPanePluginsFilterMode_PreinstalledPlugins">Pre-installed plugins</system:String>
+    <system:String x:Key="SettingPanePluginsFilterMode_UserinstalledPlugins">User-installed plugins</system:String>
+
+    <system:String x:Key="SettingPanePluginsSortMode_NameAToZ">Name (A to Z)</system:String>
+    <system:String x:Key="SettingPanePluginsSortMode_NameZToA">Name (Z to A)</system:String>
+
     <!--  Plugin Loader  -->
     <system:String x:Key="PluginLoader_PluginHasErrored">The following plugin has errored and cannot be loaded:</system:String>
     <system:String x:Key="PluginLoader_PluginsHaveErrored">The following plugins have errored and cannot be loaded:</system:String>

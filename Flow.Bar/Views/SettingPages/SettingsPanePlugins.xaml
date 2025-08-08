@@ -19,7 +19,8 @@
             Width="360"
             HorizontalAlignment="Left"
             VerticalAlignment="Top"
-            PlaceholderText="{DynamicResource SettingPanePlugins_SearchPlugins}">
+            PlaceholderText="{DynamicResource SettingPanePlugins_SearchPlugins}"
+            Text="{Binding SearchText, Mode=TwoWay}">
             <ui:AutoSuggestBox.QueryIcon>
                 <ui:FontIcon Glyph="&#xE721;" />
             </ui:AutoSuggestBox.QueryIcon>
@@ -38,7 +39,12 @@
                 VerticalAlignment="Center"
                 Foreground="{StaticResource {x:Static ui:ThemeKeys.TextFillColorSecondaryBrushKey}}"
                 Text="{DynamicResource SettingPanePlugins_FilterBy}" />
-            <ComboBox VerticalAlignment="Center" />
+            <ComboBox
+                VerticalAlignment="Center"
+                DisplayMemberPath="Display"
+                ItemsSource="{Binding AllFilterModes, Mode=OneTime}"
+                SelectedValue="{Binding FilterMode, Mode=TwoWay}"
+                SelectedValuePath="Value" />
             <ui:FontIcon
                 Margin="12 0 0 0"
                 VerticalAlignment="Center"
@@ -49,7 +55,12 @@
                 VerticalAlignment="Center"
                 Foreground="{StaticResource {x:Static ui:ThemeKeys.TextFillColorSecondaryBrushKey}}"
                 Text="{DynamicResource SettingPanePlugins_SortBy}" />
-            <ComboBox VerticalAlignment="Center" />
+            <ComboBox
+                VerticalAlignment="Center"
+                DisplayMemberPath="Display"
+                ItemsSource="{Binding AllSortModes, Mode=OneTime}"
+                SelectedValue="{Binding SortMode, Mode=TwoWay}"
+                SelectedValuePath="Value" />
         </ikw:SimpleStackPanel>
 
     </ikw:SimpleStackPanel>
