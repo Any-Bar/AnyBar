@@ -118,6 +118,7 @@ public partial class App : Application, IDisposable, ISingleInstanceApp
                     .AddTransient<SettingsPaneAppBarViewModel>()
                     .AddTransient<SettingsPaneGeneralViewModel>()
                     .AddTransient<SettingsPaneAppBarSettingViewModel>()
+                    .AddTransient<SettingsPanePluginsViewModel>()
             ).Build();
             Ioc.Default.ConfigureServices(host.Services);
         }

@@ -87,6 +87,14 @@
                 </controls:NavigationViewItem.Icon>
             </controls:NavigationViewItem>
             <controls:NavigationViewItem
+                x:Name="PluginsItem"
+                Content="{DynamicResource SettingWindow_Plugins}"
+                Tag="{x:Static enums:SettingPageTag.Plugins}">
+                <controls:NavigationViewItem.Icon>
+                    <ui:FontIcon Glyph="&#xEA86;" />
+                </controls:NavigationViewItem.Icon>
+            </controls:NavigationViewItem>
+            <controls:NavigationViewItem
                 x:Name="AboutItem"
                 Content="{DynamicResource SettingWindow_About}"
                 Tag="{x:Static enums:SettingPageTag.About}">

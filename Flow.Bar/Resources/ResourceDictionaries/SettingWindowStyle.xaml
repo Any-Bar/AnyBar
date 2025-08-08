@@ -6,6 +6,9 @@
     <!--  Spacing between cards  -->
     <sys:Double x:Key="SettingsCardSpacing">4</sys:Double>
 
+    <!--  Spacing between elements  -->
+    <sys:Double x:Key="SettingsElementsSpacing">8</sys:Double>
+
     <!--  Style (inc. the correct spacing) of a section header  -->
     <Style
         x:Key="SettingsFirstSectionHeaderTextBlockStyle"
@@ -24,5 +27,8 @@
         </Style.Setters>
     </Style>
     <Thickness x:Key="SettingsSectionHeaderMargin">1 20 0 0</Thickness>
+
+    <!--  Body FontIcon Size  -->
+    <sys:Double x:Key="BodyFontIconFontSize">12</sys:Double>
 
 </ResourceDictionary>

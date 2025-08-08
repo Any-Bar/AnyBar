@@ -5,5 +5,6 @@ public enum SettingPageTag
     General,
     AppBar,
     AppBarSetting,
+    Plugins,
     About,
 }

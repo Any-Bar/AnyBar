@@ -10,6 +10,7 @@
     <system:String x:Key="SettingWindow_Title">Settings</system:String>
     <system:String x:Key="SettingWindow_General">General</system:String>
     <system:String x:Key="SettingWindow_AppBar">Appbar</system:String>
+    <system:String x:Key="SettingWindow_Plugins">Plugins</system:String>
     <system:String x:Key="SettingWindow_About">About</system:String>
 
     <!--  Setting Pane General  -->
@@ -46,6 +47,11 @@
     <system:String x:Key="SettingPaneAppBarSetting_CenterBarElements">Center bar elements</system:String>
     <system:String x:Key="SettingPaneAppBarSetting_RightBarElements">Right bar elements</system:String>
     <system:String x:Key="SettingPaneAppBarSetting_BottomBarElements">Bottom bar elements</system:String>
+
+    <!--  Setting Pane Plugin  -->
+    <system:String x:Key="SettingPanePlugins_SearchPlugins">Search plugins</system:String>
+    <system:String x:Key="SettingPanePlugins_FilterBy">Filter by:</system:String>
+    <system:String x:Key="SettingPanePlugins_SortBy">Sort by:</system:String>
 
     <!--  Setting Pane About  -->
     <system:String x:Key="SettingPaneAbout_Version">Version</system:String>
