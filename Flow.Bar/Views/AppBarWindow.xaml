@@ -19,11 +19,13 @@
     ui:ThemeManager.RequestedTheme="Default"
     ui:TitleBar.ExtendViewIntoTitleBar="True"
     ui:TitleBar.Height="0"
-    ui:WindowHelper.SystemBackdropType="Mica"
+    ui:WindowHelper.ApplyNoise="True"
+    ui:WindowHelper.SystemBackdropType="Acrylic10"
     ui:WindowHelper.UseModernWindowStyle="True"
     Closing="Window_Closing"
     DpiChanged="Window_DpiChanged"
     Loaded="Window_Loaded"
+    ResizeMode="NoResize"
     SourceInitialized="Window_SourceInitialized"
     mc:Ignorable="d">
     <Window.Resources>
@@ -59,6 +61,7 @@
     <Grid
         x:Name="MainGrid"
         Background="Transparent"
+        MouseRightButtonUp="MainGrid_MouseRightButtonUp"
         PreviewMouseRightButtonDown="MainGrid_PreviewMouseRightButtonDown"
         PreviewMouseRightButtonUp="MainGrid_PreviewMouseRightButtonUp">
         <Thumb x:Name="BarThumb">
