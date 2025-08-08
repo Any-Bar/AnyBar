@@ -16,8 +16,8 @@ public class PageService
     {
         Configure<SettingsPaneGeneral>(SettingPageTag.General);
         Configure<SettingsPaneAppBar>(SettingPageTag.AppBar);
-        Configure<SettingsPaneAbout>(SettingPageTag.About);
         Configure<SettingsPaneAppBarSetting>(SettingPageTag.AppBarSetting);
+        Configure<SettingsPaneAbout>(SettingPageTag.About);
 
         Configure(SettingPageTag.AppBarSetting, SettingPageTag.AppBar);
     }

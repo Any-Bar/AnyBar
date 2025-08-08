@@ -4,6 +4,6 @@ public enum SettingPageTag
 {
     General,
     AppBar,
+    AppBarSetting,
     About,
-    AppBarSetting
 }
