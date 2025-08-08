@@ -155,19 +155,36 @@ public class AppBarMenuFlyout : DependencyObject
 
         ShowOptions = showOptions;
         Placement = showOptions.Placement;
-        ShowAtCore(placementTarget, false);
+        ShowAtCore(placementTarget);
     }
 
-    internal void ShowAtCore(FrameworkElement placementTarget, bool showAsContextFlyout = false)
+    internal void ShowAtCore(FrameworkElement placementTarget)
     {
-        if (showAsContextFlyout)
+        if (m_presenter != null &&
+            m_presenter.IsOpen &&
+            m_presenter.PlacementTarget == placementTarget &&
+            m_presenter.Placement == PlacementMode.Custom &&
+            m_currentPlacement == Placement)
         {
-            Show(placementTarget, PlacementMode.MousePoint);
+            return;
         }
-        else
+
+        m_target = placementTarget;
+        EnsurePresenter();
+
+        if (m_presenter!.IsOpen)
         {
-            Show(placementTarget);
+            m_presenter.IsOpen = false;
         }
+
+        m_presenter.Placement = PlacementMode.Custom;
+        m_presenter.PlacementTarget = placementTarget;
+
+        m_presenter.PlacementRectangle = GetPlacementRectangle(placementTarget);
+
+        m_currentPlacement = Placement;
+        OnOpening();
+        m_presenter.IsOpen = true;
     }
 
     internal void HideCore()
@@ -197,42 +214,6 @@ public class AppBarMenuFlyout : DependencyObject
     internal void UpdateIsOpen()
     {
         IsOpen = m_presenter != null && m_presenter.IsOpen;
-    }
-
-    private void Show(FrameworkElement placementTarget, PlacementMode placement = PlacementMode.Custom)
-    {
-        if (m_presenter != null &&
-            m_presenter.IsOpen &&
-            m_presenter.PlacementTarget == placementTarget &&
-            m_presenter.Placement == placement &&
-            m_currentPlacement == Placement)
-        {
-            return;
-        }
-
-        m_target = placementTarget;
-        EnsurePresenter();
-
-        if (m_presenter!.IsOpen)
-        {
-            m_presenter.IsOpen = false;
-        }
-
-        m_presenter.Placement = placement;
-        m_presenter.PlacementTarget = placementTarget;
-
-        if (placement == PlacementMode.Custom)
-        {
-            m_presenter.PlacementRectangle = GetPlacementRectangle(placementTarget);
-        }
-        else
-        {
-            m_presenter.ClearValue(Popup.PlacementRectangleProperty);
-        }
-
-        m_currentPlacement = Placement;
-        OnOpening();
-        m_presenter.IsOpen = true;
     }
 
     private CustomPopupPlacement[] PositionPopup(Size popupSize, Size targetSize, Point offset)
