@@ -165,12 +165,20 @@ public class AppBarMenuFlyout : DependencyObject
 
     internal void ShowAtCore(FrameworkElement placementTarget)
     {
+        CancelAsyncShow();
+
         if (m_presenter != null &&
             m_presenter.IsOpen &&
             m_presenter.PlacementTarget == placementTarget &&
             m_presenter.Placement == PlacementMode.Custom &&
             m_currentPlacement == Placement)
         {
+            return;
+        }
+
+        if (m_opened)
+        {
+            m_pendingShow = () => ShowAtCore(placementTarget);
             return;
         }
 
@@ -322,11 +330,13 @@ public class AppBarMenuFlyout : DependencyObject
     internal virtual void OnOpened()
     {
         Opened?.Invoke(this, null);
+        m_opened = true;
     }
 
     internal virtual void OnClosed()
     {
         Closed?.Invoke(this, null);
+        m_opened = false;
 
         var pendingShow = m_pendingShow;
         CancelAsyncShow();
@@ -362,6 +372,7 @@ public class AppBarMenuFlyout : DependencyObject
     private const double s_offset = 4;
 
     private FrameworkElement? m_target;
+    private bool m_opened;
     private Action? m_pendingShow;
     private DispatcherOperation? m_asyncShow;
 
