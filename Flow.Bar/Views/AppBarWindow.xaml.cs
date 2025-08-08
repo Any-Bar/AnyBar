@@ -47,6 +47,9 @@ public partial class AppBarWindow : Window
 
     private readonly AppBarMenuFlyout _contextMenu = new();
     private System.Drawing.Point? _cursorPosition = null;
+    private bool _contextMenuOpened = false;
+    private bool _openContextMenuOnClosed = false;
+    private MouseButtonEventArgs? _openContextMenuEventArgs = null;
 
     #region Constructor
 
@@ -122,6 +125,7 @@ public partial class AppBarWindow : Window
             }
         };
         _contextMenu.Items.Add(settingItem);
+        _contextMenu.Closed += ContextMenu_Closed;
     }
 
     #endregion
@@ -431,6 +435,17 @@ public partial class AppBarWindow : Window
 
     #region Grid Events
 
+    private void ContextMenu_Closed(object? sender, object? e)
+    {
+        _contextMenuOpened = false;
+        if (_openContextMenuOnClosed && _openContextMenuEventArgs != null)
+        {
+            OpenAppBarMenu(_openContextMenuEventArgs);
+            _openContextMenuOnClosed = false;
+            _openContextMenuEventArgs = null;
+        }
+    }
+
     private void MainGrid_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
     {
         _cursorPosition = Win32Helper.GetCursorPos();
@@ -440,30 +455,41 @@ public partial class AppBarWindow : Window
     {
         // If users have moved the cursor after right button down, we should not open the context menu.
         if (_cursorPosition != null && _cursorPosition != Win32Helper.GetCursorPos()) return;
-        OpenAppBarMenu(sender, e);
+        // This is workaround for a bug in WPF that element position will change if the old appbar menu is still open
+        // (Pop up menu will be considered as part of that element which can cause wrong position calculation)
+        // So we need to manually hide old appbar menu and open new appbar menu after it is closed.
+        if (_contextMenuOpened)
+        {
+            _openContextMenuOnClosed = true;
+            _openContextMenuEventArgs = e;
+            _contextMenu.Hide();
+        }
+        else
+        {
+            OpenAppBarMenu(e);
+        }
         _cursorPosition = null;
     }
 
-    private void OpenAppBarMenu(object sender, MouseButtonEventArgs e)
+    private void OpenAppBarMenu(MouseButtonEventArgs e)
     {
-        if (sender is FrameworkElement element)
+        var element = (FrameworkElement)MainGrid;
+        var placement = ViewModel.DockMode switch
         {
-            var placement = ViewModel.DockMode switch
-            {
-                AppBarDockMode.Left => AppBarPlacementMode.Right,
-                AppBarDockMode.Right => AppBarPlacementMode.Left,
-                AppBarDockMode.Top => AppBarPlacementMode.Bottom,
-                AppBarDockMode.Bottom => AppBarPlacementMode.Top,
-                _ => throw new NotSupportedException(),
-            };
-            _contextMenu.ShowAt(element, new AppBarMenuFlyoutOptions()
-            {
-                Placement = placement,
-                Position = e.GetPosition(element),
-                Monitor = ViewModel.ActualMonitor
-            });
-            e.Handled = true;
-        }
+            AppBarDockMode.Left => AppBarPlacementMode.Right,
+            AppBarDockMode.Right => AppBarPlacementMode.Left,
+            AppBarDockMode.Top => AppBarPlacementMode.Bottom,
+            AppBarDockMode.Bottom => AppBarPlacementMode.Top,
+            _ => throw new NotSupportedException(),
+        };
+        _contextMenu.ShowAt(element, new AppBarMenuFlyoutOptions()
+        {
+            Placement = placement,
+            Position = e.GetPosition(element),
+            Monitor = ViewModel.ActualMonitor
+        });
+        _contextMenuOpened = true;
+        e.Handled = true;
     }
 
     #endregion
