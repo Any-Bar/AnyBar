@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.DependencyInjection;
 using Flow.Bar.Controls;
+using Flow.Bar.Helper;
 using Flow.Bar.Helper.Windows;
 using Flow.Bar.Models;
 using Flow.Bar.Models.AppBar;
@@ -45,6 +46,7 @@ public partial class AppBarWindow : Window
     private bool _isExplorerRestarting = false;
 
     private readonly AppBarMenuFlyout _contextMenu = new();
+    private System.Drawing.Point? _cursorPosition = null;
 
     #region Constructor
 
@@ -429,14 +431,17 @@ public partial class AppBarWindow : Window
 
     #region Grid Events
 
-    private void MainGrid_PreviewMouseRightButtonUp(object sender, MouseButtonEventArgs e)
+    private void MainGrid_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
     {
-        OpenAppBarMenu(sender, e);
+        _cursorPosition = Win32Helper.GetCursorPos();
     }
 
-    private void MainGrid_PreviewMouseRightButtonDown(object sender, MouseButtonEventArgs e)
+    private void MainGrid_MouseRightButtonUp(object sender, MouseButtonEventArgs e)
     {
+        // If users have moved the cursor after right button down, we should not open the context menu.
+        if (_cursorPosition != null && _cursorPosition != Win32Helper.GetCursorPos()) return;
         OpenAppBarMenu(sender, e);
+        _cursorPosition = null;
     }
 
     private void OpenAppBarMenu(object sender, MouseButtonEventArgs e)

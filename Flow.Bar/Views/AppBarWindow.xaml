@@ -61,9 +61,8 @@
     <Grid
         x:Name="MainGrid"
         Background="Transparent"
-        MouseRightButtonUp="MainGrid_MouseRightButtonUp"
-        PreviewMouseRightButtonDown="MainGrid_PreviewMouseRightButtonDown"
-        PreviewMouseRightButtonUp="MainGrid_PreviewMouseRightButtonUp">
+        MouseRightButtonDown="MainGrid_MouseRightButtonDown"
+        MouseRightButtonUp="MainGrid_MouseRightButtonUp">
         <Thumb x:Name="BarThumb">
             <Thumb.Style>
                 <Style TargetType="{x:Type Thumb}">
