@@ -74,6 +74,27 @@
             Orientation="Vertical"
             ScrollViewer.HorizontalScrollBarVisibility="Disabled"
             ScrollViewer.VerticalScrollBarVisibility="Disabled">
+            <controls:StackView.Style>
+                <Style BasedOn="{StaticResource DefaultStackViewStyle}" TargetType="controls:StackView">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding RelativeSource={x:Static RelativeSource.Self}, Path=Items.Count}" Value="0">
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate>
+                                        <TextBlock
+                                            x:Name="NothingToShowTextBlock"
+                                            Width="300"
+                                            HorizontalAlignment="Left"
+                                            Style="{StaticResource {x:Static ui:ThemeKeys.BodyTextBlockStyleKey}}"
+                                            Text="{DynamicResource SettingPanePlugins_NothingToShow}"
+                                            TextWrapping="Wrap" />
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </controls:StackView.Style>
             <controls:StackView.ItemTemplate>
                 <DataTemplate DataType="models:PluginViewModel">
                     <ui:SettingsCard
