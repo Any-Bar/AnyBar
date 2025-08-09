@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using Flow.Bar.Helper.Plugins;
 using Flow.Bar.Models.UserSettings;
+using Flow.Bar.Plugin;
 
 namespace Flow.Bar.Models.Language;
 
@@ -313,7 +314,7 @@ public class Internationalization(Settings settings)
     public static void UpdatePluginMetadataTranslations()
     {
         // Update plugin metadata name & description
-        /*foreach (var p in PluginManager.GetTranslationPlugins())
+        foreach (var p in PluginManager.GetTranslationPlugins())
         {
             if (p.Plugin is not IPluginI18n pluginI18N) return;
             try
@@ -324,9 +325,9 @@ public class Internationalization(Settings settings)
             }
             catch (Exception e)
             {
-                App.API.LogException(ClassName, $"Failed for <{p.Metadata.Name}>", e);
+                App.API.LogFatal(ClassName, $"Failed for <{p.Metadata.Name}>", e);
             }
-        }*/
+        }
     }
 
     #endregion

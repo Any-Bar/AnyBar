@@ -179,6 +179,9 @@ public partial class App : Application, IDisposable, ISingleInstanceApp
 
             await PluginManager.InitializePluginsAsync();
 
+            // Update plugin titles after plugins are initialized with their api instances
+            Internationalization.UpdatePluginMetadataTranslations();
+
             await imageLoadertask;
 
             if (!Settings.HideSettingWindow)

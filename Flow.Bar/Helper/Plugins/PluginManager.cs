@@ -21,6 +21,10 @@ public static class PluginManager
 
     public static List<PluginPair> AllPlugins { get; private set; } = [];
 
+    private static readonly ConcurrentBag<string> ModifiedPlugins = [];
+
+    private static PluginPair[] _translationPlugins = null!;
+
     /// <summary>
     /// Directories that will hold Flow Bar plugin directory
     /// </summary>
@@ -38,12 +42,16 @@ public static class PluginManager
         }
     }
 
+    #region Loading & Initialization
+
     public static void LoadPlugins()
     {
         var metadatas = PluginConfig.Parse(Directories);
         AllPlugins = PluginsLoader.Plugins(metadatas);
         // Since dotnet plugins need to get assembly name first, we should update plugin directory after loading plugins
         UpdatePluginDirectory(metadatas);
+        // Initialize plugin enumerable after all plugins are initialized
+        _translationPlugins = GetPluginsForInterface<IPluginI18n>();
     }
 
     private static void UpdatePluginDirectory(List<PluginMetadata> metadatas)
@@ -58,6 +66,12 @@ public static class PluginManager
             metadata.PluginSettingsDirectoryPath = Path.Combine(DataLocation.PluginSettingsDirectory, metadata.AssemblyName);
             metadata.PluginCacheDirectoryPath = Path.Combine(DataLocation.PluginCacheDirectory, metadata.AssemblyName);
         }
+    }
+
+    private static PluginPair[] GetPluginsForInterface<T>()
+    {
+        // Handle scenario where this is called before all plugins are instantiated, e.g. language change on startup
+        return AllPlugins?.Where(p => p.Plugin is T).ToArray() ?? [];
     }
 
     public static async Task InitializePluginsAsync()
@@ -95,6 +109,24 @@ public static class PluginManager
         }
     }
 
+    #endregion
+
+    #region Plugin List
+
+    public static PluginPair[] GetTranslationPlugins()
+    {
+        return [.. _translationPlugins.Where(p => !PluginModified(p.Metadata.ID))];
+    }
+
+    private static bool PluginModified(string id)
+    {
+        return ModifiedPlugins.Contains(id);
+    }
+
+    #endregion
+
+    #region Bar Elements
+
     public static bool CheckBarElement(BarElementModel element)
     {
         var pluginId = element.ID;
@@ -113,4 +145,6 @@ public static class PluginManager
 
         return plugin.Plugin.GetBarElement(position);
     }
+
+    #endregion
 }
