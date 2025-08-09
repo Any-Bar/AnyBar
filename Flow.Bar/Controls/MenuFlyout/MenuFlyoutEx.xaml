@@ -60,6 +60,4 @@
         <Setter Property="HasDropShadow" Value="{Binding IsDefaultShadowEnabled, RelativeSource={RelativeSource Self}}" />
     </Style>
 
-    <Style BasedOn="{StaticResource DefaultContextMenuStyle}" TargetType="local:MenuFlyoutExPresenter" />
-
 </ResourceDictionary>

@@ -17,7 +17,6 @@ public class MenuFlyoutEx : DependencyObject
 
     public MenuFlyoutEx()
     {
-        // TODO: Use <Style BasedOn="{StaticResource DefaultContextMenuStyle}" TargetType="local:MenuFlyoutExPresenter" /> instead of this
         s_contextMenuStyle ??= (Style)Application.Current.Resources[c_contextMenuStyleKey];
 
         ArgumentNullException.ThrowIfNull(s_contextMenuStyle, $"{c_contextMenuStyleKey} not found in Application resources.");
