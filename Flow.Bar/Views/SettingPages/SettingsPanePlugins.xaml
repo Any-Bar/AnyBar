@@ -78,7 +78,8 @@
                     <ui:SettingsCard
                         x:Name="PluginSettingsCard"
                         Description="{Binding Description, Mode=OneTime}"
-                        Header="{Binding Name, Mode=OneTime}">
+                        Header="{Binding Name, Mode=OneTime}"
+                        ToolTip="{Binding VersionAndAuthor, Mode=OneTime}">
                         <ui:SettingsCard.HeaderIcon>
                             <Image
                                 Width="16"

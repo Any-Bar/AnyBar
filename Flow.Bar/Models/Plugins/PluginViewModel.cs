@@ -17,8 +17,7 @@ public partial class PluginViewModel : ObservableObject
         ID = pluginPair.Metadata.ID;
         Name = pluginPair.Metadata.Name;
         Description = pluginPair.Metadata.Description;
-        Version = pluginPair.Metadata.Version;
-        Author = pluginPair.Metadata.Author;
+        VersionAndAuthor = Localize.SettingPanePlugins_VersionAndAuthor(pluginPair.Metadata.Version, pluginPair.Metadata.Author);
     }
 
     private ImageSource _image = ImageLoader.MissingImage;
@@ -49,8 +48,5 @@ public partial class PluginViewModel : ObservableObject
     private string _description = string.Empty;
 
     [ObservableProperty]
-    private string _version = string.Empty;
-
-    [ObservableProperty]
-    private string _author = string.Empty;
+    private string _versionAndAuthor = string.Empty;
 }

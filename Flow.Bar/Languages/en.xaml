@@ -52,6 +52,9 @@
     <system:String x:Key="SettingPanePlugins_SearchPlugins">Search plugins</system:String>
     <system:String x:Key="SettingPanePlugins_FilterBy">Filter by:</system:String>
     <system:String x:Key="SettingPanePlugins_SortBy">Sort by:</system:String>
+    <!-- <param index="0" name="version" type="string" />-->
+    <!-- <param index="0" name="author" type="string" />-->
+    <system:String x:Key="SettingPanePlugins_VersionAndAuthor">{0} | {1}</system:String>
 
     <!--  Setting Pane About  -->
     <system:String x:Key="SettingPaneAbout_Version">Version</system:String>
