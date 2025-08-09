@@ -292,6 +292,28 @@ public class MenuFlyoutEx : DependencyObject
 
             switch (Placement)
             {
+                case MenuFlyoutExPlacementMode.Top:
+                case MenuFlyoutExPlacementMode.Bottom:
+                case MenuFlyoutExPlacementMode.TopEdgeAlignedLeft:
+                case MenuFlyoutExPlacementMode.TopEdgeAlignedRight:
+                case MenuFlyoutExPlacementMode.BottomEdgeAlignedLeft:
+                case MenuFlyoutExPlacementMode.BottomEdgeAlignedRight:
+                    value = new Rect(
+                        new Point(0, -Offset),
+                        new Point(targetSize.Width, targetSize.Height + Offset));
+                    break;
+                case MenuFlyoutExPlacementMode.Left:
+                case MenuFlyoutExPlacementMode.Right:
+                case MenuFlyoutExPlacementMode.LeftEdgeAlignedTop:
+                case MenuFlyoutExPlacementMode.LeftEdgeAlignedBottom:
+                case MenuFlyoutExPlacementMode.RightEdgeAlignedTop:
+                case MenuFlyoutExPlacementMode.RightEdgeAlignedBottom:
+                    value = new Rect(
+                        new Point(-Offset, 0),
+                        new Point(targetSize.Width + Offset, targetSize.Height));
+                    break;
+                case MenuFlyoutExPlacementMode.Auto:
+                    throw new NotImplementedException("Auto placement mode is not supported in MenuFlyoutEx.");
                 case MenuFlyoutExPlacementMode.AppBarTop:
                 case MenuFlyoutExPlacementMode.AppBarBottom:
                     value = new Rect(

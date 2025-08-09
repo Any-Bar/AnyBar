@@ -80,6 +80,60 @@ internal static class MenuFlyoutExPlacementHelper
 
         switch (placement)
         {
+            case MenuFlyoutExPlacementMode.Top:
+                point = new Point((targetSize.Width - popupSize.Width) / 2, -popupSize.Height);
+                primaryAxis = PopupPrimaryAxis.Horizontal;
+                break;
+            case MenuFlyoutExPlacementMode.Bottom:
+                point = new Point((targetSize.Width - popupSize.Width) / 2, targetSize.Height);
+                primaryAxis = PopupPrimaryAxis.Horizontal;
+                break;
+            case MenuFlyoutExPlacementMode.Left:
+                point = new Point(-popupSize.Width, (targetSize.Height - popupSize.Height) / 2);
+                primaryAxis = PopupPrimaryAxis.Vertical;
+                break;
+            case MenuFlyoutExPlacementMode.Right:
+                point = new Point(targetSize.Width, (targetSize.Height - popupSize.Height) / 2);
+                primaryAxis = PopupPrimaryAxis.Vertical;
+                break;
+            case MenuFlyoutExPlacementMode.Full:
+                point = new Point((targetSize.Width - popupSize.Width) / 2, (targetSize.Height - popupSize.Height) / 2);
+                primaryAxis = PopupPrimaryAxis.None;
+                break;
+            case MenuFlyoutExPlacementMode.TopEdgeAlignedLeft:
+                point = new Point(0, -popupSize.Height);
+                primaryAxis = PopupPrimaryAxis.Horizontal;
+                break;
+            case MenuFlyoutExPlacementMode.TopEdgeAlignedRight:
+                point = new Point(targetSize.Width - popupSize.Width, -popupSize.Height);
+                primaryAxis = PopupPrimaryAxis.Horizontal;
+                break;
+            case MenuFlyoutExPlacementMode.BottomEdgeAlignedLeft:
+                point = new Point(0, targetSize.Height);
+                primaryAxis = PopupPrimaryAxis.Horizontal;
+                break;
+            case MenuFlyoutExPlacementMode.BottomEdgeAlignedRight:
+                point = new Point(targetSize.Width - popupSize.Width, targetSize.Height);
+                primaryAxis = PopupPrimaryAxis.Horizontal;
+                break;
+            case MenuFlyoutExPlacementMode.LeftEdgeAlignedTop:
+                point = new Point(-popupSize.Width, 0);
+                primaryAxis = PopupPrimaryAxis.Vertical;
+                break;
+            case MenuFlyoutExPlacementMode.LeftEdgeAlignedBottom:
+                point = new Point(-popupSize.Width, targetSize.Height - popupSize.Height);
+                primaryAxis = PopupPrimaryAxis.Vertical;
+                break;
+            case MenuFlyoutExPlacementMode.RightEdgeAlignedTop:
+                point = new Point(targetSize.Width, 0);
+                primaryAxis = PopupPrimaryAxis.Vertical;
+                break;
+            case MenuFlyoutExPlacementMode.RightEdgeAlignedBottom:
+                point = new Point(targetSize.Width, targetSize.Height - popupSize.Height);
+                primaryAxis = PopupPrimaryAxis.Vertical;
+                break;
+            case MenuFlyoutExPlacementMode.Auto:
+                throw new NotImplementedException("Auto placement mode is not supported in MenuFlyoutEx.");
             case MenuFlyoutExPlacementMode.AppBarTop:
                 point = new Point((targetSize.Width - popupSize.Width) / 2, -popupSize.Height);
                 primaryAxis = PopupPrimaryAxis.Horizontal;
@@ -102,27 +156,36 @@ internal static class MenuFlyoutExPlacementHelper
 
         if (cursor != null)
         {
-            var cursorToScreenOffset = cursor.Value;
-            if (transformToDevice != default)
-            {
-                cursorToScreenOffset = transformToDevice.Transform(cursorToScreenOffset);
-            }
-            var targetToScreenOffset = target.PointToScreen(new Point());
-            targetToScreenOffset -= new Vector(monitor.Bounds.X, monitor.Bounds.Y);
-            var cursorToTargetOffset = cursorToScreenOffset - targetToScreenOffset;
             switch (placement)
             {
                 case MenuFlyoutExPlacementMode.AppBarTop:
-                    point = new Point(cursorToTargetOffset.X - popupSize.Width / 2, point.Y);
-                    break;
                 case MenuFlyoutExPlacementMode.AppBarBottom:
-                    point = new Point(cursorToTargetOffset.X - popupSize.Width / 2, point.Y);
-                    break;
                 case MenuFlyoutExPlacementMode.AppBarLeft:
-                    point = new Point(point.X, cursorToTargetOffset.Y - popupSize.Height / 2);
-                    break;
                 case MenuFlyoutExPlacementMode.AppBarRight:
-                    point = new Point(point.X, cursorToTargetOffset.Y - popupSize.Height / 2);
+                    // Adjust the point based on the cursor position
+                    var cursorToScreenOffset = cursor.Value;
+                    if (transformToDevice != default)
+                    {
+                        cursorToScreenOffset = transformToDevice.Transform(cursorToScreenOffset);
+                    }
+                    var targetToScreenOffset = target.PointToScreen(new Point());
+                    targetToScreenOffset -= new Vector(monitor.Bounds.X, monitor.Bounds.Y);
+                    var cursorToTargetOffset = cursorToScreenOffset - targetToScreenOffset;
+                    switch (placement)
+                    {
+                        case MenuFlyoutExPlacementMode.AppBarTop:
+                            point = new Point(cursorToTargetOffset.X - popupSize.Width / 2, point.Y);
+                            break;
+                        case MenuFlyoutExPlacementMode.AppBarBottom:
+                            point = new Point(cursorToTargetOffset.X - popupSize.Width / 2, point.Y);
+                            break;
+                        case MenuFlyoutExPlacementMode.AppBarLeft:
+                            point = new Point(point.X, cursorToTargetOffset.Y - popupSize.Height / 2);
+                            break;
+                        case MenuFlyoutExPlacementMode.AppBarRight:
+                            point = new Point(point.X, cursorToTargetOffset.Y - popupSize.Height / 2);
+                            break;
+                    }
                     break;
             }
         }
@@ -144,6 +207,20 @@ internal static class MenuFlyoutExPlacementHelper
     {
         return placement switch
         {
+            MenuFlyoutExPlacementMode.Top => (MenuFlyoutExPlacementMode?)MenuFlyoutExPlacementMode.Bottom,
+            MenuFlyoutExPlacementMode.Bottom => (MenuFlyoutExPlacementMode?)MenuFlyoutExPlacementMode.Top,
+            MenuFlyoutExPlacementMode.Left => (MenuFlyoutExPlacementMode?)MenuFlyoutExPlacementMode.Right,
+            MenuFlyoutExPlacementMode.Right => (MenuFlyoutExPlacementMode?)MenuFlyoutExPlacementMode.Left,
+            MenuFlyoutExPlacementMode.Full => null,
+            MenuFlyoutExPlacementMode.TopEdgeAlignedLeft => (MenuFlyoutExPlacementMode?)MenuFlyoutExPlacementMode.BottomEdgeAlignedLeft,
+            MenuFlyoutExPlacementMode.TopEdgeAlignedRight => (MenuFlyoutExPlacementMode?)MenuFlyoutExPlacementMode.BottomEdgeAlignedRight,
+            MenuFlyoutExPlacementMode.BottomEdgeAlignedLeft => (MenuFlyoutExPlacementMode?)MenuFlyoutExPlacementMode.TopEdgeAlignedLeft,
+            MenuFlyoutExPlacementMode.BottomEdgeAlignedRight => (MenuFlyoutExPlacementMode?)MenuFlyoutExPlacementMode.TopEdgeAlignedRight,
+            MenuFlyoutExPlacementMode.LeftEdgeAlignedTop => (MenuFlyoutExPlacementMode?)MenuFlyoutExPlacementMode.RightEdgeAlignedTop,
+            MenuFlyoutExPlacementMode.LeftEdgeAlignedBottom => (MenuFlyoutExPlacementMode?)MenuFlyoutExPlacementMode.RightEdgeAlignedBottom,
+            MenuFlyoutExPlacementMode.RightEdgeAlignedTop => (MenuFlyoutExPlacementMode?)MenuFlyoutExPlacementMode.RightEdgeAlignedTop,
+            MenuFlyoutExPlacementMode.RightEdgeAlignedBottom => (MenuFlyoutExPlacementMode?)MenuFlyoutExPlacementMode.LeftEdgeAlignedBottom,
+            MenuFlyoutExPlacementMode.Auto => throw new NotImplementedException("Auto placement mode is not supported in MenuFlyoutEx."),
             MenuFlyoutExPlacementMode.AppBarTop => (MenuFlyoutExPlacementMode?)MenuFlyoutExPlacementMode.AppBarBottom,
             MenuFlyoutExPlacementMode.AppBarBottom => (MenuFlyoutExPlacementMode?)MenuFlyoutExPlacementMode.AppBarTop,
             MenuFlyoutExPlacementMode.AppBarLeft => (MenuFlyoutExPlacementMode?)MenuFlyoutExPlacementMode.AppBarRight,
