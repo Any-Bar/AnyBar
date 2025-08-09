@@ -33,6 +33,36 @@ public class MenuFlyoutEx : DependencyObject
         }
     }
 
+    #region Width
+
+    public static readonly DependencyProperty WidthProperty =
+        DependencyProperty.Register(
+            nameof(Width),
+            typeof(double),
+            typeof(MenuFlyoutEx),
+            new PropertyMetadata(double.NaN, OnWidthChanged));
+
+    public double Width
+    {
+        get => (double)GetValue(WidthProperty);
+        set => SetValue(WidthProperty, value);
+    }
+
+    private static void OnWidthChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+    {
+        ((MenuFlyoutEx)d).OnWidthChanged(e);
+    }
+
+    private void OnWidthChanged(DependencyPropertyChangedEventArgs e)
+    {
+        if (m_presenter != null)
+        {
+            m_presenter.Width = (double)e.NewValue;
+        }
+    }
+
+    #endregion
+
     #region MenuFlyoutPresenterStyle
 
     public static readonly DependencyProperty MenuFlyoutPresenterStyleProperty =
@@ -240,6 +270,7 @@ public class MenuFlyoutEx : DependencyObject
         {
             var presenter = new MenuFlyoutExPresenter
             {
+                Width = Width,
                 Style = MenuFlyoutPresenterStyle,
                 Placement = PlacementMode.Custom,
                 CustomPopupPlacementCallback = PositionPopup,
