@@ -21,6 +21,7 @@
             Width="360"
             HorizontalAlignment="Left"
             VerticalAlignment="Top"
+            AllowQuerySubmit="False"
             PlaceholderText="{DynamicResource SettingPanePlugins_SearchPlugins}"
             Text="{Binding SearchText, Mode=TwoWay}">
             <controls:AutoSuggestBoxEx.QueryIcon>
