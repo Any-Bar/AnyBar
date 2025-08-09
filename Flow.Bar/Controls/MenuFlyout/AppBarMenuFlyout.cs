@@ -70,7 +70,7 @@ public class AppBarMenuFlyout : DependencyObject
             nameof(Placement),
             typeof(AppBarPlacementMode),
             typeof(AppBarMenuFlyout),
-            new PropertyMetadata(AppBarPlacementMode.Bottom));
+            new PropertyMetadata(AppBarPlacementMode.AppBarBottom));
 
     public AppBarPlacementMode Placement
     {
@@ -292,14 +292,14 @@ public class AppBarMenuFlyout : DependencyObject
 
             switch (Placement)
             {
-                case AppBarPlacementMode.Top:
-                case AppBarPlacementMode.Bottom:
+                case AppBarPlacementMode.AppBarTop:
+                case AppBarPlacementMode.AppBarBottom:
                     value = new Rect(
                         new Point(0, -Offset),
                         new Point(targetSize.Width, targetSize.Height + Offset));
                     break;
-                case AppBarPlacementMode.Left:
-                case AppBarPlacementMode.Right:
+                case AppBarPlacementMode.AppBarLeft:
+                case AppBarPlacementMode.AppBarRight:
                     value = new Rect(
                         new Point(-Offset, 0),
                         new Point(targetSize.Width + Offset, targetSize.Height));

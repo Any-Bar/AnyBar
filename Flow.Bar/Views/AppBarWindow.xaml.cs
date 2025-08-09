@@ -476,10 +476,10 @@ public partial class AppBarWindow : Window
         var element = (FrameworkElement)MainGrid;
         var placement = ViewModel.DockMode switch
         {
-            AppBarDockMode.Left => AppBarPlacementMode.Right,
-            AppBarDockMode.Right => AppBarPlacementMode.Left,
-            AppBarDockMode.Top => AppBarPlacementMode.Bottom,
-            AppBarDockMode.Bottom => AppBarPlacementMode.Top,
+            AppBarDockMode.Left => AppBarPlacementMode.AppBarRight,
+            AppBarDockMode.Right => AppBarPlacementMode.AppBarLeft,
+            AppBarDockMode.Top => AppBarPlacementMode.AppBarBottom,
+            AppBarDockMode.Bottom => AppBarPlacementMode.AppBarTop,
             _ => throw new NotSupportedException(),
         };
         _contextMenu.ShowAt(element, new AppBarMenuFlyoutOptions()

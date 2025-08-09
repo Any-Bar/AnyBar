@@ -148,20 +148,20 @@ public class AppBarMenuFlyoutPresenter : ContextMenu
             {
                 from = flyout.Placement switch
                 {
-                    AppBarPlacementMode.Left or AppBarPlacementMode.Top => s_offset,
-                    AppBarPlacementMode.Right or AppBarPlacementMode.Bottom => -s_offset,
+                    AppBarPlacementMode.AppBarLeft or AppBarPlacementMode.AppBarTop => s_offset,
+                    AppBarPlacementMode.AppBarRight or AppBarPlacementMode.AppBarBottom => -s_offset,
                     _ => null
                 };
                 dp = flyout.Placement switch
                 {
-                    AppBarPlacementMode.Top or AppBarPlacementMode.Bottom => TranslateTransform.YProperty,
-                    AppBarPlacementMode.Left or AppBarPlacementMode.Right => TranslateTransform.XProperty,
+                    AppBarPlacementMode.AppBarTop or AppBarPlacementMode.AppBarBottom => TranslateTransform.YProperty,
+                    AppBarPlacementMode.AppBarLeft or AppBarPlacementMode.AppBarRight => TranslateTransform.XProperty,
                     _ => dp
                 };
                 timeDuration = flyout.Placement switch
                 {
-                    AppBarPlacementMode.Top or AppBarPlacementMode.Bottom => RenderSize.Height * vtd_factor,
-                    AppBarPlacementMode.Left or AppBarPlacementMode.Right => RenderSize.Width * htd_factor,
+                    AppBarPlacementMode.AppBarTop or AppBarPlacementMode.AppBarBottom => RenderSize.Height * vtd_factor,
+                    AppBarPlacementMode.AppBarLeft or AppBarPlacementMode.AppBarRight => RenderSize.Width * htd_factor,
                     _ => timeDuration
                 };
             }

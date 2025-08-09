@@ -2,8 +2,8 @@
 
 public enum AppBarPlacementMode
 {
-    Top = 0,
-    Bottom = 1,
-    Left = 2,
-    Right = 3
+    AppBarTop = 0,
+    AppBarBottom = 1,
+    AppBarLeft = 2,
+    AppBarRight = 3
 }

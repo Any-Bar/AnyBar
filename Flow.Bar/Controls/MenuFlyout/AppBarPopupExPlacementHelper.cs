@@ -15,7 +15,7 @@ internal static class AppBarPopupExPlacementHelper
             "Placement",
             typeof(AppBarPlacementMode),
             typeof(AppBarPopupExPlacementHelper),
-            new PropertyMetadata(AppBarPlacementMode.Top));
+            new PropertyMetadata(AppBarPlacementMode.AppBarTop));
 
     public static AppBarPlacementMode GetPlacement(DependencyObject element)
     {
@@ -80,19 +80,19 @@ internal static class AppBarPopupExPlacementHelper
 
         switch (placement)
         {
-            case AppBarPlacementMode.Top:
+            case AppBarPlacementMode.AppBarTop:
                 point = new Point((targetSize.Width - popupSize.Width) / 2, -popupSize.Height);
                 primaryAxis = PopupPrimaryAxis.Horizontal;
                 break;
-            case AppBarPlacementMode.Bottom:
+            case AppBarPlacementMode.AppBarBottom:
                 point = new Point((targetSize.Width - popupSize.Width) / 2, targetSize.Height);
                 primaryAxis = PopupPrimaryAxis.Horizontal;
                 break;
-            case AppBarPlacementMode.Left:
+            case AppBarPlacementMode.AppBarLeft:
                 point = new Point(-popupSize.Width, (targetSize.Height - popupSize.Height) / 2);
                 primaryAxis = PopupPrimaryAxis.Vertical;
                 break;
-            case AppBarPlacementMode.Right:
+            case AppBarPlacementMode.AppBarRight:
                 point = new Point(targetSize.Width, (targetSize.Height - popupSize.Height) / 2);
                 primaryAxis = PopupPrimaryAxis.Vertical;
                 break;
@@ -112,16 +112,16 @@ internal static class AppBarPopupExPlacementHelper
             var cursorToTargetOffset = cursorToScreenOffset - targetToScreenOffset;
             switch (placement)
             {
-                case AppBarPlacementMode.Top:
+                case AppBarPlacementMode.AppBarTop:
                     point = new Point(cursorToTargetOffset.X - popupSize.Width / 2, point.Y);
                     break;
-                case AppBarPlacementMode.Bottom:
+                case AppBarPlacementMode.AppBarBottom:
                     point = new Point(cursorToTargetOffset.X - popupSize.Width / 2, point.Y);
                     break;
-                case AppBarPlacementMode.Left:
+                case AppBarPlacementMode.AppBarLeft:
                     point = new Point(point.X, cursorToTargetOffset.Y - popupSize.Height / 2);
                     break;
-                case AppBarPlacementMode.Right:
+                case AppBarPlacementMode.AppBarRight:
                     point = new Point(point.X, cursorToTargetOffset.Y - popupSize.Height / 2);
                     break;
             }
@@ -147,10 +147,10 @@ internal static class AppBarPopupExPlacementHelper
     {
         return placement switch
         {
-            AppBarPlacementMode.Top => (AppBarPlacementMode?)AppBarPlacementMode.Bottom,
-            AppBarPlacementMode.Bottom => (AppBarPlacementMode?)AppBarPlacementMode.Top,
-            AppBarPlacementMode.Left => (AppBarPlacementMode?)AppBarPlacementMode.Right,
-            AppBarPlacementMode.Right => (AppBarPlacementMode?)AppBarPlacementMode.Left,
+            AppBarPlacementMode.AppBarTop => (AppBarPlacementMode?)AppBarPlacementMode.AppBarBottom,
+            AppBarPlacementMode.AppBarBottom => (AppBarPlacementMode?)AppBarPlacementMode.AppBarTop,
+            AppBarPlacementMode.AppBarLeft => (AppBarPlacementMode?)AppBarPlacementMode.AppBarRight,
+            AppBarPlacementMode.AppBarRight => (AppBarPlacementMode?)AppBarPlacementMode.AppBarLeft,
             _ => null,
         };
     }
