@@ -123,6 +123,11 @@ public static class PluginManager
         return ModifiedPlugins.Contains(id);
     }
 
+    public static bool IsPreinstalled(string id)
+    {
+        return id == Constants.FlowBarPluginClockPluginId;
+    }
+
     #endregion
 
     #region Bar Elements
