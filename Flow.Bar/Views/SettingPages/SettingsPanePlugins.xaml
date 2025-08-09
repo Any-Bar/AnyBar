@@ -115,6 +115,8 @@
                             x:Name="MoreOptionsButton"
                             Width="28"
                             Height="35"
+                            Click="MoreOptionsButton_Click"
+                            Tag="{Binding}"
                             ToolTip="{DynamicResource SettingPanePlugins_MoreOptions}">
                             <ui:FontIcon Glyph="&#xE712;" />
                         </controls:FontIconButton>
