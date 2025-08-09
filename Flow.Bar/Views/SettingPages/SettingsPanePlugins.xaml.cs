@@ -12,6 +12,8 @@ namespace Flow.Bar.Views.SettingPages;
 
 public partial class SettingsPanePlugins : Page
 {
+    private const double ContextMenuWidth = 275;
+
     private SettingsPanePluginsViewModel _viewModel = null!;
 
     private MenuFlyoutEx _contextMenu = null!;
@@ -28,7 +30,10 @@ public partial class SettingsPanePlugins : Page
         if (_contextMenu == null)
         {
             _contextMenu = new();
-            var settingItem = new MenuItem();
+            var settingItem = new MenuItem()
+            {
+                Width = ContextMenuWidth,
+            };
             settingItem.SetResourceReference(HeaderedItemsControl.HeaderProperty, nameof(Localize.SettingPanePlugins_Uninstall));
             settingItem.Click += (o, e) =>
             {
