@@ -29,6 +29,11 @@
                 Content="{DynamicResource SettingPaneAppBar_AddAppBar}"
                 Style="{DynamicResource {x:Static ui:ThemeKeys.AccentButtonStyleKey}}" />
         </controls:SettingsCardEx>
+
+        <TextBlock
+            x:Name="AppBarsTitle"
+            Style="{StaticResource SettingsSectionHeaderTextBlockStyle}"
+            Text="{DynamicResource SettingPaneAppBar_AllAppBars}" />
         <controls:StackView
             x:Name="AppBarStackView"
             CanReorderItems="True"
@@ -38,6 +43,27 @@
             Orientation="Vertical"
             ScrollViewer.HorizontalScrollBarVisibility="Disabled"
             ScrollViewer.VerticalScrollBarVisibility="Disabled">
+            <controls:StackView.Style>
+                <Style BasedOn="{StaticResource DefaultStackViewStyle}" TargetType="controls:StackView">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding RelativeSource={x:Static RelativeSource.Self}, Path=Items.Count}" Value="0">
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate>
+                                        <TextBlock
+                                            x:Name="NoAppBarsYetTextBlock"
+                                            Width="300"
+                                            HorizontalAlignment="Left"
+                                            Style="{StaticResource {x:Static ui:ThemeKeys.BodyTextBlockStyleKey}}"
+                                            Text="{DynamicResource SettingPaneAppBar_NoAppBarsYet}"
+                                            TextWrapping="Wrap" />
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </controls:StackView.Style>
             <controls:StackView.ItemTemplate>
                 <DataTemplate DataType="models:AppBarModel">
                     <controls:SettingsCardEx

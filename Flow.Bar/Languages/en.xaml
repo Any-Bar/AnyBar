@@ -27,7 +27,9 @@
 
     <!--  Setting Pane AppBar  -->
     <system:String x:Key="SettingPaneAppBar_AddAppBarHeader">Add a new appbar to your system</system:String>
-    <system:String x:Key="SettingPaneAppBar_AddAppBar">Add AppBar</system:String>
+    <system:String x:Key="SettingPaneAppBar_AddAppBar">Add apppar</system:String>
+    <system:String x:Key="SettingPaneAppBar_AllAppBars">All appbars</system:String>
+    <system:String x:Key="SettingPaneAppBar_NoAppBarsYet">You have not added any appbars yet.</system:String>
 
     <!--  Setting Pane AppBar Setting  -->
     <system:String x:Key="SettingPaneAppBarSetting_Remove">Remove</system:String>
