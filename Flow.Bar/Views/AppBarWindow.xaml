@@ -163,7 +163,7 @@
                     x:Name="LeftOrTopStackView"
                     CanReorderItems="False"
                     ItemTemplate="{StaticResource StackViewDataTemplate}"
-                    ItemsSource="{Binding LeftOrTopBarElements, Mode=OneWay}"
+                    ItemsSource="{Binding LeftOrTopBarElements, Mode=OneTime}"
                     ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                     ScrollViewer.VerticalScrollBarVisibility="Disabled">
                     <controls:StackView.Style>
@@ -200,7 +200,7 @@
                     x:Name="RightOrBottomStackView"
                     CanReorderItems="False"
                     ItemTemplate="{StaticResource StackViewDataTemplate}"
-                    ItemsSource="{Binding CenterBarElements, Mode=OneWay}"
+                    ItemsSource="{Binding CenterBarElements, Mode=OneTime}"
                     ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                     ScrollViewer.VerticalScrollBarVisibility="Disabled">
                     <controls:StackView.Style>
@@ -238,7 +238,7 @@
                 x:Name="CenterStackView"
                 CanReorderItems="False"
                 ItemTemplate="{StaticResource StackViewDataTemplate}"
-                ItemsSource="{Binding CenterBarElements, Mode=OneWay}"
+                ItemsSource="{Binding CenterBarElements, Mode=OneTime}"
                 ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                 ScrollViewer.VerticalScrollBarVisibility="Disabled">
                 <controls:StackView.Style>

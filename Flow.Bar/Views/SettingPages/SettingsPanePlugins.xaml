@@ -70,7 +70,7 @@
             Margin="{StaticResource SettingsSectionHeaderMargin}"
             CanReorderItems="False"
             IsHoverEnabled="False"
-            ItemsSource="{Binding AllPlugins, Mode=OneWay}"
+            ItemsSource="{Binding AllPlugins, Mode=OneTime}"
             Orientation="Vertical"
             ScrollViewer.HorizontalScrollBarVisibility="Disabled"
             ScrollViewer.VerticalScrollBarVisibility="Disabled">

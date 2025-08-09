@@ -32,9 +32,9 @@
         <controls:StackView
             x:Name="AppBarStackView"
             CanReorderItems="True"
-            DropScrollViewer="{Binding RootFrameScrollViewer, Mode=OneWay}"
+            DropScrollViewer="{Binding RootFrameScrollViewer, Mode=OneTime}"
             IsHoverEnabled="False"
-            ItemsSource="{Binding AppBars, Mode=OneWay}"
+            ItemsSource="{Binding AppBars, Mode=OneTime}"
             Orientation="Vertical"
             ScrollViewer.HorizontalScrollBarVisibility="Disabled"
             ScrollViewer.VerticalScrollBarVisibility="Disabled">
