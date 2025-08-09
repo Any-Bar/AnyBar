@@ -1,0 +1,73 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:ikw="http://schemas.inkore.net/lib/ui/wpf"
+    xmlns:local="clr-namespace:Flow.Bar.Controls"
+    xmlns:ui="http://schemas.inkore.net/lib/ui/wpf/modern">
+
+    <Style x:Key="DefaultFontIconButtonStyle" TargetType="local:FontIconButton">
+        <Setter Property="OverridesDefaultStyle" Value="True" />
+        <Setter Property="Background" Value="{DynamicResource AppBarButtonBackground}" />
+        <Setter Property="Foreground" Value="{DynamicResource AppBarButtonForeground}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource AppBarButtonBorderBrush}" />
+        <Setter Property="BorderThickness" Value="{DynamicResource ButtonBorderThemeThickness}" />
+        <Setter Property="HorizontalAlignment" Value="Left" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="HorizontalContentAlignment" Value="Center" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="FontFamily" Value="{DynamicResource ContentControlThemeFontFamily}" />
+        <Setter Property="FontWeight" Value="Normal" />
+        <Setter Property="FontSize" Value="{DynamicResource ControlContentThemeFontSize}" />
+        <Setter Property="FocusVisualStyle" Value="{DynamicResource {x:Static SystemParameters.FocusVisualStyleKey}}" />
+        <Setter Property="ui:FocusVisualHelper.UseSystemFocusVisuals" Value="{DynamicResource UseSystemFocusVisuals}" />
+        <Setter Property="ui:FocusVisualHelper.FocusVisualMargin" Value="-3" />
+        <Setter Property="ui:ControlHelper.CornerRadius" Value="{DynamicResource ControlCornerRadius}" />
+        <Setter Property="Stylus.IsPressAndHoldEnabled" Value="False" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <ui:ElevationBorder
+                        x:Name="Background"
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        CornerRadius="{TemplateBinding ui:ControlHelper.CornerRadius}"
+                        SnapsToDevicePixels="True">
+                        <Border
+                            x:Name="Border"
+                            Padding="{TemplateBinding Padding}"
+                            CornerRadius="{TemplateBinding ui:ControlHelper.CornerRadius}">
+                            <ui:ContentPresenterEx
+                                x:Name="ContentPresenter"
+                                HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                Focusable="False"
+                                RecognizesAccessKey="True"
+                                SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                        </Border>
+                    </ui:ElevationBorder>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="Background" Property="Background" Value="{DynamicResource AppBarButtonBackgroundPointerOver}" />
+                            <Setter TargetName="Background" Property="BorderBrush" Value="{DynamicResource AppBarButtonBorderBrushPointerOver}" />
+                            <Setter Property="Foreground" Value="{DynamicResource AppBarButtonForegroundPointerOver}" />
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="Background" Property="Background" Value="{DynamicResource AppBarButtonBackgroundPressed}" />
+                            <Setter TargetName="Background" Property="BorderBrush" Value="{DynamicResource AppBarButtonBorderBrushPressed}" />
+                            <Setter Property="Foreground" Value="{DynamicResource AppBarButtonForegroundPressed}" />
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter TargetName="Background" Property="Background" Value="{DynamicResource AppBarButtonBackgroundDisabled}" />
+                            <Setter TargetName="Background" Property="BorderBrush" Value="{DynamicResource AppBarButtonBorderBrushDisabled}" />
+                            <Setter Property="Foreground" Value="{DynamicResource AppBarButtonForegroundDisabled}" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style BasedOn="{StaticResource DefaultFontIconButtonStyle}" TargetType="local:FontIconButton" />
+
+</ResourceDictionary>
