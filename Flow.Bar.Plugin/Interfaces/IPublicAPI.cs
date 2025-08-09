@@ -7,32 +7,32 @@ using System.Windows.Media;
 namespace Flow.Bar.Plugin;
 
 /// <summary>
-/// Public APIs that plugin can use
+/// Public APIs that plugin can use.
 /// </summary>
 public interface IPublicAPI
 {
     /// <summary>
-    /// Show setting window
+    /// Show setting window.
     /// </summary>
     void ShowSettingWindow();
 
     /// <summary>
-    /// Save all settings, including Flow Bar settings and image cache
+    /// Save all settings, including Flow Bar settings and image cache.
     /// </summary>
     void SaveAppAllSettings();
 
     /// <summary>
-    /// Get translation of current language
+    /// Get translation of current language.
     /// </summary>
     /// <remarks>
-    /// You need to implement IPluginI18n to enable multiple languages for your plugin
+    /// You need to implement IPluginI18n to enable multiple languages for your plugin.
     /// </remarks>
     /// <param name="key"></param>
     /// <returns></returns>
     string GetTranslation(string key);
 
     /// <summary>
-    /// Show message box
+    /// Show message box.
     /// </summary>
     /// <param name="title">Message title</param>
     /// <param name="subTitle">Message subtitle</param>
@@ -40,7 +40,7 @@ public interface IPublicAPI
     void ShowMsg(string title, string subTitle = "", string iconPath = "");
 
     /// <summary>
-    /// Displays a standardised Flow message box
+    /// Displays a standardised Flow message box.
     /// </summary>
     /// <param name="messageBoxText">The message of the message box.</param>
     /// <param name="caption">The caption of the message box.</param>
@@ -51,33 +51,33 @@ public interface IPublicAPI
     public MessageBoxResult ShowMsgBox(string messageBoxText, string caption = "", MessageBoxButton button = MessageBoxButton.OK, MessageBoxImage icon = MessageBoxImage.None, MessageBoxResult defaultResult = MessageBoxResult.OK);
 
     /// <summary>
-    /// Log debug message
+    /// Log debug message.
     /// </summary>
     void LogDebug(string className, string message, [CallerMemberName] string methodName = "");
 
     /// <summary>
-    /// Log info message
+    /// Log info message.
     /// </summary>
     void LogInfo(string className, string message, [CallerMemberName] string methodName = "");
 
     /// <summary>
-    /// Log warning message
+    /// Log warning message.
     /// </summary>
     void LogWarning(string className, string message, [CallerMemberName] string methodName = "");
 
     /// <summary>
-    /// Log error message
+    /// Log error message.
     /// </summary>
     /// <remarks>
-    /// Preferred error logging method for plugins
+    /// Preferred error logging method for plugins.
     /// </remarks>
     void LogError(string className, string message, Exception e = null, [CallerMemberName] string methodName = "");
 
     /// <summary>
-    /// Log fatal message
+    /// Log fatal message.
     /// </summary>
     /// <remarks>
-    /// Will break if in debug mode so developer will be aware
+    /// Will break if in debug mode so developer will be aware.
     /// </remarks>
     void LogFatal(string className, string message, Exception e = null, [CallerMemberName] string methodName = "");
 
@@ -89,38 +89,38 @@ public interface IPublicAPI
     public long StopwatchLogDebug(string className, string message, Action action, [CallerMemberName] string methodName = "");
 
     /// <summary>
-    /// Log debug message of the time taken to execute a method asynchronously
-    /// Message will only be logged in Debug mode
+    /// Log debug message of the time taken to execute a method asynchronously.
+    /// Message will only be logged in Debug mode.
     /// </summary>
     /// <returns>The time taken to execute the method in milliseconds</returns>
     public Task<long> StopwatchLogDebugAsync(string className, string message, Func<Task> action, [CallerMemberName] string methodName = "");
 
     /// <summary>
-    /// Log info message of the time taken to execute a method
+    /// Log info message of the time taken to execute a method.
     /// </summary>
     /// <returns>The time taken to execute the method in milliseconds</returns>
     public long StopwatchLogInfo(string className, string message, Action action, [CallerMemberName] string methodName = "");
 
     /// <summary>
-    /// Log info message of the time taken to execute a method asynchronously
+    /// Log info message of the time taken to execute a method asynchronously.
     /// </summary>
     /// <returns>The time taken to execute the method in milliseconds</returns>
     public Task<long> StopwatchLogInfoAsync(string className, string message, Func<Task> action, [CallerMemberName] string methodName = "");
 
     /// <summary>
-    /// Load image from path
+    /// Load image from path.
     /// </summary>
     /// <remarks>
     /// Support local, remote and data:image url.
     /// Support png, jpg, jpeg, gif, bmp, tiff, ico, svg image files.
     /// If image path is missing, it will return a missing icon.
     /// </remarks>
-    /// <param name="path">The path of the image.</param>
+    /// <param name="path">The path of the image</param>
     /// <param name="loadFullImage">
-    /// Load full image or not.
+    /// Load full image or not
     /// </param>
     /// <param name="cacheImage">
-    /// Cache the image or not. Cached image will be stored in FL cache.
+    /// Cache the image or not. Cached image will be stored in Flow cache.
     /// If the image is just used one time, it's better to set this to false.
     /// </param>
     /// <returns></returns>
