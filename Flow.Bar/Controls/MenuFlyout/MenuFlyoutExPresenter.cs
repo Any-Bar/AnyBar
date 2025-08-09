@@ -148,18 +148,41 @@ public class MenuFlyoutExPresenter : ContextMenu
             {
                 from = flyout.Placement switch
                 {
+                    MenuFlyoutExPlacementMode.Left or MenuFlyoutExPlacementMode.Top => s_offset,
+                    MenuFlyoutExPlacementMode.Right or MenuFlyoutExPlacementMode.Bottom => -s_offset,
+                    MenuFlyoutExPlacementMode.Full => null,
+                    MenuFlyoutExPlacementMode.TopEdgeAlignedLeft or MenuFlyoutExPlacementMode.TopEdgeAlignedRight => s_offset,
+                    MenuFlyoutExPlacementMode.BottomEdgeAlignedLeft or MenuFlyoutExPlacementMode.BottomEdgeAlignedRight => -s_offset,
+                    MenuFlyoutExPlacementMode.LeftEdgeAlignedTop or MenuFlyoutExPlacementMode.LeftEdgeAlignedBottom => s_offset,
+                    MenuFlyoutExPlacementMode.RightEdgeAlignedTop or MenuFlyoutExPlacementMode.RightEdgeAlignedBottom => -s_offset,
+                    MenuFlyoutExPlacementMode.Auto => throw new NotImplementedException("Auto placement mode is not supported in MenuFlyoutEx."),
                     MenuFlyoutExPlacementMode.AppBarLeft or MenuFlyoutExPlacementMode.AppBarTop => s_offset,
                     MenuFlyoutExPlacementMode.AppBarRight or MenuFlyoutExPlacementMode.AppBarBottom => -s_offset,
                     _ => null
                 };
                 dp = flyout.Placement switch
                 {
+                    MenuFlyoutExPlacementMode.Top or MenuFlyoutExPlacementMode.Bottom => TranslateTransform.YProperty,
+                    MenuFlyoutExPlacementMode.Left or MenuFlyoutExPlacementMode.Right => TranslateTransform.XProperty,
+                    MenuFlyoutExPlacementMode.Full => dp,
+                    MenuFlyoutExPlacementMode.TopEdgeAlignedLeft or MenuFlyoutExPlacementMode.TopEdgeAlignedRight => TranslateTransform.YProperty,
+                    MenuFlyoutExPlacementMode.BottomEdgeAlignedLeft or MenuFlyoutExPlacementMode.BottomEdgeAlignedRight => TranslateTransform.YProperty,
+                    MenuFlyoutExPlacementMode.LeftEdgeAlignedTop or MenuFlyoutExPlacementMode.LeftEdgeAlignedBottom => TranslateTransform.XProperty,
+                    MenuFlyoutExPlacementMode.RightEdgeAlignedTop or MenuFlyoutExPlacementMode.RightEdgeAlignedBottom => TranslateTransform.XProperty,
+                    MenuFlyoutExPlacementMode.Auto => dp,
                     MenuFlyoutExPlacementMode.AppBarTop or MenuFlyoutExPlacementMode.AppBarBottom => TranslateTransform.YProperty,
                     MenuFlyoutExPlacementMode.AppBarLeft or MenuFlyoutExPlacementMode.AppBarRight => TranslateTransform.XProperty,
                     _ => dp
                 };
                 timeDuration = flyout.Placement switch
                 {
+                    MenuFlyoutExPlacementMode.Top or MenuFlyoutExPlacementMode.Bottom => RenderSize.Height * vtd_factor,
+                    MenuFlyoutExPlacementMode.Left or MenuFlyoutExPlacementMode.Right => RenderSize.Width * htd_factor,
+                    MenuFlyoutExPlacementMode.Full => 0,
+                    MenuFlyoutExPlacementMode.TopEdgeAlignedLeft or MenuFlyoutExPlacementMode.TopEdgeAlignedRight => RenderSize.Height * vtd_factor,
+                    MenuFlyoutExPlacementMode.BottomEdgeAlignedLeft or MenuFlyoutExPlacementMode.BottomEdgeAlignedRight => RenderSize.Height * vtd_factor,
+                    MenuFlyoutExPlacementMode.LeftEdgeAlignedTop or MenuFlyoutExPlacementMode.LeftEdgeAlignedBottom => RenderSize.Width * htd_factor,
+                    MenuFlyoutExPlacementMode.RightEdgeAlignedTop or MenuFlyoutExPlacementMode.RightEdgeAlignedBottom => RenderSize.Width * htd_factor,
                     MenuFlyoutExPlacementMode.AppBarTop or MenuFlyoutExPlacementMode.AppBarBottom => RenderSize.Height * vtd_factor,
                     MenuFlyoutExPlacementMode.AppBarLeft or MenuFlyoutExPlacementMode.AppBarRight => RenderSize.Width * htd_factor,
                     _ => timeDuration
