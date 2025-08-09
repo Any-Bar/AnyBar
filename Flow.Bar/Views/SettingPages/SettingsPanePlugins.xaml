@@ -2,9 +2,11 @@
     x:Class="Flow.Bar.Views.SettingPages.SettingsPanePlugins"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="clr-namespace:Flow.Bar.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:ikw="http://schemas.inkore.net/lib/ui/wpf"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:models="clr-namespace:Flow.Bar.Models.Plugins"
     xmlns:settingsVm="clr-namespace:Flow.Bar.ViewModels.SettingPages"
     xmlns:ui="http://schemas.inkore.net/lib/ui/wpf/modern"
     Title="{DynamicResource SettingWindow_Plugins}"
@@ -62,6 +64,34 @@
                 SelectedValue="{Binding SortMode, Mode=TwoWay}"
                 SelectedValuePath="Value" />
         </ikw:SimpleStackPanel>
+
+        <controls:StackView
+            x:Name="AllPluginsStackView"
+            Margin="{StaticResource SettingsSectionHeaderMargin}"
+            CanReorderItems="False"
+            ItemsSource="{Binding AllPlugins, Mode=OneWay}"
+            Orientation="Vertical"
+            ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+            ScrollViewer.VerticalScrollBarVisibility="Disabled">
+            <controls:StackView.ItemTemplate>
+                <DataTemplate DataType="models:PluginViewModel">
+                    <ui:SettingsCard
+                        x:Name="PluginSettingsCard"
+                        Description="{Binding Description, Mode=OneTime}"
+                        Header="{Binding Name, Mode=OneTime}">
+                        <ui:SettingsCard.HeaderIcon>
+                            <Image
+                                Width="16"
+                                Height="16"
+                                RenderOptions.BitmapScalingMode="HighQuality"
+                                Source="{Binding Image, Mode=OneWay}" />
+                        </ui:SettingsCard.HeaderIcon>
+
+                        <ui:FontIcon Glyph="&#xE712;" />
+                    </ui:SettingsCard>
+                </DataTemplate>
+            </controls:StackView.ItemTemplate>
+        </controls:StackView>
 
     </ikw:SimpleStackPanel>
 </ui:Page>
