@@ -269,7 +269,14 @@ public sealed partial class AutoSuggestBoxEx : ItemsControl
 
     private void OnQueryButtonClick(object sender, RoutedEventArgs e)
     {
-        TryCommitTextBoxText();
+        if (AllowQuerySubmit)
+        {
+            TryCommitTextBoxText();
+        }
+        else
+        {
+            Text = string.Empty;
+        }
     }
 
     private void OnSuggestionsPopupOpened(object? sender, EventArgs e)
@@ -381,7 +388,10 @@ public sealed partial class AutoSuggestBoxEx : ItemsControl
         {
             var icon = QueryIcon;
             m_queryButton.Content = icon;
-            m_queryButton.Visibility = icon != null ? Visibility.Visible : Visibility.Collapsed;
+            if (AllowQuerySubmit)
+            {
+                m_queryButton.Visibility = icon != null ? Visibility.Visible : Visibility.Collapsed;
+            }
         }
     }
 

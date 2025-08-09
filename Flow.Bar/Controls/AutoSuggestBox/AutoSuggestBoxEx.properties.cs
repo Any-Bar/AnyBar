@@ -210,6 +210,23 @@ partial class AutoSuggestBoxEx
 
     #endregion
 
+    #region AllowQuerySubmit
+
+    public static readonly DependencyProperty AllowQuerySubmitProperty =
+        DependencyProperty.Register(
+            nameof(AllowQuerySubmit),
+            typeof(bool),
+            typeof(AutoSuggestBoxEx),
+            new PropertyMetadata(true));
+
+    public bool AllowQuerySubmit
+    {
+        get => (bool)GetValue(AllowQuerySubmitProperty);
+        set => SetValue(AllowQuerySubmitProperty, value);
+    }
+
+    #endregion
+
     public event TypedEventHandler<AutoSuggestBoxEx, AutoSuggestBoxExSuggestionChosenEventArgs>? SuggestionChosen;
 
     public event TypedEventHandler<AutoSuggestBoxEx, AutoSuggestBoxExTextChangedEventArgs>? TextChanged;

@@ -9,5 +9,6 @@ public sealed class AutoSuggestBoxExQuerySubmittedEventArgs : EventArgs
     }
 
     public object? ChosenSuggestion { get; internal set; }
+
     public string QueryText { get; internal set; } = string.Empty;
 }
