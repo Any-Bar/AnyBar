@@ -98,21 +98,21 @@
             </controls:StackView.Style>
             <controls:StackView.ItemTemplate>
                 <DataTemplate DataType="models:PluginViewModel">
-                    <ui:SettingsCard
+                    <controls:SettingsCardEx
                         x:Name="PluginSettingsCard"
                         Description="{Binding Description, Mode=OneTime}"
                         Header="{Binding Name, Mode=OneTime}"
                         ToolTip="{Binding VersionAndAuthor, Mode=OneTime}">
-                        <ui:SettingsCard.HeaderIcon>
+                        <controls:SettingsCardEx.HeaderIcon>
                             <Image
                                 Width="16"
                                 Height="16"
                                 RenderOptions.BitmapScalingMode="HighQuality"
                                 Source="{Binding Image, Mode=OneWay}" />
-                        </ui:SettingsCard.HeaderIcon>
+                        </controls:SettingsCardEx.HeaderIcon>
 
                         <ui:FontIcon Glyph="&#xE712;" />
-                    </ui:SettingsCard>
+                    </controls:SettingsCardEx>
                 </DataTemplate>
             </controls:StackView.ItemTemplate>
         </controls:StackView>
