@@ -38,7 +38,7 @@ public partial class NavigationView
             nameof(IsPaneOpen),
             typeof(bool),
             typeof(NavigationView),
-            new PropertyMetadata(true, OnIsPaneOpenPropertyChanged));
+            new PropertyMetadata(OnIsPaneOpenPropertyChanged));
 
     public bool IsPaneOpen
     {
