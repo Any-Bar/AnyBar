@@ -69,6 +69,7 @@
             x:Name="AllPluginsStackView"
             Margin="{StaticResource SettingsSectionHeaderMargin}"
             CanReorderItems="False"
+            IsHoverEnabled="False"
             ItemsSource="{Binding AllPlugins, Mode=OneWay}"
             Orientation="Vertical"
             ScrollViewer.HorizontalScrollBarVisibility="Disabled"

@@ -49,13 +49,14 @@
                         </Grid>
                     </Border>
                     <ControlTemplate.Triggers>
-                        <MultiTrigger>
-                            <MultiTrigger.Conditions>
-                                <Condition Property="IsMouseOver" Value="True" />
-                            </MultiTrigger.Conditions>
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding IsMouseOver, RelativeSource={RelativeSource Self}}" Value="True" />
+                                <Condition Binding="{Binding IsHoverEnabled, RelativeSource={RelativeSource AncestorType=local:StackView}}" Value="True" />
+                            </MultiDataTrigger.Conditions>
                             <Setter TargetName="LayoutRoot" Property="Background" Value="{DynamicResource ListViewItemBackgroundPointerOver}" />
                             <Setter Property="Foreground" Value="{DynamicResource ListViewItemForegroundPointerOver}" />
-                        </MultiTrigger>
+                        </MultiDataTrigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
