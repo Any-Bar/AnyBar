@@ -69,7 +69,7 @@ public class StackViewBase : ListBox
 
     #endregion
 
-    public event ItemClickEventHandler? ItemClick;
+    public event StackViewItemClickEventHandler? ItemClick;
 
     internal void NotifyListItemClicked(StackViewBaseItem item)
     {
@@ -77,10 +77,10 @@ public class StackViewBase : ListBox
         ItemClick?.Invoke(this, new StackViewItemClickEventArgs { ClickedItem = clickedItem });
     }
 
-    public event ItemMouseButtonEventHandler? ItemPreviewMouseLeftButtonDown;
-    public event ItemMouseButtonEventHandler? ItemPreviewMouseLeftButtonUp;
-    public event ItemMouseButtonEventHandler? ItemMouseLeftButtonDown;
-    public event ItemMouseButtonEventHandler? ItemMouseLeftButtonUp;
+    public event StackViewItemMouseButtonEventHandler? ItemPreviewMouseLeftButtonDown;
+    public event StackViewItemMouseButtonEventHandler? ItemPreviewMouseLeftButtonUp;
+    public event StackViewItemMouseButtonEventHandler? ItemMouseLeftButtonDown;
+    public event StackViewItemMouseButtonEventHandler? ItemMouseLeftButtonUp;
 
     internal void NotifyListItemPreviewMouseLeftButtonDown(StackViewBaseItem item, MouseButtonEventArgs e)
     {
@@ -106,10 +106,10 @@ public class StackViewBase : ListBox
         ItemMouseLeftButtonUp?.Invoke(this, new StackViewItemMouseButtonEventArgs(item, e));
     }
 
-    public event ItemMouseButtonEventHandler? ItemPreviewMouseRightButtonDown;
-    public event ItemMouseButtonEventHandler? ItemPreviewMouseRightButtonUp;
-    public event ItemMouseButtonEventHandler? ItemMouseRightButtonDown;
-    public event ItemMouseButtonEventHandler? ItemMouseRightButtonUp;
+    public event StackViewItemMouseButtonEventHandler? ItemPreviewMouseRightButtonDown;
+    public event StackViewItemMouseButtonEventHandler? ItemPreviewMouseRightButtonUp;
+    public event StackViewItemMouseButtonEventHandler? ItemMouseRightButtonDown;
+    public event StackViewItemMouseButtonEventHandler? ItemMouseRightButtonUp;
 
     internal void NotifyListItemPreviewMouseRightButtonDown(StackViewBaseItem item, MouseButtonEventArgs e)
     {
