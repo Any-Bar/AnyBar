@@ -245,7 +245,6 @@
                         <VisualStateManager.VisualStateGroups>
                             <VisualStateGroup x:Name="ButtonStates">
                                 <VisualState x:Name="ButtonVisible">
-
                                     <Storyboard>
                                         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="DeleteButton" Storyboard.TargetProperty="Visibility">
                                             <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Visible}" />
@@ -253,9 +252,7 @@
                                     </Storyboard>
                                 </VisualState>
                                 <VisualState x:Name="ButtonCollapsed" />
-
                             </VisualStateGroup>
-
                         </VisualStateManager.VisualStateGroups>
                     </Grid>
 
@@ -325,7 +322,6 @@
             <Setter.Value>
                 <ControlTemplate TargetType="local:AutoSuggestBoxEx">
                     <Grid x:Name="LayoutRoot">
-
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
@@ -393,9 +389,7 @@
                                 </Border>
                             </ui:ThemeShadowChrome>
                         </Popup>
-
                     </Grid>
-
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
