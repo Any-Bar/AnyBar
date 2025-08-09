@@ -78,18 +78,9 @@ public static class PluginManager
             catch (Exception e)
             {
                 App.API.LogFatal(ClassName, $"Fail to Init plugin: {pair.Metadata.Name}", e);
-                if (pair.Metadata.Disabled)
-                {
-                    // If this plugin is already disabled, do not show error message again
-                    // Or else it will be shown every time
-                    App.API.LogDebug(ClassName, $"Skipped init for <{pair.Metadata.Name}> due to error");
-                }
-                else
-                {
-                    pair.Metadata.Disabled = true;
-                    failedPlugins.Enqueue(pair);
-                    App.API.LogDebug(ClassName, $"Disable plugin <{pair.Metadata.Name}> because init failed");
-                }
+                pair.Metadata.Disabled = true;
+                failedPlugins.Enqueue(pair);
+                App.API.LogDebug(ClassName, $"Disable plugin <{pair.Metadata.Name}> because init failed");
             }
         }));
 
