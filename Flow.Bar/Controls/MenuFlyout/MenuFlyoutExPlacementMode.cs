@@ -1,6 +1,6 @@
 ﻿namespace Flow.Bar.Controls;
 
-public enum AppBarPlacementMode
+public enum MenuFlyoutExPlacementMode
 {
     AppBarTop = 0,
     AppBarBottom = 1,

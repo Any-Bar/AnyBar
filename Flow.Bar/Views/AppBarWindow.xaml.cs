@@ -45,7 +45,7 @@ public partial class AppBarWindow : Window
     private readonly ExplorerWatcher _explorerWatcher = new();
     private bool _isExplorerRestarting = false;
 
-    private readonly AppBarMenuFlyout _contextMenu = new();
+    private readonly MenuFlyoutEx _contextMenu = new();
     private System.Drawing.Point? _cursorPosition = null;
     private bool _contextMenuOpened = false;
     private bool _openContextMenuOnClosed = false;
@@ -476,13 +476,13 @@ public partial class AppBarWindow : Window
         var element = (FrameworkElement)MainGrid;
         var placement = ViewModel.DockMode switch
         {
-            AppBarDockMode.Left => AppBarPlacementMode.AppBarRight,
-            AppBarDockMode.Right => AppBarPlacementMode.AppBarLeft,
-            AppBarDockMode.Top => AppBarPlacementMode.AppBarBottom,
-            AppBarDockMode.Bottom => AppBarPlacementMode.AppBarTop,
+            AppBarDockMode.Left => MenuFlyoutExPlacementMode.AppBarRight,
+            AppBarDockMode.Right => MenuFlyoutExPlacementMode.AppBarLeft,
+            AppBarDockMode.Top => MenuFlyoutExPlacementMode.AppBarBottom,
+            AppBarDockMode.Bottom => MenuFlyoutExPlacementMode.AppBarTop,
             _ => throw new NotSupportedException(),
         };
-        _contextMenu.ShowAt(element, new AppBarMenuFlyoutOptions()
+        _contextMenu.ShowAt(element, new MenuFlyoutExOptions()
         {
             Placement = placement,
             Position = e.GetPosition(element),

@@ -6,23 +6,23 @@ using System.Windows.Media;
 
 namespace Flow.Bar.Controls;
 
-internal static class AppBarPopupExPlacementHelper
+internal static class MenuFlyoutExPlacementHelper
 {
     #region Placement
 
     public static readonly DependencyProperty PlacementProperty =
         DependencyProperty.RegisterAttached(
             "Placement",
-            typeof(AppBarPlacementMode),
-            typeof(AppBarPopupExPlacementHelper),
-            new PropertyMetadata(AppBarPlacementMode.AppBarTop));
+            typeof(MenuFlyoutExPlacementMode),
+            typeof(MenuFlyoutExPlacementHelper),
+            new PropertyMetadata(MenuFlyoutExPlacementMode.AppBarTop));
 
-    public static AppBarPlacementMode GetPlacement(DependencyObject element)
+    public static MenuFlyoutExPlacementMode GetPlacement(DependencyObject element)
     {
-        return (AppBarPlacementMode)element.GetValue(PlacementProperty);
+        return (MenuFlyoutExPlacementMode)element.GetValue(PlacementProperty);
     }
 
-    public static void SetPlacement(DependencyObject element, AppBarPlacementMode value)
+    public static void SetPlacement(DependencyObject element, MenuFlyoutExPlacementMode value)
     {
         element.SetValue(PlacementProperty, value);
     }
@@ -30,7 +30,7 @@ internal static class AppBarPopupExPlacementHelper
     #endregion
 
     internal static CustomPopupPlacement[] PositionPopup(
-        AppBarPlacementMode placement,
+        MenuFlyoutExPlacementMode placement,
         Size popupSize,
         Size targetSize,
         MonitorInfo monitor,
@@ -65,7 +65,7 @@ internal static class AppBarPopupExPlacementHelper
     }
 
     private static CustomPopupPlacement CalculatePopupPlacement(
-        AppBarPlacementMode placement,
+        MenuFlyoutExPlacementMode placement,
         Size popupSize,
         Size targetSize,
         MonitorInfo monitor,
@@ -80,19 +80,19 @@ internal static class AppBarPopupExPlacementHelper
 
         switch (placement)
         {
-            case AppBarPlacementMode.AppBarTop:
+            case MenuFlyoutExPlacementMode.AppBarTop:
                 point = new Point((targetSize.Width - popupSize.Width) / 2, -popupSize.Height);
                 primaryAxis = PopupPrimaryAxis.Horizontal;
                 break;
-            case AppBarPlacementMode.AppBarBottom:
+            case MenuFlyoutExPlacementMode.AppBarBottom:
                 point = new Point((targetSize.Width - popupSize.Width) / 2, targetSize.Height);
                 primaryAxis = PopupPrimaryAxis.Horizontal;
                 break;
-            case AppBarPlacementMode.AppBarLeft:
+            case MenuFlyoutExPlacementMode.AppBarLeft:
                 point = new Point(-popupSize.Width, (targetSize.Height - popupSize.Height) / 2);
                 primaryAxis = PopupPrimaryAxis.Vertical;
                 break;
-            case AppBarPlacementMode.AppBarRight:
+            case MenuFlyoutExPlacementMode.AppBarRight:
                 point = new Point(targetSize.Width, (targetSize.Height - popupSize.Height) / 2);
                 primaryAxis = PopupPrimaryAxis.Vertical;
                 break;
@@ -112,16 +112,16 @@ internal static class AppBarPopupExPlacementHelper
             var cursorToTargetOffset = cursorToScreenOffset - targetToScreenOffset;
             switch (placement)
             {
-                case AppBarPlacementMode.AppBarTop:
+                case MenuFlyoutExPlacementMode.AppBarTop:
                     point = new Point(cursorToTargetOffset.X - popupSize.Width / 2, point.Y);
                     break;
-                case AppBarPlacementMode.AppBarBottom:
+                case MenuFlyoutExPlacementMode.AppBarBottom:
                     point = new Point(cursorToTargetOffset.X - popupSize.Width / 2, point.Y);
                     break;
-                case AppBarPlacementMode.AppBarLeft:
+                case MenuFlyoutExPlacementMode.AppBarLeft:
                     point = new Point(point.X, cursorToTargetOffset.Y - popupSize.Height / 2);
                     break;
-                case AppBarPlacementMode.AppBarRight:
+                case MenuFlyoutExPlacementMode.AppBarRight:
                     point = new Point(point.X, cursorToTargetOffset.Y - popupSize.Height / 2);
                     break;
             }
@@ -143,14 +143,14 @@ internal static class AppBarPopupExPlacementHelper
         return new CustomPopupPlacement(point, primaryAxis);
     }
 
-    private static AppBarPlacementMode? GetAlternativePlacementMode(AppBarPlacementMode placement)
+    private static MenuFlyoutExPlacementMode? GetAlternativePlacementMode(MenuFlyoutExPlacementMode placement)
     {
         return placement switch
         {
-            AppBarPlacementMode.AppBarTop => (AppBarPlacementMode?)AppBarPlacementMode.AppBarBottom,
-            AppBarPlacementMode.AppBarBottom => (AppBarPlacementMode?)AppBarPlacementMode.AppBarTop,
-            AppBarPlacementMode.AppBarLeft => (AppBarPlacementMode?)AppBarPlacementMode.AppBarRight,
-            AppBarPlacementMode.AppBarRight => (AppBarPlacementMode?)AppBarPlacementMode.AppBarLeft,
+            MenuFlyoutExPlacementMode.AppBarTop => (MenuFlyoutExPlacementMode?)MenuFlyoutExPlacementMode.AppBarBottom,
+            MenuFlyoutExPlacementMode.AppBarBottom => (MenuFlyoutExPlacementMode?)MenuFlyoutExPlacementMode.AppBarTop,
+            MenuFlyoutExPlacementMode.AppBarLeft => (MenuFlyoutExPlacementMode?)MenuFlyoutExPlacementMode.AppBarRight,
+            MenuFlyoutExPlacementMode.AppBarRight => (MenuFlyoutExPlacementMode?)MenuFlyoutExPlacementMode.AppBarLeft,
             _ => null,
         };
     }

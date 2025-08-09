@@ -4,39 +4,39 @@ using System.Windows;
 
 namespace Flow.Bar.Controls;
 
-public class AppBarMenuFlyoutOptions : IEquatable<AppBarMenuFlyoutOptions>
+public class MenuFlyoutExOptions : IEquatable<MenuFlyoutExOptions>
 {
-    public AppBarPlacementMode Placement { get; set; } = AppBarPlacementMode.AppBarBottom;
+    public MenuFlyoutExPlacementMode Placement { get; set; } = MenuFlyoutExPlacementMode.AppBarBottom;
 
     public Point? Position { get; set; } = null;
 
     public MonitorInfo Monitor { get; set; } = null!;
 
-    public AppBarMenuFlyoutOptions()
+    public MenuFlyoutExOptions()
     {
 
     }
 
-    public static bool operator ==(AppBarMenuFlyoutOptions? x, AppBarMenuFlyoutOptions? y)
+    public static bool operator ==(MenuFlyoutExOptions? x, MenuFlyoutExOptions? y)
     {
         return x?.Placement == y?.Placement &&
                x?.Position == y?.Position &&
                x?.Monitor == y?.Monitor;
     }
 
-    public static bool operator !=(AppBarMenuFlyoutOptions? x, AppBarMenuFlyoutOptions? y)
+    public static bool operator !=(MenuFlyoutExOptions? x, MenuFlyoutExOptions? y)
     {
         return !(x == y);
     }
 
-    public bool Equals(AppBarMenuFlyoutOptions? other)
+    public bool Equals(MenuFlyoutExOptions? other)
     {
         return this == other;
     }
 
     public override bool Equals(object? obj)
     {
-        if (obj is AppBarMenuFlyoutOptions flyoutShowOptions)
+        if (obj is MenuFlyoutExOptions flyoutShowOptions)
         {
             return this == flyoutShowOptions;
         }

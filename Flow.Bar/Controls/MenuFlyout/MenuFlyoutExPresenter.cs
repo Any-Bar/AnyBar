@@ -11,23 +11,23 @@ using System.Windows.Threading;
 
 namespace Flow.Bar.Controls;
 
-public class AppBarMenuFlyoutPresenter : ContextMenu
+public class MenuFlyoutExPresenter : ContextMenu
 {
-    static AppBarMenuFlyoutPresenter()
+    static MenuFlyoutExPresenter()
     {
-        DefaultStyleKeyProperty.OverrideMetadata(typeof(AppBarMenuFlyoutPresenter), new FrameworkPropertyMetadata(typeof(AppBarMenuFlyoutPresenter)));
+        DefaultStyleKeyProperty.OverrideMetadata(typeof(MenuFlyoutExPresenter), new FrameworkPropertyMetadata(typeof(MenuFlyoutExPresenter)));
 
-        IsOpenProperty.OverrideMetadata(typeof(AppBarMenuFlyoutPresenter), new FrameworkPropertyMetadata(OnIsOpenChanged));
+        IsOpenProperty.OverrideMetadata(typeof(MenuFlyoutExPresenter), new FrameworkPropertyMetadata(OnIsOpenChanged));
     }
 
-    public AppBarMenuFlyoutPresenter()
+    public MenuFlyoutExPresenter()
     {
     }
 
     #region CornerRadius
 
     public static readonly DependencyProperty CornerRadiusProperty =
-        ControlHelper.CornerRadiusProperty.AddOwner(typeof(AppBarMenuFlyoutPresenter));
+        ControlHelper.CornerRadiusProperty.AddOwner(typeof(MenuFlyoutExPresenter));
 
     public CornerRadius CornerRadius
     {
@@ -43,7 +43,7 @@ public class AppBarMenuFlyoutPresenter : ContextMenu
         DependencyProperty.Register(
             nameof(IsDefaultShadowEnabled),
             typeof(bool),
-            typeof(AppBarMenuFlyoutPresenter),
+            typeof(MenuFlyoutExPresenter),
             new PropertyMetadata(true));
 
     public bool IsDefaultShadowEnabled
@@ -66,9 +66,9 @@ public class AppBarMenuFlyoutPresenter : ContextMenu
         }
     }
 
-    internal void SetOwningFlyout(AppBarMenuFlyout owningFlyout)
+    internal void SetOwningFlyout(MenuFlyoutEx owningFlyout)
     {
-        m_owningFlyout = new WeakReference<AppBarMenuFlyout>(owningFlyout);
+        m_owningFlyout = new WeakReference<MenuFlyoutEx>(owningFlyout);
     }
 
     internal void UpdatePopupAnimation()
@@ -90,7 +90,7 @@ public class AppBarMenuFlyoutPresenter : ContextMenu
 
     private static void OnIsOpenChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
     {
-        ((AppBarMenuFlyoutPresenter)d).OnIsOpenChanged(e);
+        ((MenuFlyoutExPresenter)d).OnIsOpenChanged(e);
     }
 
     private void OnIsOpenChanged(DependencyPropertyChangedEventArgs e)
@@ -148,20 +148,20 @@ public class AppBarMenuFlyoutPresenter : ContextMenu
             {
                 from = flyout.Placement switch
                 {
-                    AppBarPlacementMode.AppBarLeft or AppBarPlacementMode.AppBarTop => s_offset,
-                    AppBarPlacementMode.AppBarRight or AppBarPlacementMode.AppBarBottom => -s_offset,
+                    MenuFlyoutExPlacementMode.AppBarLeft or MenuFlyoutExPlacementMode.AppBarTop => s_offset,
+                    MenuFlyoutExPlacementMode.AppBarRight or MenuFlyoutExPlacementMode.AppBarBottom => -s_offset,
                     _ => null
                 };
                 dp = flyout.Placement switch
                 {
-                    AppBarPlacementMode.AppBarTop or AppBarPlacementMode.AppBarBottom => TranslateTransform.YProperty,
-                    AppBarPlacementMode.AppBarLeft or AppBarPlacementMode.AppBarRight => TranslateTransform.XProperty,
+                    MenuFlyoutExPlacementMode.AppBarTop or MenuFlyoutExPlacementMode.AppBarBottom => TranslateTransform.YProperty,
+                    MenuFlyoutExPlacementMode.AppBarLeft or MenuFlyoutExPlacementMode.AppBarRight => TranslateTransform.XProperty,
                     _ => dp
                 };
                 timeDuration = flyout.Placement switch
                 {
-                    AppBarPlacementMode.AppBarTop or AppBarPlacementMode.AppBarBottom => RenderSize.Height * vtd_factor,
-                    AppBarPlacementMode.AppBarLeft or AppBarPlacementMode.AppBarRight => RenderSize.Width * htd_factor,
+                    MenuFlyoutExPlacementMode.AppBarTop or MenuFlyoutExPlacementMode.AppBarBottom => RenderSize.Height * vtd_factor,
+                    MenuFlyoutExPlacementMode.AppBarLeft or MenuFlyoutExPlacementMode.AppBarRight => RenderSize.Width * htd_factor,
                     _ => timeDuration
                 };
             }
@@ -189,7 +189,7 @@ public class AppBarMenuFlyoutPresenter : ContextMenu
     }
 
     private Popup? _parentPopup;
-    private WeakReference<AppBarMenuFlyout>? m_owningFlyout;
+    private WeakReference<MenuFlyoutEx>? m_owningFlyout;
     private DispatcherOperation? m_asyncShow;
 
     private const double s_offset = 30;

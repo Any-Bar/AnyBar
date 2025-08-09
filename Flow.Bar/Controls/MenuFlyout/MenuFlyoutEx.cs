@@ -10,14 +10,14 @@ using System.Windows.Threading;
 namespace Flow.Bar.Controls;
 
 [ContentProperty(nameof(Items))]
-public class AppBarMenuFlyout : DependencyObject
+public class MenuFlyoutEx : DependencyObject
 {
     private const string c_contextMenuStyleKey = "DefaultContextMenuStyle";
     private static Style? s_contextMenuStyle;
 
-    public AppBarMenuFlyout()
+    public MenuFlyoutEx()
     {
-        // TODO: Use <Style BasedOn="{StaticResource DefaultContextMenuStyle}" TargetType="local:AppBarMenuFlyoutPresenter" /> instead of this
+        // TODO: Use <Style BasedOn="{StaticResource DefaultContextMenuStyle}" TargetType="local:MenuFlyoutExPresenter" /> instead of this
         s_contextMenuStyle ??= (Style)Application.Current.Resources[c_contextMenuStyleKey];
 
         ArgumentNullException.ThrowIfNull(s_contextMenuStyle, $"{c_contextMenuStyleKey} not found in Application resources.");
@@ -39,7 +39,7 @@ public class AppBarMenuFlyout : DependencyObject
         DependencyProperty.Register(
             nameof(MenuFlyoutPresenterStyle),
             typeof(Style),
-            typeof(AppBarMenuFlyout),
+            typeof(MenuFlyoutEx),
             new PropertyMetadata(OnMenuFlyoutPresenterStyleChanged));
 
     public Style MenuFlyoutPresenterStyle
@@ -50,7 +50,7 @@ public class AppBarMenuFlyout : DependencyObject
 
     private static void OnMenuFlyoutPresenterStyleChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
     {
-        ((AppBarMenuFlyout)d).OnMenuFlyoutPresenterStyleChanged(e);
+        ((MenuFlyoutEx)d).OnMenuFlyoutPresenterStyleChanged(e);
     }
 
     private void OnMenuFlyoutPresenterStyleChanged(DependencyPropertyChangedEventArgs e)
@@ -68,13 +68,13 @@ public class AppBarMenuFlyout : DependencyObject
     public static readonly DependencyProperty PlacementProperty =
         DependencyProperty.Register(
             nameof(Placement),
-            typeof(AppBarPlacementMode),
-            typeof(AppBarMenuFlyout),
-            new PropertyMetadata(AppBarPlacementMode.AppBarBottom));
+            typeof(MenuFlyoutExPlacementMode),
+            typeof(MenuFlyoutEx),
+            new PropertyMetadata(MenuFlyoutExPlacementMode.AppBarBottom));
 
-    public AppBarPlacementMode Placement
+    public MenuFlyoutExPlacementMode Placement
     {
-        get => (AppBarPlacementMode)GetValue(PlacementProperty);
+        get => (MenuFlyoutExPlacementMode)GetValue(PlacementProperty);
         set => SetValue(PlacementProperty, value);
     }
 
@@ -86,7 +86,7 @@ public class AppBarMenuFlyout : DependencyObject
         DependencyProperty.RegisterReadOnly(
             nameof(StaysOpen),
             typeof(bool),
-            typeof(AppBarMenuFlyout),
+            typeof(MenuFlyoutEx),
             new PropertyMetadata(false, OnStaysOpenChanged));
 
     public bool StaysOpen
@@ -100,7 +100,7 @@ public class AppBarMenuFlyout : DependencyObject
 
     private static void OnStaysOpenChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
     {
-        ((AppBarMenuFlyout)d).OnStaysOpenChanged();
+        ((MenuFlyoutEx)d).OnStaysOpenChanged();
     }
 
     #endregion
@@ -111,7 +111,7 @@ public class AppBarMenuFlyout : DependencyObject
         DependencyProperty.RegisterReadOnly(
             nameof(IsOpen),
             typeof(bool),
-            typeof(AppBarMenuFlyout),
+            typeof(MenuFlyoutEx),
             new PropertyMetadata(false, OnIsOpenChanged));
 
     public static readonly DependencyProperty IsOpenProperty =
@@ -125,7 +125,7 @@ public class AppBarMenuFlyout : DependencyObject
 
     private static void OnIsOpenChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
     {
-        ((AppBarMenuFlyout)d).OnIsOpenChanged();
+        ((MenuFlyoutEx)d).OnIsOpenChanged();
     }
 
     #endregion
@@ -135,19 +135,19 @@ public class AppBarMenuFlyout : DependencyObject
     public static readonly DependencyProperty ShowOptionsProperty =
         DependencyProperty.Register(
             nameof(ShowOptions),
-            typeof(AppBarMenuFlyoutOptions),
-            typeof(AppBarMenuFlyout),
+            typeof(MenuFlyoutExOptions),
+            typeof(MenuFlyoutEx),
             new PropertyMetadata(null));
 
-    public AppBarMenuFlyoutOptions ShowOptions
+    public MenuFlyoutExOptions ShowOptions
     {
-        get => (AppBarMenuFlyoutOptions)GetValue(ShowOptionsProperty);
+        get => (MenuFlyoutExOptions)GetValue(ShowOptionsProperty);
         set => SetValue(ShowOptionsProperty, value);
     }
 
     #endregion
 
-    public void ShowAt(FrameworkElement placementTarget, AppBarMenuFlyoutOptions showOptions)
+    public void ShowAt(FrameworkElement placementTarget, MenuFlyoutExOptions showOptions)
     {
         ArgumentNullException.ThrowIfNull(placementTarget);
         ArgumentNullException.ThrowIfNull(showOptions);
@@ -231,14 +231,14 @@ public class AppBarMenuFlyout : DependencyObject
 
     private CustomPopupPlacement[] PositionPopup(Size popupSize, Size targetSize, Point offset)
     {
-        return AppBarPopupExPlacementHelper.PositionPopup(Placement, popupSize, targetSize, ShowOptions.Monitor, ShowOptions.Position, offset, m_target!, m_presenter!);
+        return MenuFlyoutExPlacementHelper.PositionPopup(Placement, popupSize, targetSize, ShowOptions.Monitor, ShowOptions.Position, offset, m_target!, m_presenter!);
     }   
 
-    private AppBarMenuFlyoutPresenter EnsurePresenter()
+    private MenuFlyoutExPresenter EnsurePresenter()
     {
         if (m_presenter == null)
         {
-            var presenter = new AppBarMenuFlyoutPresenter
+            var presenter = new MenuFlyoutExPresenter
             {
                 Style = MenuFlyoutPresenterStyle,
                 Placement = PlacementMode.Custom,
@@ -292,14 +292,14 @@ public class AppBarMenuFlyout : DependencyObject
 
             switch (Placement)
             {
-                case AppBarPlacementMode.AppBarTop:
-                case AppBarPlacementMode.AppBarBottom:
+                case MenuFlyoutExPlacementMode.AppBarTop:
+                case MenuFlyoutExPlacementMode.AppBarBottom:
                     value = new Rect(
                         new Point(0, -Offset),
                         new Point(targetSize.Width, targetSize.Height + Offset));
                     break;
-                case AppBarPlacementMode.AppBarLeft:
-                case AppBarPlacementMode.AppBarRight:
+                case MenuFlyoutExPlacementMode.AppBarLeft:
+                case MenuFlyoutExPlacementMode.AppBarRight:
                     value = new Rect(
                         new Point(-Offset, 0),
                         new Point(targetSize.Width + Offset, targetSize.Height));
@@ -313,7 +313,7 @@ public class AppBarMenuFlyout : DependencyObject
     internal void BindPlacement(Control presenter)
     {
         presenter.SetBinding(
-            AppBarPopupExPlacementHelper.PlacementProperty,
+            MenuFlyoutExPlacementHelper.PlacementProperty,
             new Binding
             {
                 Path = new PropertyPath(PlacementProperty),
@@ -358,8 +358,8 @@ public class AppBarMenuFlyout : DependencyObject
         }
     }
 
-    private AppBarMenuFlyoutPresenter? m_presenter;
-    private AppBarPlacementMode? m_currentPlacement;
+    private MenuFlyoutExPresenter? m_presenter;
+    private MenuFlyoutExPlacementMode? m_currentPlacement;
 
     private double Offset { get; set; } = s_offset;
 
@@ -380,7 +380,7 @@ public class AppBarMenuFlyout : DependencyObject
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return (AppBarPlacementMode)value;
+            return (MenuFlyoutExPlacementMode)value;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

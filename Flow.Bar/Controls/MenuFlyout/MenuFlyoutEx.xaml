@@ -55,11 +55,11 @@
     <Style
         x:Key="DefaultContextMenuStyle"
         BasedOn="{StaticResource ContextMenuStyleBase}"
-        TargetType="local:AppBarMenuFlyoutPresenter">
+        TargetType="local:MenuFlyoutExPresenter">
         <Setter Property="IsDefaultShadowEnabled" Value="{DynamicResource {x:Static SystemParameters.DropShadowKey}}" />
         <Setter Property="HasDropShadow" Value="{Binding IsDefaultShadowEnabled, RelativeSource={RelativeSource Self}}" />
     </Style>
 
-    <Style BasedOn="{StaticResource DefaultContextMenuStyle}" TargetType="local:AppBarMenuFlyoutPresenter" />
+    <Style BasedOn="{StaticResource DefaultContextMenuStyle}" TargetType="local:MenuFlyoutExPresenter" />
 
 </ResourceDictionary>
