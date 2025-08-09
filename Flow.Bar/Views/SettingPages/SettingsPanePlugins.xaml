@@ -111,7 +111,13 @@
                                 Source="{Binding Image, Mode=OneWay}" />
                         </controls:SettingsCardEx.HeaderIcon>
 
-                        <ui:FontIcon Glyph="&#xE712;" />
+                        <controls:FontIconButton
+                            x:Name="MoreOptionsButton"
+                            Width="28"
+                            Height="35"
+                            ToolTip="{DynamicResource SettingPanePlugins_MoreOptions}">
+                            <ui:FontIcon Glyph="&#xE712;" />
+                        </controls:FontIconButton>
                     </controls:SettingsCardEx>
                 </DataTemplate>
             </controls:StackView.ItemTemplate>

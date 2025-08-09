@@ -56,6 +56,7 @@
     <!-- <param index="0" name="author" type="string" />-->
     <system:String x:Key="SettingPanePlugins_VersionAndAuthor">{0} | {1}</system:String>
     <system:String x:Key="SettingPanePlugins_NothingToShow">We could't find anything to show here. Double check your search criteria.</system:String>
+    <system:String x:Key="SettingPanePlugins_MoreOptions">More options</system:String>
 
     <!--  Setting Pane About  -->
     <system:String x:Key="SettingPaneAbout_Version">Version</system:String>
