@@ -336,7 +336,6 @@
                                     <Setter TargetName="PART_HeaderIconPresenter" Property="Foreground" Value="{DynamicResource SettingsCardForegroundPointerOver}" />
                                 </Trigger.Setters>
                             </Trigger>
-
                             <!--  Pressed State  -->
                             <Trigger SourceName="CommonStatesListener" Property="CurrentStateName" Value="Pressed">
                                 <Setter TargetName="PART_RootBorder" Property="Background" Value="{DynamicResource SettingsCardBackgroundPressed}" />
@@ -345,7 +344,6 @@
                                 <Setter TargetName="PART_HeaderPresenter" Property="Foreground" Value="{DynamicResource SettingsCardForegroundPressed}" />
                                 <Setter TargetName="PART_DescriptionPresenter" Property="Foreground" Value="{DynamicResource SettingsCardForegroundPressed}" />
                             </Trigger>
-
                             <!--  Disabled State  -->
                             <Trigger SourceName="CommonStatesListener" Property="CurrentStateName" Value="Disabled">
                                 <Setter TargetName="PART_ActionIconPresenter" Property="TextElement.Foreground" Value="{DynamicResource SettingsCardForegroundDisabled}" />
@@ -353,9 +351,7 @@
                                 <Setter TargetName="PART_HeaderPresenter" Property="Foreground" Value="{DynamicResource SettingsCardForegroundDisabled}" />
                                 <Setter TargetName="PART_DescriptionPresenter" Property="Foreground" Value="{DynamicResource SettingsCardForegroundDisabled}" />
                             </Trigger>
-
                         </ControlTemplate.Triggers>
-
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
