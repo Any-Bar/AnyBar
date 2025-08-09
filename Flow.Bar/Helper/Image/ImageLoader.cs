@@ -26,8 +26,8 @@ public static class ImageLoader
     private static readonly ConcurrentDictionary<string, string> GuidToKey = new();
     private static ImageHashGenerator HashGenerator = null!;
     private static readonly bool EnableImageHash = true;
-    public static ImageSource Image { get; } = ImageCache[Constants.ImageIcon]!;
-    public static ImageSource MissingImage { get; } = ImageCache[Constants.MissingImgIcon]!;
+    public static ImageSource Image => ImageCache[Constants.ImageIcon, false]!;
+    public static ImageSource MissingImage => ImageCache[Constants.MissingImgIcon, false]!;
     public const int SmallIconSize = 64;
     public const int FullIconSize = 256;
     public const int FullImageSize = 320;
