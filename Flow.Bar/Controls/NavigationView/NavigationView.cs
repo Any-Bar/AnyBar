@@ -21,7 +21,6 @@ using System.Windows.Threading;
 using static Flow.Bar.Controls.CppWinRTHelpers;
 
 #pragma warning disable IDE0060 // Remove unused parameter
-#pragma warning disable IDE1006 // Naming Styles
 
 namespace Flow.Bar.Controls;
 
