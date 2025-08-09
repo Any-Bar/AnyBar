@@ -47,8 +47,6 @@
                                         <Setter Property="MinWidth" Value="{DynamicResource SettingsCardContentMinWidth}" />
                                     </Style.Setters>
                                 </Style>
-
-                                <!--  NumberBox is not recognized?  -->
                                 <Style TargetType="ui:NumberBox">
                                     <Style.Setters>
                                         <Setter Property="MinWidth" Value="{StaticResource SettingsCardContentMinWidth}" />
