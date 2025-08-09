@@ -23,6 +23,7 @@
                 <ResourceDictionary Source="/Controls/ListView/StackView.xaml" />
                 <ResourceDictionary Source="/Controls/MenuFlyout/AppBarMenuFlyout.xaml" />
                 <ResourceDictionary Source="/Controls/NavigationView/NavigationView.xaml" />
+                <ResourceDictionary Source="/Controls/SettingsCard/SettingsCardEx.xaml" />
                 <ResourceDictionary Source="/Controls/SplitView/SplitViewEx.xaml" />
                 <ResourceDictionary Source="/Controls/ToggleSwitch/ToggleSwitchEx.xaml" />
             </ResourceDictionary.MergedDictionaries>
