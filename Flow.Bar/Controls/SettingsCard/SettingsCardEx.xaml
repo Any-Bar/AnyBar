@@ -53,7 +53,6 @@
                                     </Style.Setters>
                                 </Style>
                             </ResourceDictionary>
-
                         </ControlTemplate.Resources>
                         <ui:ElevationBorder
                             x:Name="PART_RootBorder"
@@ -99,7 +98,6 @@
                                         HorizontalAlignment="Left"
                                         Content="{TemplateBinding Header}"
                                         TextWrapping="Wrap" />
-
                                     <ui:ContentPresenterEx
                                         x:Name="PART_DescriptionPresenter"
                                         Content="{TemplateBinding Description}"
