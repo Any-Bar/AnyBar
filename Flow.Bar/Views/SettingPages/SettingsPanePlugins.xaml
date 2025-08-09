@@ -16,17 +16,17 @@
     mc:Ignorable="d">
 
     <ikw:SimpleStackPanel Orientation="Vertical" Spacing="{StaticResource SettingsCardSpacing}">
-        <ui:AutoSuggestBox
+        <controls:AutoSuggestBoxEx
             x:Name="SearchPluginTextBox"
             Width="360"
             HorizontalAlignment="Left"
             VerticalAlignment="Top"
             PlaceholderText="{DynamicResource SettingPanePlugins_SearchPlugins}"
             Text="{Binding SearchText, Mode=TwoWay}">
-            <ui:AutoSuggestBox.QueryIcon>
+            <controls:AutoSuggestBoxEx.QueryIcon>
                 <ui:FontIcon Glyph="&#xE721;" />
-            </ui:AutoSuggestBox.QueryIcon>
-        </ui:AutoSuggestBox>
+            </controls:AutoSuggestBoxEx.QueryIcon>
+        </controls:AutoSuggestBoxEx>
 
         <ikw:SimpleStackPanel
             Margin="{StaticResource SettingsSectionHeaderMargin}"

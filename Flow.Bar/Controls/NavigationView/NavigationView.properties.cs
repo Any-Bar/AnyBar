@@ -355,13 +355,13 @@ public partial class NavigationView
     public static readonly DependencyProperty AutoSuggestBoxProperty =
         DependencyProperty.Register(
             nameof(AutoSuggestBox),
-            typeof(AutoSuggestBox),
+            typeof(AutoSuggestBoxEx),
             typeof(NavigationView),
             new PropertyMetadata(OnAutoSuggestBoxPropertyChanged));
 
-    public AutoSuggestBox AutoSuggestBox
+    public AutoSuggestBoxEx AutoSuggestBox
     {
-        get => (AutoSuggestBox)GetValue(AutoSuggestBoxProperty);
+        get => (AutoSuggestBoxEx)GetValue(AutoSuggestBoxProperty);
         set => SetValue(AutoSuggestBoxProperty, value);
     }
 
