@@ -62,6 +62,36 @@ public class MenuFlyoutEx : DependencyObject
 
     #endregion
 
+    #region Height
+
+    public static readonly DependencyProperty HeightProperty =
+        DependencyProperty.Register(
+            nameof(Height),
+            typeof(double),
+            typeof(MenuFlyoutEx),
+            new PropertyMetadata(double.NaN, OnHeightChanged));
+
+    public double Height
+    {
+        get => (double)GetValue(HeightProperty);
+        set => SetValue(HeightProperty, value);
+    }
+
+    private static void OnHeightChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+    {
+        ((MenuFlyoutEx)d).OnHeightChanged(e);
+    }
+
+    private void OnHeightChanged(DependencyPropertyChangedEventArgs e)
+    {
+        if (m_presenter != null)
+        {
+            m_presenter.Height = (double)e.NewValue;
+        }
+    }
+
+    #endregion
+
     #region MenuFlyoutPresenterStyle
 
     public static readonly DependencyProperty MenuFlyoutPresenterStyleProperty =
@@ -270,6 +300,7 @@ public class MenuFlyoutEx : DependencyObject
             var presenter = new MenuFlyoutExPresenter
             {
                 Width = Width,
+                Height = Height,
                 Style = MenuFlyoutPresenterStyle,
                 Placement = PlacementMode.Custom,
                 CustomPopupPlacementCallback = PositionPopup,
