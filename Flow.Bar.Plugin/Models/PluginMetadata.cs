@@ -92,7 +92,7 @@ public class PluginMetadata
     /// <summary>
     /// The path to the plugin settings directory which is not validated.
     /// It is used to store plugin settings files and data files.
-    /// When plugin is deleted, FL will ask users whether to keep its settings.
+    /// When plugin is deleted, Flow will ask users whether to keep its settings.
     /// If users do not want to keep, this directory will be deleted.
     /// </summary>
     public string PluginSettingsDirectoryPath { get; set; }
