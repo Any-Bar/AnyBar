@@ -26,8 +26,8 @@ public static class ImageLoader
     private static readonly ConcurrentDictionary<string, string> GuidToKey = new();
     private static ImageHashGenerator HashGenerator = null!;
     private static readonly bool EnableImageHash = true;
-    public static ImageSource Image { get; } = new BitmapImage(new Uri(Constants.ImageIcon));
-    public static ImageSource MissingImage { get; } = new BitmapImage(new Uri(Constants.MissingImgIcon));
+    public static ImageSource Image { get; } = ImageCache[Constants.ImageIcon]!;
+    public static ImageSource MissingImage { get; } = ImageCache[Constants.MissingImgIcon]!;
     public const int SmallIconSize = 64;
     public const int FullIconSize = 256;
     public const int FullImageSize = 320;
@@ -47,7 +47,7 @@ public static class ImageLoader
 
             ImageCache.Initialize(usage);
 
-            foreach (var icon in new[] { Constants.DefaultIcon, Constants.MissingImgIcon })
+            foreach (var icon in new[] { Constants.DefaultIcon, Constants.ImageIcon, Constants.MissingImgIcon })
             {
                 ImageSource img = new BitmapImage(new Uri(icon));
                 img.Freeze();
