@@ -2,6 +2,7 @@
     x:Class="Flow.Bar.Views.SettingPages.SettingsPaneAbout"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="clr-namespace:Flow.Bar.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:ikw="http://schemas.inkore.net/lib/ui/wpf"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -15,17 +16,17 @@
 
     <ikw:SimpleStackPanel Orientation="Vertical" Spacing="{StaticResource SettingsCardSpacing}">
         <TextBlock Style="{StaticResource SettingsFirstSectionHeaderTextBlockStyle}" Text="App" />
-        <ui:SettingsCard Description="{DynamicResource SettingPaneAbout_Version}" Header="{Binding Version}">
-            <ui:SettingsCard.HeaderIcon>
+        <controls:SettingsCardEx Description="{DynamicResource SettingPaneAbout_Version}" Header="{Binding Version}">
+            <controls:SettingsCardEx.HeaderIcon>
                 <ui:FontIcon Glyph="&#xe946;" />
-            </ui:SettingsCard.HeaderIcon>
-        </ui:SettingsCard>
+            </controls:SettingsCardEx.HeaderIcon>
+        </controls:SettingsCardEx>
 
         <TextBlock Style="{StaticResource SettingsSectionHeaderTextBlockStyle}" Text="Related" />
-        <ui:SettingsCard Header="Click to support">
-            <ui:SettingsCard.HeaderIcon>
+        <controls:SettingsCardEx Header="Click to support">
+            <controls:SettingsCardEx.HeaderIcon>
                 <ui:FontIcon Glyph="&#xe946;" />
-            </ui:SettingsCard.HeaderIcon>
-        </ui:SettingsCard>
+            </controls:SettingsCardEx.HeaderIcon>
+        </controls:SettingsCardEx>
     </ikw:SimpleStackPanel>
 </ui:Page>

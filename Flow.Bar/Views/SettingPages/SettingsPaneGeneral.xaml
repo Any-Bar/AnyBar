@@ -19,59 +19,59 @@
             x:Name="LanguageTitle"
             Style="{StaticResource SettingsFirstSectionHeaderTextBlockStyle}"
             Text="{DynamicResource SettingPaneGeneral_Language}" />
-        <ui:SettingsCard
+        <controls:SettingsCardEx
             x:Name="LanguageCard"
             Description="{DynamicResource SettingPaneGeneral_AppDisplayLanguage}"
             Header="{DynamicResource SettingPaneGeneral_Language}">
-            <ui:SettingsCard.HeaderIcon>
+            <controls:SettingsCardEx.HeaderIcon>
                 <ui:FontIcon Glyph="&#xE8C1;" />
-            </ui:SettingsCard.HeaderIcon>
+            </controls:SettingsCardEx.HeaderIcon>
 
             <ComboBox
                 DisplayMemberPath="Display"
                 ItemsSource="{Binding Languages, Mode=OneTime}"
                 SelectedValue="{Binding Language, Mode=TwoWay}"
                 SelectedValuePath="LanguageCode" />
-        </ui:SettingsCard>
+        </controls:SettingsCardEx>
 
         <TextBlock
             x:Name="BehaviourTitle"
             Style="{StaticResource SettingsSectionHeaderTextBlockStyle}"
             Text="{DynamicResource SettingPaneGeneral_Behaviour}" />
-        <ui:SettingsCard
+        <controls:SettingsCardEx
             x:Name="HideSettingWindowCard"
             Description="{DynamicResource SettingPaneGeneral_HideSettingWindowDescription}"
             Header="{DynamicResource SettingPaneGeneral_HideSettingWindow}">
-            <ui:SettingsCard.HeaderIcon>
+            <controls:SettingsCardEx.HeaderIcon>
                 <ui:FontIcon Glyph="&#xed1a;" />
-            </ui:SettingsCard.HeaderIcon>
+            </controls:SettingsCardEx.HeaderIcon>
 
             <controls:ToggleSwitchEx IsOn="{Binding Settings.HideSettingWindow, Mode=TwoWay}" />
-        </ui:SettingsCard>
+        </controls:SettingsCardEx>
 
         <TextBlock
             x:Name="AppearanceTitle"
             Style="{StaticResource SettingsSectionHeaderTextBlockStyle}"
             Text="{DynamicResource SettingPaneGeneral_Appearance}" />
-        <ui:SettingsCard
+        <controls:SettingsCardEx
             x:Name="TransparencyEffectsCard"
             Description="{DynamicResource SettingPaneGeneral_TransparencyEffectsDescription}"
             Header="{DynamicResource SettingPaneGeneral_TransparencyEffects}">
-            <ui:SettingsCard.HeaderIcon>
+            <controls:SettingsCardEx.HeaderIcon>
                 <ui:FontIcon Glyph="&#xF4A5;" />
-            </ui:SettingsCard.HeaderIcon>
+            </controls:SettingsCardEx.HeaderIcon>
 
             <controls:ToggleSwitchEx IsOn="{Binding Settings.EnableTransparencyEffects, Mode=TwoWay}" />
-        </ui:SettingsCard>
-        <ui:SettingsCard
+        </controls:SettingsCardEx>
+        <controls:SettingsCardEx
             x:Name="AnimationEffectsCard"
             Description="{DynamicResource SettingPaneGeneral_AnimationEffectsDescription}"
             Header="{DynamicResource SettingPaneGeneral_AnimationEffects}">
-            <ui:SettingsCard.HeaderIcon>
+            <controls:SettingsCardEx.HeaderIcon>
                 <ui:FontIcon Glyph="&#xE805;" />
-            </ui:SettingsCard.HeaderIcon>
+            </controls:SettingsCardEx.HeaderIcon>
 
             <controls:ToggleSwitchEx IsOn="{Binding Settings.EnableAnimationEffects, Mode=TwoWay}" />
-        </ui:SettingsCard>
+        </controls:SettingsCardEx>
     </ikw:SimpleStackPanel>
 </ui:Page>

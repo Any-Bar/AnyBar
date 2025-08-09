@@ -21,14 +21,14 @@
     </ui:Page.Resources>
 
     <ikw:SimpleStackPanel Orientation="Vertical" Spacing="{StaticResource SettingsCardSpacing}">
-        <ui:SettingsCard x:Name="AddAppBarCard" Header="{DynamicResource SettingPaneAppBar_AddAppBarHeader}">
+        <controls:SettingsCardEx x:Name="AddAppBarCard" Header="{DynamicResource SettingPaneAppBar_AddAppBarHeader}">
             <Button
                 x:Name="AddAppBarButton"
                 Command="{Binding AddAppBarCommand, Mode=OneTime}"
                 CommandParameter="{Binding RelativeSource={RelativeSource Self}}"
                 Content="{DynamicResource SettingPaneAppBar_AddAppBar}"
                 Style="{DynamicResource {x:Static ui:ThemeKeys.AccentButtonStyleKey}}" />
-        </ui:SettingsCard>
+        </controls:SettingsCardEx>
         <controls:StackView
             x:Name="AppBarStackView"
             CanReorderItems="True"
@@ -40,29 +40,29 @@
             ScrollViewer.VerticalScrollBarVisibility="Disabled">
             <controls:StackView.ItemTemplate>
                 <DataTemplate DataType="models:AppBarModel">
-                    <ui:SettingsCard
+                    <controls:SettingsCardEx
                         x:Name="AppBarSettingsCard"
                         Click="AppBarSettingsCard_Click"
                         Header="{Binding Name, Mode=OneWay}"
                         IsClickEnabled="True"
                         Tag="{Binding}">
-                        <ui:SettingsCard.HeaderIcon>
+                        <controls:SettingsCardEx.HeaderIcon>
                             <Image
                                 Width="16"
                                 Height="16"
                                 RenderOptions.BitmapScalingMode="HighQuality"
                                 Source="{Binding DockMode, Converter={StaticResource DockModeToImageSourceConverter}}" />
-                        </ui:SettingsCard.HeaderIcon>
+                        </controls:SettingsCardEx.HeaderIcon>
 
-                        <ui:SettingsCard.ActionIcon>
+                        <controls:SettingsCardEx.ActionIcon>
                             <ui:FontIcon Glyph="&#xE76C;" />
-                        </ui:SettingsCard.ActionIcon>
+                        </controls:SettingsCardEx.ActionIcon>
 
                         <controls:ToggleSwitchEx
                             IsOn="{Binding IsEnabled, Mode=TwoWay}"
                             Tag="{Binding}"
                             Toggled="AppBarToggleSwitch_Toggled" />
-                    </ui:SettingsCard>
+                    </controls:SettingsCardEx>
                 </DataTemplate>
             </controls:StackView.ItemTemplate>
         </controls:StackView>

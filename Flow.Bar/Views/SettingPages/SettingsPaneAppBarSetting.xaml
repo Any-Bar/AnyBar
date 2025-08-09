@@ -50,36 +50,36 @@
                 Content="{DynamicResource SettingPaneAppBarSetting_Remove}" />
         </Grid>
 
-        <ui:SettingsCard
+        <controls:SettingsCardEx
             x:Name="BarNameCard"
             Margin="{StaticResource SettingsSectionHeaderMargin}"
             Header="{DynamicResource SettingPaneAppBarSetting_Name}">
             <TextBox MinWidth="120" Text="{Binding Name, Mode=TwoWay}" />
-        </ui:SettingsCard>
+        </controls:SettingsCardEx>
 
         <TextBlock
             x:Name="BarBehaviourTitle"
             Style="{StaticResource SettingsSectionHeaderTextBlockStyle}"
             Text="{DynamicResource SettingPaneAppBarSetting_BarBehaviour}" />
-        <ui:SettingsCard Header="{DynamicResource SettingPaneAppBarSetting_DockMode}">
+        <controls:SettingsCardEx Header="{DynamicResource SettingPaneAppBarSetting_DockMode}">
             <ComboBox
                 DisplayMemberPath="Display"
                 ItemsSource="{Binding AllDockModes, Mode=OneTime}"
                 SelectedValue="{Binding DockMode, Mode=TwoWay}"
                 SelectedValuePath="Value" />
-        </ui:SettingsCard>
+        </controls:SettingsCardEx>
 
-        <ui:SettingsCard Header="{DynamicResource SettingPaneAppBarSetting_Monitor}">
+        <controls:SettingsCardEx Header="{DynamicResource SettingPaneAppBarSetting_Monitor}">
             <ComboBox
                 DisplayMemberPath="Display"
                 ItemsSource="{Binding AllMonitorNames, Mode=OneTime}"
                 SelectedValue="{Binding MonitorName, Mode=TwoWay}"
                 SelectedValuePath="Value" />
-        </ui:SettingsCard>
+        </controls:SettingsCardEx>
 
-        <ui:SettingsCard>
-            <ui:SettingsCard.Style>
-                <Style TargetType="ui:SettingsCard">
+        <controls:SettingsCardEx>
+            <controls:SettingsCardEx.Style>
+                <Style TargetType="controls:SettingsCardEx">
                     <Setter Property="Header" Value="{DynamicResource SettingPaneAppBarSetting_FollowSystemTaskbarWidth}" />
                     <Style.Triggers>
                         <DataTrigger Binding="{Binding DockMode}" Value="{x:Static enum:AppBarDockMode.Left}">
@@ -90,14 +90,14 @@
                         </DataTrigger>
                     </Style.Triggers>
                 </Style>
-            </ui:SettingsCard.Style>
+            </controls:SettingsCardEx.Style>
 
             <controls:ToggleSwitchEx IsOn="{Binding FollowSystemTaskbarWidthOrHeight, Mode=TwoWay}" />
-        </ui:SettingsCard>
+        </controls:SettingsCardEx>
 
-        <ui:SettingsCard>
-            <ui:SettingsCard.Style>
-                <Style TargetType="ui:SettingsCard">
+        <controls:SettingsCardEx>
+            <controls:SettingsCardEx.Style>
+                <Style TargetType="controls:SettingsCardEx">
                     <Setter Property="Header" Value="{DynamicResource SettingPaneAppBarSetting_DockedWidth}" />
                     <Style.Triggers>
                         <DataTrigger Binding="{Binding DockMode}" Value="{x:Static enum:AppBarDockMode.Left}">
@@ -108,7 +108,7 @@
                         </DataTrigger>
                     </Style.Triggers>
                 </Style>
-            </ui:SettingsCard.Style>
+            </controls:SettingsCardEx.Style>
 
             <ui:NumberBox
                 MinWidth="120"
@@ -118,22 +118,22 @@
                 SmallChange="5"
                 SpinButtonPlacementMode="Compact"
                 Value="{Binding DockedWidthOrHeight, Mode=TwoWay}" />
-        </ui:SettingsCard>
+        </controls:SettingsCardEx>
 
-        <ui:SettingsCard Header="{DynamicResource SettingPaneAppBarSetting_Resizable}">
+        <controls:SettingsCardEx Header="{DynamicResource SettingPaneAppBarSetting_Resizable}">
             <controls:ToggleSwitchEx IsOn="{Binding IsResizable, Mode=TwoWay}" />
-        </ui:SettingsCard>
+        </controls:SettingsCardEx>
 
         <TextBlock
             x:Name="BarElementsTitle"
             Style="{StaticResource SettingsSectionHeaderTextBlockStyle}"
             Text="{DynamicResource SettingPaneAppBarSetting_BarElements}" />
-        <ui:SettingsCard
+        <controls:SettingsCardEx
             x:Name="LeftOrTopBarElementsCard"
             IsClickEnabled="True"
             Tag="{Binding AppBarModel, Mode=OneWay}">
-            <ui:SettingsCard.Style>
-                <Style TargetType="ui:SettingsCard">
+            <controls:SettingsCardEx.Style>
+                <Style TargetType="controls:SettingsCardEx">
                     <Setter Property="Header" Value="{DynamicResource SettingPaneAppBarSetting_LeftBarElements}" />
                     <Style.Triggers>
                         <DataTrigger Binding="{Binding DockMode}" Value="{x:Static enum:AppBarDockMode.Left}">
@@ -144,37 +144,37 @@
                         </DataTrigger>
                     </Style.Triggers>
                 </Style>
-            </ui:SettingsCard.Style>
+            </controls:SettingsCardEx.Style>
 
-            <ui:SettingsCard.HeaderIcon>
+            <controls:SettingsCardEx.HeaderIcon>
                 <ui:FontIcon Glyph="&#xE71D;" />
-            </ui:SettingsCard.HeaderIcon>
+            </controls:SettingsCardEx.HeaderIcon>
 
-            <ui:SettingsCard.ActionIcon>
+            <controls:SettingsCardEx.ActionIcon>
                 <ui:FontIcon Glyph="&#xE76C;" />
-            </ui:SettingsCard.ActionIcon>
-        </ui:SettingsCard>
+            </controls:SettingsCardEx.ActionIcon>
+        </controls:SettingsCardEx>
 
-        <ui:SettingsCard
+        <controls:SettingsCardEx
             x:Name="CenterBarElementsCard"
             Header="{DynamicResource SettingPaneAppBarSetting_CenterBarElements}"
             IsClickEnabled="True"
             Tag="{Binding AppBarModel, Mode=OneWay}">
-            <ui:SettingsCard.HeaderIcon>
+            <controls:SettingsCardEx.HeaderIcon>
                 <ui:FontIcon Glyph="&#xE71D;" />
-            </ui:SettingsCard.HeaderIcon>
+            </controls:SettingsCardEx.HeaderIcon>
 
-            <ui:SettingsCard.ActionIcon>
+            <controls:SettingsCardEx.ActionIcon>
                 <ui:FontIcon Glyph="&#xE76C;" />
-            </ui:SettingsCard.ActionIcon>
-        </ui:SettingsCard>
+            </controls:SettingsCardEx.ActionIcon>
+        </controls:SettingsCardEx>
 
-        <ui:SettingsCard
+        <controls:SettingsCardEx
             x:Name="RightOrBottomBarElementsCard"
             IsClickEnabled="True"
             Tag="{Binding AppBarModel, Mode=OneWay}">
-            <ui:SettingsCard.Style>
-                <Style TargetType="ui:SettingsCard">
+            <controls:SettingsCardEx.Style>
+                <Style TargetType="controls:SettingsCardEx">
                     <Setter Property="Header" Value="{DynamicResource SettingPaneAppBarSetting_RightBarElements}" />
                     <Style.Triggers>
                         <DataTrigger Binding="{Binding DockMode}" Value="{x:Static enum:AppBarDockMode.Left}">
@@ -185,15 +185,15 @@
                         </DataTrigger>
                     </Style.Triggers>
                 </Style>
-            </ui:SettingsCard.Style>
+            </controls:SettingsCardEx.Style>
 
-            <ui:SettingsCard.HeaderIcon>
+            <controls:SettingsCardEx.HeaderIcon>
                 <ui:FontIcon Glyph="&#xE71D;" />
-            </ui:SettingsCard.HeaderIcon>
+            </controls:SettingsCardEx.HeaderIcon>
 
-            <ui:SettingsCard.ActionIcon>
+            <controls:SettingsCardEx.ActionIcon>
                 <ui:FontIcon Glyph="&#xE76C;" />
-            </ui:SettingsCard.ActionIcon>
-        </ui:SettingsCard>
+            </controls:SettingsCardEx.ActionIcon>
+        </controls:SettingsCardEx>
     </ikw:SimpleStackPanel>
 </ui:Page>
