@@ -59,12 +59,26 @@ public partial class SettingsPanePlugins : Page
                 Height = UninstallConfirmationContextMenuHeight,
                 MenuFlyoutPresenterStyle = (Style)Application.Current.Resources["UninstallConfirmationContextMenuStyle"]
             };
+            _uninstallConfirmationContextMenu.ButtonClickEvents.Add("UninstallButton", UninstallButton_Click);
+            _uninstallConfirmationContextMenu.Closed += UninstallConfirmationContextMenu_Closed;
         }
         if (!IsInitialized)
         {
             InitializeComponent();
         }
         base.OnNavigatedTo(e);
+    }
+
+    private void MoreOptionsButton_Click(object sender, RoutedEventArgs e)
+    {
+        if (sender is not FontIconButton button) return;
+        if (button.Tag is not PluginViewModel plugin) return;
+        _button = button;
+        _contextMenuPlugin = plugin;
+        _contextMenu.ShowAt(button, new MenuFlyoutExOptions()
+        {
+            Placement = MenuFlyoutExPlacementMode.BottomEdgeAlignedRight
+        });
     }
 
     private void ContextMenu_Closed(object? sender, object? e)
@@ -84,15 +98,15 @@ public partial class SettingsPanePlugins : Page
         _button = null;
     }
 
-    private void MoreOptionsButton_Click(object sender, RoutedEventArgs e)
+    private void UninstallButton_Click(object sender, RoutedEventArgs e)
     {
-        if (sender is not FontIconButton button) return;
-        if (button.Tag is not PluginViewModel plugin) return;
-        _button = button;
-        _contextMenuPlugin = plugin;
-        _contextMenu.ShowAt(button, new MenuFlyoutExOptions()
-        {
-            Placement = MenuFlyoutExPlacementMode.BottomEdgeAlignedRight
-        });
+        
+    }
+
+    private void UninstallConfirmationContextMenu_Closed(object? sender, object? e)
+    {
+        _openUninstallConfirmationContextMenu = false;
+        _contextMenuPlugin = null;
+        _button = null;
     }
 }
