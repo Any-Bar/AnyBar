@@ -5,7 +5,6 @@ using System.Collections;
 using System.Windows;
 using System.Windows.Controls;
 using iNKORE.UI.WPF.Modern.Common;
-using iNKORE.UI.WPF.Modern.Controls;
 using iNKORE.UI.WPF.Modern.Controls.Helpers;
 
 namespace Flow.Bar.Controls;
