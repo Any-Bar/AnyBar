@@ -104,7 +104,7 @@ public partial class SettingsPaneAppBarViewModel(AppBarManagementService appBarM
                 e.NewItems == null ||
                 e.OldItems.Count != e.NewItems.Count)
             {
-                App.API.LogError(ClassName, "Move action in AppBars collection changed with different item counts");
+                App.API.LogError(ClassName, $"Move action in {nameof(AppBars)} collection changed with different item counts");
                 return;
             }
             _appBarManagementService.ChangeAppBarOrder(e.OldStartingIndex, e.NewStartingIndex, e.OldItems.Count);
