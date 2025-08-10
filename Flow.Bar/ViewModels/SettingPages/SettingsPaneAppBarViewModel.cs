@@ -1,7 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Flow.Bar.Controls;
-using Flow.Bar.Converters;
 using Flow.Bar.Dialogs;
 using Flow.Bar.Interfaces;
 using Flow.Bar.Models.AppBar;
@@ -20,11 +19,9 @@ public partial class SettingsPaneAppBarViewModel(AppBarManagementService appBarM
 {
     private static readonly string ClassName = nameof(SettingsPaneAppBarViewModel);
 
-    public ObservableCollection<AppBarModel> AppBars { get; } = [];
+    private readonly AppBarManagementService _appBarManagementService = appBarManagementService;
 
     public ScrollViewer? RootFrameScrollViewer { get; } = navigationService.ScrollViewer;
-
-    private readonly AppBarManagementService _appBarManagementService = appBarManagementService;
 
     [RelayCommand]
     private async Task AddAppBarAsync(Button button)
@@ -68,6 +65,8 @@ public partial class SettingsPaneAppBarViewModel(AppBarManagementService appBarM
             _appBarManagementService.AddAppBar(model, AppBars.Add);
         }
     }
+
+    public ObservableCollection<AppBarModel> AppBars { get; } = [];
 
     private void RefreshAppBars()
     {
