@@ -94,10 +94,4 @@ public partial class AddAppBarDialog : ContentDialog
         (MinDockedWidthOrHeight, MaxDockedWidthOrHeight, DockedWidthOrHeight) =
             MonitorInfoHelper.GetMinAndMaxDockedWidthOrHeight(dockedWidthOrHeight, DockMode, ActualMonitor);
     }
-
-    private void ContentDialog_CloseButtonClick(ContentDialog _, ContentDialogButtonClickEventArgs args)
-    {
-        var deferral = args.GetDeferral();
-        deferral.Complete();
-    }
 }

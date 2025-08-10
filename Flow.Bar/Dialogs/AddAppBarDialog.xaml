@@ -12,7 +12,6 @@
     Title="{DynamicResource SettingPaneAppBar_AddAppBar}"
     d:DesignHeight="450"
     d:DesignWidth="800"
-    CloseButtonClick="ContentDialog_CloseButtonClick"
     CloseButtonText="{DynamicResource AddAppBarContentDialog_Cancel}"
     DataContext="{Binding RelativeSource={RelativeSource Self}}"
     DefaultButton="Primary"
