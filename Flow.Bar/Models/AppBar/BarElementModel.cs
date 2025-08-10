@@ -1,9 +1,10 @@
-﻿using Flow.Bar.Models.Enums;
+﻿using Flow.Bar.Interfaces;
+using Flow.Bar.Models.Enums;
 using System.Text.Json.Serialization;
 
 namespace Flow.Bar.Models.AppBar;
 
-public class BarElementModel
+public class BarElementModel : IOrder
 {
     [JsonIgnore]
     public AppBarModel AppBar { get; set; } = null!;

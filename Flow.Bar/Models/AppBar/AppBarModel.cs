@@ -1,10 +1,11 @@
-﻿using Flow.Bar.Models.Enums;
+﻿using Flow.Bar.Interfaces;
+using Flow.Bar.Models.Enums;
 using System;
 using System.Collections.Generic;
 
 namespace Flow.Bar.Models.AppBar;
 
-public class AppBarModel : IEquatable<AppBarModel>
+public class AppBarModel : IEquatable<AppBarModel>, IOrder
 {
     public int Order { get; set; } = -1;
 
