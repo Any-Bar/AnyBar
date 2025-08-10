@@ -86,9 +86,18 @@
                                             x:Name="NothingToShowTextBlock"
                                             Width="300"
                                             HorizontalAlignment="Left"
-                                            Style="{StaticResource {x:Static ui:ThemeKeys.BodyTextBlockStyleKey}}"
-                                            Text="{DynamicResource SettingPanePlugins_NothingToShow}"
-                                            TextWrapping="Wrap" />
+                                            TextWrapping="Wrap">
+                                            <TextBlock.Style>
+                                                <Style BasedOn="{StaticResource {x:Static ui:ThemeKeys.BodyTextBlockStyleKey}}" TargetType="TextBlock">
+                                                    <Setter Property="Text" Value="{DynamicResource SettingPanePlugins_NothingToShow}" />
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding DataContext.SearchText, RelativeSource={RelativeSource AncestorType=controls:StackView}}" Value="">
+                                                            <Setter Property="Text" Value="{DynamicResource SettingPanePlugins_NoPluginsYet}" />
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </TextBlock.Style>
+                                        </TextBlock>
                                     </ControlTemplate>
                                 </Setter.Value>
                             </Setter>
