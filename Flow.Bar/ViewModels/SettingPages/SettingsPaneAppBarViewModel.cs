@@ -48,13 +48,13 @@ public partial class SettingsPaneAppBarViewModel(AppBarManagementService appBarM
             }
             catch (Exception ex)
             {
-                App.API.LogFatal(ClassName, "Failed to show AddAppBarDialog", ex);
+                App.API.LogFatal(ClassName, $"Failed to show {nameof(AddAppBarDialog)}", ex);
                 return;
             }
         }
         else
         {
-            App.API.LogError(ClassName, "Failed to get owner window for AddAppBarDialog");
+            App.API.LogError(ClassName, $"Failed to get owner window for {nameof(AddAppBarDialog)}");
             return;
         }
         if (result == ContentDialogResult.Primary)
