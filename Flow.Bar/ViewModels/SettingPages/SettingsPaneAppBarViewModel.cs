@@ -4,6 +4,7 @@ using Flow.Bar.Controls;
 using Flow.Bar.Dialogs;
 using Flow.Bar.Interfaces;
 using Flow.Bar.Models.AppBar;
+using Flow.Bar.Models.Enums;
 using Flow.Bar.Services;
 using Flow.Bar.Views;
 using System;
@@ -20,6 +21,8 @@ public partial class SettingsPaneAppBarViewModel(AppBarManagementService appBarM
     private static readonly string ClassName = nameof(SettingsPaneAppBarViewModel);
 
     private readonly AppBarManagementService _appBarManagementService = appBarManagementService;
+
+    private readonly NavigationViewService _navigationService = navigationService;
 
     [ObservableProperty]
     private bool _isInitialized = false;
@@ -109,5 +112,11 @@ public partial class SettingsPaneAppBarViewModel(AppBarManagementService appBarM
             }
             _appBarManagementService.ChangeAppBarOrder(e.OldStartingIndex, e.NewStartingIndex, e.OldItems.Count);
         }
+    }
+
+    [RelayCommand]
+    private void OpenAppBarSetting(AppBarModel model)
+    {
+        _navigationService.NavigateTo(SettingPageTag.AppBarSetting, model);
     }
 }

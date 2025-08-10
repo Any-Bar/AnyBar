@@ -69,7 +69,8 @@
                 <DataTemplate DataType="models:AppBarModel">
                     <controls:SettingsCardEx
                         x:Name="AppBarSettingsCard"
-                        Click="AppBarSettingsCard_Click"
+                        Command="{Binding DataContext.OpenAppBarSettingCommand, RelativeSource={RelativeSource AncestorType=controls:StackView}, Mode=OneTime}"
+                        CommandParameter="{Binding}"
                         Header="{Binding Name, Mode=OneWay}"
                         IsClickEnabled="True"
                         Tag="{Binding}">
