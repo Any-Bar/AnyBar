@@ -4,9 +4,13 @@
     xmlns:controls="clr-namespace:Flow.Bar.Controls"
     xmlns:ikw="http://schemas.inkore.net/lib/ui/wpf"
     xmlns:settingpages="clr-namespace:Flow.Bar.ViewModels.SettingPages"
+    xmlns:sys="clr-namespace:System;assembly=mscorlib"
     xmlns:ui="http://schemas.inkore.net/lib/ui/wpf/modern">
 
     <!--  Uninstall Confirmation Context Menu Style  -->
+    <sys:Double x:Key="UninstallConfirmationContextMenuWidth">300</sys:Double>
+    <sys:Double x:Key="UninstallConfirmationContextMenuHeight">118</sys:Double>
+
     <Style x:Key="UninstallConfirmationContextMenuStyleBase" TargetType="ContextMenu">
         <Setter Property="Background" Value="{DynamicResource MenuFlyoutPresenterBackground}" />
         <Setter Property="BorderBrush" Value="{DynamicResource MenuFlyoutPresenterBorderBrush}" />
@@ -16,8 +20,8 @@
         <Setter Property="FontSize" Value="{DynamicResource ControlContentThemeFontSize}" />
         <Setter Property="FontStyle" Value="Normal" />
         <Setter Property="FontWeight" Value="Normal" />
-        <Setter Property="Width" Value="300" />
-        <Setter Property="Height" Value="118" />
+        <Setter Property="Width" Value="{StaticResource UninstallConfirmationContextMenuWidth}" />
+        <Setter Property="Height" Value="{StaticResource UninstallConfirmationContextMenuHeight}" />
         <Setter Property="Grid.IsSharedSizeScope" Value="true" />
         <Setter Property="HasDropShadow" Value="{DynamicResource {x:Static SystemParameters.DropShadowKey}}" />
         <Setter Property="Stylus.IsFlicksEnabled" Value="False" />
