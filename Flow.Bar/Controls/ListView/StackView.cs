@@ -13,6 +13,12 @@ public class StackView : StackViewBase
 
     public StackView()
     {
+        Loaded += StackView_Loaded;
+    }
+
+    private void StackView_Loaded(object sender, RoutedEventArgs e)
+    {
+        SelectedIndex = -1; // Do not select any item on load
     }
 
     #region Orientation
