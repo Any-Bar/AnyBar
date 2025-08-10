@@ -1,5 +1,6 @@
-using iNKORE.UI.WPF.Modern.Controls.Primitives;
+﻿using iNKORE.UI.WPF.Modern.Controls.Primitives;
 using System;
+using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
@@ -22,6 +23,22 @@ public class MenuFlyoutExPresenter : ContextMenu
 
     public MenuFlyoutExPresenter()
     {
+    }
+
+    public Dictionary<string, RoutedEventHandler> ButtonClickEvents { get; set; } = [];
+
+    public override void OnApplyTemplate()
+    {
+        base.OnApplyTemplate();
+
+        foreach (var kvp in ButtonClickEvents)
+        {
+            if (GetTemplateChild(kvp.Key) is Button button)
+            {
+                button.Click -= kvp.Value;
+                button.Click += kvp.Value;
+            }
+        }
     }
 
     #region CornerRadius
