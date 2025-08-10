@@ -22,7 +22,7 @@
     </ui:Page.Resources>
 
     <ikw:SimpleStackPanel x:Name="AppBarStackPanel" Spacing="{StaticResource SettingsCardSpacing}">
-        <Grid MinHeight="100">
+        <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="Auto" />
