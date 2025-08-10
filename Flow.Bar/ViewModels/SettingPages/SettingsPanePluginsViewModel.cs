@@ -3,6 +3,7 @@ using Flow.Bar.Helper.Plugins;
 using Flow.Bar.Interfaces;
 using Flow.Bar.Models.Enums;
 using Flow.Bar.Models.Plugins;
+using Flow.Bar.Plugin;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -81,6 +82,17 @@ public partial class SettingsPanePluginsViewModel : ObservableObject, INavigatio
     public void OnNavigatedFrom()
     {
         _isInitialized = false;
+    }
+
+    public void UninstallPlugin(PluginMetadata oldPlugin)
+    {
+        lock (_pluginsLock)
+        {
+            AllPlugins.Remove(AllPlugins.First(x => x.ID == oldPlugin.ID));
+            _allPlugins.Remove(_allPlugins.First(x => x.ID == oldPlugin.ID));
+            _filteredPlugins.Remove(_filteredPlugins.First(x => x.ID == oldPlugin.ID));
+            _sortedPlugins.Remove(_sortedPlugins.First(x => x.ID == oldPlugin.ID));
+        }
     }
 
     private void UpdateFilteredPlugins()
