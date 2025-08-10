@@ -111,6 +111,7 @@
                         x:Name="PluginSettingsCard"
                         Description="{Binding Description, Mode=OneTime}"
                         Header="{Binding Name, Mode=OneTime}"
+                        IsVisualDisable="{Binding Disabled, Mode=OneTime}"
                         ToolTip="{Binding VersionAndAuthor, Mode=OneTime}">
                         <controls:SettingsCardEx.HeaderIcon>
                             <Image

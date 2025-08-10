@@ -15,6 +15,7 @@ public partial class PluginViewModel : ObservableObject
     {
         PluginPair = pluginPair;
         ID = pluginPair.Metadata.ID;
+        Disabled = pluginPair.Metadata.Disabled;
         Name = pluginPair.Metadata.Name;
         Description = pluginPair.Metadata.Description;
         VersionAndAuthor = Localize.SettingPanePlugins_VersionAndAuthor(pluginPair.Metadata.Version, pluginPair.Metadata.Author);
@@ -40,6 +41,9 @@ public partial class PluginViewModel : ObservableObject
         Image = await App.API.LoadImageAsync(PluginPair.Metadata.IcoPath);
         OnPropertyChanged(nameof(Image));
     }
+
+    [ObservableProperty]
+    private bool _disabled = false;
 
     [ObservableProperty]
     private string _name = string.Empty;
