@@ -92,20 +92,19 @@ public partial class SettingsPaneBarElementSettingViewModel(AppBarManagementServ
         BarElements.CollectionChanged += BarElements_CollectionChanged;
     }
 
-    private void RefreshBarElements()
-    {
-        BarElements.Clear();
-        var barElements = _appBarManagementService.GetOrderedBarElements(_position, _model);
-        foreach (var element in barElements)
-        {
-            BarElements.Add(element);
-        }
-    }
-
     public void OnNavigatedFrom()
     {
         IsInitialized = false;
         BarElements.CollectionChanged -= BarElements_CollectionChanged;
+    }
+
+    private void RefreshBarElements()
+    {
+        BarElements.Clear();
+        foreach (var element in _appBarManagementService.GetOrderedBarElements(_position, _model))
+        {
+            BarElements.Add(element);
+        }
     }
 
     private void BarElements_CollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
