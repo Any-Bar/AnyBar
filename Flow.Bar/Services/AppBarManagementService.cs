@@ -308,4 +308,23 @@ public class AppBarManagementService(Settings settings)
     }
 
     #endregion
+
+    #region Bar Element Management
+
+    public static IOrderedEnumerable<BarElementModel> GetOrderedLeftOrTopBarElements(AppBarModel model)
+    {
+        return model.LeftOrTopBarElements.OrderBy(c => c.Order);
+    }
+
+    public static IOrderedEnumerable<BarElementModel> GetOrderedCenterBarElements(AppBarModel model)
+    {
+        return model.CenterBarElements.OrderBy(c => c.Order);
+    }
+
+    public static IOrderedEnumerable<BarElementModel> GetOrderedRightOrBottomBarElements(AppBarModel model)
+    {
+        return model.RightOrBottomBarElements.OrderBy(c => c.Order);
+    }
+
+    #endregion
 }

@@ -52,6 +52,7 @@ public class Settings
         set => _appBars = value;
     }
 
+#pragma warning disable CS0618 // Type or member is obsolete
     private static AppBarModel GetDemoAppBar()
     {
         var monitor = MonitorInfoHelper.GetMonitorInfoFromName(null);
@@ -76,6 +77,7 @@ public class Settings
         };
         return demoAppBar;
     }
+#pragma warning restore CS0618 // Type or member is obsolete
 
     public HttpProxy Proxy { get; set; } = new HttpProxy();
 }

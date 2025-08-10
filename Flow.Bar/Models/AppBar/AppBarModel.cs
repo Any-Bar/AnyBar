@@ -23,6 +23,7 @@ public class AppBarModel : IEquatable<AppBarModel>
     public bool IsResizable { get; set; } = false;
 
     private List<BarElementModel> _leftOrTopBarElements = [];
+    [Obsolete("This property is for storage only. Please use AppBarManagementService instead of calling this property directly.")]
     public List<BarElementModel> LeftOrTopBarElements
     {
         get
@@ -46,6 +47,7 @@ public class AppBarModel : IEquatable<AppBarModel>
     }
 
     private List<BarElementModel> _centerBarElements = [];
+    [Obsolete("This property is for storage only. Please use AppBarManagementService instead of calling this property directly.")]
     public List<BarElementModel> CenterBarElements
     {
         get
@@ -69,6 +71,7 @@ public class AppBarModel : IEquatable<AppBarModel>
     }
 
     private List<BarElementModel> _rightOrBottomBarElements = [];
+    [Obsolete("This property is for storage only. Please use AppBarManagementService instead of calling this property directly.")]
     public List<BarElementModel> RightOrBottomBarElements
     {
         get

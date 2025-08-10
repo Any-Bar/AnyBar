@@ -4,8 +4,8 @@ using Flow.Bar.Helper.Plugins;
 using Flow.Bar.Models.AppBar;
 using Flow.Bar.Models.Enums;
 using Flow.Bar.Models.Monitor;
+using Flow.Bar.Services;
 using System.Collections.ObjectModel;
-using System.Linq;
 
 namespace Flow.Bar.ViewModels;
 
@@ -78,7 +78,7 @@ public partial class AppBarViewModel : ObservableObject
     public void InitializeBarElements()
     {
         LeftOrTopBarElements.Clear();
-        foreach (var element in Model.LeftOrTopBarElements.OrderBy(c => c.Order))
+        foreach (var element in AppBarManagementService.GetOrderedLeftOrTopBarElements(Model))
         {
             if (PluginManager.CheckBarElement(element))
             {
@@ -86,7 +86,7 @@ public partial class AppBarViewModel : ObservableObject
             }
         }
         RightOrBottomBarElements.Clear();
-        foreach (var element in Model.RightOrBottomBarElements.OrderBy(c => c.Order))
+        foreach (var element in AppBarManagementService.GetOrderedRightOrBottomBarElements(Model))
         {
             if (PluginManager.CheckBarElement(element))
             {
@@ -94,7 +94,7 @@ public partial class AppBarViewModel : ObservableObject
             }
         }
         CenterBarElements.Clear();
-        foreach (var element in Model.CenterBarElements.OrderBy(c => c.Order))
+        foreach (var element in AppBarManagementService.GetOrderedCenterBarElements(Model))
         {
             if (PluginManager.CheckBarElement(element))
             {
