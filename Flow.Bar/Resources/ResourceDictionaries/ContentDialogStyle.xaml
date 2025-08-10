@@ -10,7 +10,6 @@
     <Thickness x:Key="ContentDialogContentBottomMargin">0 0 0 20</Thickness>
 
     <!--  Margin of a content item  -->
-    <Thickness x:Key="ContentDialogContentLeftRightMargin">24 0 24 0</Thickness>
-    <Thickness x:Key="ContentDialogContentTopMargin">0 12 0 0</Thickness>
+    <Thickness x:Key="ContentDialogHeaderContentMargin">24 12 24 12</Thickness>
 
 </ResourceDictionary>
