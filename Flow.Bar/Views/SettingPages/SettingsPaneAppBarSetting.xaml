@@ -79,7 +79,7 @@
 
         <controls:SettingsCardEx>
             <controls:SettingsCardEx.Style>
-                <Style TargetType="controls:SettingsCardEx">
+                <Style BasedOn="{StaticResource DefaultSettingsCardStyle}" TargetType="controls:SettingsCardEx">
                     <Setter Property="Header" Value="{DynamicResource SettingPaneAppBarSetting_FollowSystemTaskbarWidth}" />
                     <Style.Triggers>
                         <DataTrigger Binding="{Binding DockMode}" Value="{x:Static enum:AppBarDockMode.Left}">
@@ -97,7 +97,7 @@
 
         <controls:SettingsCardEx>
             <controls:SettingsCardEx.Style>
-                <Style TargetType="controls:SettingsCardEx">
+                <Style BasedOn="{StaticResource DefaultSettingsCardStyle}" TargetType="controls:SettingsCardEx">
                     <Setter Property="Header" Value="{DynamicResource SettingPaneAppBarSetting_DockedWidth}" />
                     <Style.Triggers>
                         <DataTrigger Binding="{Binding DockMode}" Value="{x:Static enum:AppBarDockMode.Left}">
@@ -135,7 +135,7 @@
             IsClickEnabled="True"
             Tag="{Binding AppBarModel, Mode=OneWay}">
             <controls:SettingsCardEx.Style>
-                <Style TargetType="controls:SettingsCardEx">
+                <Style BasedOn="{StaticResource DefaultSettingsCardStyle}" TargetType="controls:SettingsCardEx">
                     <Setter Property="Header" Value="{DynamicResource SettingPaneAppBarSetting_LeftBarElements}" />
                     <Style.Triggers>
                         <DataTrigger Binding="{Binding DockMode}" Value="{x:Static enum:AppBarDockMode.Left}">
@@ -180,7 +180,7 @@
             IsClickEnabled="True"
             Tag="{Binding AppBarModel, Mode=OneWay}">
             <controls:SettingsCardEx.Style>
-                <Style TargetType="controls:SettingsCardEx">
+                <Style BasedOn="{StaticResource DefaultSettingsCardStyle}" TargetType="controls:SettingsCardEx">
                     <Setter Property="Header" Value="{DynamicResource SettingPaneAppBarSetting_RightBarElements}" />
                     <Style.Triggers>
                         <DataTrigger Binding="{Binding DockMode}" Value="{x:Static enum:AppBarDockMode.Left}">
