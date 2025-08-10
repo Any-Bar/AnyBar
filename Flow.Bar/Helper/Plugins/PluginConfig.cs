@@ -23,7 +23,7 @@ internal class PluginConfig
 
         foreach (var directory in directories)
         {
-            if (File.Exists(Path.Combine(directory, "NeedDelete.txt")))
+            if (File.Exists(Path.Combine(directory, Constants.NeedDeleteMarkFile)))
             {
                 try
                 {
