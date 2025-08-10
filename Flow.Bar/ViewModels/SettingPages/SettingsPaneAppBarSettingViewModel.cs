@@ -112,20 +112,23 @@ public partial class SettingsPaneAppBarSettingViewModel(AppBarManagementService 
     {
         if (parameter is AppBarModel model)
         {
-            Name = model.Name;
-            AppBarModel = model;
-            IsEnabled = model.IsEnabled;
-            DockMode = model.DockMode;
-            MonitorName = model.MonitorName;
-            FollowSystemTaskbarWidthOrHeight = model.FollowSystemTaskbarWidthOrHeight;
-            DockedWidthOrHeight = model.DockedWidthOrHeight;
-            IsResizable = model.IsResizable;
-            UpdateMinAndMaxDockedWidthOrHeight();
-            _isInitialized = true;
+            if (!_isInitialized)
+            {
+                Name = model.Name;
+                AppBarModel = model;
+                IsEnabled = model.IsEnabled;
+                DockMode = model.DockMode;
+                MonitorName = model.MonitorName;
+                FollowSystemTaskbarWidthOrHeight = model.FollowSystemTaskbarWidthOrHeight;
+                DockedWidthOrHeight = model.DockedWidthOrHeight;
+                IsResizable = model.IsResizable;
+                UpdateMinAndMaxDockedWidthOrHeight();
+                _isInitialized = true;
+            }
         }
         else
         {
-            App.API.LogError(ClassName, "Parameter is not of type AppBarModel");
+            App.API.LogError(ClassName, $"{nameof(parameter)} is not of type {nameof(AppBarModel)}");
         }
     }
 
@@ -164,7 +167,7 @@ public partial class SettingsPaneAppBarSettingViewModel(AppBarManagementService 
         {
             // ActualMonitor should never be null here since users should connect to a monitor to use this app :?
             // So we throw an exception to indicate this issue.
-            throw new InvalidOperationException("ActualMonitor cannot be null");
+            throw new InvalidOperationException($"{nameof(ActualMonitor)} is null");
         }
         var dockedWidthOrHeight = DockedWidthOrHeight;
         (MinDockedWidthOrHeight, MaxDockedWidthOrHeight, DockedWidthOrHeight) =

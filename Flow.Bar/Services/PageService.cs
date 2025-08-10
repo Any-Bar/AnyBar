@@ -32,7 +32,7 @@ public class PageService
         {
             if (!_pages.TryGetValue(tag, out page))
             {
-                throw new ArgumentException($"Page not found: {tag}. Did you forget to call PageService.Configure?");
+                throw new ArgumentException($"Page not found: {tag}. Did you forget to call {nameof(PageService)}.{nameof(Configure)}?");
             }
         }
 
@@ -45,7 +45,7 @@ public class PageService
         {
             if (!_pages.ContainsValue(pageType))
             {
-                throw new ArgumentException($"Page not found: {pageType}. Did you forget to call PageService.Configure?");
+                throw new ArgumentException($"Page not found: {pageType}. Did you forget to call {nameof(PageService)}.{nameof(Configure)}?");
             }
 
             return _pages.FirstOrDefault(p => p.Value == pageType).Key;
@@ -71,13 +71,13 @@ public class PageService
         {
             if (_pages.ContainsKey(tag))
             {
-                throw new ArgumentException($"The tag {tag} is already configured in PageService!");
+                throw new ArgumentException($"{tag} is already configured in {nameof(PageService)}");
             }
 
             var view = typeof(V);
             if (_pages.ContainsValue(view))
             {
-                throw new ArgumentException($"This type is already configured with tag {_pages.First(p => p.Value == view).Key}!");
+                throw new ArgumentException($"This type is already configured with {_pages.First(p => p.Value == view).Key}");
             }
 
             _pages.Add(tag, view);
@@ -90,7 +90,7 @@ public class PageService
         {
             if (_containedPages.ContainsKey(containedTag))
             {
-                throw new ArgumentException($"The tag {containedTag} is already configured in PageService!");
+                throw new ArgumentException($"{containedTag} is already configured in {nameof(PageService)}");
             }
 
             _containedPages.Add(containedTag, tag);

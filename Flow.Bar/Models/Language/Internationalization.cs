@@ -302,8 +302,8 @@ public class Internationalization(Settings settings)
         }
         else
         {
-            App.API.LogError(ClassName, $"No Translation for key {key}");
-            return $"No Translation for key {key}";
+            App.API.LogError(ClassName, $"No translation for key {key}");
+            return $"No translation for key {key}";
         }
     }
 

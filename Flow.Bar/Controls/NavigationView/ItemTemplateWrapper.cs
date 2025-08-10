@@ -38,7 +38,7 @@ internal class ItemTemplateWrapper : IElementFactoryShim
             if (selectedTemplate == null)
             {
                 // Still nullptr, fail with a reasonable message now.
-                throw new InvalidOperationException("Null encountered as data template. That is not a valid value for a data template, and can not be used.");
+                throw new InvalidOperationException($"{selectedTemplate} is null which is not a valid value for a data template");
             }
         }
         var recyclePool = RecyclePool.GetPoolInstance(selectedTemplate);

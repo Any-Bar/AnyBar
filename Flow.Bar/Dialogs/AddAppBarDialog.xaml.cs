@@ -74,7 +74,7 @@ public partial class AddAppBarDialog : ContentDialog
         }
         else
         {
-            App.API.LogError(ClassName, $"Monitor not found: {monitorName}");
+            App.API.LogError(ClassName, $"Monitor not found: <{monitorName}>");
         }
     }
 
@@ -88,7 +88,7 @@ public partial class AddAppBarDialog : ContentDialog
         {
             // ActualMonitor should never be null here since users should connect to a monitor to use this app :?
             // So we throw an exception to indicate this issue.
-            throw new InvalidOperationException("ActualMonitor cannot be null");
+            throw new InvalidOperationException($"{nameof(ActualMonitor)} is null");
         }
         var dockedWidthOrHeight = DockedWidthOrHeight;
         (MinDockedWidthOrHeight, MaxDockedWidthOrHeight, DockedWidthOrHeight) =

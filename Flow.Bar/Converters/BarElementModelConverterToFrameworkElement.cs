@@ -20,7 +20,7 @@ public class BarElementModelConverterToFrameworkElement : IValueConverter
                 BarElementModelPosition.LeftOrTop => isHorizontal ? BarElementPosition.Left : BarElementPosition.Top,
                 BarElementModelPosition.Center => isHorizontal ? BarElementPosition.HorizontalCenter : BarElementPosition.VerticalCenter,
                 BarElementModelPosition.RightOrBottom => isHorizontal ? BarElementPosition.Right : BarElementPosition.Bottom,
-                _ => throw new NotSupportedException($"Unsupported BarElementPosition: {element.BarElementPosition}")
+                _ => throw new NotSupportedException()
             };
             return PluginManager.GetBarElement(element, position);
         }

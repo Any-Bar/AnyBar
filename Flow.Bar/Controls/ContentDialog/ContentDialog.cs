@@ -578,7 +578,7 @@ public class ContentDialog : ContentControl
 
         if (owner == null)
         {
-            throw new InvalidOperationException("Could not find an owner window for this ContentDialog.");
+            throw new InvalidOperationException($"Could not find an {nameof(owner)} for this {nameof(ContentDialog)}");
         }
 
         return await ShowAsync(owner);
@@ -600,7 +600,7 @@ public class ContentDialog : ContentControl
 
         if (cp == null)
         {
-            throw new InvalidOperationException("Could not find the ContentPresenter in the owner window.");
+            throw new InvalidOperationException($"Could not find the {nameof(cp)} in the {nameof(owner)}");
         }
 
         UIElement? dialogRoot;
@@ -1020,7 +1020,7 @@ public class ContentDialog : ContentControl
         m_adornerLayer = AdornerLayer.GetAdornerLayer(contentPresenter);
         if (m_adornerLayer == null)
         {
-            throw new InvalidOperationException("AdornerLayer not found.");
+            throw new InvalidOperationException($"{nameof(AdornerLayer)} not found");
         }
     }
 
@@ -1136,7 +1136,7 @@ public class ContentDialog : ContentControl
 
     private static void ThrowAlreadyOpenException()
     {
-        throw new InvalidOperationException("Only a single ContentDialog can be open at any time.");
+        throw new InvalidOperationException($"Only a single {nameof(ContentDialog)} can be open at any time");
     }
 
     private static ContentPresenter? FindContentPresenter(Window window)

@@ -352,7 +352,7 @@ public class AppBarManagementService(Settings settings)
             BarElementModelPosition.LeftOrTop => model.LeftOrTopBarElements,
             BarElementModelPosition.Center => model.CenterBarElements,
             BarElementModelPosition.RightOrBottom => model.RightOrBottomBarElements,
-            _ => throw new NotSupportedException($"Unsupported {nameof(BarElementModelPosition)}: {position}")
+            _ => throw new NotImplementedException()
         };
     }
 
@@ -363,7 +363,7 @@ public class AppBarManagementService(Settings settings)
             BarElementModelPosition.LeftOrTop => window.ViewModel.LeftOrTopBarElements,
             BarElementModelPosition.Center => window.ViewModel.CenterBarElements,
             BarElementModelPosition.RightOrBottom => window.ViewModel.RightOrBottomBarElements,
-            _ => throw new NotSupportedException($"Unsupported {nameof(BarElementModelPosition)}: {position}")
+            _ => throw new NotImplementedException()
         };
     }
 

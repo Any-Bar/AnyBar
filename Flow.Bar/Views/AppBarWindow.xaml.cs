@@ -317,7 +317,7 @@ public partial class AppBarWindow : Window
             AppBarDockMode.Right => e.HorizontalChange * -1,
             AppBarDockMode.Top => e.VerticalChange,
             AppBarDockMode.Bottom => e.VerticalChange * -1,
-            _ => throw new NotSupportedException(),
+            _ => throw new NotImplementedException()
         };
         ViewModel.DockedWidthOrHeight += (int)(delta / VisualTreeHelper.GetDpi(this).PixelsPerDip);
         // Users have set a specific width or height, so we should not follow the system taskbar width or height.
@@ -366,7 +366,7 @@ public partial class AppBarWindow : Window
         {
             AppBarDockMode.Left or AppBarDockMode.Right => BoundIntToDouble(dockedWidthOrHeight, MinWidth, MaxWidth),
             AppBarDockMode.Top or AppBarDockMode.Bottom => BoundIntToDouble(dockedWidthOrHeight, MinHeight, MaxHeight),
-            _ => throw new NotSupportedException(),
+            _ => throw new NotImplementedException()
         };
     }
 
@@ -413,7 +413,8 @@ public partial class AppBarWindow : Window
             case AppBarDockMode.Right:
                 abd.rc.left = abd.rc.right - dockedWidthOrHeightInDesktopPixels;
                 break;
-            default: throw new NotSupportedException();
+            default:
+                throw new NotImplementedException();
         }
 
         PInvoke.SHAppBarMessage(PInvoke.ABM_SETPOS, ref abd);
@@ -480,7 +481,7 @@ public partial class AppBarWindow : Window
             AppBarDockMode.Right => MenuFlyoutExPlacementMode.AppBarLeft,
             AppBarDockMode.Top => MenuFlyoutExPlacementMode.AppBarBottom,
             AppBarDockMode.Bottom => MenuFlyoutExPlacementMode.AppBarTop,
-            _ => throw new NotSupportedException(),
+            _ => throw new NotImplementedException()
         };
         _contextMenu.ShowAt(element, new MenuFlyoutExOptions()
         {

@@ -97,7 +97,7 @@ public class RecyclePool
                         bool found = childIndex >= 0;
                         if (!found)
                         {
-                            throw new Exception("ItemsRepeater's child not found in its Children collection.");
+                            throw new Exception($"{nameof(panel)}'s child not found in its {nameof(panel.Children)}");
                         }
 
                         panel.Children.RemoveAt(childIndex);
@@ -161,7 +161,7 @@ public class RecyclePool
             ownerAsPanel = owner as Panel;
             if (ownerAsPanel == null)
             {
-                throw new ArgumentException("owner must to be a Panel or null.");
+                throw new ArgumentException($"{nameof(owner)} must to be a {nameof(Panel)} or null");
             }
         }
 

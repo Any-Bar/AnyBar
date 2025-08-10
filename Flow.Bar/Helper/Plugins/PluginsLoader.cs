@@ -58,7 +58,7 @@ public static class PluginsLoader
                 }
                 catch (InvalidOperationException e)
                 {
-                    App.API.LogFatal(ClassName, $"Can't find the required IPlugin interface for the plugin: <{metadata.Name}>", e);
+                    App.API.LogFatal(ClassName, $"Can't find the required {nameof(IPlugin)} interface for the plugin: <{metadata.Name}>", e);
                 }
                 catch (ReflectionTypeLoadException e)
                 {

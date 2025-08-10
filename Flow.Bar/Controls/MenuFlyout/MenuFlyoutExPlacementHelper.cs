@@ -133,7 +133,7 @@ internal static class MenuFlyoutExPlacementHelper
                 primaryAxis = PopupPrimaryAxis.Vertical;
                 break;
             case MenuFlyoutExPlacementMode.Auto:
-                throw new NotImplementedException("Auto placement mode is not supported in MenuFlyoutEx.");
+                throw new NotImplementedException($"{MenuFlyoutExPlacementMode.Auto} is not supported in {nameof(MenuFlyoutEx)}");
             case MenuFlyoutExPlacementMode.AppBarTop:
                 point = new Point((targetSize.Width - popupSize.Width) / 2, -popupSize.Height);
                 primaryAxis = PopupPrimaryAxis.Horizontal;
@@ -220,7 +220,7 @@ internal static class MenuFlyoutExPlacementHelper
             MenuFlyoutExPlacementMode.LeftEdgeAlignedBottom => (MenuFlyoutExPlacementMode?)MenuFlyoutExPlacementMode.RightEdgeAlignedBottom,
             MenuFlyoutExPlacementMode.RightEdgeAlignedTop => (MenuFlyoutExPlacementMode?)MenuFlyoutExPlacementMode.RightEdgeAlignedTop,
             MenuFlyoutExPlacementMode.RightEdgeAlignedBottom => (MenuFlyoutExPlacementMode?)MenuFlyoutExPlacementMode.LeftEdgeAlignedBottom,
-            MenuFlyoutExPlacementMode.Auto => throw new NotImplementedException("Auto placement mode is not supported in MenuFlyoutEx."),
+            MenuFlyoutExPlacementMode.Auto => throw new NotImplementedException($"{MenuFlyoutExPlacementMode.Auto} is not supported in {nameof(MenuFlyoutEx)}"),
             MenuFlyoutExPlacementMode.AppBarTop => (MenuFlyoutExPlacementMode?)MenuFlyoutExPlacementMode.AppBarBottom,
             MenuFlyoutExPlacementMode.AppBarBottom => (MenuFlyoutExPlacementMode?)MenuFlyoutExPlacementMode.AppBarTop,
             MenuFlyoutExPlacementMode.AppBarLeft => (MenuFlyoutExPlacementMode?)MenuFlyoutExPlacementMode.AppBarRight,

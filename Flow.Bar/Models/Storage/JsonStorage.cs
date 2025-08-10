@@ -35,7 +35,7 @@ public class JsonStorage<T> where T : new()
     public JsonStorage(string filePath)
     {
         FilePath = filePath;
-        DirectoryPath = Path.GetDirectoryName(filePath) ?? throw new ArgumentException("Invalid file path");
+        DirectoryPath = Path.GetDirectoryName(filePath) ?? throw new ArgumentException($"Invalid {nameof(filePath)}");
 
         if (!Directory.Exists(DirectoryPath))
         {

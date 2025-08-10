@@ -10,7 +10,7 @@ public static class SingletonWindowOpener
     {
         var window = (System.Windows.Application.Current.Windows.OfType<Window>().FirstOrDefault(x => x.GetType() == typeof(T))
             ?? (T?)Activator.CreateInstance(typeof(T), args))
-            ?? throw new ArgumentNullException(null, "Window instance could not be created or found.");
+            ?? throw new ArgumentNullException(null, $"{nameof(Window)} instance could not be created or found");
 
         // Fix UI bug
         // Add `window.WindowState = WindowState.Normal`

@@ -371,7 +371,7 @@ public class MenuFlyoutEx : DependencyObject
                         new Point(targetSize.Width + Offset, targetSize.Height));
                     break;
                 case MenuFlyoutExPlacementMode.Auto:
-                    throw new NotImplementedException("Auto placement mode is not supported in MenuFlyoutEx.");
+                    throw new NotImplementedException($"{MenuFlyoutExPlacementMode.Auto} is not supported in {nameof(MenuFlyoutEx)}");
                 case MenuFlyoutExPlacementMode.AppBarTop:
                 case MenuFlyoutExPlacementMode.AppBarBottom:
                     value = new Rect(

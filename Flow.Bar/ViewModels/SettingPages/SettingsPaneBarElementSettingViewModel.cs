@@ -57,7 +57,7 @@ public partial class SettingsPaneBarElementSettingViewModel(AppBarManagementServ
         }
         else
         {
-            App.API.LogError(ClassName, $"Failed to get owner window for {nameof(AddBarElementDialog)}");
+            App.API.LogError(ClassName, $"Failed to get {nameof(ContentDialog.Owner)} for {nameof(AddBarElementDialog)}");
             return;
         }
         if (result == ContentDialogResult.Primary && dialog.Plugin != null)
@@ -82,7 +82,7 @@ public partial class SettingsPaneBarElementSettingViewModel(AppBarManagementServ
         }
         else
         {
-            App.API.LogError(ClassName, "Parameter is not of type AppBarModel");
+            App.API.LogError(ClassName, $"{nameof(parameter)} is not of type {nameof(SettingsPaneBarElementSettingNavigationParameter)}");
         }
         BarElements.CollectionChanged += BarElements_CollectionChanged;
     }

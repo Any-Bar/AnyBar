@@ -54,7 +54,7 @@ public partial class SettingsPaneAppBarViewModel(AppBarManagementService appBarM
         }
         else
         {
-            App.API.LogError(ClassName, $"Failed to get owner window for {nameof(AddAppBarDialog)}");
+            App.API.LogError(ClassName, $"Failed to get {nameof(ContentDialog.Owner)} for {nameof(AddAppBarDialog)}");
             return;
         }
         if (result == ContentDialogResult.Primary)

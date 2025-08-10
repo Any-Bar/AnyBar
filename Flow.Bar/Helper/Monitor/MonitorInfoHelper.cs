@@ -81,7 +81,7 @@ public class MonitorInfoHelper
                 maxValue = (int)monitor.WorkingArea.Height;
                 break;
             default:
-                throw new InvalidOperationException("Invalid DockMode");
+                throw new NotImplementedException();
         }
         if (dockedWidthOrHeight < minValue)
         {

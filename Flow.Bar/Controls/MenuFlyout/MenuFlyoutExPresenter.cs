@@ -172,7 +172,7 @@ public class MenuFlyoutExPresenter : ContextMenu
                     MenuFlyoutExPlacementMode.BottomEdgeAlignedLeft or MenuFlyoutExPlacementMode.BottomEdgeAlignedRight => -s_offset,
                     MenuFlyoutExPlacementMode.LeftEdgeAlignedTop or MenuFlyoutExPlacementMode.LeftEdgeAlignedBottom => s_offset,
                     MenuFlyoutExPlacementMode.RightEdgeAlignedTop or MenuFlyoutExPlacementMode.RightEdgeAlignedBottom => -s_offset,
-                    MenuFlyoutExPlacementMode.Auto => throw new NotImplementedException("Auto placement mode is not supported in MenuFlyoutEx."),
+                    MenuFlyoutExPlacementMode.Auto => throw new NotImplementedException($"{MenuFlyoutExPlacementMode.Auto} is not supported in {nameof(MenuFlyoutEx)}"),
                     MenuFlyoutExPlacementMode.AppBarLeft or MenuFlyoutExPlacementMode.AppBarTop => s_offset,
                     MenuFlyoutExPlacementMode.AppBarRight or MenuFlyoutExPlacementMode.AppBarBottom => -s_offset,
                     _ => null

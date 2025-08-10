@@ -29,7 +29,7 @@ internal class InspectingDataSource : ItemsSourceView
             }
             else
             {
-                throw new ArgumentException("Argument 'source' is not a supported vector.");
+                throw new ArgumentException($"{nameof(source)} is not a supported vector");
             }
         }
 

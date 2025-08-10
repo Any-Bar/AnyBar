@@ -67,14 +67,14 @@ public class WindowsThumbnailProvider
             }
             else
             {
-                throw new InvalidOperationException($"Failed to get IShellItem. HRESULT: {retCode}");
+                throw new InvalidOperationException($"Failed to get {nameof(IShellItem)}. HRESULT: {retCode}");
             }
         }
 
         if (nativeShellItem is not IShellItemImageFactory imageFactory)
         {
             Marshal.ReleaseComObject(nativeShellItem);
-            throw new InvalidOperationException("Failed to get IShellItemImageFactory");
+            throw new InvalidOperationException($"Failed to get {nameof(IShellItemImageFactory)}");
         }
 
         var size = new SIZE

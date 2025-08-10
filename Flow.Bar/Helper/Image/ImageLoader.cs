@@ -141,8 +141,8 @@ public static class ImageLoader
             }
             catch (Exception e2)
             {
-                App.API.LogFatal(ClassName, $"Failed to get thumbnail for {path} on first try", e);
-                App.API.LogFatal(ClassName, $"Failed to get thumbnail for {path} on second try", e2);
+                App.API.LogFatal(ClassName, $"Failed to get thumbnail for <{path}> on first try", e);
+                App.API.LogFatal(ClassName, $"Failed to get thumbnail for <{path}> on second try", e2);
 
                 ImageSource? image = ImageCache[Constants.MissingImgIcon, false];
                 ImageCache[path, false] = image;
@@ -208,7 +208,7 @@ public static class ImageLoader
                     {
                         image = Image;
                         type = ImageType.Error;
-                        App.API.LogFatal(ClassName, $"Failed to load image file from path {path}: {ex.Message}", ex);
+                        App.API.LogFatal(ClassName, $"Failed to load image file from path <{path}>: {ex.Message}", ex);
                     }
                 }
                 else
@@ -232,7 +232,7 @@ public static class ImageLoader
                 {
                     image = Image;
                     type = ImageType.Error;
-                    App.API.LogFatal(ClassName, $"Failed to load SVG image from path {path}: {ex.Message}", ex);
+                    App.API.LogFatal(ClassName, $"Failed to load SVG image from path <{path}>: {ex.Message}", ex);
                 }
             }
             else
@@ -365,7 +365,7 @@ public static class ImageLoader
         var drawingBounds = drawing.Bounds;
         if (drawingBounds.Height <= 0)
         {
-            throw new InvalidOperationException($"Invalid SVG dimensions: Height must be greater than zero in {path}");
+            throw new InvalidOperationException($"Invalid SVG {nameof(drawing.Bounds)}: {nameof(drawingBounds.Height)} must be greater than zero in {path}");
         }
         var scale = desiredHeight / drawingBounds.Height;
         var scaledWidth = drawingBounds.Width * scale;
