@@ -125,7 +125,7 @@
                             Width="28"
                             Height="35"
                             Click="MoreOptionsButton_Click"
-                            Tag="{Binding}"
+                            Tag="{Binding ., Mode=OneTime}"
                             ToolTip="{DynamicResource SettingPanePlugins_MoreOptions}">
                             <ui:FontIcon Glyph="&#xE712;" />
                         </controls:FontIconButton>

@@ -70,10 +70,10 @@
                     <controls:SettingsCardEx
                         x:Name="AppBarSettingsCard"
                         Command="{Binding DataContext.OpenAppBarSettingCommand, RelativeSource={RelativeSource AncestorType=controls:StackView}, Mode=OneTime}"
-                        CommandParameter="{Binding}"
+                        CommandParameter="{Binding ., Mode=OneTime}"
                         Header="{Binding Name, Mode=OneWay}"
                         IsClickEnabled="True"
-                        Tag="{Binding}">
+                        Tag="{Binding ., Mode=OneTime}">
                         <controls:SettingsCardEx.HeaderIcon>
                             <Image
                                 Width="16"
@@ -88,7 +88,7 @@
 
                         <controls:ToggleSwitchEx
                             IsOn="{Binding IsEnabled, Mode=TwoWay}"
-                            Tag="{Binding}"
+                            Tag="{Binding ., Mode=OneTime}"
                             Toggled="AppBarToggleSwitch_Toggled" />
                     </controls:SettingsCardEx>
                 </DataTemplate>
