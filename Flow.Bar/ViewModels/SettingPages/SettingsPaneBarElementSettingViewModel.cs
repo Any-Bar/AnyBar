@@ -1,14 +1,18 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Flow.Bar.Controls;
+using Flow.Bar.Dialogs;
 using Flow.Bar.Interfaces;
 using Flow.Bar.Models.AppBar;
 using Flow.Bar.Models.Enums;
 using Flow.Bar.Models.Parameter;
 using Flow.Bar.Services;
+using Flow.Bar.Views;
 using System;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 
 namespace Flow.Bar.ViewModels.SettingPages;
@@ -31,13 +35,13 @@ public partial class SettingsPaneBarElementSettingViewModel(AppBarManagementServ
     [RelayCommand]
     private async Task AddBarElementAsync(Button button)
     {
-        /*AddAppBarDialog dialog;
+        AddBarElementDialog dialog;
         ContentDialogResult result;
         if (Window.GetWindow(button) is SettingWindow owner)
         {
             try
             {
-                dialog = new AddAppBarDialog()
+                dialog = new AddBarElementDialog()
                 {
                     Owner = owner
                 };
@@ -47,28 +51,19 @@ public partial class SettingsPaneBarElementSettingViewModel(AppBarManagementServ
             }
             catch (Exception ex)
             {
-                App.API.LogFatal(ClassName, "Failed to show AddAppBarDialog", ex);
+                App.API.LogFatal(ClassName, $"Failed to show {nameof(AddBarElementDialog)}", ex);
                 return;
             }
         }
         else
         {
-            App.API.LogError(ClassName, "Failed to get owner window for AddAppBarDialog");
+            App.API.LogError(ClassName, $"Failed to get owner window for {nameof(AddBarElementDialog)}");
             return;
         }
-        if (result == ContentDialogResult.Primary)
+        if (result == ContentDialogResult.Primary && dialog.Plugin != null)
         {
-            var model = new AppBarModel
-            {
-                Name = dialog.AppBarName,
-                DockMode = dialog.DockMode,
-                MonitorName = dialog.MonitorName,
-                FollowSystemTaskbarWidthOrHeight = dialog.FollowSystemTaskbarWidthOrHeight,
-                DockedWidthOrHeight = dialog.DockedWidthOrHeight,
-                IsResizable = dialog.IsResizable
-            };
-            _appBarManagementService.AddAppBar(model, AppBars.Add);
-        }*/
+            _appBarManagementService.AddBarElement(_position, _model, dialog.Plugin.ID, BarElements.Add);
+        }
     }
 
     public ObservableCollection<BarElementModel> BarElements { get; } = [];
