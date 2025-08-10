@@ -36,6 +36,8 @@ public class AppBarManagementService(Settings settings)
         }
     }
 
+    #region AppBar Management
+
     #region List Management
 
     public List<AppBarModel> GetAllAppBars()
@@ -306,6 +308,8 @@ public class AppBarManagementService(Settings settings)
         action?.Invoke();
         StartAppBars(pairs);
     }
+
+    #endregion
 
     #endregion
 
