@@ -21,6 +21,8 @@ public partial class SettingsPaneAppBarViewModel(AppBarManagementService appBarM
 
     private readonly AppBarManagementService _appBarManagementService = appBarManagementService;
 
+    private bool _isInitialized = false;
+
     public ScrollViewer? RootFrameScrollViewer { get; } = navigationService.ScrollViewer;
 
     [RelayCommand]
@@ -68,6 +70,27 @@ public partial class SettingsPaneAppBarViewModel(AppBarManagementService appBarM
 
     public ObservableCollection<AppBarModel> AppBars { get; } = [];
 
+    [ObservableProperty]
+    private bool _isAddAppBarEnabled = false;
+
+    public void OnNavigatedTo(object? parameter)
+    {
+        if (!_isInitialized)
+        {
+            RefreshAppBars();
+            IsAddAppBarEnabled = true;
+            _isInitialized = true;
+        }
+        AppBars.CollectionChanged += AppBars_CollectionChanged;
+    }
+
+    public void OnNavigatedFrom()
+    {
+        IsAddAppBarEnabled = false;
+        _isInitialized = false;
+        AppBars.CollectionChanged -= AppBars_CollectionChanged;
+    }
+
     private void RefreshAppBars()
     {
         AppBars.Clear();
@@ -75,17 +98,6 @@ public partial class SettingsPaneAppBarViewModel(AppBarManagementService appBarM
         {
             AppBars.Add(appBar);
         }
-    }
-
-    public void OnNavigatedTo(object? parameter)
-    {
-        RefreshAppBars();
-        AppBars.CollectionChanged += AppBars_CollectionChanged;
-    }
-
-    public void OnNavigatedFrom()
-    {
-        AppBars.CollectionChanged -= AppBars_CollectionChanged;
     }
 
     private void AppBars_CollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
