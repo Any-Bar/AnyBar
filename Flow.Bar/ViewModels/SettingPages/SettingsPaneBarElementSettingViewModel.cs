@@ -95,13 +95,7 @@ public partial class SettingsPaneBarElementSettingViewModel(AppBarManagementServ
     private void RefreshBarElements()
     {
         BarElements.Clear();
-        var barElements = _position switch
-        {
-            BarElementModelPosition.LeftOrTop => AppBarManagementService.GetOrderedLeftOrTopBarElements(_model),
-            BarElementModelPosition.Center => AppBarManagementService.GetOrderedCenterBarElements(_model),
-            BarElementModelPosition.RightOrBottom => AppBarManagementService.GetOrderedRightOrBottomBarElements(_model),
-            _ => throw new NotSupportedException($"Unsupported {nameof(BarElementModelPosition)}: {_position}")
-        };
+        var barElements = _appBarManagementService.GetOrderedBarElements(_position, _model);
         foreach (var element in barElements)
         {
             BarElements.Add(element);

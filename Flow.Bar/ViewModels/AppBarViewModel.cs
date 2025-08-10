@@ -9,9 +9,11 @@ using System.Collections.ObjectModel;
 
 namespace Flow.Bar.ViewModels;
 
-public partial class AppBarViewModel : ObservableObject
+public partial class AppBarViewModel(AppBarManagementService appBarManagementService) : ObservableObject
 {
     private static readonly string ClassName = nameof(AppBarViewModel);
+
+    private readonly AppBarManagementService _appBarManagementService = appBarManagementService;
 
     public AppBarModel Model { get; set; } = null!;
 
@@ -78,7 +80,7 @@ public partial class AppBarViewModel : ObservableObject
     public void InitializeBarElements()
     {
         LeftOrTopBarElements.Clear();
-        foreach (var element in AppBarManagementService.GetOrderedLeftOrTopBarElements(Model))
+        foreach (var element in _appBarManagementService.GetOrderedBarElements(BarElementModelPosition.LeftOrTop, Model))
         {
             if (PluginManager.CheckBarElement(element))
             {
@@ -86,7 +88,7 @@ public partial class AppBarViewModel : ObservableObject
             }
         }
         RightOrBottomBarElements.Clear();
-        foreach (var element in AppBarManagementService.GetOrderedRightOrBottomBarElements(Model))
+        foreach (var element in _appBarManagementService.GetOrderedBarElements(BarElementModelPosition.RightOrBottom, Model))
         {
             if (PluginManager.CheckBarElement(element))
             {
@@ -94,7 +96,7 @@ public partial class AppBarViewModel : ObservableObject
             }
         }
         CenterBarElements.Clear();
-        foreach (var element in AppBarManagementService.GetOrderedCenterBarElements(Model))
+        foreach (var element in _appBarManagementService.GetOrderedBarElements(BarElementModelPosition.Center, Model))
         {
             if (PluginManager.CheckBarElement(element))
             {

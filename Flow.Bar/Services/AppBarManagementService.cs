@@ -315,19 +315,23 @@ public class AppBarManagementService(Settings settings)
 
     #region Bar Element Management
 
-    public static List<BarElementModel> GetOrderedLeftOrTopBarElements(AppBarModel model)
+    public List<BarElementModel> GetOrderedBarElements(BarElementModelPosition position, AppBarModel model)
     {
-        return [.. model.LeftOrTopBarElements.OrderBy(c => c.Order)];
+        lock (_appBarWindowLock)
+        {
+            return [.. GetBarElements(position, model).OrderBy(c => c.Order)];
+        }
     }
 
-    public static List<BarElementModel> GetOrderedCenterBarElements(AppBarModel model)
+    private static List<BarElementModel> GetBarElements(BarElementModelPosition position, AppBarModel model)
     {
-        return [.. model.CenterBarElements.OrderBy(c => c.Order)];
-    }
-
-    public static List<BarElementModel> GetOrderedRightOrBottomBarElements(AppBarModel model)
-    {
-        return [.. model.RightOrBottomBarElements.OrderBy(c => c.Order)];
+        return position switch
+        {
+            BarElementModelPosition.LeftOrTop => model.LeftOrTopBarElements,
+            BarElementModelPosition.Center => model.CenterBarElements,
+            BarElementModelPosition.RightOrBottom => model.RightOrBottomBarElements,
+            _ => throw new NotSupportedException($"Unsupported {nameof(BarElementModelPosition)}: {position}")
+        };
     }
 
     #endregion
