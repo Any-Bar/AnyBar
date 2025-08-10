@@ -27,7 +27,7 @@
 
     <!--  Setting Pane AppBar  -->
     <system:String x:Key="SettingPaneAppBar_AddAppBarHeader">Add a new appbar to your system</system:String>
-    <system:String x:Key="SettingPaneAppBar_AddAppBar">Add an apppar</system:String>
+    <system:String x:Key="SettingPaneAppBar_AddAppBar">Add apppar</system:String>
     <system:String x:Key="SettingPaneAppBar_AllAppBars">All appbars</system:String>
     <system:String x:Key="SettingPaneAppBar_NoAppBarsYet">You have not added any appbars yet.</system:String>
 
@@ -52,7 +52,7 @@
 
     <!--  Setting Pane Bar Element Setting  -->
     <system:String x:Key="SettingPaneBarElementSetting_AddBarElementHeader">Add a new bar element to your appbar</system:String>
-    <system:String x:Key="SettingPaneBarElementSetting_AddBarElement">Add a bar element</system:String>
+    <system:String x:Key="SettingPaneBarElementSetting_AddBarElement">Add bar element</system:String>
     <system:String x:Key="SettingPaneBarElementSetting_AllBarElements">All bar elements</system:String>
     <system:String x:Key="SettingPaneBarElementSetting_NoBarElementsYet">You have not added any bar elements yet.</system:String>
 
