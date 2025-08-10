@@ -36,7 +36,7 @@ public static class EnumerableExtension
             return false;
         }
 
-        var list = new List<T>();
+        var itemsToMove = new List<T>();
 
         // Change item order
         for (var i = 0; i < itemsCount; i++)
@@ -44,7 +44,7 @@ public static class EnumerableExtension
             if (dictionary.Remove(oldOrder + i, out var model))
             {
                 model.Order = newOrder + i;
-                list.Add(model);
+                itemsToMove.Add(model);
             }
         }
 
@@ -56,7 +56,7 @@ public static class EnumerableExtension
                 if (dictionary.Remove(i, out var model))
                 {
                     model.Order -= itemsCount;
-                    list.Add(model);
+                    itemsToMove.Add(model);
                 }
             }
         }
@@ -68,12 +68,12 @@ public static class EnumerableExtension
                 if (dictionary.Remove(i, out var model))
                 {
                     model.Order += itemsCount;
-                    list.Add(model);
+                    itemsToMove.Add(model);
                 }
             }
         }
 
-        foreach (var model in list.OrderBy(m => m.Order))
+        foreach (var model in itemsToMove.OrderBy(m => m.Order))
         {
             dictionary.TryAdd(model.Order, model);
         }
