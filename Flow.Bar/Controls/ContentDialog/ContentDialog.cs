@@ -820,8 +820,11 @@ public class ContentDialog : ContentControl
     {
         if (m_adornerLayer != null)
         {
-            RestoreKeyboardNavigation(m_adorner?.AdornedElement);
+            if (m_adorner != null)
+            {
+                RestoreKeyboardNavigation(m_adorner.AdornedElement);
             m_adornerLayer.Remove(m_adorner);
+            }
             m_adornerLayer = null;
         }
 
