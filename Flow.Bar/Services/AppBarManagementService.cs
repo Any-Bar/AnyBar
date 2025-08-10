@@ -1,10 +1,12 @@
-﻿using Flow.Bar.Models.AppBar;
+﻿using Flow.Bar.Extensions.Enumerable;
+using Flow.Bar.Models.AppBar;
 using Flow.Bar.Models.Enums;
 using Flow.Bar.Models.Monitor;
 using Flow.Bar.Models.UserSettings;
 using Flow.Bar.Views;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading;
 
@@ -323,6 +325,45 @@ public class AppBarManagementService(Settings settings)
         }
     }
 
+    public void AddBarElement(BarElementModelPosition position, AppBarModel model, string id, Action<BarElementModel> added)
+    {
+        lock (_appBarWindowLock)
+        {
+            var barElements = GetBarElements(position, model);
+            var elementOrder = barElements.Select(x => x.Order).Max() + 1;
+            var barElement = new BarElementModel()
+            {
+                Order = elementOrder,
+                ID = id
+            };
+            barElements.Add(barElement);
+            added(barElement);
+            _settings.Save();
+            if (AppBarWindowPairs.TryGetValue(model.Order, out var appBarWindow))
+            {
+                var viewModelBarElements = GetViewModelBarElements(position, appBarWindow);
+                viewModelBarElements.Add(barElement);
+            }
+        }
+    }
+
+    public void RemoveBarElement(BarElementModelPosition position, AppBarModel model, int order)
+    {
+        lock (_appBarWindowLock)
+        {
+            var barElements = GetBarElements(position, model);
+            if (barElements.RemoveAll(x => x.Order == order) > 0)
+            {
+                _settings.Save();
+                if (AppBarWindowPairs.TryGetValue(model.Order, out var appBarWindow))
+                {
+                    var viewModelBarElements = GetViewModelBarElements(position, appBarWindow);
+                    viewModelBarElements.RemoveAll(x => x.Order == order);
+                }
+            }
+        }
+    }
+
     private static List<BarElementModel> GetBarElements(BarElementModelPosition position, AppBarModel model)
     {
         return position switch
@@ -330,6 +371,17 @@ public class AppBarManagementService(Settings settings)
             BarElementModelPosition.LeftOrTop => model.LeftOrTopBarElements,
             BarElementModelPosition.Center => model.CenterBarElements,
             BarElementModelPosition.RightOrBottom => model.RightOrBottomBarElements,
+            _ => throw new NotSupportedException($"Unsupported {nameof(BarElementModelPosition)}: {position}")
+        };
+    }
+
+    private static ObservableCollection<BarElementModel> GetViewModelBarElements(BarElementModelPosition position, AppBarWindow window)
+    {
+        return position switch
+        {
+            BarElementModelPosition.LeftOrTop => window.ViewModel.LeftOrTopBarElements,
+            BarElementModelPosition.Center => window.ViewModel.CenterBarElements,
+            BarElementModelPosition.RightOrBottom => window.ViewModel.RightOrBottomBarElements,
             _ => throw new NotSupportedException($"Unsupported {nameof(BarElementModelPosition)}: {position}")
         };
     }
