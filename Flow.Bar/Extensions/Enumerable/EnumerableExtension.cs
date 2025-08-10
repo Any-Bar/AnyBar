@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
 
 namespace Flow.Bar.Extensions.Enumerable;
 
@@ -41,41 +40,53 @@ public static class EnumerableExtension
         // Change item order
         for (var i = 0; i < itemsCount; i++)
         {
-            if (dictionary.Remove(oldOrder + i, out var model))
+            var key = oldOrder + i;
+            if (dictionary.Remove(key, out var model))
             {
-                model.Order = newOrder + i;
                 itemsToMove.Add(model);
             }
         }
 
+        // Shift affected range
         if (oldOrder < newOrder)
         {
-            // Shift down
-            for (var i = oldOrder + itemsCount; i <= newOrder; i++)
+            // Shift down in reverse order to avoid overwriting
+            for (var i = newOrder; i >= oldOrder + itemsCount; i--)
             {
                 if (dictionary.Remove(i, out var model))
                 {
                     model.Order -= itemsCount;
-                    itemsToMove.Add(model);
+                    dictionary[i - itemsCount] = model;
                 }
+            }
+
+            // Insert moved items
+            for (var i = 0; i < itemsToMove.Count; i++)
+            {
+                var insertedKey = newOrder + 1 - itemsToMove.Count + i;
+                itemsToMove[i].Order = insertedKey;
+                dictionary[insertedKey] = itemsToMove[i];
             }
         }
         else
         {
-            // Shift up
-            for (var i = newOrder; i < oldOrder; i++)
+            // Shift up in ascending order
+            for (var i = oldOrder - 1; i >= newOrder; i--)
             {
                 if (dictionary.Remove(i, out var model))
                 {
                     model.Order += itemsCount;
-                    itemsToMove.Add(model);
+                    dictionary[i + itemsCount] = model;
                 }
             }
-        }
 
-        foreach (var model in itemsToMove.OrderBy(m => m.Order))
-        {
-            dictionary.TryAdd(model.Order, model);
+            // Insert moved items
+            for (var i = 0; i < itemsToMove.Count; i++)
+            {
+                var insertedKey = newOrder + i;
+                itemsToMove[i].Order = insertedKey;
+                dictionary[insertedKey] = itemsToMove[i];
+            }
         }
 
         return true;
@@ -97,28 +108,34 @@ public static class EnumerableExtension
         list.RemoveRange(oldOrder, itemsCount);
 
         // Adjust newOrder if items are removed before it
+        int insertedOrder;
+        int toIndex;
         if (oldOrder < newOrder)
         {
-            newOrder -= itemsCount;
+            insertedOrder = newOrder - itemsCount + 1;
+            toIndex = newOrder + 1;
+        }
+        else
+        {
+            insertedOrder = newOrder;
+            toIndex = oldOrder + itemsCount;
         }
 
         // Insert items at new position
-        list.InsertRange(newOrder, itemsToMove);
+        list.InsertRange(insertedOrder, itemsToMove);
 
         // Update Order property
-        for (int i = 0; i < list.Count; i++)
+        var fromIndex = Math.Min(oldOrder, newOrder);
+        for (var i = fromIndex; i < toIndex; i++)
         {
-            if (list[i] is IOrder orderItem)
-            {
-                orderItem.Order = i;
-            }
+            list[i].Order = i;
         }
 
         return true;
     }
 
     public static bool Move<T>(this ObservableCollection<T> collection, int oldOrder, int newOrder, int itemsCount)
-        where T : class
+        where T : class, IOrder
     {
         ArgumentNullException.ThrowIfNull(collection);
 
@@ -128,24 +145,39 @@ public static class EnumerableExtension
             return false;
         }
 
-        // If moving forward, adjust newOrder to account for removal
-        if (newOrder > oldOrder)
-        {
-            newOrder -= itemsCount;
-        }
-
         // Extract items to move
         var itemsToMove = new List<T>();
-        for (int i = 0; i < itemsCount; i++)
+        for (var i = 0; i < itemsCount; i++)
         {
             itemsToMove.Add(collection[oldOrder]);
             collection.RemoveAt(oldOrder);
         }
 
-        // Insert at new position
-        for (int i = 0; i < itemsToMove.Count; i++)
+        // Adjust newOrder if items are removed before it
+        int insertedOrder;
+        int toIndex;
+        if (oldOrder < newOrder)
         {
-            collection.Insert(newOrder + i, itemsToMove[i]);
+            insertedOrder = newOrder - itemsCount + 1;
+            toIndex = newOrder + 1;
+        }
+        else
+        {
+            insertedOrder = newOrder;
+            toIndex = oldOrder + itemsCount;
+        }
+
+        // Insert at new position
+        for (var i = 0; i < itemsToMove.Count; i++)
+        {
+            collection.Insert(insertedOrder + i, itemsToMove[i]);
+        }
+
+        // Update Order property
+        var fromIndex = Math.Min(oldOrder, newOrder);
+        for (var i = fromIndex; i < toIndex; i++)
+        {
+            collection[i].Order = i;
         }
 
         return true;
