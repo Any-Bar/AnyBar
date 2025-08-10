@@ -130,6 +130,8 @@
             Text="{DynamicResource SettingPaneAppBarSetting_BarElements}" />
         <controls:SettingsCardEx
             x:Name="LeftOrTopBarElementsCard"
+            Command="{Binding OpenBarElementSettingCommand, Mode=OneTime}"
+            CommandParameter="{x:Static enum:BarElementModelPosition.LeftOrTop}"
             IsClickEnabled="True"
             Tag="{Binding AppBarModel, Mode=OneWay}">
             <controls:SettingsCardEx.Style>
@@ -157,6 +159,8 @@
 
         <controls:SettingsCardEx
             x:Name="CenterBarElementsCard"
+            Command="{Binding OpenBarElementSettingCommand, Mode=OneTime}"
+            CommandParameter="{x:Static enum:BarElementModelPosition.Center}"
             Header="{DynamicResource SettingPaneAppBarSetting_CenterBarElements}"
             IsClickEnabled="True"
             Tag="{Binding AppBarModel, Mode=OneWay}">
@@ -171,6 +175,8 @@
 
         <controls:SettingsCardEx
             x:Name="RightOrBottomBarElementsCard"
+            Command="{Binding OpenBarElementSettingCommand, Mode=OneTime}"
+            CommandParameter="{x:Static enum:BarElementModelPosition.RightOrBottom}"
             IsClickEnabled="True"
             Tag="{Binding AppBarModel, Mode=OneWay}">
             <controls:SettingsCardEx.Style>

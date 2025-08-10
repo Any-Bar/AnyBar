@@ -5,6 +5,7 @@ using Flow.Bar.Interfaces;
 using Flow.Bar.Models.AppBar;
 using Flow.Bar.Models.Enums;
 using Flow.Bar.Models.Monitor;
+using Flow.Bar.Models.Parameter;
 using Flow.Bar.Services;
 using System;
 using System.Collections.Generic;
@@ -168,5 +169,15 @@ public partial class SettingsPaneAppBarSettingViewModel(AppBarManagementService 
         var dockedWidthOrHeight = DockedWidthOrHeight;
         (MinDockedWidthOrHeight, MaxDockedWidthOrHeight, DockedWidthOrHeight) =
             MonitorInfoHelper.GetMinAndMaxDockedWidthOrHeight(dockedWidthOrHeight, DockMode, ActualMonitor);
+    }
+
+    [RelayCommand]
+    private void OpenBarElementSetting(BarElementModelPosition elementPosition)
+    {
+        _navigationViewService.NavigateTo(SettingPageTag.BarElementSetting, new SettingsPaneBarElementSettingNavigationParameter
+        {
+            Model = AppBarModel,
+            Position = elementPosition
+        });
     }
 }
