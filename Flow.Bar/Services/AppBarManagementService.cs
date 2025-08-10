@@ -315,19 +315,19 @@ public class AppBarManagementService(Settings settings)
 
     #region Bar Element Management
 
-    public static IOrderedEnumerable<BarElementModel> GetOrderedLeftOrTopBarElements(AppBarModel model)
+    public static List<BarElementModel> GetOrderedLeftOrTopBarElements(AppBarModel model)
     {
-        return model.LeftOrTopBarElements.OrderBy(c => c.Order);
+        return [.. model.LeftOrTopBarElements.OrderBy(c => c.Order)];
     }
 
-    public static IOrderedEnumerable<BarElementModel> GetOrderedCenterBarElements(AppBarModel model)
+    public static List<BarElementModel> GetOrderedCenterBarElements(AppBarModel model)
     {
-        return model.CenterBarElements.OrderBy(c => c.Order);
+        return [.. model.CenterBarElements.OrderBy(c => c.Order)];
     }
 
-    public static IOrderedEnumerable<BarElementModel> GetOrderedRightOrBottomBarElements(AppBarModel model)
+    public static List<BarElementModel> GetOrderedRightOrBottomBarElements(AppBarModel model)
     {
-        return model.RightOrBottomBarElements.OrderBy(c => c.Order);
+        return [.. model.RightOrBottomBarElements.OrderBy(c => c.Order)];
     }
 
     #endregion
