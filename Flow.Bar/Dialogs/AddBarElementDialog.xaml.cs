@@ -63,7 +63,7 @@ public partial class AddBarElementDialog : ContentDialog
     private void AddBackMatchingPlugins(List<PluginViewModel> filteredData)
     {
         var addBackDataList = new List<AddBackData>();
-        for (var i = 0; i < filteredData.Count; i--)
+        for (var i = 0; i < filteredData.Count; i++)
         {
             var plugin = filteredData[i];
             if (!AllPlugins.Contains(plugin))
