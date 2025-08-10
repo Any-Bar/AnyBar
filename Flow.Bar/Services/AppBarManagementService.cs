@@ -84,49 +84,13 @@ public class AppBarManagementService(Settings settings)
 
     public void ChangeAppBarOrder(int oldOrder, int newOrder, int itemsCount)
     {
-        if (oldOrder == newOrder || itemsCount == 0) return;
         lock (_appBarWindowLock)
         {
-            var _models = new List<AppBarModel>();
-            for (var i = 0; i < itemsCount; i++)
+            if (_settings.AppBars.Move(oldOrder, newOrder, itemsCount))
             {
-                if (_settings.AppBars.Remove(oldOrder + i, out var model))
-                {
-                    model.Order = newOrder + i;
-                    _models.Add(model);
-                }
+                _settings.Save();
+                RestartAppBarsFrom(Math.Min(oldOrder, newOrder));
             }
-            if (oldOrder < newOrder)
-            {
-                // Shift down
-                for (var i = oldOrder + itemsCount; i <= newOrder; i++)
-                {
-                    if (_settings.AppBars.Remove(i, out var model))
-                    {
-                        model.Order -= itemsCount;
-                        _models.Add(model);
-                    }
-                }
-            }
-            else
-            {
-                // Shift up
-                for (var i = newOrder; i < oldOrder; i++)
-                {
-                    if (_settings.AppBars.Remove(i, out var model))
-                    {
-                        model.Order += itemsCount;
-                        _models.Add(model);
-                    }
-                }
-            }
-            foreach (var model in _models.OrderBy(m => m.Order))
-            {
-                _settings.AppBars.TryAdd(model.Order, model);
-            }
-            _settings.Save();
-            // Restart appbars with new order
-            RestartAppBarsFrom(Math.Min(oldOrder, newOrder));
         }
     }
 
@@ -359,6 +323,23 @@ public class AppBarManagementService(Settings settings)
                 {
                     var viewModelBarElements = GetViewModelBarElements(position, appBarWindow);
                     viewModelBarElements.RemoveAll(x => x.Order == order);
+                }
+            }
+        }
+    }
+
+    public void ChangeBarElementOrder(BarElementModelPosition position, AppBarModel model, int oldOrder, int newOrder, int itemsCount)
+    {
+        lock (_appBarWindowLock)
+        {
+            var barElements = GetBarElements(position, model);
+            if (barElements.Move(oldOrder, newOrder, itemsCount))
+            {
+                _settings.Save();
+                if (AppBarWindowPairs.TryGetValue(model.Order, out var appBarWindow))
+                {
+                    var viewModelBarElements = GetViewModelBarElements(position, appBarWindow);
+                    viewModelBarElements.Move(oldOrder, newOrder, itemsCount);
                 }
             }
         }
