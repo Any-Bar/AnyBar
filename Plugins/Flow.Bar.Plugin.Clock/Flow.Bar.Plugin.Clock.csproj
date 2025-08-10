@@ -5,7 +5,6 @@
     <TargetFramework>net9.0-windows</TargetFramework>
     <UseWPF>true</UseWPF>
     <UseWindowsForms>false</UseWindowsForms>
-    <ProjectGuid>{3675A0DD-AF3B-412F-B257-5E004DEA2BD0}</ProjectGuid>
     <RootNamespace>Flow.Bar.Plugin.Clock</RootNamespace>
     <AssemblyName>Flow.Bar.Plugin.Clock</AssemblyName>
     <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
