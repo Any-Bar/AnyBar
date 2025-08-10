@@ -7,7 +7,10 @@
     xmlns:sys="clr-namespace:System;assembly=mscorlib"
     xmlns:ui="http://schemas.inkore.net/lib/ui/wpf/modern">
 
-    <!--  Uninstall Confirmation Context Menu Style  -->
+    <!--  Custom Context Menu  -->
+    <sys:Double x:Key="CustomContextMenuWidth">275</sys:Double>
+
+    <!--  Uninstall Confirmation Context Menu  -->
     <sys:Double x:Key="UninstallConfirmationContextMenuWidth">300</sys:Double>
     <sys:Double x:Key="UninstallConfirmationContextMenuHeight">118</sys:Double>
 

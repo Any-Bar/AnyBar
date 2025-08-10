@@ -13,7 +13,7 @@ namespace Flow.Bar.Views.SettingPages;
 
 public partial class SettingsPanePlugins : Page
 {
-    private const double ContextMenuWidth = 275;
+    private static readonly double ContextMenuWidth = (double)Application.Current.TryFindResource("CustomContextMenuWidth");
     private static readonly double UninstallConfirmationContextMenuWidth = (double)Application.Current.TryFindResource("UninstallConfirmationContextMenuWidth");
     private static readonly double UninstallConfirmationContextMenuHeight = (double)Application.Current.TryFindResource("UninstallConfirmationContextMenuHeight");
 
