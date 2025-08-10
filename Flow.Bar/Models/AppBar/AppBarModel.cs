@@ -31,7 +31,7 @@ public class AppBarModel : IEquatable<AppBarModel>
             foreach (var element in _leftOrTopBarElements)
             {
                 element.AppBar = this;
-                element.BarElementPosition = BarElementModel.Position.LeftOrTop;
+                element.BarElementPosition = BarElementModelPosition.LeftOrTop;
             }
             return _leftOrTopBarElements;
         }
@@ -41,7 +41,7 @@ public class AppBarModel : IEquatable<AppBarModel>
             foreach (var element in _leftOrTopBarElements)
             {
                 element.AppBar = this;
-                element.BarElementPosition = BarElementModel.Position.LeftOrTop;
+                element.BarElementPosition = BarElementModelPosition.LeftOrTop;
             }
         }
     }
@@ -55,7 +55,7 @@ public class AppBarModel : IEquatable<AppBarModel>
             foreach (var element in _centerBarElements)
             {
                 element.AppBar = this;
-                element.BarElementPosition = BarElementModel.Position.Center;
+                element.BarElementPosition = BarElementModelPosition.Center;
             }
             return _centerBarElements;
         }
@@ -65,7 +65,7 @@ public class AppBarModel : IEquatable<AppBarModel>
             foreach (var element in _centerBarElements)
             {
                 element.AppBar = this;
-                element.BarElementPosition = BarElementModel.Position.Center;
+                element.BarElementPosition = BarElementModelPosition.Center;
             }
         }
     }
@@ -79,7 +79,7 @@ public class AppBarModel : IEquatable<AppBarModel>
             foreach (var element in _rightOrBottomBarElements)
             {
                 element.AppBar = this;
-                element.BarElementPosition = BarElementModel.Position.RightOrBottom;
+                element.BarElementPosition = BarElementModelPosition.RightOrBottom;
             }
             return _rightOrBottomBarElements;
         }
@@ -89,7 +89,7 @@ public class AppBarModel : IEquatable<AppBarModel>
             foreach (var element in _rightOrBottomBarElements)
             {
                 element.AppBar = this;
-                element.BarElementPosition = BarElementModel.Position.RightOrBottom;
+                element.BarElementPosition = BarElementModelPosition.RightOrBottom;
             }
         }
     }

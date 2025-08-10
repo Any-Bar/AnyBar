@@ -17,9 +17,9 @@ public class BarElementModelConverterToFrameworkElement : IValueConverter
             var isHorizontal = element.AppBar.DockMode is AppBarDockMode.Top or AppBarDockMode.Bottom;
             var position = element.BarElementPosition switch
             {
-                BarElementModel.Position.LeftOrTop => isHorizontal ? BarElementPosition.Left : BarElementPosition.Top,
-                BarElementModel.Position.Center => isHorizontal ? BarElementPosition.HorizontalCenter : BarElementPosition.VerticalCenter,
-                BarElementModel.Position.RightOrBottom => isHorizontal ? BarElementPosition.Right : BarElementPosition.Bottom,
+                BarElementModelPosition.LeftOrTop => isHorizontal ? BarElementPosition.Left : BarElementPosition.Top,
+                BarElementModelPosition.Center => isHorizontal ? BarElementPosition.HorizontalCenter : BarElementPosition.VerticalCenter,
+                BarElementModelPosition.RightOrBottom => isHorizontal ? BarElementPosition.Right : BarElementPosition.Bottom,
                 _ => throw new NotSupportedException($"Unsupported BarElementPosition: {element.BarElementPosition}")
             };
             return PluginManager.GetBarElement(element, position);
