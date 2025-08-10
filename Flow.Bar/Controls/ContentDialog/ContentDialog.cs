@@ -441,19 +441,53 @@ public class ContentDialog : ContentControl
 
     #endregion
 
-    #region EnableContentLeftAndRightPadding
+    #region EnableContentPadding
 
-    public static readonly DependencyProperty EnableContentLeftAndRightPaddingProperty =
+    public static readonly DependencyProperty EnableContentPaddingProperty =
         DependencyProperty.Register(
-            nameof(EnableContentLeftAndRightPadding),
+            nameof(EnableContentPadding),
             typeof(bool),
             typeof(ContentDialog),
             new PropertyMetadata(true));
 
-    public bool EnableContentLeftAndRightPadding
+    public bool EnableContentPadding
     {
-        get => (bool)GetValue(EnableContentLeftAndRightPaddingProperty);
-        set => SetValue(EnableContentLeftAndRightPaddingProperty, value);
+        get => (bool)GetValue(EnableContentPaddingProperty);
+        set => SetValue(EnableContentPaddingProperty, value);
+    }
+
+    #endregion
+
+    #region HeaderContent
+
+    public static readonly DependencyProperty HeaderContentProperty =
+        DependencyProperty.Register(
+            nameof(HeaderContent),
+            typeof(UIElement),
+            typeof(ContentDialog),
+            new PropertyMetadata(null));
+
+    public UIElement HeaderContent
+    {
+        get => (UIElement)GetValue(HeaderContentProperty);
+        set => SetValue(HeaderContentProperty, value);
+    }
+
+    #endregion
+
+    #region FooterContent
+
+    public static readonly DependencyProperty FooterContentProperty =
+        DependencyProperty.Register(
+            nameof(FooterContent),
+            typeof(UIElement),
+            typeof(ContentDialog),
+            new PropertyMetadata(null));
+
+    public UIElement FooterContent
+    {
+        get => (UIElement)GetValue(FooterContentProperty);
+        set => SetValue(FooterContentProperty, value);
     }
 
     #endregion
