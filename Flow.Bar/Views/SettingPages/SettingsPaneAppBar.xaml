@@ -53,7 +53,7 @@
                                     <ControlTemplate>
                                         <TextBlock
                                             x:Name="NoAppBarsYetTextBlock"
-                                            Width="300"
+                                            Width="{StaticResource ListViewEmptyTextWidth}"
                                             HorizontalAlignment="Left"
                                             Style="{StaticResource {x:Static ui:ThemeKeys.BodyTextBlockStyleKey}}"
                                             Text="{DynamicResource SettingPaneAppBar_NoAppBarsYet}"

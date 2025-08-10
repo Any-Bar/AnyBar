@@ -28,7 +28,10 @@
     <!--  Spacing between elements  -->
     <sys:Double x:Key="SettingsElementsSpacing">8</sys:Double>
 
-    <!--  Body FontIcon Size  -->
+    <!--  Body fontIcon size  -->
     <sys:Double x:Key="BodyFontIconFontSize">12</sys:Double>
+
+    <!--  ListView empty text width  -->
+    <sys:Double x:Key="ListViewEmptyTextWidth">300</sys:Double>
 
 </ResourceDictionary>

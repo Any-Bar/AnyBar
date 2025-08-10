@@ -51,7 +51,7 @@
                                     <ControlTemplate>
                                         <TextBlock
                                             x:Name="NoBarElementsYetTextBlock"
-                                            Width="300"
+                                            Width="{StaticResource ListViewEmptyTextWidth}"
                                             HorizontalAlignment="Left"
                                             Style="{StaticResource {x:Static ui:ThemeKeys.BodyTextBlockStyleKey}}"
                                             Text="{DynamicResource SettingPaneBarElementSetting_NoBarElementsYet}"

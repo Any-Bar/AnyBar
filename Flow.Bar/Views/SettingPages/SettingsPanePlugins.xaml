@@ -84,7 +84,7 @@
                                     <ControlTemplate>
                                         <TextBlock
                                             x:Name="NothingToShowTextBlock"
-                                            Width="300"
+                                            Width="{StaticResource ListViewEmptyTextWidth}"
                                             HorizontalAlignment="Left"
                                             TextWrapping="Wrap">
                                             <TextBlock.Style>
