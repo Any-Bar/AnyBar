@@ -23,12 +23,12 @@
     <ikw:SimpleStackPanel Spacing="{StaticResource ContentDialogItemSpacing}">
         <TextBlock Text="{DynamicResource SettingPaneAppBarSetting_Name}" />
         <TextBox
-            Margin="{StaticResource ContentDialogContentMargin}"
+            Margin="{StaticResource ContentDialogContentBottomMargin}"
             HorizontalAlignment="Stretch"
             Text="{Binding AppBarName, Mode=TwoWay}" />
         <TextBlock Text="{DynamicResource SettingPaneAppBarSetting_BarBehaviour}" />
         <ComboBox
-            Margin="{StaticResource ContentDialogContentMargin}"
+            Margin="{StaticResource ContentDialogContentBottomMargin}"
             HorizontalAlignment="Stretch"
             DisplayMemberPath="Display"
             ItemsSource="{Binding AllDockModes, Mode=OneTime}"
@@ -36,7 +36,7 @@
             SelectedValuePath="Value" />
         <TextBlock Text="{DynamicResource SettingPaneAppBarSetting_Monitor}" />
         <ComboBox
-            Margin="{StaticResource ContentDialogContentMargin}"
+            Margin="{StaticResource ContentDialogContentBottomMargin}"
             HorizontalAlignment="Stretch"
             DisplayMemberPath="Display"
             ItemsSource="{Binding AllMonitorNames, Mode=OneTime}"
@@ -58,7 +58,7 @@
             </TextBlock.Style>
         </TextBlock>
         <ui:NumberBox
-            Margin="{StaticResource ContentDialogContentMargin}"
+            Margin="{StaticResource ContentDialogContentBottomMargin}"
             HorizontalAlignment="Stretch"
             LargeChange="10"
             Maximum="{Binding MaxDockedWidthOrHeight, Mode=OneWay}"

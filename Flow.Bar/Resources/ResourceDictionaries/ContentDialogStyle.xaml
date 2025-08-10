@@ -6,7 +6,11 @@
     <!--  Spacing between items  -->
     <sys:Double x:Key="ContentDialogItemSpacing">8</sys:Double>
 
-    <!--  Margin of a content with the next item  -->
-    <Thickness x:Key="ContentDialogContentMargin">0 0 0 20</Thickness>
+    <!--  Margin of a content item with the next item  -->
+    <Thickness x:Key="ContentDialogContentBottomMargin">0 0 0 20</Thickness>
+
+    <!--  Margin of a content item  -->
+    <Thickness x:Key="ContentDialogContentLeftRightMargin">24 0 24 0</Thickness>
+    <Thickness x:Key="ContentDialogContentTopMargin">0 12 0 0</Thickness>
 
 </ResourceDictionary>
