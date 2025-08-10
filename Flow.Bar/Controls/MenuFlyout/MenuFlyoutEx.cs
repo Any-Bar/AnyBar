@@ -24,13 +24,7 @@ public class MenuFlyoutEx : DependencyObject
         MenuFlyoutPresenterStyle = s_contextMenuStyle;
     }
 
-    public ItemCollection Items
-    {
-        get
-        {
-            return EnsurePresenter().Items;
-        }
-    }
+    public ItemCollection Items => EnsurePresenter().Items;
 
     #region Width
 
