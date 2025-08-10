@@ -200,7 +200,7 @@
                     x:Name="RightOrBottomStackView"
                     CanReorderItems="False"
                     ItemTemplate="{StaticResource StackViewDataTemplate}"
-                    ItemsSource="{Binding CenterBarElements, Mode=OneTime}"
+                    ItemsSource="{Binding RightOrBottomBarElements, Mode=OneTime}"
                     ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                     ScrollViewer.VerticalScrollBarVisibility="Disabled">
                     <controls:StackView.Style>
