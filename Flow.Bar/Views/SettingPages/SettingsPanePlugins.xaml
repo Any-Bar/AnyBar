@@ -133,6 +133,5 @@
                 </DataTemplate>
             </controls:StackView.ItemTemplate>
         </controls:StackView>
-
     </ikw:SimpleStackPanel>
 </ui:Page>
