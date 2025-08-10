@@ -19,8 +19,10 @@ public class PageService
         Configure<SettingsPaneAppBarSetting>(SettingPageTag.AppBarSetting);
         Configure<SettingsPanePlugins>(SettingPageTag.Plugins);
         Configure<SettingsPaneAbout>(SettingPageTag.About);
+        Configure<SettingsPaneBarElementSetting>(SettingPageTag.BarElementSetting);
 
         Configure(SettingPageTag.AppBarSetting, SettingPageTag.AppBar);
+        Configure(SettingPageTag.BarElementSetting, SettingPageTag.AppBar);
     }
 
     public Type GetPageType(SettingPageTag tag)

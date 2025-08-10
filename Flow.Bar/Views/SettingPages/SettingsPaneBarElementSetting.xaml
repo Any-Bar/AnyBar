@@ -1,0 +1,81 @@
+﻿<ui:Page
+    x:Class="Flow.Bar.Views.SettingPages.SettingsPaneBarElementSetting"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="clr-namespace:Flow.Bar.Controls"
+    xmlns:converters="clr-namespace:Flow.Bar.Converters"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:enum="clr-namespace:Flow.Bar.Models.Enums"
+    xmlns:ikw="http://schemas.inkore.net/lib/ui/wpf"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:models="clr-namespace:Flow.Bar.Models.AppBar"
+    xmlns:sys="clr-namespace:System;assembly=mscorlib"
+    xmlns:ui="http://schemas.inkore.net/lib/ui/wpf/modern"
+    xmlns:viewModels="clr-namespace:Flow.Bar.ViewModels.SettingPages"
+    Title="{DynamicResource SettingWindow_AppBar}"
+    d:DataContext="{d:DesignInstance viewModels:SettingsPaneBarElementSettingViewModel}"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    mc:Ignorable="d">
+
+    <ikw:SimpleStackPanel Orientation="Vertical" Spacing="{StaticResource SettingsCardSpacing}">
+        <controls:SettingsCardEx x:Name="AddBarElementCard" Header="{DynamicResource SettingPaneBarElementSetting_AddBarElementHeader}">
+            <Button
+                x:Name="AddBarElementButton"
+                Command="{Binding AddBarElementCommand, Mode=OneTime}"
+                CommandParameter="{Binding RelativeSource={RelativeSource Self}}"
+                Content="{DynamicResource SettingPaneBarElementSetting_AddBarElement}"
+                IsEnabled="{Binding IsInitialized, Mode=OneWay}"
+                Style="{DynamicResource {x:Static ui:ThemeKeys.AccentButtonStyleKey}}" />
+        </controls:SettingsCardEx>
+
+        <TextBlock
+            x:Name="BarElementsTitle"
+            Style="{StaticResource SettingsSectionHeaderTextBlockStyle}"
+            Text="{DynamicResource SettingPaneBarElementSetting_AllBarElements}" />
+        <controls:StackView
+            x:Name="BarElementStackView"
+            CanReorderItems="True"
+            DropScrollViewer="{Binding RootFrameScrollViewer, Mode=OneTime}"
+            IsHoverEnabled="False"
+            ItemsSource="{Binding BarElements, Mode=OneTime}"
+            Orientation="Vertical"
+            ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+            ScrollViewer.VerticalScrollBarVisibility="Disabled">
+            <controls:StackView.Style>
+                <Style BasedOn="{StaticResource DefaultStackViewStyle}" TargetType="controls:StackView">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding RelativeSource={x:Static RelativeSource.Self}, Path=Items.Count}" Value="0">
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate>
+                                        <TextBlock
+                                            x:Name="NoBarElementsYetTextBlock"
+                                            Width="300"
+                                            HorizontalAlignment="Left"
+                                            Style="{StaticResource {x:Static ui:ThemeKeys.BodyTextBlockStyleKey}}"
+                                            Text="{DynamicResource SettingPaneBarElementSetting_NoBarElementsYet}"
+                                            TextWrapping="Wrap" />
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </controls:StackView.Style>
+            <controls:StackView.ItemTemplate>
+                <DataTemplate DataType="models:BarElementModel">
+                    <controls:SettingsCardEx x:Name="BarElementSettingsCard" Header="Bar Element">
+                        <!--<controls:SettingsCardEx.HeaderIcon>
+                            <Image
+                                Width="16"
+                                Height="16"
+                                RenderOptions.BitmapScalingMode="HighQuality"
+                                Source="{Binding DockMode, Converter={StaticResource DockModeToImageSourceConverter}}" />
+                        </controls:SettingsCardEx.HeaderIcon>-->
+                    </controls:SettingsCardEx>
+                </DataTemplate>
+            </controls:StackView.ItemTemplate>
+        </controls:StackView>
+    </ikw:SimpleStackPanel>
+</ui:Page>
