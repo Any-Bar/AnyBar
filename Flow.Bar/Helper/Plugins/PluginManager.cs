@@ -21,7 +21,7 @@ public static class PluginManager
 
     public static List<PluginPair> AllPlugins { get; private set; } = [];
 
-    private static readonly ConcurrentBag<string> ModifiedPlugins = [];
+    private static readonly ConcurrentBag<string> _uninstalledPlugins = [];
 
     private static PluginPair[] _translationPlugins = null!;
 
@@ -118,14 +118,32 @@ public static class PluginManager
         return [.. _translationPlugins.Where(p => !PluginModified(p.Metadata.ID))];
     }
 
-    private static bool PluginModified(string id)
-    {
-        return ModifiedPlugins.Contains(id);
-    }
-
     public static bool IsPreinstalled(string id)
     {
         return id == Constants.FlowBarPluginClockPluginId;
+    }
+
+    #endregion
+
+    #region Plugin Modification
+
+    private static bool PluginModified(string id)
+    {
+        return _uninstalledPlugins.Contains(id);
+    }
+
+    internal static async Task<bool> UninstallPluginAsync(PluginMetadata plugin)
+    {
+        AllPlugins.RemoveAll(p => p.Metadata.ID == plugin.ID);
+
+        // Marked for deletion. Will be deleted on next start up
+        using var _ = File.CreateText(Path.Combine(plugin.PluginDirectory, Constants.NeedDeleteMarkFile));
+
+        _uninstalledPlugins.Add(plugin.ID);
+
+        await Task.CompletedTask;
+
+        return true;
     }
 
     #endregion

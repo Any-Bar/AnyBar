@@ -108,4 +108,8 @@
     <system:String x:Key="HTTPHelper_PleaseTryAgain">Please try again</system:String>
     <system:String x:Key="HTTPHelper_ParseProxyFailed">Failed to parse Http Proxy</system:String>
 
+    <!--  Plugin Installer  -->
+    <!-- <param index="0" name="oldPlugin" type="Flow.Bar.Plugin.PluginMetadata" />-->
+    <system:String x:Key="PluginInstaller_FailedToUninstall">Failed to uninstall {0}</system:String>
+
 </ResourceDictionary>
