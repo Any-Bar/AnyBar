@@ -118,7 +118,7 @@ public partial class SettingsPaneBarElementSettingViewModel(AppBarManagementServ
                 App.API.LogError(ClassName, $"Move action in {nameof(BarElements)} collection changed with different item counts");
                 return;
             }
-            /*_appBarManagementService.ChangeBarElementOrder(e.OldStartingIndex, e.NewStartingIndex, e.OldItems.Count);*/
+            _appBarManagementService.ChangeBarElementOrder(_position, _model, e.OldStartingIndex, e.NewStartingIndex, e.OldItems.Count);
         }
     }
 }
