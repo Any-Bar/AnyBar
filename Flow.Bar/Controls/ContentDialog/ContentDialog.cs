@@ -441,6 +441,23 @@ public class ContentDialog : ContentControl
 
     #endregion
 
+    #region EnableContentLeftAndRightPadding
+
+    public static readonly DependencyProperty EnableContentLeftAndRightPaddingProperty =
+        DependencyProperty.Register(
+            nameof(EnableContentLeftAndRightPadding),
+            typeof(bool),
+            typeof(ContentDialog),
+            new PropertyMetadata(true));
+
+    public bool EnableContentLeftAndRightPadding
+    {
+        get => (bool)GetValue(EnableContentLeftAndRightPaddingProperty);
+        set => SetValue(EnableContentLeftAndRightPaddingProperty, value);
+    }
+
+    #endregion
+
     public Window? Owner { get; set; }
 
     private Window? ActualOwner => Owner ?? Win32Helper.GetActiveWindow();

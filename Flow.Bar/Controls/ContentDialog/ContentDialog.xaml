@@ -11,6 +11,7 @@
             <!--  We use these two thickness to make ContentScrollViewer is only for Content  -->
             <Thickness x:Key="ContentDialogTitleMargin">24 24 24 12</Thickness>
             <Thickness x:Key="ContentDialogContentScrollViewerPadding">24 0 24 24</Thickness>
+            <Thickness x:Key="ContentDialogContentScrollViewerBottomPadding">0 0 0 24</Thickness>
         </ResourceDictionary>
     </ResourceDictionary.MergedDictionaries>
 
@@ -120,10 +121,19 @@
                                                 <ui:ScrollViewerEx
                                                     x:Name="ContentScrollViewer"
                                                     Grid.Row="1"
-                                                    Padding="{StaticResource ContentDialogContentScrollViewerPadding}"
                                                     HorizontalScrollBarVisibility="{TemplateBinding ScrollViewer.HorizontalScrollBarVisibility}"
                                                     IsTabStop="False"
                                                     VerticalScrollBarVisibility="{TemplateBinding ScrollViewer.VerticalScrollBarVisibility}">
+                                                    <ui:ScrollViewerEx.Style>
+                                                        <Style BasedOn="{StaticResource DefaultScrollViewerStyle}" TargetType="ui:ScrollViewerEx">
+                                                            <Setter Property="Padding" Value="{StaticResource ContentDialogContentScrollViewerPadding}" />
+                                                            <Style.Triggers>
+                                                                <DataTrigger Binding="{Binding EnableContentLeftAndRightPadding, RelativeSource={RelativeSource AncestorType=local:ContentDialog}}" Value="False">
+                                                                    <Setter Property="Padding" Value="{StaticResource ContentDialogContentScrollViewerBottomPadding}" />
+                                                                </DataTrigger>
+                                                            </Style.Triggers>
+                                                        </Style>
+                                                    </ui:ScrollViewerEx.Style>
                                                     <ui:ContentPresenterEx
                                                         x:Name="Content"
                                                         Content="{TemplateBinding Content}"
