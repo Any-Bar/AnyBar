@@ -63,7 +63,9 @@
         </Setter>
     </Style>
 
-    <Style BasedOn="{StaticResource DefaultStackViewItemStyle}" TargetType="local:StackViewItem" />
+    <Style BasedOn="{StaticResource DefaultStackViewItemStyle}" TargetType="local:StackViewItem">
+        <Setter Property="KeyboardNavigation.TabNavigation" Value="None" />
+    </Style>
 
     <Style x:Key="BaseStackViewStyle" TargetType="local:StackView">
         <Setter Property="OverridesDefaultStyle" Value="True" />
@@ -128,7 +130,10 @@
     <Style
         x:Key="DefaultStackViewStyle"
         BasedOn="{StaticResource BaseStackViewStyle}"
-        TargetType="local:StackView" />
+        TargetType="local:StackView">
+        <Setter Property="IsTabStop" Value="False" />
+        <Setter Property="KeyboardNavigation.TabNavigation" Value="None" />
+    </Style>
 
     <Style BasedOn="{StaticResource DefaultStackViewStyle}" TargetType="local:StackView" />
 
