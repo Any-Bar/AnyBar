@@ -80,8 +80,6 @@ public partial class SettingsCardEx : ButtonBase
 
         IsEnabledChanged += OnIsEnabledChanged;
         SizeChanged += SettingsCard_SizeChanged;
-
-        // RegisterPropertyChangedCallback(ContentProperty, OnContentChanged);
     }
 
     private void SettingsCard_SizeChanged(object sender, SizeChangedEventArgs e)
@@ -293,7 +291,6 @@ public partial class SettingsCardEx : ButtonBase
                 ? Visibility.Collapsed
                 : Visibility.Visible;
         }
-
     }
 
     private void OnHeaderChanged()

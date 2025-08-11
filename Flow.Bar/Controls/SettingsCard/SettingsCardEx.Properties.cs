@@ -159,6 +159,7 @@ public partial class SettingsCardEx
     {
         OnIsClickEnabledChanged();
     }
+
     protected virtual void OnHeaderIconPropertyChanged(object oldValue, object newValue)
     {
         OnHeaderIconChanged();
@@ -183,7 +184,6 @@ public partial class SettingsCardEx
     {
         UpdateContentAlignmentState();
     }
-    
 }
 
 public enum ContentAlignment
