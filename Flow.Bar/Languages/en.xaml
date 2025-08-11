@@ -55,6 +55,7 @@
     <system:String x:Key="SettingPaneBarElementSetting_AddBarElement">Add bar element</system:String>
     <system:String x:Key="SettingPaneBarElementSetting_AllBarElements">All bar elements</system:String>
     <system:String x:Key="SettingPaneBarElementSetting_NoBarElementsYet">You have not added any bar elements yet.</system:String>
+    <system:String x:Key="SettingPaneBarElementSetting_Unknown">Unknown</system:String>
 
     <!--  Setting Pane Plugin  -->
     <system:String x:Key="SettingPanePlugins_SearchPlugins">Search plugins</system:String>
