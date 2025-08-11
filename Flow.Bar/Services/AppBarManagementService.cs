@@ -254,23 +254,26 @@ public class AppBarManagementService(Settings settings)
         }
     }
 
-    private void RestartAppBarsFrom(int startOrder, Action? action = null)
+    private void RestartAppBarsFrom(int startOrder, Action? openWindow = null)
     {
-        var pairs = new List<AppBarModel>();
-        foreach (var order in AppBarWindowPairs.Keys)
+        var pairsToRestart = AppBarWindowPairs.Where(x => x.Value.Model.Order >= startOrder);
+        // Just one app bar and no window need to open - just update the order and do not need to close and reopen the window
+        if (pairsToRestart.Count() == 1 && openWindow == null)
         {
-            if (AppBarWindowPairs.TryGetValue(order, out var appBarWindow))
-            {
-                var model = appBarWindow.Model;
-                if (model.Order >= startOrder)
-                {
-                    appBarWindow.Close();
-                    AppBarWindowPairs.Remove(order);
-                    pairs.Add(model);
-                }
-            }
+            var pair = pairsToRestart.First();
+            AppBarWindowPairs.Remove(pair.Key);
+            AppBarWindowPairs.TryAdd(pair.Value.Model.Order, pair.Value);
+            return;
         }
-        action?.Invoke();
+        var pairs = new List<AppBarModel>();
+        foreach (var (order, appbarWindow) in pairsToRestart)
+        {
+            var model = appbarWindow.Model;
+            appbarWindow.Close();
+            AppBarWindowPairs.Remove(order);
+            pairs.Add(model);
+        }
+        openWindow?.Invoke();
         StartAppBars(pairs);
     }
 
