@@ -60,7 +60,7 @@ public class Settings
         var demoAppBar = new AppBarModel
         {
             Order = 0,
-            Name = "Demo AppBar",
+            Name = "Demo Appbar",
             DockMode = AppBarDockMode.Top,
             MonitorName = null,
             FollowSystemTaskbarWidthOrHeight = true,
