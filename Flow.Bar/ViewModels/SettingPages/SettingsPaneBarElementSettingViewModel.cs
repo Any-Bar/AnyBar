@@ -34,8 +34,6 @@ public partial class SettingsPaneBarElementSettingViewModel(AppBarManagementServ
     [ObservableProperty]
     private bool _isInitialized = false;
 
-    public ScrollViewer? RootPageScrollViewer { get; set; }
-
     [RelayCommand]
     private async Task AddBarElementAsync(Button button)
     {
