@@ -55,7 +55,7 @@ public class AppBarManagementService(Settings settings)
     {
         lock (_appBarWindowLock)
         {
-            model.Order = _settings.AppBars.Keys.Max() + 1;
+            model.Order = _settings.AppBars.Keys.GetMax();
             if (_settings.AppBars.TryAdd(model.Order, model))
             {
                 added(model);
@@ -295,7 +295,7 @@ public class AppBarManagementService(Settings settings)
         lock (_appBarWindowLock)
         {
             var barElements = GetBarElements(position, model);
-            var elementOrder = barElements.Select(x => x.Order).Max() + 1;
+            var elementOrder = barElements.GetMax(x => x.Order);
             var barElement = new BarElementModel()
             {
                 Order = elementOrder,

@@ -2,11 +2,22 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 
 namespace Flow.Bar.Extensions.Enumerable;
 
 public static class EnumerableExtension
 {
+    public static int GetMax(this ICollection<int> list)
+    {
+        return list.Count != 0 ? list.Max() + 1 : 0;
+    }
+
+    public static int GetMax<T>(this IList<T> list, Func<T, int> selector)
+    {
+        return list.Count != 0 ? list.Max(selector) + 1 : 0;
+    }
+
     public static int RemoveAll<T>(this ObservableCollection<T> collection, Predicate<T> match)
     {
         ArgumentNullException.ThrowIfNull(collection);
