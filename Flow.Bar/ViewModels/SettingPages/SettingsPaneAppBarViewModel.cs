@@ -30,7 +30,7 @@ public partial class SettingsPaneAppBarViewModel(AppBarManagementService appBarM
     [ObservableProperty]
     private bool _isInitialized = false;
 
-    public ScrollViewer? RootFrameScrollViewer { get; } = navigationService.ScrollViewer;
+    public ScrollViewer? RootPageScrollViewer { get; set; }
 
     [RelayCommand]
     private async Task AddAppBarAsync(Button button)

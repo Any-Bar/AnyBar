@@ -4,7 +4,6 @@ using Flow.Bar.Models.Enums;
 using iNKORE.UI.WPF.Modern.Media.Animation;
 using System;
 using System.Collections.Generic;
-using System.Windows.Controls;
 using System.Windows.Navigation;
 using Frame = iNKORE.UI.WPF.Modern.Controls.Frame;
 using Page = iNKORE.UI.WPF.Modern.Controls.Page;
@@ -16,7 +15,6 @@ public class NavigationViewService(PageService pageService)
     private readonly PageService _pageService = pageService;
 
     private NavigationView? _navigationView;
-    private ScrollViewer? _scrollViewer;
     private Frame? _frame;
 
     private Tuple<SettingPageTag, object?>? _nextNavigation;
@@ -26,7 +24,6 @@ public class NavigationViewService(PageService pageService)
     private readonly Stack<object?> _parameterStack = [];
 
     public NavigationView? NavigationView => _navigationView;
-    public ScrollViewer? ScrollViewer => _scrollViewer;
     public Frame? Frame => _frame;
 
     /// <summary>
@@ -74,7 +71,6 @@ public class NavigationViewService(PageService pageService)
             _frame.Navigating -= Frame_OnNavigating;
             _frame.Navigated -= Frame_OnNavigated;
             _navigationView = null;
-            _scrollViewer = null;
             _frame = null;
         }
         if (frame != null)

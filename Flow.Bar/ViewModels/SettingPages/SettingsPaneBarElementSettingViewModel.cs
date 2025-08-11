@@ -21,7 +21,7 @@ using System.Windows.Controls;
 
 namespace Flow.Bar.ViewModels.SettingPages;
 
-public partial class SettingsPaneBarElementSettingViewModel(AppBarManagementService appBarManagementService, NavigationViewService navigationService) : ObservableObject, INavigationAware
+public partial class SettingsPaneBarElementSettingViewModel(AppBarManagementService appBarManagementService) : ObservableObject, INavigationAware
 {
     private static readonly string ClassName = nameof(SettingsPaneBarElementSettingViewModel);
 
@@ -34,7 +34,7 @@ public partial class SettingsPaneBarElementSettingViewModel(AppBarManagementServ
     [ObservableProperty]
     private bool _isInitialized = false;
 
-    public ScrollViewer? RootFrameScrollViewer { get; } = navigationService.ScrollViewer;
+    public ScrollViewer? RootPageScrollViewer { get; set; }
 
     [RelayCommand]
     private async Task AddBarElementAsync(Button button)
