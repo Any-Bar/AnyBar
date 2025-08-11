@@ -5,11 +5,13 @@ using Flow.Bar.Models.AppBar;
 using Flow.Bar.Models.Enums;
 using Flow.Bar.Models.Monitor;
 using Flow.Bar.Services;
+using System;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 
 namespace Flow.Bar.ViewModels;
 
-public partial class AppBarViewModel(AppBarManagementService appBarManagementService) : ObservableObject
+public partial class AppBarViewModel(AppBarManagementService appBarManagementService) : ObservableObject, IDisposable
 {
     private static readonly string ClassName = nameof(AppBarViewModel);
 
@@ -87,6 +89,7 @@ public partial class AppBarViewModel(AppBarManagementService appBarManagementSer
                 LeftOrTopBarElements.Add(element);
             }
         }
+        LeftOrTopBarElements.CollectionChanged += LeftOrTopBarElements_CollectionChanged;
         RightOrBottomBarElements.Clear();
         foreach (var element in _appBarManagementService.GetOrderedBarElements(BarElementModelPosition.RightOrBottom, Model))
         {
@@ -95,6 +98,7 @@ public partial class AppBarViewModel(AppBarManagementService appBarManagementSer
                 RightOrBottomBarElements.Add(element);
             }
         }
+        RightOrBottomBarElements.CollectionChanged += RightOrBottomBarElements_CollectionChanged;
         CenterBarElements.Clear();
         foreach (var element in _appBarManagementService.GetOrderedBarElements(BarElementModelPosition.Center, Model))
         {
@@ -102,6 +106,61 @@ public partial class AppBarViewModel(AppBarManagementService appBarManagementSer
             {
                 CenterBarElements.Add(element);
             }
+        }
+        CenterBarElements.CollectionChanged += CenterBarElements_CollectionChanged;
+    }
+
+    private void LeftOrTopBarElements_CollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
+    {
+        BarElements_CollectionChanged(BarElementModelPosition.LeftOrTop, e);
+    }
+
+    private void RightOrBottomBarElements_CollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
+    {
+        BarElements_CollectionChanged(BarElementModelPosition.RightOrBottom, e);
+    }
+
+    private void CenterBarElements_CollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
+    {
+        BarElements_CollectionChanged(BarElementModelPosition.Center, e);
+    }
+
+    private void BarElements_CollectionChanged(BarElementModelPosition position, NotifyCollectionChangedEventArgs e)
+    {
+        if (e.Action == NotifyCollectionChangedAction.Move)
+        {
+            if (e.OldItems == null ||
+                e.NewItems == null ||
+                e.OldItems.Count != e.NewItems.Count)
+            {
+                switch (position)
+                {
+                    case BarElementModelPosition.LeftOrTop:
+                        App.API.LogError(ClassName, $"{nameof(NotifyCollectionChangedAction.Move)} action in {nameof(LeftOrTopBarElements)} collection changed with different item counts");
+                        break;
+                    case BarElementModelPosition.RightOrBottom:
+                        App.API.LogError(ClassName, $"{nameof(NotifyCollectionChangedAction.Move)} action in {nameof(RightOrBottomBarElements)} collection changed with different item counts");
+                        break;
+                    case BarElementModelPosition.Center:
+                        App.API.LogError(ClassName, $"{nameof(NotifyCollectionChangedAction.Move)} action in {nameof(CenterBarElements)} collection changed with different item counts");
+                        break;
+                }
+                return;
+            }
+
+            var collection = position switch
+            {
+                BarElementModelPosition.LeftOrTop => LeftOrTopBarElements,
+                BarElementModelPosition.RightOrBottom => RightOrBottomBarElements,
+                BarElementModelPosition.Center => CenterBarElements,
+                _ => throw new NotImplementedException()
+            };
+            var oldStartingOrder = collection[e.OldStartingIndex].Order;
+            var newStartingOrder = collection[e.NewStartingIndex].Order;
+            var oldItemMinimalOrder = ((BarElementModel)e.OldItems[0]!).Order;
+            var oldItemMaximalOrder = ((BarElementModel)e.OldItems[^1]!).Order;
+            var itemsCount = oldItemMaximalOrder - oldItemMinimalOrder + 1;
+            _appBarManagementService.ChangeBarElementOrder(position, Model, oldStartingOrder, newStartingOrder, itemsCount, false);
         }
     }
 
@@ -116,5 +175,12 @@ public partial class AppBarViewModel(AppBarManagementService appBarManagementSer
         {
             App.API.LogError(ClassName, $"Monitor not found: {monitorName}");
         }
+    }
+
+    public void Dispose()
+    {
+        LeftOrTopBarElements.CollectionChanged -= LeftOrTopBarElements_CollectionChanged;
+        RightOrBottomBarElements.CollectionChanged -= RightOrBottomBarElements_CollectionChanged;
+        CenterBarElements.CollectionChanged -= CenterBarElements_CollectionChanged;
     }
 }

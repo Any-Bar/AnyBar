@@ -219,7 +219,7 @@ public partial class AppBarWindow : Window
         }
 
         _menuFlyoutHelper.Dispose();
-
+        ViewModel.Dispose();
         if (_hwndSource != null)
         {
             _hwndSource.RemoveHook(WndProc);

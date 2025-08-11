@@ -200,7 +200,7 @@ public partial class SettingsPaneBarElementSettingViewModel(AppBarManagementServ
 
             if (SortMode == SettingsPaneBarElementSettingSortMode.LeftTopToRightBottom)
             {
-                _appBarManagementService.ChangeBarElementOrder(_position, _model, e.OldStartingIndex, e.NewStartingIndex, e.OldItems.Count);
+                _appBarManagementService.ChangeBarElementOrder(_position, _model, e.OldStartingIndex, e.NewStartingIndex, e.OldItems.Count, true);
                 lock (_barElementsLock)
                 {
                     InitializeBarElements();
@@ -210,7 +210,7 @@ public partial class SettingsPaneBarElementSettingViewModel(AppBarManagementServ
             {
                 var reversedOldStartingIndex = BarElements.Count - 1 - e.OldStartingIndex;
                 var reversedNewStartingIndex = BarElements.Count - 1 - e.NewStartingIndex;
-                _appBarManagementService.ChangeBarElementOrder(_position, _model, reversedOldStartingIndex, reversedNewStartingIndex, e.OldItems.Count);
+                _appBarManagementService.ChangeBarElementOrder(_position, _model, reversedOldStartingIndex, reversedNewStartingIndex, e.OldItems.Count, true);
                 lock (_barElementsLock)
                 {
                     InitializeBarElements();
