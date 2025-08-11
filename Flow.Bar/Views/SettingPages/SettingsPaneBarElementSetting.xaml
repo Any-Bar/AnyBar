@@ -19,7 +19,7 @@
     mc:Ignorable="d">
 
     <ui:ScrollViewerEx
-        x:Name="RootFrameScrollViewer"
+        x:Name="RootPageScrollViewer"
         Padding="{StaticResource PageRootScrollViewerPadding}"
         HorizontalScrollBarVisibility="Disabled"
         VerticalScrollBarVisibility="Auto">
@@ -59,7 +59,7 @@
                 x:Name="BarElementStackView"
                 Margin="{StaticResource SettingsSectionHeaderMargin}"
                 CanReorderItems="True"
-                DropScrollViewer="{Binding RootFrameScrollViewer, Mode=OneTime}"
+                DropScrollViewer="{Binding RootPageScrollViewer, Mode=OneTime}"
                 IsHoverEnabled="False"
                 ItemsSource="{Binding BarElements, Mode=OneTime}"
                 Orientation="Vertical"

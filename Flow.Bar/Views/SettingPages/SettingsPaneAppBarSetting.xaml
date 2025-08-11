@@ -22,7 +22,7 @@
     </ui:Page.Resources>
 
     <ui:ScrollViewerEx
-        x:Name="RootFrameScrollViewer"
+        x:Name="RootPageScrollViewer"
         Padding="{StaticResource PageRootScrollViewerPadding}"
         HorizontalScrollBarVisibility="Disabled"
         VerticalScrollBarVisibility="Auto">

@@ -22,7 +22,7 @@
     </ui:Page.Resources>
 
     <ui:ScrollViewerEx
-        x:Name="RootFrameScrollViewer"
+        x:Name="RootPageScrollViewer"
         Padding="{StaticResource PageRootScrollViewerPadding}"
         HorizontalScrollBarVisibility="Disabled"
         VerticalScrollBarVisibility="Auto">
@@ -61,7 +61,7 @@
             <controls:StackView
                 x:Name="AppBarStackView"
                 Margin="{StaticResource SettingsSectionHeaderMargin}"
-                DropScrollViewer="{Binding RootFrameScrollViewer, Mode=OneTime}"
+                DropScrollViewer="{Binding RootPageScrollViewer, Mode=OneTime}"
                 IsHoverEnabled="False"
                 ItemsSource="{Binding AppBars, Mode=OneTime}"
                 Orientation="Vertical"
