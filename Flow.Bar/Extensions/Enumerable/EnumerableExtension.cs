@@ -158,37 +158,55 @@ public static class EnumerableExtension
 
         // Extract items to move
         var itemsToMove = new List<T>();
-        for (var i = 0; i < itemsCount; i++)
+        for (var i = 0; i < collection.Count; i++)
         {
-            itemsToMove.Add(collection[oldOrder]);
-            collection.RemoveAt(oldOrder);
+            var item = collection[i];
+            if (item.Order >= oldOrder && item.Order < oldOrder + itemsCount)
+            {
+                itemsToMove.Add(item);
+            }
+        }
+        foreach (var item in itemsToMove)
+        {
+            collection.Remove(item);
         }
 
-        // Adjust newOrder if items are removed before it
-        int insertedOrder;
-        int toIndex;
-        if (oldOrder < newOrder)
+        // Find the new insertion point
+        var insertedIndex = 0;
+        if (collection.Count == 0)
         {
-            insertedOrder = newOrder - itemsCount + 1;
-            toIndex = newOrder + 1;
+            insertedIndex = 0;
         }
         else
         {
-            insertedOrder = newOrder;
-            toIndex = oldOrder + itemsCount;
+            var firstItemOrder = collection[0].Order;
+            var lastItemOrder = collection[^1].Order;
+            if (newOrder < firstItemOrder)
+            {
+                insertedIndex = 0;
+            }
+            else if (newOrder >= lastItemOrder)
+            {
+                insertedIndex = collection.Count;
+            }
+            else
+            {
+                for (var i = 0; i < collection.Count; i++)
+                {
+                    var item = collection[i];
+                    if (item.Order >= newOrder)
+                    {
+                        insertedIndex = i;
+                        break;
+                    }
+                }
+            }
         }
 
         // Insert at new position
         for (var i = 0; i < itemsToMove.Count; i++)
         {
-            collection.Insert(insertedOrder + i, itemsToMove[i]);
-        }
-
-        // Update Order property
-        var fromIndex = Math.Min(oldOrder, newOrder);
-        for (var i = fromIndex; i < toIndex; i++)
-        {
-            collection[i].Order = i;
+            collection.Insert(insertedIndex + i, itemsToMove[i]);
         }
 
         return true;
