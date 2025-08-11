@@ -72,6 +72,7 @@ public class Settings
                 {
                     Order = 0,
                     ID = Constants.FlowBarPluginClockPluginId,
+                    Name = "Clock",
                 }
             ]
         };

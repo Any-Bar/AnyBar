@@ -1,4 +1,5 @@
 ﻿using Flow.Bar.Extensions.Enumerable;
+using Flow.Bar.Helper.Plugins;
 using Flow.Bar.Models.AppBar;
 using Flow.Bar.Models.Enums;
 using Flow.Bar.Models.Monitor;
@@ -298,7 +299,8 @@ public class AppBarManagementService(Settings settings)
             var barElement = new BarElementModel()
             {
                 Order = elementOrder,
-                ID = id
+                ID = id,
+                Name = PluginManager.AllPlugins.FirstOrDefault(p => p.Metadata.ID == id)?.Metadata.Name ?? string.Empty,
             };
             barElements.Add(barElement);
             added(barElement);

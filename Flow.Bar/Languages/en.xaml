@@ -55,7 +55,6 @@
     <system:String x:Key="SettingPaneBarElementSetting_AddBarElement">Add bar element</system:String>
     <system:String x:Key="SettingPaneBarElementSetting_AllBarElements">All bar elements</system:String>
     <system:String x:Key="SettingPaneBarElementSetting_NoBarElementsYet">You have not added any bar elements yet.</system:String>
-    <system:String x:Key="SettingPaneBarElementSetting_Unknown">Unknown</system:String>
     <system:String x:Key="SettingPaneBarElementSetting_BarElementRemove">This bar element will be removed.</system:String>
 
     <!--  Setting Pane Plugin  -->

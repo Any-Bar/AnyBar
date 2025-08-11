@@ -15,4 +15,9 @@ public class BarElementModel : IOrder
     public int Order { get; set; } = -1;
 
     public string ID { get; set; } = string.Empty;
+
+    /// <summary>
+    /// This name is used to display plugin name when the plugin is missing
+    /// </summary>
+    public string Name { get; set; } = string.Empty;
 }

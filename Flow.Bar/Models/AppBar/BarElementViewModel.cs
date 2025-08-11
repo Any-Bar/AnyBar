@@ -29,7 +29,7 @@ public partial class BarElementViewModel : ObservableObject
         else
         {
             Disabled = true;
-            Name = Localize.SettingPaneBarElementSetting_Unknown();
+            Name = barElementModel.Name;
         }
     }
 
