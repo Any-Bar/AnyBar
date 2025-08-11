@@ -38,7 +38,7 @@ public partial class SettingsPanePlugins : Page
                 UninstallConfirmationContextMenuHeight,
                 UninstallConfirmationContextMenuStyle,
                 "UninstallButton",
-                UninstallButton_Click);
+                UninstallPlugin);
             var uninstallItem = new MenuItem();
             uninstallItem.SetResourceReference(HeaderedItemsControl.HeaderProperty, nameof(Localize.SettingPanePlugins_Uninstall));
             uninstallItem.Click += UninstallItem_Click;
@@ -61,7 +61,7 @@ public partial class SettingsPanePlugins : Page
         _menuFlyoutHelper.UninstallItemClick(sender, e);
     }
 
-    private async void UninstallButton_Click(PluginViewModel plugin)
+    private async void UninstallPlugin(PluginViewModel plugin)
     {
         var oldPlugin = plugin.PluginPair.Metadata;
         if (await PluginInstaller.UninstallPluginAndCheckRestartAsync(oldPlugin))
