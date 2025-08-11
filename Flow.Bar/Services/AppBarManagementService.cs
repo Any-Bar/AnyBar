@@ -88,7 +88,7 @@ public class AppBarManagementService(Settings settings)
             if (_settings.AppBars.Move(oldIndex, newIndex, itemsCount))
             {
                 _settings.Save();
-                RestartAppBarsFrom(Math.Min(oldIndex, newIndex));
+                RestartAppBarsFrom(Math.Min(oldIndex, newIndex) + 1);
             }
         }
     }
