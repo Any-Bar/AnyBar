@@ -66,6 +66,6 @@ public partial class SettingsPaneBarElementSetting : Page
 
     private void RemoveBarElement(BarElementViewModel plugin)
     {
-        _viewModel.UninstallBarElement(plugin);
+        _viewModel.RemoveBarElement(plugin);
     }
 }

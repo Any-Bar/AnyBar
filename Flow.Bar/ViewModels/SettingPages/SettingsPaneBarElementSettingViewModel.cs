@@ -103,7 +103,7 @@ public partial class SettingsPaneBarElementSettingViewModel(AppBarManagementServ
         BarElements.CollectionChanged -= BarElements_CollectionChanged;
     }
 
-    public void UninstallBarElement(BarElementViewModel oldBarElement)
+    public void RemoveBarElement(BarElementViewModel oldBarElement)
     {
         _appBarManagementService.RemoveBarElement(_position, _model, oldBarElement.Order);
         lock (_barElementsLock)
