@@ -492,6 +492,40 @@ public class ContentDialog : ContentControl
 
     #endregion
 
+    #region ContentWidth
+
+    public static readonly DependencyProperty ContentWidthProperty =
+        DependencyProperty.Register(
+            nameof(ContentWidth),
+            typeof(double),
+            typeof(ContentDialog),
+            new PropertyMetadata(double.NaN));
+
+    public double ContentWidth
+    {
+        get => (double)GetValue(ContentWidthProperty);
+        set => SetValue(ContentWidthProperty, value);
+    }
+
+    #endregion
+
+    #region ContentHeight
+
+    public static readonly DependencyProperty ContentHeightProperty =
+        DependencyProperty.Register(
+            nameof(ContentHeight),
+            typeof(double),
+            typeof(ContentDialog),
+            new PropertyMetadata(double.NaN));
+
+    public double ContentHeight
+    {
+        get => (double)GetValue(ContentHeightProperty);
+        set => SetValue(ContentHeightProperty, value);
+    }
+
+    #endregion
+
     public Window? Owner { get; set; }
 
     private Window? ActualOwner => Owner ?? Win32Helper.GetActiveWindow();

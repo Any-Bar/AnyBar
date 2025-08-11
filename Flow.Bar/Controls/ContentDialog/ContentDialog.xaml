@@ -54,6 +54,8 @@
                                 IsHitTestVisible="True" />
                             <Border
                                 x:Name="BackgroundElement"
+                                Width="{TemplateBinding ContentWidth}"
+                                Height="{TemplateBinding ContentHeight}"
                                 MinWidth="{DynamicResource ContentDialogMinWidth}"
                                 MinHeight="{DynamicResource ContentDialogMinHeight}"
                                 MaxWidth="{DynamicResource ContentDialogMaxWidth}"
