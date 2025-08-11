@@ -35,6 +35,15 @@ public static class EnumerableExtension
         return removedCount;
     }
 
+    /// <summary>
+    /// Move a range of items in a dictionary to a new position and update their Order property.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="dictionary"></param>
+    /// <param name="oldIndex"></param>
+    /// <param name="newIndex"></param>
+    /// <param name="itemsCount"></param>
+    /// <returns></returns>
     public static bool Move<T>(this Dictionary<int, T> dictionary, int oldIndex, int newIndex, int itemsCount)
         where T : class, IOrder
     {
