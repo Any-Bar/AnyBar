@@ -20,7 +20,6 @@ public class NavigationViewService(PageService pageService)
     private Frame? _frame;
 
     private Tuple<SettingPageTag, object?>? _nextNavigation;
-    private readonly Dictionary<Type, object?> _nextParameter = [];
 
     // Due to the limitation of WPF & iNKORE.UI.WPF.Modern framewoork.
     // we cannot use a stack for the parameters so that we can go back to the previous parameter.
@@ -120,12 +119,6 @@ public class NavigationViewService(PageService pageService)
         ArgumentNullException.ThrowIfNull(_frame, $"Frame is not registered in RegisterFrameEvents.");
 
         var pageType = _pageService.GetPageType(pageTag);
-        if (_nextParameter.TryGetValue(pageType, out var value) && parameter == null)
-        {
-            parameter = value;
-            _nextParameter.Remove(pageType);
-        }
-
         if (_frame.Content?.GetType() != pageType || (parameter != null && parameter != _parameterStack.Peek()))
         {
             var navigated = _frame.Navigate(pageType,
@@ -154,16 +147,6 @@ public class NavigationViewService(PageService pageService)
     public void SetNextNavigation(SettingPageTag pageTag, object? parameter)
     {
         _nextNavigation = new Tuple<SettingPageTag, object?>(pageTag, parameter);
-    }
-
-    /// <summary>
-    /// Sets the next parameter for a specific page key.
-    /// </summary>
-    /// <param name="pageKey"></param>
-    /// <param name="parameter"></param>
-    public void SetNextParameter(Type pageKey, object? parameter)
-    {
-        _nextParameter[pageKey] = parameter;
     }
 
     #region Events
