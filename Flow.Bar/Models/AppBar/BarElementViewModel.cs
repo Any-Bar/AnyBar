@@ -12,14 +12,13 @@ public partial class BarElementViewModel : ObservableObject
 {
     public BarElementModel BarElementModel { get; }
 
-    public int Order { get; }
-
     public PluginPair? PluginPair { get; }
+
+    public int Order => BarElementModel.Order;
 
     public BarElementViewModel(BarElementModel barElementModel)
     {
         BarElementModel = barElementModel;
-        Order = barElementModel.Order;
         PluginPair = PluginManager.AllPlugins.FirstOrDefault(p => p.Metadata.ID == barElementModel.ID);
         if (PluginPair != null)
         {
