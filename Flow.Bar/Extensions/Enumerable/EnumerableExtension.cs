@@ -18,6 +18,13 @@ public static class EnumerableExtension
         return list.Count != 0 ? list.Max(selector) + 1 : 0;
     }
 
+    public static List<T> Reversed<T>(this IList<T> list)
+    {
+        var reversed = new List<T>(list);
+        reversed.Reverse();
+        return reversed;
+    }
+
     /// <summary>
     /// Remove an item with a specific Order from a dictionary and update the Order property of remaining items.
     /// </summary>
