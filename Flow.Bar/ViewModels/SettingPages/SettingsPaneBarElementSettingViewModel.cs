@@ -108,17 +108,17 @@ public partial class SettingsPaneBarElementSettingViewModel(AppBarManagementServ
             if (_model.DockMode == AppBarDockMode.Top || _model.DockMode == AppBarDockMode.Bottom)
             {
                 leftTopToRightBottom.LocalizationKey = nameof(Localize.SettingsPaneBarElementSettingSortMode_LeftToRight);
-                leftTopToRightBottom.LocalizationValue = Localize.SettingsPaneBarElementSettingSortMode_LeftToRight();
+                leftTopToRightBottom.Display = Localize.SettingsPaneBarElementSettingSortMode_LeftToRight();
                 rightBottomToLeftTop.LocalizationKey = nameof(Localize.SettingsPaneBarElementSettingSortMode_RightToLeft);
-                rightBottomToLeftTop.LocalizationValue = Localize.SettingsPaneBarElementSettingSortMode_RightToLeft();
+                rightBottomToLeftTop.Display = Localize.SettingsPaneBarElementSettingSortMode_RightToLeft();
             }
             // Vertical
             else
             {
                 leftTopToRightBottom.LocalizationKey = nameof(Localize.SettingsPaneBarElementSettingSortMode_TopToBottom);
-                leftTopToRightBottom.LocalizationValue = Localize.SettingsPaneBarElementSettingSortMode_TopToBottom();
+                leftTopToRightBottom.Display = Localize.SettingsPaneBarElementSettingSortMode_TopToBottom();
                 rightBottomToLeftTop.LocalizationKey = nameof(Localize.SettingsPaneBarElementSettingSortMode_BottomToTop);
-                rightBottomToLeftTop.LocalizationValue = Localize.SettingsPaneBarElementSettingSortMode_BottomToTop();
+                rightBottomToLeftTop.Display = Localize.SettingsPaneBarElementSettingSortMode_BottomToTop();
             }
         }
 
