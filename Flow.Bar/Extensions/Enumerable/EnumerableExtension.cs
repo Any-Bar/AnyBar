@@ -46,9 +46,8 @@ public static class EnumerableExtension
             return false;
         }
 
-        var itemsToMove = new List<T>();
-
         // Change item order
+        var itemsToMove = new List<T>();
         for (var i = 0; i < itemsCount; i++)
         {
             var key = oldIndex + i;
@@ -103,6 +102,15 @@ public static class EnumerableExtension
         return true;
     }
 
+    /// <summary>
+    /// Move a range of items in a list to a new position and update their Order property.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="list"></param>
+    /// <param name="oldIndex"></param>
+    /// <param name="newIndex"></param>
+    /// <param name="itemsCount"></param>
+    /// <returns></returns>
     public static bool Move<T>(this List<T> list, int oldIndex, int newIndex, int itemsCount)
         where T : class, IOrder
     {
@@ -145,6 +153,15 @@ public static class EnumerableExtension
         return true;
     }
 
+    /// <summary>
+    /// Move a range of items in an ObservableCollection to a new position with their updated Order property.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="collection"></param>
+    /// <param name="oldIndex"></param>
+    /// <param name="newIndex"></param>
+    /// <param name="itemsCount"></param>
+    /// <returns></returns>
     public static bool Move<T>(this ObservableCollection<T> collection, int oldIndex, int newIndex, int itemsCount)
         where T : class, IOrder
     {
@@ -156,12 +173,12 @@ public static class EnumerableExtension
             return false;
         }
 
-        // Extract items to move
+        // Find items to move with updated Order property
         var itemsToMove = new List<T>();
         for (var i = 0; i < collection.Count; i++)
         {
             var item = collection[i];
-            if (item.Order >= oldIndex && item.Order < oldIndex + itemsCount)
+            if (item.Order >= newIndex && item.Order < newIndex + itemsCount)
             {
                 itemsToMove.Add(item);
             }
