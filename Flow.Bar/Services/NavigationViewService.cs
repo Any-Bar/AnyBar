@@ -137,6 +137,26 @@ public class NavigationViewService(PageService pageService)
     }
 
     /// <summary>
+    /// Trigger OnNavigatedTo to with an optional parameter,
+    /// if the page is of the given tag and page view model implements INavigationAware.
+    /// </summary>
+    /// <param name="pageTag"></param>
+    /// <param name="parameter"></param>
+    public bool OnNavigateTo(SettingPageTag pageTag, object? parameter = null)
+    {
+        ArgumentNullException.ThrowIfNull(_frame, $"Frame is not registered in RegisterFrameEvents.");
+
+        var pageType = _pageService.GetPageType(pageTag);
+        if (_frame.Content?.GetType() == pageType && _frame.Content is Page page &&
+            GetPageViewModel(page) is INavigationAware navigationAware)
+        {
+            navigationAware.OnNavigatedTo(parameter);
+        }
+
+        return false;
+    }
+
+    /// <summary>
     /// Set the next navigation after the frame is registered.
     /// </summary>
     /// <remarks>

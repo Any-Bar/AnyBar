@@ -4,6 +4,7 @@ using Flow.Bar.Helper.Plugins;
 using Flow.Bar.Models.AppBar;
 using Flow.Bar.Models.Enums;
 using Flow.Bar.Models.Monitor;
+using Flow.Bar.Models.Parameter;
 using Flow.Bar.Services;
 using System;
 using System.Collections.ObjectModel;
@@ -11,11 +12,13 @@ using System.Collections.Specialized;
 
 namespace Flow.Bar.ViewModels;
 
-public partial class AppBarViewModel(AppBarManagementService appBarManagementService) : ObservableObject, IDisposable
+public partial class AppBarViewModel(AppBarManagementService appBarManagementService, NavigationViewService navigationViewService) : ObservableObject, IDisposable
 {
     private static readonly string ClassName = nameof(AppBarViewModel);
 
     private readonly AppBarManagementService _appBarManagementService = appBarManagementService;
+
+    private readonly NavigationViewService _navigationViewService = navigationViewService;
 
     public AppBarModel Model { get; set; } = null!;
 
@@ -161,6 +164,11 @@ public partial class AppBarViewModel(AppBarManagementService appBarManagementSer
             var oldItemMaximalOrder = ((BarElementModel)e.OldItems[^1]!).Order;
             var itemsCount = oldItemMaximalOrder - oldItemMinimalOrder + 1;
             _appBarManagementService.ChangeBarElementOrder(position, Model, oldStartingOrder, newStartingOrder, itemsCount, false);
+            _navigationViewService.OnNavigateTo(SettingPageTag.BarElementSetting, new SettingsPaneBarElementSettingReorderParameter()
+            {
+                Position = position,
+                Model = Model
+            });
         }
     }
 

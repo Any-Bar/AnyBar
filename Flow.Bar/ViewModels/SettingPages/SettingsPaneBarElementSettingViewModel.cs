@@ -137,9 +137,24 @@ public partial class SettingsPaneBarElementSettingViewModel(AppBarManagementServ
                 IsInitialized = true;
             }
         }
+        else if (parameter is SettingsPaneBarElementSettingReorderParameter reorder)
+        {
+            if (reorder.Model != _model || reorder.Position != _position)
+            {
+                return;
+            }
+            if (IsInitialized)
+            {
+                lock (_barElementsLock)
+                {
+                    InitializeBarElements();
+                    SortBarElements();
+                }
+            }
+        }
         else
         {
-            App.API.LogError(ClassName, $"{nameof(parameter)} is not of type {nameof(SettingsPaneBarElementSettingNavigationParameter)}");
+            App.API.LogError(ClassName, $"{nameof(parameter)} is not of type {nameof(SettingsPaneBarElementSettingNavigationParameter)} or {nameof(SettingsPaneBarElementSettingReorderParameter)}");
         }
         BarElements.CollectionChanged += BarElements_CollectionChanged;
     }
