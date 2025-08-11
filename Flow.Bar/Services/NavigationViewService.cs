@@ -51,7 +51,14 @@ public class NavigationViewService(PageService pageService)
         _frame.Navigating += Frame_OnNavigating;
         _frame.Navigated += Frame_OnNavigated;
 
-        if (navigate && navigationView.SelectedItem is NavigationViewItem item && item.Tag is SettingPageTag tag)
+        if (_nextNavigation != null)
+        {
+            var nextNavigationTag = _nextNavigation.Item1;
+            var nextNavigationParameter = _nextNavigation.Item2;
+            _nextNavigation = null;
+            NavigateTo(nextNavigationTag, nextNavigationParameter);
+        }
+        else if (navigate && navigationView.SelectedItem is NavigationViewItem item && item.Tag is SettingPageTag tag)
         {
             // Navigate to the default page
             NavigateTo(tag, parameter);
@@ -137,8 +144,11 @@ public class NavigationViewService(PageService pageService)
     }
 
     /// <summary>
-    /// Set the next navigation after the frame is navigated.
+    /// Set the next navigation after the frame is registered.
     /// </summary>
+    /// <remarks>
+    /// This is useful for navigating to a specific page after the frame is registered.
+    /// </remarks>
     /// <param name="tag"></param>
     /// <param name="parameter"></param>
     public void SetNextNavigation(SettingPageTag pageTag, object? parameter)
@@ -228,14 +238,6 @@ public class NavigationViewService(PageService pageService)
         // TODO: Use DynamicResource for Binding
         // Update the header of the NavigationView
         _navigationView.Header = page.Title;
-
-        if (_nextNavigation != null)
-        {
-            var nextNavigationTag = _nextNavigation.Item1;
-            var nextNavigationParameter = _nextNavigation.Item2;
-            _nextNavigation = null;
-            NavigateTo(nextNavigationTag, nextNavigationParameter);
-        }
     }
 
     private static object? GetPageViewModel(Page page) => page.DataContext as INavigationAware;
