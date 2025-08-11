@@ -212,10 +212,23 @@ namespace Flow.Bar.Localization.SourceGenerators.Localize
             sourceBuilder.AppendLine($"{tabString}public {enumName} Value {{ get; private init; }}");
             sourceBuilder.AppendLine();
 
+            sourceBuilder.AppendLine($"{tabString}private string _display;");
+            sourceBuilder.AppendLine();
             sourceBuilder.AppendLine($"{tabString}/// <summary>");
             sourceBuilder.AppendLine($"{tabString}/// The display text of the enum value");
             sourceBuilder.AppendLine($"{tabString}/// </summary>");
-            sourceBuilder.AppendLine($"{tabString}public string Display {{ get; set; }}");
+            sourceBuilder.AppendLine($"{tabString}public string Display");
+            sourceBuilder.AppendLine($"{tabString}{{");
+            sourceBuilder.AppendLine($"{tabString}{tabString}get => _display;");
+            sourceBuilder.AppendLine($"{tabString}{tabString}set");
+            sourceBuilder.AppendLine($"{tabString}{tabString}{{");
+            sourceBuilder.AppendLine($"{tabString}{tabString}{tabString}if (_display != value)");
+            sourceBuilder.AppendLine($"{tabString}{tabString}{tabString}{{");
+            sourceBuilder.AppendLine($"{tabString}{tabString}{tabString}{tabString}_display = value;");
+            sourceBuilder.AppendLine($"{tabString}{tabString}{tabString}{tabString}OnPropertyChanged(nameof(Display));");
+            sourceBuilder.AppendLine($"{tabString}{tabString}{tabString}}}");
+            sourceBuilder.AppendLine($"{tabString}{tabString}}}");
+            sourceBuilder.AppendLine($"{tabString}}}");
             sourceBuilder.AppendLine();
 
             sourceBuilder.AppendLine($"{tabString}/// <summary>");
@@ -224,23 +237,10 @@ namespace Flow.Bar.Localization.SourceGenerators.Localize
             sourceBuilder.AppendLine($"{tabString}public string LocalizationKey {{ get; set; }}");
             sourceBuilder.AppendLine();
 
-            sourceBuilder.AppendLine($"{tabString}private string _localizationValue;");
-            sourceBuilder.AppendLine();
             sourceBuilder.AppendLine($"{tabString}/// <summary>");
             sourceBuilder.AppendLine($"{tabString}/// The localization value of the enum value");
             sourceBuilder.AppendLine($"{tabString}/// </summary>");
-            sourceBuilder.AppendLine($"{tabString}public string LocalizationValue");
-            sourceBuilder.AppendLine($"{tabString}{{");
-            sourceBuilder.AppendLine($"{tabString}{tabString}get => _localizationValue;");
-            sourceBuilder.AppendLine($"{tabString}{tabString}set");
-            sourceBuilder.AppendLine($"{tabString}{tabString}{{");
-            sourceBuilder.AppendLine($"{tabString}{tabString}{tabString}if (_localizationValue != value)");
-            sourceBuilder.AppendLine($"{tabString}{tabString}{tabString}{{");
-            sourceBuilder.AppendLine($"{tabString}{tabString}{tabString}{tabString}_localizationValue = value;");
-            sourceBuilder.AppendLine($"{tabString}{tabString}{tabString}{tabString}OnPropertyChanged(nameof(LocalizationValue));");
-            sourceBuilder.AppendLine($"{tabString}{tabString}{tabString}}}");
-            sourceBuilder.AppendLine($"{tabString}{tabString}}}");
-            sourceBuilder.AppendLine($"{tabString}}}");
+            sourceBuilder.AppendLine($"{tabString}public string LocalizationValue {{ get; set; }}");
             sourceBuilder.AppendLine();
 
             // Generate API instance
