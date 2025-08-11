@@ -25,7 +25,7 @@ public class PluginUninstallationMenuFlyoutHelper<T> : IDisposable
         _uninstallContextMenu.Height = secondContextMenuHeight;
         _uninstallContextMenu.MenuFlyoutPresenterStyle = secondContextMenuStyle;
         _uninstallationAction = uninstallationAction;
-        _uninstallContextMenu.ButtonClickEvents.Add(uninstallButtonName, (s, e) => UninstallButton_Click());
+        _uninstallContextMenu.ButtonClickEvents.Add(uninstallButtonName, (s, e) => UninstallButtonClick());
 
         _contextMenu.Closed += ContextMenu_Closed;
         _uninstallContextMenu.Closed += UninstallConfirmationContextMenu_Closed;
@@ -73,7 +73,14 @@ public class PluginUninstallationMenuFlyoutHelper<T> : IDisposable
         }
     }
 
-    private void UninstallButton_Click()
+    private void UninstallConfirmationContextMenu_Closed(object? sender, object? e)
+    {
+        _openUninstallConfirmationContextMenu = false;
+        _plugin = default;
+        _button = null;
+    }
+
+    private void UninstallButtonClick()
     {
         var oldPlugin = _plugin;
         _uninstallContextMenu.Hide();
@@ -81,13 +88,6 @@ public class PluginUninstallationMenuFlyoutHelper<T> : IDisposable
         {
             _uninstallationAction(oldPlugin);
         }
-    }
-
-    private void UninstallConfirmationContextMenu_Closed(object? sender, object? e)
-    {
-        _openUninstallConfirmationContextMenu = false;
-        _plugin = default;
-        _button = null;
     }
 
     public void Dispose()
