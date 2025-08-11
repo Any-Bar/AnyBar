@@ -15,151 +15,157 @@
     d:DesignWidth="800"
     mc:Ignorable="d">
 
-    <ikw:SimpleStackPanel Orientation="Vertical" Spacing="{StaticResource SettingsCardSpacing}">
-        <controls:AutoSuggestBoxEx
-            x:Name="SearchPluginTextBox"
-            Width="360"
-            HorizontalAlignment="Left"
-            VerticalAlignment="Top"
-            AllowQuerySubmit="False"
-            PlaceholderText="{DynamicResource SettingPanePlugins_SearchPlugins}"
-            Text="{Binding SearchText, Mode=TwoWay}">
-            <controls:AutoSuggestBoxEx.QueryIcon>
-                <ui:FontIcon Glyph="&#xE721;" />
-            </controls:AutoSuggestBoxEx.QueryIcon>
-        </controls:AutoSuggestBoxEx>
+    <ui:ScrollViewerEx
+        x:Name="RootFrameScrollViewer"
+        Padding="{StaticResource PageRootScrollViewerPadding}"
+        HorizontalScrollBarVisibility="Disabled"
+        VerticalScrollBarVisibility="Auto">
+        <ikw:SimpleStackPanel Orientation="Vertical" Spacing="{StaticResource SettingsCardSpacing}">
+            <controls:AutoSuggestBoxEx
+                x:Name="SearchPluginTextBox"
+                Width="360"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                AllowQuerySubmit="False"
+                PlaceholderText="{DynamicResource SettingPanePlugins_SearchPlugins}"
+                Text="{Binding SearchText, Mode=TwoWay}">
+                <controls:AutoSuggestBoxEx.QueryIcon>
+                    <ui:FontIcon Glyph="&#xE721;" />
+                </controls:AutoSuggestBoxEx.QueryIcon>
+            </controls:AutoSuggestBoxEx>
 
-        <ikw:SimpleStackPanel
-            Margin="{StaticResource SettingsSectionHeaderMargin}"
-            Orientation="Horizontal"
-            Spacing="{StaticResource SettingsElementsSpacing}">
-            <ui:FontIcon
-                VerticalAlignment="Center"
-                FontSize="{StaticResource BodyFontIconFontSize}"
-                Foreground="{StaticResource {x:Static ui:ThemeKeys.TextFillColorSecondaryBrushKey}}"
-                Glyph="&#xE71C;" />
-            <TextBlock
-                VerticalAlignment="Center"
-                Foreground="{StaticResource {x:Static ui:ThemeKeys.TextFillColorSecondaryBrushKey}}"
-                Text="{DynamicResource SettingPanePlugins_FilterBy}" />
-            <ComboBox
-                VerticalAlignment="Center"
-                DisplayMemberPath="Display"
-                ItemsSource="{Binding AllFilterModes, Mode=OneTime}"
-                SelectedValue="{Binding FilterMode, Mode=TwoWay}"
-                SelectedValuePath="Value" />
-            <ui:FontIcon
-                Margin="12 0 0 0"
-                VerticalAlignment="Center"
-                FontSize="{StaticResource BodyFontIconFontSize}"
-                Foreground="{StaticResource {x:Static ui:ThemeKeys.TextFillColorSecondaryBrushKey}}"
-                Glyph="&#xE8CB;" />
-            <TextBlock
-                VerticalAlignment="Center"
-                Foreground="{StaticResource {x:Static ui:ThemeKeys.TextFillColorSecondaryBrushKey}}"
-                Text="{DynamicResource SettingPanePlugins_SortBy}" />
-            <ComboBox
-                VerticalAlignment="Center"
-                DisplayMemberPath="Display"
-                ItemsSource="{Binding AllSortModes, Mode=OneTime}"
-                SelectedValue="{Binding SortMode, Mode=TwoWay}"
-                SelectedValuePath="Value" />
+            <ikw:SimpleStackPanel
+                Margin="{StaticResource SettingsSectionHeaderMargin}"
+                Orientation="Horizontal"
+                Spacing="{StaticResource SettingsElementsSpacing}">
+                <ui:FontIcon
+                    VerticalAlignment="Center"
+                    FontSize="{StaticResource BodyFontIconFontSize}"
+                    Foreground="{StaticResource {x:Static ui:ThemeKeys.TextFillColorSecondaryBrushKey}}"
+                    Glyph="&#xE71C;" />
+                <TextBlock
+                    VerticalAlignment="Center"
+                    Foreground="{StaticResource {x:Static ui:ThemeKeys.TextFillColorSecondaryBrushKey}}"
+                    Text="{DynamicResource SettingPanePlugins_FilterBy}" />
+                <ComboBox
+                    VerticalAlignment="Center"
+                    DisplayMemberPath="Display"
+                    ItemsSource="{Binding AllFilterModes, Mode=OneTime}"
+                    SelectedValue="{Binding FilterMode, Mode=TwoWay}"
+                    SelectedValuePath="Value" />
+                <ui:FontIcon
+                    Margin="12 0 0 0"
+                    VerticalAlignment="Center"
+                    FontSize="{StaticResource BodyFontIconFontSize}"
+                    Foreground="{StaticResource {x:Static ui:ThemeKeys.TextFillColorSecondaryBrushKey}}"
+                    Glyph="&#xE8CB;" />
+                <TextBlock
+                    VerticalAlignment="Center"
+                    Foreground="{StaticResource {x:Static ui:ThemeKeys.TextFillColorSecondaryBrushKey}}"
+                    Text="{DynamicResource SettingPanePlugins_SortBy}" />
+                <ComboBox
+                    VerticalAlignment="Center"
+                    DisplayMemberPath="Display"
+                    ItemsSource="{Binding AllSortModes, Mode=OneTime}"
+                    SelectedValue="{Binding SortMode, Mode=TwoWay}"
+                    SelectedValuePath="Value" />
+            </ikw:SimpleStackPanel>
+
+            <controls:StackView
+                x:Name="AllPluginsStackView"
+                Margin="{StaticResource SettingsSectionHeaderMargin}"
+                CanReorderItems="False"
+                IsHoverEnabled="False"
+                ItemsSource="{Binding AllPlugins, Mode=OneTime}"
+                Orientation="Vertical"
+                ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                ScrollViewer.VerticalScrollBarVisibility="Disabled">
+                <controls:StackView.Style>
+                    <Style BasedOn="{StaticResource DefaultStackViewStyle}" TargetType="controls:StackView">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=Items.Count}" Value="0">
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate>
+                                            <TextBlock
+                                                x:Name="NothingToShowTextBlock"
+                                                Width="{StaticResource ListViewEmptyTextWidth}"
+                                                HorizontalAlignment="Left"
+                                                TextWrapping="Wrap">
+                                                <TextBlock.Style>
+                                                    <Style BasedOn="{StaticResource {x:Static ui:ThemeKeys.BodyTextBlockStyleKey}}" TargetType="TextBlock">
+                                                        <Setter Property="Text" Value="{DynamicResource SettingPanePlugins_NothingToShow}" />
+                                                        <Style.Triggers>
+                                                            <DataTrigger Binding="{Binding DataContext.SearchText, RelativeSource={RelativeSource AncestorType=controls:StackView}}" Value="">
+                                                                <Setter Property="Text" Value="{DynamicResource SettingPanePlugins_NoPluginsYet}" />
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </TextBlock.Style>
+                                            </TextBlock>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </controls:StackView.Style>
+                <controls:StackView.ItemTemplate>
+                    <DataTemplate DataType="models:PluginViewModel">
+                        <controls:SettingsCardEx x:Name="PluginSettingsCard" ToolTip="{Binding VersionAndAuthor, Mode=OneTime}">
+                            <controls:SettingsCardEx.Header>
+                                <TextBlock
+                                    Text="{Binding Name, Mode=OneTime}"
+                                    TextTrimming="CharacterEllipsis"
+                                    TextWrapping="NoWrap">
+                                    <TextBlock.Style>
+                                        <Style TargetType="TextBlock">
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding Disabled, Mode=OneTime}" Value="True">
+                                                    <Setter Property="Foreground" Value="{DynamicResource SettingsCardForegroundDisabled}" />
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </TextBlock.Style>
+                                </TextBlock>
+                            </controls:SettingsCardEx.Header>
+                            <controls:SettingsCardEx.Description>
+                                <TextBlock
+                                    Text="{Binding Description, Mode=OneTime}"
+                                    TextTrimming="CharacterEllipsis"
+                                    TextWrapping="NoWrap">
+                                    <TextBlock.Style>
+                                        <Style TargetType="TextBlock">
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding Disabled, Mode=OneTime}" Value="True">
+                                                    <Setter Property="Foreground" Value="{DynamicResource SettingsCardForegroundDisabled}" />
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </TextBlock.Style>
+                                </TextBlock>
+                            </controls:SettingsCardEx.Description>
+                            <controls:SettingsCardEx.HeaderIcon>
+                                <Image
+                                    Width="16"
+                                    Height="16"
+                                    RenderOptions.BitmapScalingMode="HighQuality"
+                                    Source="{Binding Image, Mode=OneWay}" />
+                            </controls:SettingsCardEx.HeaderIcon>
+
+                            <controls:FontIconButton
+                                x:Name="MoreOptionsButton"
+                                Width="28"
+                                Height="35"
+                                Click="MoreOptionsButton_Click"
+                                Tag="{Binding ., Mode=OneTime}"
+                                ToolTip="{DynamicResource SettingPanePlugins_MoreOptions}">
+                                <ui:FontIcon Glyph="&#xE712;" />
+                            </controls:FontIconButton>
+                        </controls:SettingsCardEx>
+                    </DataTemplate>
+                </controls:StackView.ItemTemplate>
+            </controls:StackView>
         </ikw:SimpleStackPanel>
-
-        <controls:StackView
-            x:Name="AllPluginsStackView"
-            Margin="{StaticResource SettingsSectionHeaderMargin}"
-            CanReorderItems="False"
-            IsHoverEnabled="False"
-            ItemsSource="{Binding AllPlugins, Mode=OneTime}"
-            Orientation="Vertical"
-            ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-            ScrollViewer.VerticalScrollBarVisibility="Disabled">
-            <controls:StackView.Style>
-                <Style BasedOn="{StaticResource DefaultStackViewStyle}" TargetType="controls:StackView">
-                    <Style.Triggers>
-                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=Items.Count}" Value="0">
-                            <Setter Property="Template">
-                                <Setter.Value>
-                                    <ControlTemplate>
-                                        <TextBlock
-                                            x:Name="NothingToShowTextBlock"
-                                            Width="{StaticResource ListViewEmptyTextWidth}"
-                                            HorizontalAlignment="Left"
-                                            TextWrapping="Wrap">
-                                            <TextBlock.Style>
-                                                <Style BasedOn="{StaticResource {x:Static ui:ThemeKeys.BodyTextBlockStyleKey}}" TargetType="TextBlock">
-                                                    <Setter Property="Text" Value="{DynamicResource SettingPanePlugins_NothingToShow}" />
-                                                    <Style.Triggers>
-                                                        <DataTrigger Binding="{Binding DataContext.SearchText, RelativeSource={RelativeSource AncestorType=controls:StackView}}" Value="">
-                                                            <Setter Property="Text" Value="{DynamicResource SettingPanePlugins_NoPluginsYet}" />
-                                                        </DataTrigger>
-                                                    </Style.Triggers>
-                                                </Style>
-                                            </TextBlock.Style>
-                                        </TextBlock>
-                                    </ControlTemplate>
-                                </Setter.Value>
-                            </Setter>
-                        </DataTrigger>
-                    </Style.Triggers>
-                </Style>
-            </controls:StackView.Style>
-            <controls:StackView.ItemTemplate>
-                <DataTemplate DataType="models:PluginViewModel">
-                    <controls:SettingsCardEx x:Name="PluginSettingsCard" ToolTip="{Binding VersionAndAuthor, Mode=OneTime}">
-                        <controls:SettingsCardEx.Header>
-                            <TextBlock
-                                Text="{Binding Name, Mode=OneTime}"
-                                TextTrimming="CharacterEllipsis"
-                                TextWrapping="NoWrap">
-                                <TextBlock.Style>
-                                    <Style TargetType="TextBlock">
-                                        <Style.Triggers>
-                                            <DataTrigger Binding="{Binding Disabled, Mode=OneTime}" Value="True">
-                                                <Setter Property="Foreground" Value="{DynamicResource SettingsCardForegroundDisabled}" />
-                                            </DataTrigger>
-                                        </Style.Triggers>
-                                    </Style>
-                                </TextBlock.Style>
-                            </TextBlock>
-                        </controls:SettingsCardEx.Header>
-                        <controls:SettingsCardEx.Description>
-                            <TextBlock
-                                Text="{Binding Description, Mode=OneTime}"
-                                TextTrimming="CharacterEllipsis"
-                                TextWrapping="NoWrap">
-                                <TextBlock.Style>
-                                    <Style TargetType="TextBlock">
-                                        <Style.Triggers>
-                                            <DataTrigger Binding="{Binding Disabled, Mode=OneTime}" Value="True">
-                                                <Setter Property="Foreground" Value="{DynamicResource SettingsCardForegroundDisabled}" />
-                                            </DataTrigger>
-                                        </Style.Triggers>
-                                    </Style>
-                                </TextBlock.Style>
-                            </TextBlock>
-                        </controls:SettingsCardEx.Description>
-                        <controls:SettingsCardEx.HeaderIcon>
-                            <Image
-                                Width="16"
-                                Height="16"
-                                RenderOptions.BitmapScalingMode="HighQuality"
-                                Source="{Binding Image, Mode=OneWay}" />
-                        </controls:SettingsCardEx.HeaderIcon>
-
-                        <controls:FontIconButton
-                            x:Name="MoreOptionsButton"
-                            Width="28"
-                            Height="35"
-                            Click="MoreOptionsButton_Click"
-                            Tag="{Binding ., Mode=OneTime}"
-                            ToolTip="{DynamicResource SettingPanePlugins_MoreOptions}">
-                            <ui:FontIcon Glyph="&#xE712;" />
-                        </controls:FontIconButton>
-                    </controls:SettingsCardEx>
-                </DataTemplate>
-            </controls:StackView.ItemTemplate>
-        </controls:StackView>
-    </ikw:SimpleStackPanel>
+    </ui:ScrollViewerEx>
 </ui:Page>

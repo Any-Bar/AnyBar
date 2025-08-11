@@ -14,64 +14,70 @@
     d:DesignWidth="800"
     mc:Ignorable="d">
 
-    <ikw:SimpleStackPanel Orientation="Vertical" Spacing="{StaticResource SettingsCardSpacing}">
-        <TextBlock
-            x:Name="LanguageTitle"
-            Style="{StaticResource SettingsFirstSectionHeaderTextBlockStyle}"
-            Text="{DynamicResource SettingPaneGeneral_Language}" />
-        <controls:SettingsCardEx
-            x:Name="LanguageCard"
-            Description="{DynamicResource SettingPaneGeneral_AppDisplayLanguage}"
-            Header="{DynamicResource SettingPaneGeneral_Language}">
-            <controls:SettingsCardEx.HeaderIcon>
-                <ui:FontIcon Glyph="&#xE8C1;" />
-            </controls:SettingsCardEx.HeaderIcon>
+    <ui:ScrollViewerEx
+        x:Name="RootFrameScrollViewer"
+        Padding="{StaticResource PageRootScrollViewerPadding}"
+        HorizontalScrollBarVisibility="Disabled"
+        VerticalScrollBarVisibility="Auto">
+        <ikw:SimpleStackPanel Orientation="Vertical" Spacing="{StaticResource SettingsCardSpacing}">
+            <TextBlock
+                x:Name="LanguageTitle"
+                Style="{StaticResource SettingsFirstSectionHeaderTextBlockStyle}"
+                Text="{DynamicResource SettingPaneGeneral_Language}" />
+            <controls:SettingsCardEx
+                x:Name="LanguageCard"
+                Description="{DynamicResource SettingPaneGeneral_AppDisplayLanguage}"
+                Header="{DynamicResource SettingPaneGeneral_Language}">
+                <controls:SettingsCardEx.HeaderIcon>
+                    <ui:FontIcon Glyph="&#xE8C1;" />
+                </controls:SettingsCardEx.HeaderIcon>
 
-            <ComboBox
-                DisplayMemberPath="Display"
-                ItemsSource="{Binding Languages, Mode=OneTime}"
-                SelectedValue="{Binding Language, Mode=TwoWay}"
-                SelectedValuePath="LanguageCode" />
-        </controls:SettingsCardEx>
+                <ComboBox
+                    DisplayMemberPath="Display"
+                    ItemsSource="{Binding Languages, Mode=OneTime}"
+                    SelectedValue="{Binding Language, Mode=TwoWay}"
+                    SelectedValuePath="LanguageCode" />
+            </controls:SettingsCardEx>
 
-        <TextBlock
-            x:Name="BehaviourTitle"
-            Style="{StaticResource SettingsSectionHeaderTextBlockStyle}"
-            Text="{DynamicResource SettingPaneGeneral_Behaviour}" />
-        <controls:SettingsCardEx
-            x:Name="HideSettingWindowCard"
-            Description="{DynamicResource SettingPaneGeneral_HideSettingWindowDescription}"
-            Header="{DynamicResource SettingPaneGeneral_HideSettingWindow}">
-            <controls:SettingsCardEx.HeaderIcon>
-                <ui:FontIcon Glyph="&#xed1a;" />
-            </controls:SettingsCardEx.HeaderIcon>
+            <TextBlock
+                x:Name="BehaviourTitle"
+                Style="{StaticResource SettingsSectionHeaderTextBlockStyle}"
+                Text="{DynamicResource SettingPaneGeneral_Behaviour}" />
+            <controls:SettingsCardEx
+                x:Name="HideSettingWindowCard"
+                Description="{DynamicResource SettingPaneGeneral_HideSettingWindowDescription}"
+                Header="{DynamicResource SettingPaneGeneral_HideSettingWindow}">
+                <controls:SettingsCardEx.HeaderIcon>
+                    <ui:FontIcon Glyph="&#xed1a;" />
+                </controls:SettingsCardEx.HeaderIcon>
 
-            <controls:ToggleSwitchEx IsOn="{Binding Settings.HideSettingWindow, Mode=TwoWay}" />
-        </controls:SettingsCardEx>
+                <controls:ToggleSwitchEx IsOn="{Binding Settings.HideSettingWindow, Mode=TwoWay}" />
+            </controls:SettingsCardEx>
 
-        <TextBlock
-            x:Name="AppearanceTitle"
-            Style="{StaticResource SettingsSectionHeaderTextBlockStyle}"
-            Text="{DynamicResource SettingPaneGeneral_Appearance}" />
-        <controls:SettingsCardEx
-            x:Name="TransparencyEffectsCard"
-            Description="{DynamicResource SettingPaneGeneral_TransparencyEffectsDescription}"
-            Header="{DynamicResource SettingPaneGeneral_TransparencyEffects}">
-            <controls:SettingsCardEx.HeaderIcon>
-                <ui:FontIcon Glyph="&#xF4A5;" />
-            </controls:SettingsCardEx.HeaderIcon>
+            <TextBlock
+                x:Name="AppearanceTitle"
+                Style="{StaticResource SettingsSectionHeaderTextBlockStyle}"
+                Text="{DynamicResource SettingPaneGeneral_Appearance}" />
+            <controls:SettingsCardEx
+                x:Name="TransparencyEffectsCard"
+                Description="{DynamicResource SettingPaneGeneral_TransparencyEffectsDescription}"
+                Header="{DynamicResource SettingPaneGeneral_TransparencyEffects}">
+                <controls:SettingsCardEx.HeaderIcon>
+                    <ui:FontIcon Glyph="&#xF4A5;" />
+                </controls:SettingsCardEx.HeaderIcon>
 
-            <controls:ToggleSwitchEx IsOn="{Binding Settings.EnableTransparencyEffects, Mode=TwoWay}" />
-        </controls:SettingsCardEx>
-        <controls:SettingsCardEx
-            x:Name="AnimationEffectsCard"
-            Description="{DynamicResource SettingPaneGeneral_AnimationEffectsDescription}"
-            Header="{DynamicResource SettingPaneGeneral_AnimationEffects}">
-            <controls:SettingsCardEx.HeaderIcon>
-                <ui:FontIcon Glyph="&#xE805;" />
-            </controls:SettingsCardEx.HeaderIcon>
+                <controls:ToggleSwitchEx IsOn="{Binding Settings.EnableTransparencyEffects, Mode=TwoWay}" />
+            </controls:SettingsCardEx>
+            <controls:SettingsCardEx
+                x:Name="AnimationEffectsCard"
+                Description="{DynamicResource SettingPaneGeneral_AnimationEffectsDescription}"
+                Header="{DynamicResource SettingPaneGeneral_AnimationEffects}">
+                <controls:SettingsCardEx.HeaderIcon>
+                    <ui:FontIcon Glyph="&#xE805;" />
+                </controls:SettingsCardEx.HeaderIcon>
 
-            <controls:ToggleSwitchEx IsOn="{Binding Settings.EnableAnimationEffects, Mode=TwoWay}" />
-        </controls:SettingsCardEx>
-    </ikw:SimpleStackPanel>
+                <controls:ToggleSwitchEx IsOn="{Binding Settings.EnableAnimationEffects, Mode=TwoWay}" />
+            </controls:SettingsCardEx>
+        </ikw:SimpleStackPanel>
+    </ui:ScrollViewerEx>
 </ui:Page>

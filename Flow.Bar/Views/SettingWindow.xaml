@@ -114,16 +114,9 @@
             </DataTemplate>
         </controls:NavigationView.HeaderTemplate>
 
-        <ui:ScrollViewerEx
-            x:Name="RootFrameScrollViewer"
-            HorizontalScrollBarVisibility="Disabled"
-            VerticalScrollBarVisibility="Auto">
-            <ui:Frame
-                x:Name="RootFrame"
-                Margin="0 10 0 0"
-                Padding="0 0 24 40"
-                Loaded="RootFrame_Loaded"
-                Unloaded="RootFrame_Unloaded" />
-        </ui:ScrollViewerEx>
+        <ui:Frame
+            x:Name="RootFrame"
+            Loaded="RootFrame_Loaded"
+            Unloaded="RootFrame_Unloaded" />
     </controls:NavigationView>
 </Window>

@@ -36,7 +36,7 @@ public class NavigationViewService(PageService pageService)
     /// <param name="frame"></param>
     /// <param name="parameter"></param>
     /// <param name="navigate"></param>
-    public void RegisterFrameEvents(NavigationView navigationView, ScrollViewer scrollViewer, Frame frame, object? parameter = null, bool navigate = true)
+    public void RegisterFrameEvents(NavigationView navigationView, Frame frame, object? parameter = null, bool navigate = true)
     {
         ArgumentNullException.ThrowIfNull(navigationView);
         ArgumentNullException.ThrowIfNull(frame);
@@ -45,7 +45,6 @@ public class NavigationViewService(PageService pageService)
         _navigationView = navigationView;
         _navigationView.BackRequested += NavigationView_BackRequested;
         _navigationView.ItemInvoked += NavigationView_ItemInvoked;
-        _scrollViewer = scrollViewer;
         _frame = frame;
         _frame.Navigating += Frame_OnNavigating;
         _frame.Navigated += Frame_OnNavigated;

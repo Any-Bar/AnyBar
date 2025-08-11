@@ -14,19 +14,25 @@
     d:DesignWidth="800"
     mc:Ignorable="d">
 
-    <ikw:SimpleStackPanel Orientation="Vertical" Spacing="{StaticResource SettingsCardSpacing}">
-        <TextBlock Style="{StaticResource SettingsFirstSectionHeaderTextBlockStyle}" Text="App" />
-        <controls:SettingsCardEx Description="{DynamicResource SettingPaneAbout_Version}" Header="{Binding Version}">
-            <controls:SettingsCardEx.HeaderIcon>
-                <ui:FontIcon Glyph="&#xe946;" />
-            </controls:SettingsCardEx.HeaderIcon>
-        </controls:SettingsCardEx>
+    <ui:ScrollViewerEx
+        x:Name="RootFrameScrollViewer"
+        Padding="{StaticResource PageRootScrollViewerPadding}"
+        HorizontalScrollBarVisibility="Disabled"
+        VerticalScrollBarVisibility="Auto">
+        <ikw:SimpleStackPanel Orientation="Vertical" Spacing="{StaticResource SettingsCardSpacing}">
+            <TextBlock Style="{StaticResource SettingsFirstSectionHeaderTextBlockStyle}" Text="App" />
+            <controls:SettingsCardEx Description="{DynamicResource SettingPaneAbout_Version}" Header="{Binding Version}">
+                <controls:SettingsCardEx.HeaderIcon>
+                    <ui:FontIcon Glyph="&#xe946;" />
+                </controls:SettingsCardEx.HeaderIcon>
+            </controls:SettingsCardEx>
 
-        <TextBlock Style="{StaticResource SettingsSectionHeaderTextBlockStyle}" Text="Related" />
-        <controls:SettingsCardEx Header="Click to support">
-            <controls:SettingsCardEx.HeaderIcon>
-                <ui:FontIcon Glyph="&#xe946;" />
-            </controls:SettingsCardEx.HeaderIcon>
-        </controls:SettingsCardEx>
-    </ikw:SimpleStackPanel>
+            <TextBlock Style="{StaticResource SettingsSectionHeaderTextBlockStyle}" Text="Related" />
+            <controls:SettingsCardEx Header="Click to support">
+                <controls:SettingsCardEx.HeaderIcon>
+                    <ui:FontIcon Glyph="&#xe946;" />
+                </controls:SettingsCardEx.HeaderIcon>
+            </controls:SettingsCardEx>
+        </ikw:SimpleStackPanel>
+    </ui:ScrollViewerEx>
 </ui:Page>

@@ -57,7 +57,7 @@ public partial class SettingWindow : Window
 
     private void RootFrame_Loaded(object sender, RoutedEventArgs e)
     {
-        _navigationService.RegisterFrameEvents(NavigationViewControl, RootFrameScrollViewer, RootFrame);
+        _navigationService.RegisterFrameEvents(NavigationViewControl, RootFrame);
     }
 
     private void RootFrame_Unloaded(object sender, RoutedEventArgs e)
