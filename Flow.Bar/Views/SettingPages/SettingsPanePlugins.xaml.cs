@@ -1,13 +1,13 @@
 ﻿using CommunityToolkit.Mvvm.DependencyInjection;
-using Flow.Bar.Controls;
+using Flow.Bar.Helper.MenuFlyout;
 using Flow.Bar.Helper.Plugins;
 using Flow.Bar.Models.Plugins;
 using Flow.Bar.ViewModels.SettingPages;
 using iNKORE.UI.WPF.Modern.Controls;
 using System.Windows;
 using System.Windows.Navigation;
-using MenuItem = System.Windows.Controls.MenuItem;
 using HeaderedItemsControl = System.Windows.Controls.HeaderedItemsControl;
+using MenuItem = System.Windows.Controls.MenuItem;
 
 namespace Flow.Bar.Views.SettingPages;
 
@@ -16,15 +16,11 @@ public partial class SettingsPanePlugins : Page
     private static readonly double ContextMenuWidth = (double)Application.Current.TryFindResource("CustomContextMenuWidth");
     private static readonly double UninstallConfirmationContextMenuWidth = (double)Application.Current.TryFindResource("UninstallConfirmationContextMenuWidth");
     private static readonly double UninstallConfirmationContextMenuHeight = (double)Application.Current.TryFindResource("UninstallConfirmationContextMenuHeight");
+    private static readonly Style UninstallConfirmationContextMenuStyle = (Style)Application.Current.TryFindResource("UninstallConfirmationContextMenuStyle");
 
     private SettingsPanePluginsViewModel _viewModel = null!;
 
-    private MenuFlyoutEx _contextMenu = null!;
-    private FontIconButton? _button = null;
-    private PluginViewModel? _contextMenuPlugin = null;
-    private bool _openUninstallConfirmationContextMenu = false;
-
-    private MenuFlyoutEx _uninstallConfirmationContextMenu = null!;
+    private PluginUninstallationMenuFlyoutHelper _menuFlyoutHelper = null!;
 
     protected override void OnNavigatedTo(NavigationEventArgs e)
     {
@@ -34,28 +30,19 @@ public partial class SettingsPanePlugins : Page
             _viewModel = Ioc.Default.GetRequiredService<SettingsPanePluginsViewModel>();
             DataContext = _viewModel;
         }
-        if (_contextMenu == null)
+        if (_menuFlyoutHelper == null)
         {
-            _contextMenu = new()
-            {
-                Width = ContextMenuWidth
-            };
+            _menuFlyoutHelper = new(
+                ContextMenuWidth,
+                UninstallConfirmationContextMenuWidth,
+                UninstallConfirmationContextMenuHeight,
+                UninstallConfirmationContextMenuStyle,
+                "UninstallButton",
+                UninstallButton_Click);
             var uninstallItem = new MenuItem();
             uninstallItem.SetResourceReference(HeaderedItemsControl.HeaderProperty, nameof(Localize.SettingPanePlugins_Uninstall));
             uninstallItem.Click += UninstallItem_Click;
-            _contextMenu.Items.Add(uninstallItem);
-            _contextMenu.Closed += ContextMenu_Closed;
-        }
-        if (_uninstallConfirmationContextMenu == null)
-        {
-            _uninstallConfirmationContextMenu = new()
-            {
-                Width = UninstallConfirmationContextMenuWidth,
-                Height = UninstallConfirmationContextMenuHeight,
-                MenuFlyoutPresenterStyle = (Style)Application.Current.Resources["UninstallConfirmationContextMenuStyle"]
-            };
-            _uninstallConfirmationContextMenu.ButtonClickEvents.Add("UninstallButton", UninstallButton_Click);
-            _uninstallConfirmationContextMenu.Closed += UninstallConfirmationContextMenu_Closed;
+            _menuFlyoutHelper.Items.Add(uninstallItem);
         }
         if (!IsInitialized)
         {
@@ -66,60 +53,20 @@ public partial class SettingsPanePlugins : Page
 
     private void MoreOptionsButton_Click(object sender, RoutedEventArgs e)
     {
-        _contextMenuPlugin = null;
-        _button = null;
-        if (sender is not FontIconButton button) return;
-        if (button.Tag is not PluginViewModel plugin) return;
-        _button = button;
-        _contextMenuPlugin = plugin;
-        _contextMenu.ShowAt(button, new MenuFlyoutExOptions()
-        {
-            Placement = MenuFlyoutExPlacementMode.BottomEdgeAlignedRight
-        });
+        _menuFlyoutHelper.ButtonClick(sender, e);
     }
 
     private void UninstallItem_Click(object sender, RoutedEventArgs e)
     {
-        if (_contextMenuPlugin != null && _button != null)
-        {
-            _openUninstallConfirmationContextMenu = true;
-        }
+        _menuFlyoutHelper.UninstallItemClick(sender, e);
     }
 
-    private void ContextMenu_Closed(object? sender, object? e)
+    private async void UninstallButton_Click(PluginViewModel plugin)
     {
-        if (_openUninstallConfirmationContextMenu)
-        {
-            _openUninstallConfirmationContextMenu = false;
-            if (_contextMenuPlugin != null && _button != null)
-            {
-                _uninstallConfirmationContextMenu.ShowAt(_button, new MenuFlyoutExOptions()
-                {
-                    Placement = MenuFlyoutExPlacementMode.BottomEdgeAlignedRight
-                });
-            }
-        }
-        else
-        {
-            _contextMenuPlugin = null;
-            _button = null;
-        }
-    }
-
-    private async void UninstallButton_Click(object sender, RoutedEventArgs e)
-    {
-        var oldPlugin = _contextMenuPlugin?.PluginPair.Metadata;
-        _uninstallConfirmationContextMenu.Hide();
-        if (oldPlugin != null && await PluginInstaller.UninstallPluginAndCheckRestartAsync(oldPlugin))
+        var oldPlugin = plugin.PluginPair.Metadata;
+        if (await PluginInstaller.UninstallPluginAndCheckRestartAsync(oldPlugin))
         {
             _viewModel.UninstallPlugin(oldPlugin);
         }
-    }
-
-    private void UninstallConfirmationContextMenu_Closed(object? sender, object? e)
-    {
-        _openUninstallConfirmationContextMenu = false;
-        _contextMenuPlugin = null;
-        _button = null;
     }
 }
