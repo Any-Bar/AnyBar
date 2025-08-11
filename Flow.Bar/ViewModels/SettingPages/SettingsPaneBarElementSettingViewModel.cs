@@ -62,11 +62,19 @@ public partial class SettingsPaneBarElementSettingViewModel(AppBarManagementServ
         }
         if (result == ContentDialogResult.Primary && dialog.Plugin != null)
         {
-            _appBarManagementService.AddBarElement(_position, _model, dialog.Plugin.ID, BarElements.Add);
+            _appBarManagementService.AddBarElement(_position, _model, dialog.Plugin.ID, (x) =>
+            {
+                lock (_barElementsLock)
+                {
+                    BarElements.Add(new BarElementViewModel(x));
+                }
+            });
         }
     }
 
-    public ObservableCollection<BarElementModel> BarElements { get; } = [];
+    public ObservableCollection<BarElementViewModel> BarElements { get; } = [];
+
+    private readonly Lock _barElementsLock = new();
 
     public void OnNavigatedTo(object? parameter)
     {
@@ -95,11 +103,14 @@ public partial class SettingsPaneBarElementSettingViewModel(AppBarManagementServ
 
     private void RefreshBarElements()
     {
+        lock (_barElementsLock)
+        {
         BarElements.Clear();
-        foreach (var element in _appBarManagementService.GetOrderedBarElements(_position, _model))
+            foreach (var element in _appBarManagementService.GetOrderedBarElements(_position, _model).Select(x => new BarElementViewModel(x)))
         {
             BarElements.Add(element);
         }
+    }
     }
 
     private void BarElements_CollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
