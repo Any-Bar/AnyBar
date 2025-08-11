@@ -71,14 +71,12 @@ public class AppBarManagementService(Settings settings)
     {
         lock (_appBarWindowLock)
         {
-            if (_settings.AppBars.Remove(order, out var _))
+            if (_settings.AppBars.RemoveOrder(order, AppBarWindowPairs, (appBarWindow) =>
+            {
+                appBarWindow.Close();
+            }))
             {
                 _settings.Save();
-                if (AppBarWindowPairs.TryGetValue(order, out var appBarWindow))
-                {
-                    appBarWindow.Close();
-                    AppBarWindowPairs.Remove(order);
-                }
             }
         }
     }
@@ -318,7 +316,7 @@ public class AppBarManagementService(Settings settings)
         lock (_appBarWindowLock)
         {
             var barElements = GetBarElements(position, model);
-            if (barElements.RemoveAll(x => x.Order == order) > 0)
+            if (barElements.RemoveOrder(order))
             {
                 _settings.Save();
                 if (AppBarWindowPairs.TryGetValue(model.Order, out var appBarWindow))

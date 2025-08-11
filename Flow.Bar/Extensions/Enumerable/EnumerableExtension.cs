@@ -18,6 +18,81 @@ public static class EnumerableExtension
         return list.Count != 0 ? list.Max(selector) + 1 : 0;
     }
 
+    /// <summary>
+    /// Remove an item with a specific Order from a dictionary and update the Order property of remaining items.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="dictionary"></param>
+    /// <param name="dictionary1"></param>
+    /// <param name="order"></param>
+    /// <returns></returns>
+    public static bool RemoveOrder<T, T1>(this Dictionary<int, T> dictionary, int order, Dictionary<int, T1> dictionary1, Action<T1> action)
+        where T : class, IOrder
+    {
+        ArgumentNullException.ThrowIfNull(dictionary);
+
+        if (!dictionary.Remove(order, out var _))
+        {
+            return false;
+        }
+
+        // Invoke action on the corresponding item in dictionary1
+        dictionary1.Remove(order, out var _);
+
+        // Find the maximum index which is less than the order
+        var smallerItems = dictionary.Keys.Where(k => k < order).Order().ToList();
+        var index = smallerItems.Count > 0 ? smallerItems.Last() + 1 : 0;
+
+        // Update Order property for remaining items
+        foreach (var key in dictionary.Keys.Where(k => k > order).Order().ToList())
+        {
+            var model = dictionary[key];
+            model.Order = index;
+            dictionary[index] = model;
+            dictionary.Remove(key);
+
+            // Invoke action on the corresponding item in dictionary1
+            if (dictionary1.Remove(key, out var value))
+            {
+                dictionary1[index] = value;
+                action?.Invoke(value);
+            }
+
+            index++;
+        }
+
+        return true;
+    }
+
+    /// <summary>
+    /// Remove an item with a specific Order from a dictionary and update the Order property of remaining items.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="list"></param>
+    /// <param name="order"></param>
+    /// <returns></returns>
+    public static bool RemoveOrder<T>(this List<T> list, int order)
+        where T : class, IOrder
+    {
+        ArgumentNullException.ThrowIfNull(list);
+
+        if (list.RemoveAll(x => x.Order == order) == 0)
+        {
+            return false;
+        }
+
+        // Update Order property for remaining items
+        for (var i = 0; i < list.Count; i++)
+        {
+            if (list[i].Order > order)
+            {
+                list[i].Order--;
+            }
+        }
+
+        return true;
+    }
+
     public static int RemoveAll<T>(this ObservableCollection<T> collection, Predicate<T> match)
     {
         ArgumentNullException.ThrowIfNull(collection);
