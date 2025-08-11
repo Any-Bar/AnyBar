@@ -8,8 +8,10 @@ using Flow.Bar.Models.Enums;
 using Flow.Bar.Services;
 using Flow.Bar.Views;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
@@ -73,13 +75,31 @@ public partial class SettingsPaneAppBarViewModel(AppBarManagementService appBarM
             {
                 lock (_appBarsLock)
                 {
-                    AppBars.Add(x);
+                    _appBars.Add(x);
+                    _appBars = GetSortedAppBars(_appBars);
+                    var insertIndex = _appBars.FindIndex(y => y.Order == x.Order);
+                    AppBars.Insert(insertIndex, _appBars[insertIndex]);
                 }
             });
         }
     }
 
+    public List<SettingsPaneAppBarSortModeLocalized> AllSortModes { get; } = SettingsPaneAppBarSortModeLocalized.GetValues();
+
+    [ObservableProperty]
+    private SettingsPaneAppBarSortMode _sortMode = SettingsPaneAppBarSortMode.Order;
+
+    partial void OnSortModeChanged(SettingsPaneAppBarSortMode value)
+    {
+        lock (_appBarsLock)
+        {
+            SortAppBars();
+        }
+    }
+
     public ObservableCollection<AppBarModel> AppBars { get; } = [];
+
+    private List<AppBarModel> _appBars = null!;
 
     private readonly Lock _appBarsLock = new();
 
@@ -87,7 +107,11 @@ public partial class SettingsPaneAppBarViewModel(AppBarManagementService appBarM
     {
         if (!IsInitialized)
         {
-            RefreshAppBars();
+            lock (_appBarsLock)
+            {
+                InitializeAppBars();
+                SortAppBars();
+            }
             IsInitialized = true;
         }
         AppBars.CollectionChanged += AppBars_CollectionChanged;
@@ -99,16 +123,29 @@ public partial class SettingsPaneAppBarViewModel(AppBarManagementService appBarM
         AppBars.CollectionChanged -= AppBars_CollectionChanged;
     }
 
-    private void RefreshAppBars()
+    private void InitializeAppBars()
     {
-        lock (_appBarsLock)
+        _appBars = _appBarManagementService.GetAllAppBars();
+    }
+
+    private void SortAppBars()
+    {
+        AppBars.Clear();
+        foreach (var appBar in GetSortedAppBars(_appBars))
         {
-            AppBars.Clear();
-            foreach (var appBar in _appBarManagementService.GetAllAppBars())
-            {
-                AppBars.Add(appBar);
-            }
+            AppBars.Add(appBar);
         }
+    }
+
+    private List<AppBarModel> GetSortedAppBars(List<AppBarModel> appBars)
+    {
+        return SortMode switch
+        {
+            SettingsPaneAppBarSortMode.Order => appBars,
+            SettingsPaneAppBarSortMode.Status => [.. appBars.OrderBy(x => !x.IsEnabled).ThenBy(x => x.Order)],
+            SettingsPaneAppBarSortMode.Name => [.. appBars.OrderBy(x => x.Name)],
+            _ => appBars
+        };
     }
 
     private void AppBars_CollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
@@ -122,7 +159,19 @@ public partial class SettingsPaneAppBarViewModel(AppBarManagementService appBarM
                 App.API.LogError(ClassName, $"Move action in {nameof(AppBars)} collection changed with different item counts");
                 return;
             }
-            _appBarManagementService.ChangeAppBarOrder(e.OldStartingIndex, e.NewStartingIndex, e.OldItems.Count);
+
+            if (SortMode == SettingsPaneAppBarSortMode.Order)
+            {
+                _appBarManagementService.ChangeAppBarOrder(e.OldStartingIndex, e.NewStartingIndex, e.OldItems.Count);
+                lock (_appBarsLock)
+                {
+                    InitializeAppBars();
+                }
+            }
+            else
+            {
+                App.API.LogError(ClassName, $"Unsupported {nameof(SortMode)}: {SortMode} for {nameof(NotifyCollectionChangedAction.Move)} action in {nameof(AppBars)} collection");
+            }
         }
     }
 

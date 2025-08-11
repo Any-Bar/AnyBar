@@ -2,6 +2,7 @@
 using CommunityToolkit.Mvvm.Input;
 using Flow.Bar.Controls;
 using Flow.Bar.Dialogs;
+using Flow.Bar.Extensions.Enumerable;
 using Flow.Bar.Interfaces;
 using Flow.Bar.Models.AppBar;
 using Flow.Bar.Models.Enums;
@@ -9,6 +10,7 @@ using Flow.Bar.Models.Parameter;
 using Flow.Bar.Services;
 using Flow.Bar.Views;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Linq;
@@ -68,25 +70,70 @@ public partial class SettingsPaneBarElementSettingViewModel(AppBarManagementServ
             {
                 lock (_barElementsLock)
                 {
-                    BarElements.Add(new BarElementViewModel(x));
+                    _barElements.Add(new BarElementViewModel(x));
+                    _barElements = GetSortedBarElements(_barElements);
+                    var insertIndex = _barElements.FindIndex(y => y.Order == x.Order);
+                    BarElements.Insert(insertIndex, _barElements[insertIndex]);
                 }
             });
         }
     }
 
+    public List<SettingsPaneBarElementSettingSortModeLocalized> AllSortModes { get; } = SettingsPaneBarElementSettingSortModeLocalized.GetValues();
+
+    [ObservableProperty]
+    private SettingsPaneBarElementSettingSortMode _sortMode = SettingsPaneBarElementSettingSortMode.LeftTopToRightBottom;
+
+    partial void OnSortModeChanged(SettingsPaneBarElementSettingSortMode value)
+    {
+        lock (_barElementsLock)
+        {
+            SortBarElements();
+        }
+    }
+
     public ObservableCollection<BarElementViewModel> BarElements { get; } = [];
+
+    private List<BarElementViewModel> _barElements = null!;
 
     private readonly Lock _barElementsLock = new();
 
     public void OnNavigatedTo(object? parameter)
     {
+        void UpdateSortModeLocalization()
+        {
+            var leftTopToRightBottom = AllSortModes.Find(x => x.Value == SettingsPaneBarElementSettingSortMode.LeftTopToRightBottom)!;
+            var rightBottomToLeftTop = AllSortModes.Find(x => x.Value == SettingsPaneBarElementSettingSortMode.RightBottomToLeftTop)!;
+            // Horizontal
+            if (_model.DockMode == AppBarDockMode.Top || _model.DockMode == AppBarDockMode.Bottom)
+            {
+                leftTopToRightBottom.LocalizationKey = nameof(Localize.SettingsPaneBarElementSettingSortMode_LeftToRight);
+                leftTopToRightBottom.LocalizationValue = Localize.SettingsPaneBarElementSettingSortMode_LeftToRight();
+                rightBottomToLeftTop.LocalizationKey = nameof(Localize.SettingsPaneBarElementSettingSortMode_RightToLeft);
+                rightBottomToLeftTop.LocalizationValue = Localize.SettingsPaneBarElementSettingSortMode_RightToLeft();
+            }
+            // Vertical
+            else
+            {
+                leftTopToRightBottom.LocalizationKey = nameof(Localize.SettingsPaneBarElementSettingSortMode_TopToBottom);
+                leftTopToRightBottom.LocalizationValue = Localize.SettingsPaneBarElementSettingSortMode_TopToBottom();
+                rightBottomToLeftTop.LocalizationKey = nameof(Localize.SettingsPaneBarElementSettingSortMode_BottomToTop);
+                rightBottomToLeftTop.LocalizationValue = Localize.SettingsPaneBarElementSettingSortMode_BottomToTop();
+            }
+        }
+
         if (parameter is SettingsPaneBarElementSettingNavigationParameter args)
         {
             if (!IsInitialized)
             {
                 _position = args.Position;
                 _model = args.Model;
-                RefreshBarElements();
+                UpdateSortModeLocalization();
+                lock (_barElementsLock)
+                {
+                    InitializeBarElements();
+                    SortBarElements();
+                }
                 IsInitialized = true;
             }
         }
@@ -103,25 +150,40 @@ public partial class SettingsPaneBarElementSettingViewModel(AppBarManagementServ
         BarElements.CollectionChanged -= BarElements_CollectionChanged;
     }
 
+    private void InitializeBarElements()
+    {
+        _barElements = [.. _appBarManagementService.GetOrderedBarElements(_position, _model).Select(x => new BarElementViewModel(x))];
+    }
+
     public void RemoveBarElement(BarElementViewModel oldBarElement)
     {
         _appBarManagementService.RemoveBarElement(_position, _model, oldBarElement.Order);
         lock (_barElementsLock)
         {
+            _barElements.Remove(oldBarElement);
             BarElements.Remove(BarElements.First(x => x.Order == oldBarElement.Order));
         }
     }
 
-    private void RefreshBarElements()
+    private void SortBarElements()
     {
-        lock (_barElementsLock)
+        BarElements.Clear();
+        foreach (var element in GetSortedBarElements(_barElements))
         {
-            BarElements.Clear();
-            foreach (var element in _appBarManagementService.GetOrderedBarElements(_position, _model).Select(x => new BarElementViewModel(x)))
-            {
-                BarElements.Add(element);
-            }
+            BarElements.Add(element);
         }
+    }
+
+    private List<BarElementViewModel> GetSortedBarElements(List<BarElementViewModel> allBarElements)
+    {
+        return SortMode switch
+        {
+            SettingsPaneBarElementSettingSortMode.LeftTopToRightBottom => allBarElements,
+            SettingsPaneBarElementSettingSortMode.RightBottomToLeftTop => allBarElements.Reversed(),
+            SettingsPaneBarElementSettingSortMode.Status => [.. allBarElements.OrderBy(x => x.Disabled).ThenBy(x => x.Name)],
+            SettingsPaneBarElementSettingSortMode.Name => [.. allBarElements.OrderBy(x => x.Name)],
+            _ => allBarElements
+        };
     }
 
     private void BarElements_CollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
@@ -135,7 +197,29 @@ public partial class SettingsPaneBarElementSettingViewModel(AppBarManagementServ
                 App.API.LogError(ClassName, $"{nameof(NotifyCollectionChangedAction.Move)} action in {nameof(BarElements)} collection changed with different item counts");
                 return;
             }
-            _appBarManagementService.ChangeBarElementOrder(_position, _model, e.OldStartingIndex, e.NewStartingIndex, e.OldItems.Count);
+
+            if (SortMode == SettingsPaneBarElementSettingSortMode.LeftTopToRightBottom)
+            {
+                _appBarManagementService.ChangeBarElementOrder(_position, _model, e.OldStartingIndex, e.NewStartingIndex, e.OldItems.Count);
+                lock (_barElementsLock)
+                {
+                    InitializeBarElements();
+                }
+            }
+            else if (SortMode == SettingsPaneBarElementSettingSortMode.RightBottomToLeftTop)
+            {
+                var reversedOldStartingIndex = BarElements.Count - 1 - e.OldStartingIndex;
+                var reversedNewStartingIndex = BarElements.Count - 1 - e.NewStartingIndex;
+                _appBarManagementService.ChangeBarElementOrder(_position, _model, reversedOldStartingIndex, reversedNewStartingIndex, e.OldItems.Count);
+                lock (_barElementsLock)
+                {
+                    InitializeBarElements();
+                }
+            }
+            else
+            {
+                App.API.LogError(ClassName, $"Unsupported {nameof(SortMode)}: {SortMode} for {nameof(NotifyCollectionChangedAction.Move)} action in {nameof(BarElements)} collection");
+            }
         }
     }
 }
