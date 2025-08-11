@@ -80,6 +80,8 @@ public partial class SettingsCardEx : ButtonBase
 
         IsEnabledChanged += OnIsEnabledChanged;
         SizeChanged += SettingsCard_SizeChanged;
+
+        // RegisterPropertyChangedCallback(ContentProperty, OnContentChanged);
     }
 
     private void SettingsCard_SizeChanged(object sender, SizeChangedEventArgs e)
@@ -98,8 +100,7 @@ public partial class SettingsCardEx : ButtonBase
 
     private void CheckInitialVisualState()
     {
-        var state = IsEnabled && !IsVisualDisable ? NormalState : DisabledState;
-        VisualStateManager.GoToState(this, state, App.Settings.EnableAnimationEffects);
+        VisualStateManager.GoToState(this, IsEnabled ? NormalState : DisabledState, App.Settings.EnableAnimationEffects);
 
         if (GetTemplateChild("ContentAlignmentStates") is VisualStateGroup contentAlignmentStatesGroup)
         {
@@ -154,7 +155,7 @@ public partial class SettingsCardEx : ButtonBase
     {
         var state = NormalState;
 
-        if (IsEnabled == false || IsVisualDisable == true)
+        if (IsEnabled == false)
         {
             state = DisabledState;
         }
@@ -256,8 +257,7 @@ public partial class SettingsCardEx : ButtonBase
 
     private void OnIsEnabledChanged(object sender, DependencyPropertyChangedEventArgs e)
     {
-        var state = IsEnabled && !IsVisualDisable ? NormalState : DisabledState;
-        VisualStateManager.GoToState(this, state, App.Settings.EnableAnimationEffects);
+        VisualStateManager.GoToState(this, IsEnabled ? NormalState : DisabledState, App.Settings.EnableAnimationEffects);
     }
 
     private void OnActionIconChanged()
@@ -273,12 +273,6 @@ public partial class SettingsCardEx : ButtonBase
                 actionIconPresenter.Visibility = Visibility.Collapsed;
             }
         }
-    }
-
-    private void OnIsVisualDisableChanged()
-    {
-        var state = IsEnabled && !IsVisualDisable ? NormalState : DisabledState;
-        VisualStateManager.GoToState(this, state, App.Settings.EnableAnimationEffects);
     }
 
     private void OnHeaderIconChanged()
@@ -299,6 +293,7 @@ public partial class SettingsCardEx : ButtonBase
                 ? Visibility.Collapsed
                 : Visibility.Visible;
         }
+
     }
 
     private void OnHeaderChanged()

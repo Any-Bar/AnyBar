@@ -82,15 +82,6 @@ public partial class SettingsCardEx
         new PropertyMetadata(defaultValue: true, (d, e) => ((SettingsCardEx)d).OnIsActionIconVisiblePropertyChanged((bool)e.OldValue, (bool)e.NewValue)));
 
     /// <summary>
-    /// The backing <see cref="DependencyProperty"/> for the <see cref="IsVisualDisable"/> property.
-    /// </summary>
-    public static readonly DependencyProperty IsVisualDisableProperty = DependencyProperty.Register(
-        nameof(IsVisualDisable),
-        typeof(bool),
-        typeof(SettingsCardEx),
-        new PropertyMetadata(defaultValue: false, (d, e) => ((SettingsCardEx)d).OnIsVisualDisablePropertyChanged((bool)e.OldValue, (bool)e.NewValue)));
-
-    /// <summary>
     /// Gets or sets the Header.
     /// </summary>
     public object Header
@@ -164,20 +155,10 @@ public partial class SettingsCardEx
         set => SetValue(IsActionIconVisibleProperty, value);
     }
 
-    /// <summary>
-    /// Gets or sets if the display visual is Disabled.
-    /// </summary>
-    public bool IsVisualDisable
-    {
-        get => (bool)GetValue(IsVisualDisableProperty);
-        set => SetValue(IsVisualDisableProperty, value);
-    }
-
     protected virtual void OnIsClickEnabledPropertyChanged(bool oldValue, bool newValue)
     {
         OnIsClickEnabledChanged();
     }
-
     protected virtual void OnHeaderIconPropertyChanged(object oldValue, object newValue)
     {
         OnHeaderIconChanged();
@@ -198,15 +179,11 @@ public partial class SettingsCardEx
         OnActionIconChanged();
     }
 
-    protected virtual void OnIsVisualDisablePropertyChanged(bool oldValue, bool newValue)
-    {
-        OnIsVisualDisableChanged();
-    }
-
     protected virtual void OnContentAlignmentPropertyChanged(ContentAlignment oldValue, ContentAlignment newValue)
     {
         UpdateContentAlignmentState();
     }
+    
 }
 
 public enum ContentAlignment
