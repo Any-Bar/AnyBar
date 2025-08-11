@@ -202,7 +202,7 @@ namespace Flow.Bar.Localization.SourceGenerators.Localize
             sourceBuilder.AppendLine($"/// Data class for <see cref=\"{enumFullName}\"/>");
             sourceBuilder.AppendLine($"/// </summary>");
             sourceBuilder.AppendLine($"[System.CodeDom.Compiler.GeneratedCode(\"{nameof(EnumSourceGenerator)}\", \"{PackageVersion}\")]");
-            sourceBuilder.AppendLine($"public class {enumDataClassName}");
+            sourceBuilder.AppendLine($"public class {enumDataClassName} : global::System.ComponentModel.INotifyPropertyChanged");
             sourceBuilder.AppendLine("{");
 
             // Generate properties
@@ -224,10 +224,23 @@ namespace Flow.Bar.Localization.SourceGenerators.Localize
             sourceBuilder.AppendLine($"{tabString}public string LocalizationKey {{ get; set; }}");
             sourceBuilder.AppendLine();
 
+            sourceBuilder.AppendLine($"{tabString}private string _localizationValue;");
+            sourceBuilder.AppendLine();
             sourceBuilder.AppendLine($"{tabString}/// <summary>");
             sourceBuilder.AppendLine($"{tabString}/// The localization value of the enum value");
             sourceBuilder.AppendLine($"{tabString}/// </summary>");
-            sourceBuilder.AppendLine($"{tabString}public string LocalizationValue {{ get; set; }}");
+            sourceBuilder.AppendLine($"{tabString}public string LocalizationValue");
+            sourceBuilder.AppendLine($"{tabString}{{");
+            sourceBuilder.AppendLine($"{tabString}{tabString}get => _localizationValue;");
+            sourceBuilder.AppendLine($"{tabString}{tabString}set");
+            sourceBuilder.AppendLine($"{tabString}{tabString}{{");
+            sourceBuilder.AppendLine($"{tabString}{tabString}{tabString}if (_localizationValue != value)");
+            sourceBuilder.AppendLine($"{tabString}{tabString}{tabString}{{");
+            sourceBuilder.AppendLine($"{tabString}{tabString}{tabString}{tabString}_localizationValue = value;");
+            sourceBuilder.AppendLine($"{tabString}{tabString}{tabString}{tabString}OnPropertyChanged(nameof(LocalizationValue));");
+            sourceBuilder.AppendLine($"{tabString}{tabString}{tabString}}}");
+            sourceBuilder.AppendLine($"{tabString}{tabString}}}");
+            sourceBuilder.AppendLine($"{tabString}}}");
             sourceBuilder.AppendLine();
 
             // Generate API instance
@@ -262,6 +275,16 @@ namespace Flow.Bar.Localization.SourceGenerators.Localize
 
             // Generate UpdateLabels method
             GenerateUpdateLabelsMethod(sourceBuilder, getTranslation, enumDataClassName, tabString);
+            sourceBuilder.AppendLine();
+
+            // Generate INotifyPropertyChanged implementation
+            sourceBuilder.AppendLine($"{tabString}/// <inheritdoc />");
+            sourceBuilder.AppendLine($"{tabString}public event global::System.ComponentModel.PropertyChangedEventHandler? PropertyChanged;");
+            sourceBuilder.AppendLine();
+            sourceBuilder.AppendLine($"{tabString}protected void OnPropertyChanged([global::System.Runtime.CompilerServices.CallerMemberName] string? propertyName = null)");
+            sourceBuilder.AppendLine($"{tabString}{{");
+            sourceBuilder.AppendLine($"{tabString}{tabString}PropertyChanged?.Invoke(this, new global::System.ComponentModel.PropertyChangedEventArgs(propertyName));");
+            sourceBuilder.AppendLine($"{tabString}}}");
 
             sourceBuilder.AppendLine($"}}");
 
