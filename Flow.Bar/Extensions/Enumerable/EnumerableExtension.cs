@@ -1,4 +1,4 @@
-﻿using Flow.Bar.Interfaces;
+﻿using Flow.Bar.Interfaces.Enumerable;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;

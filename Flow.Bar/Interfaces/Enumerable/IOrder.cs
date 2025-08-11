@@ -1,4 +1,4 @@
-﻿namespace Flow.Bar.Interfaces;
+﻿namespace Flow.Bar.Interfaces.Enumerable;
 
 public interface IOrder
 {

@@ -3,7 +3,7 @@ using CommunityToolkit.Mvvm.Input;
 using Flow.Bar.Controls;
 using Flow.Bar.Dialogs;
 using Flow.Bar.Extensions.Enumerable;
-using Flow.Bar.Interfaces;
+using Flow.Bar.Interfaces.Navigation;
 using Flow.Bar.Models.AppBar;
 using Flow.Bar.Models.Enums;
 using Flow.Bar.Models.Parameter;

@@ -1,6 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using Flow.Bar.Helper.Plugins;
-using Flow.Bar.Interfaces;
+using Flow.Bar.Interfaces.Navigation;
 using Flow.Bar.Models.Enums;
 using Flow.Bar.Models.Plugins;
 using Flow.Bar.Plugin;

@@ -1,4 +1,4 @@
-﻿using Flow.Bar.Interfaces;
+﻿using Flow.Bar.Interfaces.Enumerable;
 using Flow.Bar.Models.Enums;
 using System.Text.Json.Serialization;
 
