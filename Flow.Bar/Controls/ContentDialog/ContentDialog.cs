@@ -60,7 +60,7 @@ public class ContentDialog : ContentControl
     {
         s_defaultContentDialogStyle ??= (Style)Application.Current.Resources[c_defaultContentDialogStyleKey];
 
-        ArgumentNullException.ThrowIfNull(s_defaultContentDialogStyle, $"{c_defaultContentDialogStyleKey} not found in Application resources.");
+        ArgumentNullException.ThrowIfNull(s_defaultContentDialogStyle, $"{c_defaultContentDialogStyleKey} not found in {nameof(Application)} {nameof(ResourceDictionary)}");
 
         Style = s_defaultContentDialogStyle;
 

@@ -91,7 +91,7 @@ public static class HttpHelper
                 ProxyProperty.Port => (new Uri($"http://{Proxy.Server}:{Proxy.Port}"), WebProxy.Credentials),
                 ProxyProperty.UserName => (WebProxy.Address, new NetworkCredential(Proxy.UserName, Proxy.Password)),
                 ProxyProperty.Password => (WebProxy.Address, new NetworkCredential(Proxy.UserName, Proxy.Password)),
-                _ => throw new ArgumentOutOfRangeException(null)
+                _ => throw new NotImplementedException()
             };
         }
         catch (UriFormatException e)

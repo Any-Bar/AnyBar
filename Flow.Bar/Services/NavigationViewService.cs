@@ -91,7 +91,7 @@ public class NavigationViewService(PageService pageService)
     /// <returns></returns>
     public bool GoBack()
     {
-        ArgumentNullException.ThrowIfNull(_frame, $"Frame is not registered in RegisterFrameEvents.");
+        ArgumentNullException.ThrowIfNull(_frame, $"{nameof(Frame)} is not registered in {nameof(RegisterFrameEvents)}");
 
         if (_frame.CanGoBack)
         {
@@ -116,7 +116,7 @@ public class NavigationViewService(PageService pageService)
     /// </remarks>
     public bool NavigateTo(SettingPageTag pageTag, object? parameter = null)
     {
-        ArgumentNullException.ThrowIfNull(_frame, $"Frame is not registered in RegisterFrameEvents.");
+        ArgumentNullException.ThrowIfNull(_frame, $"{nameof(Frame)} is not registered in {nameof(RegisterFrameEvents)}");
 
         var pageType = _pageService.GetPageType(pageTag);
         if (_frame.Content?.GetType() != pageType || (parameter != null && parameter != _parameterStack.Peek()))
@@ -144,7 +144,7 @@ public class NavigationViewService(PageService pageService)
     /// <param name="parameter"></param>
     public bool OnNavigateTo(SettingPageTag pageTag, object? parameter = null)
     {
-        ArgumentNullException.ThrowIfNull(_frame, $"Frame is not registered in RegisterFrameEvents.");
+        ArgumentNullException.ThrowIfNull(_frame, $"{nameof(Frame)} is not registered in {nameof(RegisterFrameEvents)}");
 
         var pageType = _pageService.GetPageType(pageTag);
         if (_frame.Content?.GetType() == pageType && _frame.Content is Page page &&

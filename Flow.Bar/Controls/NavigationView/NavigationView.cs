@@ -123,7 +123,7 @@ public partial class NavigationView : ContentControl, IControlProtected
     {
         s_navigationBackButtonNormalStyle ??= (Style)Application.Current.Resources[c_navigationBackButtonNormalStyleKey];
 
-        ArgumentNullException.ThrowIfNull(s_navigationBackButtonNormalStyle, $"{c_navigationBackButtonNormalStyleKey} not found in Application resources.");
+        ArgumentNullException.ThrowIfNull(s_navigationBackButtonNormalStyle, $"{c_navigationBackButtonNormalStyleKey} not found in {nameof(Application)} {nameof(ResourceDictionary)}");
 
         Resources.Add(c_navigationBackButtonNormalStyleKey, s_navigationBackButtonNormalStyle);
 

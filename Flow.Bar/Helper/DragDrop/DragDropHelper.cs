@@ -13,7 +13,7 @@ public static class DragDropHelper
 
     public static void EnableDragDrop(this DependencyObject element)
     {
-        ArgumentNullException.ThrowIfNull(element, nameof(element));
+        ArgumentNullException.ThrowIfNull(element);
 
         WpfDragDrop.SetIsDragSource(element, true);
         WpfDragDrop.SetIsDropTarget(element, true);
@@ -28,8 +28,8 @@ public static class DragDropHelper
 
     public static void SetDropScrollViewer(this DependencyObject element, ScrollViewer scrollViewer)
     {
-        ArgumentNullException.ThrowIfNull(element, nameof(element));
-        ArgumentNullException.ThrowIfNull(scrollViewer, nameof(scrollViewer));
+        ArgumentNullException.ThrowIfNull(element);
+        ArgumentNullException.ThrowIfNull(scrollViewer);
 
         WpfDragDrop.SetDropTargetScrollViewer(element, scrollViewer);
         WpfDragDrop.SetDropTargetAdornerBrush(element, System.Windows.Application.Current.TryFindResource(ThemeKeys.AccentFillColorDefaultBrushKey) as Brush);
@@ -63,7 +63,7 @@ public static class DragDropHelper
 
     public static void DisableDragDrop(this DependencyObject element)
     {
-        ArgumentNullException.ThrowIfNull(element, nameof(element));
+        ArgumentNullException.ThrowIfNull(element);
 
         WpfDragDrop.SetIsDragSource(element, false);
         WpfDragDrop.SetIsDropTarget(element, false);

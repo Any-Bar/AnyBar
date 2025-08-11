@@ -20,7 +20,7 @@ public class MenuFlyoutEx : DependencyObject
     {
         s_contextMenuStyle ??= (Style)Application.Current.Resources[c_contextMenuStyleKey];
 
-        ArgumentNullException.ThrowIfNull(s_contextMenuStyle, $"{c_contextMenuStyleKey} not found in Application resources.");
+        ArgumentNullException.ThrowIfNull(s_contextMenuStyle, $"{c_contextMenuStyleKey} not found in {nameof(Application)} {nameof(ResourceDictionary)}");
 
         MenuFlyoutPresenterStyle = s_contextMenuStyle;
     }

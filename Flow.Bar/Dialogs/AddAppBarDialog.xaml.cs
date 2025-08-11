@@ -83,12 +83,7 @@ public partial class AddAppBarDialog : ContentDialog
         if (ActualMonitor == null)
         {
             UpdateActualMonitor(MonitorName);
-        }
-        if (ActualMonitor == null)
-        {
-            // ActualMonitor should never be null here since users should connect to a monitor to use this app :?
-            // So we throw an exception to indicate this issue.
-            throw new InvalidOperationException($"{nameof(ActualMonitor)} is null");
+            ArgumentNullException.ThrowIfNull(ActualMonitor);
         }
         var dockedWidthOrHeight = DockedWidthOrHeight;
         (MinDockedWidthOrHeight, MaxDockedWidthOrHeight, DockedWidthOrHeight) =

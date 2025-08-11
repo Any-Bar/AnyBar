@@ -7,6 +7,7 @@ using Flow.Bar.Models.Enums;
 using Flow.Bar.Models.Monitor;
 using Flow.Bar.Models.Parameter;
 using Flow.Bar.Services;
+using SharpVectors.Dom;
 using System;
 using System.Collections.Generic;
 
@@ -162,12 +163,7 @@ public partial class SettingsPaneAppBarSettingViewModel(AppBarManagementService 
         if (ActualMonitor == null)
         {
             UpdateActualMonitor(MonitorName);
-        }
-        if (ActualMonitor == null)
-        {
-            // ActualMonitor should never be null here since users should connect to a monitor to use this app :?
-            // So we throw an exception to indicate this issue.
-            throw new InvalidOperationException($"{nameof(ActualMonitor)} is null");
+            ArgumentNullException.ThrowIfNull(ActualMonitor);
         }
         var dockedWidthOrHeight = DockedWidthOrHeight;
         (MinDockedWidthOrHeight, MaxDockedWidthOrHeight, DockedWidthOrHeight) =
