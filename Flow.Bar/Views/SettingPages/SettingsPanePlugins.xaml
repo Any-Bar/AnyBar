@@ -107,10 +107,7 @@
             </controls:StackView.Style>
             <controls:StackView.ItemTemplate>
                 <DataTemplate DataType="models:PluginViewModel">
-                    <controls:SettingsCardEx
-                        x:Name="PluginSettingsCard"
-                        Style="{StaticResource DefaultSettingsCardStyle}"
-                        ToolTip="{Binding VersionAndAuthor, Mode=OneTime}">
+                    <controls:SettingsCardEx x:Name="PluginSettingsCard" ToolTip="{Binding VersionAndAuthor, Mode=OneTime}">
                         <controls:SettingsCardEx.Header>
                             <TextBlock
                                 Text="{Binding Name, Mode=OneTime}"
@@ -143,7 +140,6 @@
                                 </TextBlock.Style>
                             </TextBlock>
                         </controls:SettingsCardEx.Description>
-
                         <controls:SettingsCardEx.HeaderIcon>
                             <Image
                                 Width="16"
