@@ -10,6 +10,7 @@ using Flow.Bar.Views;
 using System;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -68,11 +69,19 @@ public partial class SettingsPaneAppBarViewModel(AppBarManagementService appBarM
                 DockedWidthOrHeight = dialog.DockedWidthOrHeight,
                 IsResizable = dialog.IsResizable
             };
-            _appBarManagementService.AddAppBar(model, AppBars.Add);
+            _appBarManagementService.AddAppBar(model, (x) =>
+            {
+                lock (_appBarsLock)
+                {
+                    AppBars.Add(x);
+                }
+            });
         }
     }
 
     public ObservableCollection<AppBarModel> AppBars { get; } = [];
+
+    private readonly Lock _appBarsLock = new();
 
     public void OnNavigatedTo(object? parameter)
     {
@@ -92,10 +101,13 @@ public partial class SettingsPaneAppBarViewModel(AppBarManagementService appBarM
 
     private void RefreshAppBars()
     {
-        AppBars.Clear();
-        foreach (var appBar in _appBarManagementService.GetAllAppBars())
+        lock (_appBarsLock)
         {
-            AppBars.Add(appBar);
+            AppBars.Clear();
+            foreach (var appBar in _appBarManagementService.GetAllAppBars())
+            {
+                AppBars.Add(appBar);
+            }
         }
     }
 
