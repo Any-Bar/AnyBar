@@ -1,6 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.DependencyInjection;
 using Flow.Bar.Controls;
-using Flow.Bar.Helper;
+using Flow.Bar.Helper.MenuFlyout;
 using Flow.Bar.Helper.Windows;
 using Flow.Bar.Models;
 using Flow.Bar.Models.AppBar;
@@ -45,11 +45,7 @@ public partial class AppBarWindow : Window
     private readonly ExplorerWatcher _explorerWatcher = new();
     private bool _isExplorerRestarting = false;
 
-    private readonly MenuFlyoutEx _contextMenu = new();
-    private System.Drawing.Point? _cursorPosition = null;
-    private bool _contextMenuOpened = false;
-    private bool _openContextMenuOnClosed = false;
-    private MouseButtonEventArgs? _openContextMenuEventArgs = null;
+    private readonly AppBarMenuFlyoutHelper _menuFlyoutHelper = new();
 
     #region Constructor
 
@@ -124,8 +120,25 @@ public partial class AppBarWindow : Window
                 App.API.ShowSettingWindow();
             }
         };
-        _contextMenu.Items.Add(settingItem);
-        _contextMenu.Closed += ContextMenu_Closed;
+        _menuFlyoutHelper.Items.Add(settingItem);
+        _menuFlyoutHelper.ShowMenu = (menu, e) =>
+        {
+            var element = (FrameworkElement)MainGrid;
+            var placement = ViewModel.DockMode switch
+            {
+                AppBarDockMode.Left => MenuFlyoutExPlacementMode.AppBarRight,
+                AppBarDockMode.Right => MenuFlyoutExPlacementMode.AppBarLeft,
+                AppBarDockMode.Top => MenuFlyoutExPlacementMode.AppBarBottom,
+                AppBarDockMode.Bottom => MenuFlyoutExPlacementMode.AppBarTop,
+                _ => throw new NotImplementedException()
+            };
+            menu.ShowAt(element, new MenuFlyoutExOptions()
+            {
+                Placement = placement,
+                Position = e.GetPosition(element),
+                Monitor = ViewModel.ActualMonitor
+            });
+        };
     }
 
     #endregion
@@ -204,6 +217,8 @@ public partial class AppBarWindow : Window
         {
             return;
         }
+
+        _menuFlyoutHelper.Dispose();
 
         if (_hwndSource != null)
         {
@@ -436,61 +451,14 @@ public partial class AppBarWindow : Window
 
     #region Grid Events
 
-    private void ContextMenu_Closed(object? sender, object? e)
-    {
-        _contextMenuOpened = false;
-        if (_openContextMenuOnClosed && _openContextMenuEventArgs != null)
-        {
-            OpenAppBarMenu(_openContextMenuEventArgs);
-            _openContextMenuOnClosed = false;
-            _openContextMenuEventArgs = null;
-        }
-    }
-
     private void MainGrid_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
     {
-        _cursorPosition = Win32Helper.GetCursorPos();
+        _menuFlyoutHelper.MouseRightButtonDown(e);
     }
 
     private void MainGrid_MouseRightButtonUp(object sender, MouseButtonEventArgs e)
     {
-        // If users have moved the cursor after right button down, we should not open the context menu.
-        if (_cursorPosition != null && _cursorPosition != Win32Helper.GetCursorPos()) return;
-        // This is workaround for a bug in WPF that element position will change if the old appbar menu is still open
-        // (Pop up menu will be considered as part of that element which can cause wrong position calculation)
-        // So we need to manually hide old appbar menu and open new appbar menu after it is closed.
-        if (_contextMenuOpened)
-        {
-            _openContextMenuOnClosed = true;
-            _openContextMenuEventArgs = e;
-            _contextMenu.Hide();
-        }
-        else
-        {
-            OpenAppBarMenu(e);
-        }
-        _cursorPosition = null;
-    }
-
-    private void OpenAppBarMenu(MouseButtonEventArgs e)
-    {
-        var element = (FrameworkElement)MainGrid;
-        var placement = ViewModel.DockMode switch
-        {
-            AppBarDockMode.Left => MenuFlyoutExPlacementMode.AppBarRight,
-            AppBarDockMode.Right => MenuFlyoutExPlacementMode.AppBarLeft,
-            AppBarDockMode.Top => MenuFlyoutExPlacementMode.AppBarBottom,
-            AppBarDockMode.Bottom => MenuFlyoutExPlacementMode.AppBarTop,
-            _ => throw new NotImplementedException()
-        };
-        _contextMenu.ShowAt(element, new MenuFlyoutExOptions()
-        {
-            Placement = placement,
-            Position = e.GetPosition(element),
-            Monitor = ViewModel.ActualMonitor
-        });
-        _contextMenuOpened = true;
-        e.Handled = true;
+        _menuFlyoutHelper.MouseRightButtonUp(e);
     }
 
     #endregion
