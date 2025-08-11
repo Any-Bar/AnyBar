@@ -83,14 +83,14 @@ public class AppBarManagementService(Settings settings)
         }
     }
 
-    public void ChangeAppBarOrder(int oldOrder, int newOrder, int itemsCount)
+    public void ChangeAppBarOrder(int oldIndex, int newIndex, int itemsCount)
     {
         lock (_appBarWindowLock)
         {
-            if (_settings.AppBars.Move(oldOrder, newOrder, itemsCount))
+            if (_settings.AppBars.Move(oldIndex, newIndex, itemsCount))
             {
                 _settings.Save();
-                RestartAppBarsFrom(Math.Min(oldOrder, newOrder));
+                RestartAppBarsFrom(Math.Min(oldIndex, newIndex));
             }
         }
     }
@@ -330,18 +330,18 @@ public class AppBarManagementService(Settings settings)
         }
     }
 
-    public void ChangeBarElementOrder(BarElementModelPosition position, AppBarModel model, int oldOrder, int newOrder, int itemsCount)
+    public void ChangeBarElementOrder(BarElementModelPosition position, AppBarModel model, int oldIndex, int newIndex, int itemsCount)
     {
         lock (_appBarWindowLock)
         {
             var barElements = GetBarElements(position, model);
-            if (barElements.Move(oldOrder, newOrder, itemsCount))
+            if (barElements.Move(oldIndex, newIndex, itemsCount))
             {
                 _settings.Save();
                 if (AppBarWindowPairs.TryGetValue(model.Order, out var appBarWindow))
                 {
                     var viewModelBarElements = GetViewModelBarElements(position, appBarWindow);
-                    viewModelBarElements.Move(oldOrder, newOrder, itemsCount);
+                    viewModelBarElements.Move(oldIndex, newIndex, itemsCount);
                 }
             }
         }

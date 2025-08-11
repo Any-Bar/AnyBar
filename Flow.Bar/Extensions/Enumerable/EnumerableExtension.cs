@@ -35,13 +35,13 @@ public static class EnumerableExtension
         return removedCount;
     }
 
-    public static bool Move<T>(this Dictionary<int, T> dictionary, int oldOrder, int newOrder, int itemsCount)
+    public static bool Move<T>(this Dictionary<int, T> dictionary, int oldIndex, int newIndex, int itemsCount)
         where T : class, IOrder
     {
         ArgumentNullException.ThrowIfNull(dictionary);
 
         // Validate necessity
-        if (oldOrder == newOrder || itemsCount == 0)
+        if (oldIndex == newIndex || itemsCount == 0)
         {
             return false;
         }
@@ -51,7 +51,7 @@ public static class EnumerableExtension
         // Change item order
         for (var i = 0; i < itemsCount; i++)
         {
-            var key = oldOrder + i;
+            var key = oldIndex + i;
             if (dictionary.Remove(key, out var model))
             {
                 itemsToMove.Add(model);
@@ -59,10 +59,10 @@ public static class EnumerableExtension
         }
 
         // Shift affected range
-        if (oldOrder < newOrder)
+        if (oldIndex < newIndex)
         {
             // Shift down in reverse order to avoid overwriting
-            for (var i = newOrder; i >= oldOrder + itemsCount; i--)
+            for (var i = newIndex; i >= oldIndex + itemsCount; i--)
             {
                 if (dictionary.Remove(i, out var model))
                 {
@@ -74,7 +74,7 @@ public static class EnumerableExtension
             // Insert moved items
             for (var i = 0; i < itemsToMove.Count; i++)
             {
-                var insertedKey = newOrder + 1 - itemsToMove.Count + i;
+                var insertedKey = newIndex + 1 - itemsToMove.Count + i;
                 itemsToMove[i].Order = insertedKey;
                 dictionary[insertedKey] = itemsToMove[i];
             }
@@ -82,7 +82,7 @@ public static class EnumerableExtension
         else
         {
             // Shift up in ascending order
-            for (var i = oldOrder - 1; i >= newOrder; i--)
+            for (var i = oldIndex - 1; i >= newIndex; i--)
             {
                 if (dictionary.Remove(i, out var model))
                 {
@@ -94,7 +94,7 @@ public static class EnumerableExtension
             // Insert moved items
             for (var i = 0; i < itemsToMove.Count; i++)
             {
-                var insertedKey = newOrder + i;
+                var insertedKey = newIndex + i;
                 itemsToMove[i].Order = insertedKey;
                 dictionary[insertedKey] = itemsToMove[i];
             }
@@ -103,40 +103,40 @@ public static class EnumerableExtension
         return true;
     }
 
-    public static bool Move<T>(this List<T> list, int oldOrder, int newOrder, int itemsCount)
+    public static bool Move<T>(this List<T> list, int oldIndex, int newIndex, int itemsCount)
         where T : class, IOrder
     {
         ArgumentNullException.ThrowIfNull(list);
 
         // Validate necessity
-        if (oldOrder == newOrder || itemsCount == 0)
+        if (oldIndex == newIndex || itemsCount == 0)
         {
             return false;
         }
 
         // Extract items to move
-        var itemsToMove = list.GetRange(oldOrder, itemsCount);
-        list.RemoveRange(oldOrder, itemsCount);
+        var itemsToMove = list.GetRange(oldIndex, itemsCount);
+        list.RemoveRange(oldIndex, itemsCount);
 
         // Adjust newOrder if items are removed before it
         int insertedOrder;
         int toIndex;
-        if (oldOrder < newOrder)
+        if (oldIndex < newIndex)
         {
-            insertedOrder = newOrder - itemsCount + 1;
-            toIndex = newOrder + 1;
+            insertedOrder = newIndex - itemsCount + 1;
+            toIndex = newIndex + 1;
         }
         else
         {
-            insertedOrder = newOrder;
-            toIndex = oldOrder + itemsCount;
+            insertedOrder = newIndex;
+            toIndex = oldIndex + itemsCount;
         }
 
         // Insert items at new position
         list.InsertRange(insertedOrder, itemsToMove);
 
         // Update Order property
-        var fromIndex = Math.Min(oldOrder, newOrder);
+        var fromIndex = Math.Min(oldIndex, newIndex);
         for (var i = fromIndex; i < toIndex; i++)
         {
             list[i].Order = i;
@@ -145,13 +145,13 @@ public static class EnumerableExtension
         return true;
     }
 
-    public static bool Move<T>(this ObservableCollection<T> collection, int oldOrder, int newOrder, int itemsCount)
+    public static bool Move<T>(this ObservableCollection<T> collection, int oldIndex, int newIndex, int itemsCount)
         where T : class, IOrder
     {
         ArgumentNullException.ThrowIfNull(collection);
 
         // Validate necessity
-        if (oldOrder == newOrder || itemsCount == 0)
+        if (oldIndex == newIndex || itemsCount == 0)
         {
             return false;
         }
@@ -161,7 +161,7 @@ public static class EnumerableExtension
         for (var i = 0; i < collection.Count; i++)
         {
             var item = collection[i];
-            if (item.Order >= oldOrder && item.Order < oldOrder + itemsCount)
+            if (item.Order >= oldIndex && item.Order < oldIndex + itemsCount)
             {
                 itemsToMove.Add(item);
             }
@@ -181,11 +181,11 @@ public static class EnumerableExtension
         {
             var firstItemOrder = collection[0].Order;
             var lastItemOrder = collection[^1].Order;
-            if (newOrder < firstItemOrder)
+            if (newIndex < firstItemOrder)
             {
                 insertedIndex = 0;
             }
-            else if (newOrder >= lastItemOrder)
+            else if (newIndex >= lastItemOrder)
             {
                 insertedIndex = collection.Count;
             }
@@ -194,7 +194,7 @@ public static class EnumerableExtension
                 for (var i = 0; i < collection.Count; i++)
                 {
                     var item = collection[i];
-                    if (item.Order >= newOrder)
+                    if (item.Order >= newIndex)
                     {
                         insertedIndex = i;
                         break;
