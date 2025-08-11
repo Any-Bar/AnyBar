@@ -283,17 +283,6 @@ public class AppBarManagementService(Settings settings)
 
     #region Bar Element Management
 
-    public static List<BarElementModel> GetBarElements(BarElementModelPosition position, AppBarModel model)
-    {
-        return position switch
-        {
-            BarElementModelPosition.LeftOrTop => model.LeftOrTopBarElements,
-            BarElementModelPosition.Center => model.CenterBarElements,
-            BarElementModelPosition.RightOrBottom => model.RightOrBottomBarElements,
-            _ => throw new NotImplementedException()
-        };
-    }
-
     public List<BarElementModel> GetOrderedBarElements(BarElementModelPosition position, AppBarModel model)
     {
         lock (_appBarWindowLock)
@@ -357,6 +346,17 @@ public class AppBarManagementService(Settings settings)
                 }
             }
         }
+    }
+
+    private static List<BarElementModel> GetBarElements(BarElementModelPosition position, AppBarModel model)
+    {
+        return position switch
+        {
+            BarElementModelPosition.LeftOrTop => model.LeftOrTopBarElements,
+            BarElementModelPosition.Center => model.CenterBarElements,
+            BarElementModelPosition.RightOrBottom => model.RightOrBottomBarElements,
+            _ => throw new NotImplementedException()
+        };
     }
 
     private static ObservableCollection<BarElementModel> GetViewModelBarElements(BarElementModelPosition position, AppBarWindow window)
