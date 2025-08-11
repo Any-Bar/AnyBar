@@ -20,7 +20,7 @@ public partial class SettingsPanePlugins : Page
 
     private SettingsPanePluginsViewModel _viewModel = null!;
 
-    private PluginUninstallationMenuFlyoutHelper _menuFlyoutHelper = null!;
+    private PluginUninstallationMenuFlyoutHelper<PluginViewModel> _menuFlyoutHelper = null!;
 
     protected override void OnNavigatedTo(NavigationEventArgs e)
     {

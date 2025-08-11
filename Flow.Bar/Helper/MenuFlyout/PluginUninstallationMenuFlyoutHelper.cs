@@ -1,25 +1,24 @@
 ﻿using Flow.Bar.Controls;
-using Flow.Bar.Models.Plugins;
 using System;
 using System.Windows;
 using System.Windows.Controls;
 
 namespace Flow.Bar.Helper.MenuFlyout;
 
-public class PluginUninstallationMenuFlyoutHelper : IDisposable
+public class PluginUninstallationMenuFlyoutHelper<T> : IDisposable
 {
     public ItemCollection Items => _contextMenu.Items;
 
     private readonly MenuFlyoutEx _contextMenu = new();
     private Button? _button = null;
-    private PluginViewModel? _plugin = null;
+    private T? _plugin = default;
     private bool _openUninstallConfirmationContextMenu = new();
 
     private readonly MenuFlyoutEx _uninstallContextMenu = new();
-    private readonly Action<PluginViewModel> _uninstallationAction;
+    private readonly Action<T> _uninstallationAction;
 
     public PluginUninstallationMenuFlyoutHelper(double contextMenuWidth, double secondContextMenuWidth, double secondContextMenuHeight,
-        Style secondContextMenuStyle, string uninstallButtonName, Action<PluginViewModel> uninstallationAction)
+        Style secondContextMenuStyle, string uninstallButtonName, Action<T> uninstallationAction)
     {
         _contextMenu.Width = contextMenuWidth;
         _uninstallContextMenu.Width = secondContextMenuWidth;
@@ -34,10 +33,10 @@ public class PluginUninstallationMenuFlyoutHelper : IDisposable
 
     public void ButtonClick(object sender, RoutedEventArgs e)
     {
-        _plugin = null;
+        _plugin = default;
         _button = null;
         if (sender is not Button button) return;
-        if (button.Tag is not PluginViewModel plugin) return;
+        if (button.Tag is not T plugin) return;
         _button = button;
         _plugin = plugin;
         _contextMenu.ShowAt(button, new MenuFlyoutExOptions()
@@ -69,7 +68,7 @@ public class PluginUninstallationMenuFlyoutHelper : IDisposable
         }
         else
         {
-            _plugin = null;
+            _plugin = default;
             _button = null;
         }
     }
@@ -87,7 +86,7 @@ public class PluginUninstallationMenuFlyoutHelper : IDisposable
     private void UninstallConfirmationContextMenu_Closed(object? sender, object? e)
     {
         _openUninstallConfirmationContextMenu = false;
-        _plugin = null;
+        _plugin = default;
         _button = null;
     }
 
@@ -98,7 +97,7 @@ public class PluginUninstallationMenuFlyoutHelper : IDisposable
         _contextMenu.Closed -= ContextMenu_Closed;
         _contextMenu.Items.Clear();
         _uninstallContextMenu.Closed -= UninstallConfirmationContextMenu_Closed;
-        _plugin = null;
+        _plugin = default;
         _button = null;
     }
 }
