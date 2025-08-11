@@ -43,7 +43,7 @@ public partial class SettingsPaneBarElementSetting : Page
                 "RemoveButton",
                 RemoveBarElement);
             var uninstallItem = new MenuItem();
-            uninstallItem.SetResourceReference(HeaderedItemsControl.HeaderProperty, nameof(Localize.SettingPanePlugins_Uninstall));
+            uninstallItem.SetResourceReference(HeaderedItemsControl.HeaderProperty, nameof(Localize.SettingPaneAppBarSetting_Remove));
             uninstallItem.Click += UninstallItem_Click;
             _menuFlyoutHelper.Items.Add(uninstallItem);
         }
