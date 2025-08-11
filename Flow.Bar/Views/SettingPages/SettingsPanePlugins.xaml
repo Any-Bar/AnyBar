@@ -109,10 +109,41 @@
                 <DataTemplate DataType="models:PluginViewModel">
                     <controls:SettingsCardEx
                         x:Name="PluginSettingsCard"
-                        Description="{Binding Description, Mode=OneTime}"
-                        Header="{Binding Name, Mode=OneTime}"
-                        IsVisualDisable="{Binding Disabled, Mode=OneTime}"
+                        Style="{StaticResource DefaultSettingsCardStyle}"
                         ToolTip="{Binding VersionAndAuthor, Mode=OneTime}">
+                        <controls:SettingsCardEx.Header>
+                            <TextBlock
+                                Text="{Binding Name, Mode=OneTime}"
+                                TextTrimming="CharacterEllipsis"
+                                TextWrapping="NoWrap">
+                                <TextBlock.Style>
+                                    <Style TargetType="TextBlock">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding Disabled, Mode=OneTime}" Value="True">
+                                                <Setter Property="Foreground" Value="{DynamicResource SettingsCardForegroundDisabled}" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBlock.Style>
+                            </TextBlock>
+                        </controls:SettingsCardEx.Header>
+                        <controls:SettingsCardEx.Description>
+                            <TextBlock
+                                Text="{Binding Description, Mode=OneTime}"
+                                TextTrimming="CharacterEllipsis"
+                                TextWrapping="NoWrap">
+                                <TextBlock.Style>
+                                    <Style TargetType="TextBlock">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding Disabled, Mode=OneTime}" Value="True">
+                                                <Setter Property="Foreground" Value="{DynamicResource SettingsCardForegroundDisabled}" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBlock.Style>
+                            </TextBlock>
+                        </controls:SettingsCardEx.Description>
+
                         <controls:SettingsCardEx.HeaderIcon>
                             <Image
                                 Width="16"
