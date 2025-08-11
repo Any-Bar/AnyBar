@@ -3,29 +3,13 @@
 namespace Flow.Bar.Models.Enums;
 
 [EnumLocalize]
-public enum SettingsPaneBarElementSettingHorizontalSortMode
+public enum SettingsPaneBarElementSettingSortMode
 {
-    [EnumLocalizeKey(nameof(Localize.SettingsPaneBarElementSettingSortMode_LeftToRight))]
-    LeftToRight,
+    [EnumLocalizeValue("")]
+    LeftTopToRightBottom,
 
-    [EnumLocalizeKey(nameof(Localize.SettingsPaneBarElementSettingSortMode_RightToLeft))]
-    RightToLeft,
-
-    [EnumLocalizeKey(nameof(Localize.SettingPanePluginsSortMode_Status))]
-    Status,
-
-    [EnumLocalizeKey(nameof(Localize.SettingsPaneAppBarSortMode_Name))]
-    Name,
-}
-
-[EnumLocalize]
-public enum SettingsPaneBarElementSettingVerticalSortMode
-{
-    [EnumLocalizeKey(nameof(Localize.SettingsPaneBarElementSettingSortMode_TopToBottom))]
-    TopToBottom,
-
-    [EnumLocalizeKey(nameof(Localize.SettingsPaneBarElementSettingSortMode_BottomToTop))]
-    BottomToTop,
+    [EnumLocalizeValue("")]
+    RightBottomToLeftTop,
 
     [EnumLocalizeKey(nameof(Localize.SettingPanePluginsSortMode_Status))]
     Status,
