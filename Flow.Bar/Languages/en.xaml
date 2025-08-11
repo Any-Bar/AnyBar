@@ -100,6 +100,7 @@
 
     <system:String x:Key="SettingPanePluginsSortMode_NameAToZ">Name (A to Z)</system:String>
     <system:String x:Key="SettingPanePluginsSortMode_NameZToA">Name (Z to A)</system:String>
+    <system:String x:Key="SettingPanePluginsSortMode_Status">Status</system:String>
 
     <!--  Plugin Loader  -->
     <system:String x:Key="PluginLoader_PluginHasErrored">The following plugin has errored and cannot be loaded:</system:String>

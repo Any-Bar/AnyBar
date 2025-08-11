@@ -45,7 +45,7 @@ public partial class SettingsPanePluginsViewModel : ObservableObject, INavigatio
     public List<SettingPanePluginsSortModeLocalized> AllSortModes { get; } = SettingPanePluginsSortModeLocalized.GetValues();
 
     [ObservableProperty]
-    private SettingPanePluginsSortMode _sortMode = SettingPanePluginsSortMode.NameAToZ;
+    private SettingPanePluginsSortMode _sortMode = SettingPanePluginsSortMode.Status;
 
     partial void OnSortModeChanged(SettingPanePluginsSortMode value)
     {
@@ -130,6 +130,7 @@ public partial class SettingsPanePluginsViewModel : ObservableObject, INavigatio
     {
         return SortMode switch
         {
+            SettingPanePluginsSortMode.Status => [.. allPlugins.OrderBy(x => x.Disabled).ThenBy(x => x.Name)],
             SettingPanePluginsSortMode.NameAToZ => [.. allPlugins.OrderBy(x => x.Name)],
             SettingPanePluginsSortMode.NameZToA => [.. allPlugins.OrderByDescending(x => x.Name)],
             _ => allPlugins
