@@ -10,7 +10,6 @@
     xmlns:settingsVm="clr-namespace:Flow.Bar.ViewModels.SettingPages"
     xmlns:ui="http://schemas.inkore.net/lib/ui/wpf/modern"
     Title="{DynamicResource SettingWindow_Plugins}"
-    Margin="{StaticResource DefaultPageMargin}"
     d:DataContext="{d:DesignInstance Type=settingsVm:SettingsPanePluginsViewModel}"
     d:DesignHeight="450"
     d:DesignWidth="800"
@@ -20,7 +19,10 @@
         x:Name="RootPageScrollViewer"
         HorizontalScrollBarVisibility="Disabled"
         VerticalScrollBarVisibility="Auto">
-        <ikw:SimpleStackPanel Orientation="Vertical" Spacing="{StaticResource SettingsCardSpacing}">
+        <ikw:SimpleStackPanel
+            Margin="{StaticResource PageScrollViewerContentMargin}"
+            Orientation="Vertical"
+            Spacing="{StaticResource SettingsCardSpacing}">
             <controls:AutoSuggestBoxEx
                 x:Name="SearchPluginTextBox"
                 Width="360"

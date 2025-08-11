@@ -13,7 +13,6 @@
     xmlns:ui="http://schemas.inkore.net/lib/ui/wpf/modern"
     xmlns:viewModels="clr-namespace:Flow.Bar.ViewModels.SettingPages"
     Title="{DynamicResource SettingWindow_AppBar}"
-    Margin="{StaticResource DefaultPageMargin}"
     d:DataContext="{d:DesignInstance viewModels:SettingsPaneAppBarViewModel}"
     d:DesignHeight="450"
     d:DesignWidth="800"
@@ -26,7 +25,10 @@
         x:Name="RootPageScrollViewer"
         HorizontalScrollBarVisibility="Disabled"
         VerticalScrollBarVisibility="Auto">
-        <ikw:SimpleStackPanel Orientation="Vertical" Spacing="{StaticResource SettingsCardSpacing}">
+        <ikw:SimpleStackPanel
+            Margin="{StaticResource PageScrollViewerContentMargin}"
+            Orientation="Vertical"
+            Spacing="{StaticResource SettingsCardSpacing}">
             <controls:SettingsCardEx x:Name="AddAppBarCard" Header="{DynamicResource SettingPaneAppBar_AddAppBarHeader}">
                 <Button
                     x:Name="AddAppBarButton"

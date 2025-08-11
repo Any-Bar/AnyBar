@@ -3,8 +3,8 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:sys="clr-namespace:System;assembly=mscorlib">
 
-    <!--  Margin of page  -->
-    <Thickness x:Key="DefaultPageMargin">0 10 24 40</Thickness>
+    <!--  Margin of content in ScrollViewerEx of page  -->
+    <Thickness x:Key="PageScrollViewerContentMargin">0 10 24 40</Thickness>
 
     <!--  Spacing between cards  -->
     <sys:Double x:Key="SettingsCardSpacing">4</sys:Double>
