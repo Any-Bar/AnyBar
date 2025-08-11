@@ -145,7 +145,7 @@ public static class EnumerableExtension
         if (oldIndex < newIndex)
         {
             // Shift down in reverse order to avoid overwriting
-            for (var i = newIndex; i >= oldIndex + itemsCount; i--)
+            for (var i = oldIndex + itemsCount; i <= newIndex; i++)
             {
                 if (dictionary.Remove(i, out var model))
                 {
