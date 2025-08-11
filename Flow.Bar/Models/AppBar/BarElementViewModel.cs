@@ -12,15 +12,15 @@ public partial class BarElementViewModel : ObservableObject
 {
     public BarElementModel BarElementModel { get; }
 
-    public string ID { get; }
+    public int Order { get; }
 
     public PluginPair? PluginPair { get; }
 
     public BarElementViewModel(BarElementModel barElementModel)
     {
         BarElementModel = barElementModel;
-        ID = barElementModel.ID;
-        PluginPair = PluginManager.AllPlugins.FirstOrDefault(p => p.Metadata.ID == ID);
+        Order = barElementModel.Order;
+        PluginPair = PluginManager.AllPlugins.FirstOrDefault(p => p.Metadata.ID == barElementModel.ID);
         if (PluginPair != null)
         {
             Disabled = PluginPair.Metadata.Disabled;
