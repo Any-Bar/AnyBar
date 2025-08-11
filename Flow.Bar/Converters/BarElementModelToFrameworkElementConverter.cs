@@ -8,7 +8,7 @@ using System.Windows.Data;
 
 namespace Flow.Bar.Converters;
 
-public class BarElementModelConverterToFrameworkElement : IValueConverter
+public class BarElementModelToFrameworkElementConverter : IValueConverter
 {
     public object? Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {

@@ -31,12 +31,12 @@
     SourceInitialized="Window_SourceInitialized"
     mc:Ignorable="d">
     <Window.Resources>
-        <converters:BarElementModelConverterToFrameworkElement x:Key="BarElementModelConverterToFrameworkElement" />
+        <converters:BarElementModelToFrameworkElementConverter x:Key="BarElementModelToFrameworkElementConverter" />
         <DataTemplate x:Key="StackViewDataTemplate" DataType="models:BarElementModel">
             <ContentControl
                 x:Name="BarElementContentControl"
                 Background="Transparent"
-                Content="{Binding ., Converter={StaticResource BarElementModelConverterToFrameworkElement}}">
+                Content="{Binding ., Converter={StaticResource BarElementModelToFrameworkElementConverter}}">
                 <ContentControl.Style>
                     <Style TargetType="ContentControl">
                         <Setter Property="Margin" Value="8 0 8 0" />
