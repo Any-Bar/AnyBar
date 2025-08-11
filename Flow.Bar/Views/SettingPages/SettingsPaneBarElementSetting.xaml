@@ -64,15 +64,41 @@
                 </Style>
             </controls:StackView.Style>
             <controls:StackView.ItemTemplate>
-                <DataTemplate DataType="models:BarElementModel">
-                    <controls:SettingsCardEx x:Name="BarElementSettingsCard" Header="Bar Element">
-                        <!--<controls:SettingsCardEx.HeaderIcon>
+                <DataTemplate DataType="models:BarElementViewModel">
+                    <controls:SettingsCardEx x:Name="BarElementSettingsCard">
+                        <controls:SettingsCardEx.Header>
+                            <TextBlock
+                                Text="{Binding Name, Mode=OneTime}"
+                                TextTrimming="CharacterEllipsis"
+                                TextWrapping="NoWrap">
+                                <TextBlock.Style>
+                                    <Style TargetType="TextBlock">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding Disabled, Mode=OneTime}" Value="True">
+                                                <Setter Property="Foreground" Value="{DynamicResource SettingsCardForegroundDisabled}" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBlock.Style>
+                            </TextBlock>
+                        </controls:SettingsCardEx.Header>
+                        <controls:SettingsCardEx.HeaderIcon>
                             <Image
                                 Width="16"
                                 Height="16"
                                 RenderOptions.BitmapScalingMode="HighQuality"
-                                Source="{Binding DockMode, Converter={StaticResource DockModeToImageSourceConverter}}" />
-                        </controls:SettingsCardEx.HeaderIcon>-->
+                                Source="{Binding Image, Mode=OneWay}" />
+                        </controls:SettingsCardEx.HeaderIcon>
+
+                        <controls:FontIconButton
+                            x:Name="MoreOptionsButton"
+                            Width="28"
+                            Height="35"
+                            Click="MoreOptionsButton_Click"
+                            Tag="{Binding ., Mode=OneTime}"
+                            ToolTip="{DynamicResource SettingPanePlugins_MoreOptions}">
+                            <ui:FontIcon Glyph="&#xE712;" />
+                        </controls:FontIconButton>
                     </controls:SettingsCardEx>
                 </DataTemplate>
             </controls:StackView.ItemTemplate>

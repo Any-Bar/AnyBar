@@ -11,6 +11,8 @@ using Flow.Bar.Views;
 using System;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
+using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -101,16 +103,25 @@ public partial class SettingsPaneBarElementSettingViewModel(AppBarManagementServ
         BarElements.CollectionChanged -= BarElements_CollectionChanged;
     }
 
+    public void UninstallBarElement(BarElementViewModel oldBarElement)
+    {
+        _appBarManagementService.RemoveBarElement(_position, _model, oldBarElement.Order);
+        lock (_barElementsLock)
+        {
+            BarElements.Remove(BarElements.First(x => x.Order == oldBarElement.Order));
+        }
+    }
+
     private void RefreshBarElements()
     {
         lock (_barElementsLock)
         {
-        BarElements.Clear();
+            BarElements.Clear();
             foreach (var element in _appBarManagementService.GetOrderedBarElements(_position, _model).Select(x => new BarElementViewModel(x)))
-        {
-            BarElements.Add(element);
+            {
+                BarElements.Add(element);
+            }
         }
-    }
     }
 
     private void BarElements_CollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
