@@ -14,9 +14,9 @@ namespace Flow.Bar.Views.SettingPages;
 public partial class SettingsPanePlugins : Page
 {
     private static readonly double ContextMenuWidth = (double)Application.Current.TryFindResource("CustomContextMenuWidth");
-    private static readonly double UninstallConfirmationContextMenuWidth = (double)Application.Current.TryFindResource("UninstallConfirmationContextMenuWidth");
-    private static readonly double UninstallConfirmationContextMenuHeight = (double)Application.Current.TryFindResource("UninstallConfirmationContextMenuHeight");
-    private static readonly Style UninstallConfirmationContextMenuStyle = (Style)Application.Current.TryFindResource("UninstallConfirmationContextMenuStyle");
+    private static readonly double SecondaryContextMenuWidth = (double)Application.Current.TryFindResource("SecondaryContextMenuWidth");
+    private static readonly double SecondaryContextMenuHeight = (double)Application.Current.TryFindResource("SecondaryContextMenuHeight");
+    private static readonly Style PluginUninstallationContextMenuStyle = (Style)Application.Current.TryFindResource("PluginUninstallationContextMenuStyle");
 
     private SettingsPanePluginsViewModel _viewModel = null!;
 
@@ -34,9 +34,9 @@ public partial class SettingsPanePlugins : Page
         {
             _menuFlyoutHelper = new(
                 ContextMenuWidth,
-                UninstallConfirmationContextMenuWidth,
-                UninstallConfirmationContextMenuHeight,
-                UninstallConfirmationContextMenuStyle,
+                SecondaryContextMenuWidth,
+                SecondaryContextMenuHeight,
+                PluginUninstallationContextMenuStyle,
                 "UninstallButton",
                 UninstallPlugin);
             var uninstallItem = new MenuItem();

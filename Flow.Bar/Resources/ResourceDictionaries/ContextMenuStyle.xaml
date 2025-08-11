@@ -9,12 +9,11 @@
 
     <!--  Custom Context Menu  -->
     <sys:Double x:Key="CustomContextMenuWidth">275</sys:Double>
+    <sys:Double x:Key="SecondaryContextMenuWidth">300</sys:Double>
+    <sys:Double x:Key="SecondaryContextMenuHeight">118</sys:Double>
 
-    <!--  Uninstall Confirmation Context Menu  -->
-    <sys:Double x:Key="UninstallConfirmationContextMenuWidth">300</sys:Double>
-    <sys:Double x:Key="UninstallConfirmationContextMenuHeight">118</sys:Double>
-
-    <Style x:Key="UninstallConfirmationContextMenuStyleBase" TargetType="ContextMenu">
+    <!--  Plugin Uninstallation Context Menu  -->
+    <Style x:Key="PluginUninstallationContextMenuStyleBase" TargetType="ContextMenu">
         <Setter Property="Background" Value="{DynamicResource MenuFlyoutPresenterBackground}" />
         <Setter Property="BorderBrush" Value="{DynamicResource MenuFlyoutPresenterBorderBrush}" />
         <Setter Property="BorderThickness" Value="{DynamicResource MenuFlyoutPresenterBorderThemeThickness}" />
@@ -23,8 +22,8 @@
         <Setter Property="FontSize" Value="{DynamicResource ControlContentThemeFontSize}" />
         <Setter Property="FontStyle" Value="Normal" />
         <Setter Property="FontWeight" Value="Normal" />
-        <Setter Property="Width" Value="{StaticResource UninstallConfirmationContextMenuWidth}" />
-        <Setter Property="Height" Value="{StaticResource UninstallConfirmationContextMenuHeight}" />
+        <Setter Property="Width" Value="{StaticResource SecondaryContextMenuWidth}" />
+        <Setter Property="Height" Value="{StaticResource SecondaryContextMenuHeight}" />
         <Setter Property="Grid.IsSharedSizeScope" Value="true" />
         <Setter Property="HasDropShadow" Value="{DynamicResource {x:Static SystemParameters.DropShadowKey}}" />
         <Setter Property="Stylus.IsFlicksEnabled" Value="False" />
@@ -60,10 +59,64 @@
             </Setter.Value>
         </Setter>
     </Style>
-
     <Style
-        x:Key="UninstallConfirmationContextMenuStyle"
-        BasedOn="{StaticResource UninstallConfirmationContextMenuStyleBase}"
+        x:Key="PluginUninstallationContextMenuStyle"
+        BasedOn="{StaticResource PluginUninstallationContextMenuStyleBase}"
+        TargetType="controls:MenuFlyoutExPresenter">
+        <Setter Property="IsDefaultShadowEnabled" Value="{DynamicResource {x:Static SystemParameters.DropShadowKey}}" />
+        <Setter Property="HasDropShadow" Value="{Binding IsDefaultShadowEnabled, RelativeSource={RelativeSource Self}}" />
+    </Style>
+
+    <!--  Bar Element Remove Context Menu  -->
+    <Style x:Key="BarElementRemoveContextMenuStyleBase" TargetType="ContextMenu">
+        <Setter Property="Background" Value="{DynamicResource MenuFlyoutPresenterBackground}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource MenuFlyoutPresenterBorderBrush}" />
+        <Setter Property="BorderThickness" Value="{DynamicResource MenuFlyoutPresenterBorderThemeThickness}" />
+        <Setter Property="Padding" Value="16" />
+        <Setter Property="FontFamily" Value="{DynamicResource ContentControlThemeFontFamily}" />
+        <Setter Property="FontSize" Value="{DynamicResource ControlContentThemeFontSize}" />
+        <Setter Property="FontStyle" Value="Normal" />
+        <Setter Property="FontWeight" Value="Normal" />
+        <Setter Property="Width" Value="{StaticResource SecondaryContextMenuWidth}" />
+        <Setter Property="Height" Value="{StaticResource SecondaryContextMenuHeight}" />
+        <Setter Property="Grid.IsSharedSizeScope" Value="true" />
+        <Setter Property="HasDropShadow" Value="{DynamicResource {x:Static SystemParameters.DropShadowKey}}" />
+        <Setter Property="Stylus.IsFlicksEnabled" Value="False" />
+        <Setter Property="ui:ControlHelper.CornerRadius" Value="{DynamicResource OverlayCornerRadius}" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ContextMenu">
+                    <ui:ThemeShadowChrome
+                        x:Name="Shdw"
+                        CornerRadius="{TemplateBinding ui:ControlHelper.CornerRadius}"
+                        IsShadowEnabled="{TemplateBinding HasDropShadow}"
+                        SnapsToDevicePixels="True">
+                        <Border
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="{TemplateBinding ui:ControlHelper.CornerRadius}">
+                            <Grid Margin="{TemplateBinding Padding}">
+                                <TextBlock
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Top"
+                                    Style="{StaticResource {x:Static ui:ThemeKeys.BodyTextBlockStyleKey}}"
+                                    Text="{DynamicResource SettingPaneBarElementSetting_BarElementRemove}" />
+                                <Button
+                                    x:Name="RemoveButton"
+                                    HorizontalAlignment="Right"
+                                    VerticalAlignment="Bottom"
+                                    Content="{DynamicResource SettingPaneAppBarSetting_Remove}" />
+                            </Grid>
+                        </Border>
+                    </ui:ThemeShadowChrome>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style
+        x:Key="BarElementRemoveContextMenuStyle"
+        BasedOn="{StaticResource BarElementRemoveContextMenuStyleBase}"
         TargetType="controls:MenuFlyoutExPresenter">
         <Setter Property="IsDefaultShadowEnabled" Value="{DynamicResource {x:Static SystemParameters.DropShadowKey}}" />
         <Setter Property="HasDropShadow" Value="{Binding IsDefaultShadowEnabled, RelativeSource={RelativeSource Self}}" />
