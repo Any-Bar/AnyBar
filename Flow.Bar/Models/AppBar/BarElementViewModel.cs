@@ -2,7 +2,6 @@
 using Flow.Bar.Helper.Image;
 using Flow.Bar.Helper.Plugins;
 using Flow.Bar.Models.Plugins;
-using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Media;
 
@@ -19,7 +18,7 @@ public partial class BarElementViewModel : ObservableObject
     public BarElementViewModel(BarElementModel barElementModel)
     {
         BarElementModel = barElementModel;
-        PluginPair = PluginManager.AllPlugins.FirstOrDefault(p => p.Metadata.ID == barElementModel.ID);
+        PluginPair = PluginManager.GetPluginForId(barElementModel.ID);
         if (PluginPair != null)
         {
             Disabled = PluginPair.Metadata.Disabled;

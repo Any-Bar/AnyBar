@@ -70,7 +70,7 @@ public partial class SettingsPanePluginsViewModel : ObservableObject, INavigatio
         {
             lock (_pluginsLock)
             {
-                _allPlugins = [.. PluginManager.AllPlugins.Select(plugin => new PluginViewModel(plugin))];
+                _allPlugins = [.. PluginManager.GetAllLoadedPlugins().Select(plugin => new PluginViewModel(plugin))];
                 UpdateFilteredPlugins();
                 UpdateSortedPlugins();
                 FilterSortedPlugins();

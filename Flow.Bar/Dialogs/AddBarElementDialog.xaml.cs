@@ -40,7 +40,7 @@ public partial class AddBarElementDialog : ContentDialog
         InitializeComponent();
         lock (_pluginsLock)
         {
-            _allPlugins = [.. PluginManager.AllPlugins.Where(x => !x.Metadata.Disabled).
+            _allPlugins = [.. PluginManager.GetAllInitializedPlugins(false).Where(x => !x.Metadata.Disabled).
                 Select(plugin => new PluginViewModel(plugin)).OrderBy(x => x.Name)];
             foreach (var plugin in _allPlugins)
             {

@@ -301,7 +301,7 @@ public class AppBarManagementService(Settings settings)
             {
                 Order = elementOrder,
                 ID = id,
-                Name = PluginManager.AllPlugins.FirstOrDefault(p => p.Metadata.ID == id)?.Metadata.Name ?? string.Empty,
+                Name = PluginManager.GetPluginForId(id)?.Metadata.Name ?? string.Empty,
             };
             barElements.Add(barElement);
             added(barElement);
