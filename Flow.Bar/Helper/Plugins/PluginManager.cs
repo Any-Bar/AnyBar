@@ -30,7 +30,7 @@ public static class PluginManager
     private static readonly ConcurrentBag<PluginPair> _translationPlugins = [];
 
     /// <summary>
-    /// Directories that will hold Flow Bar plugin directory
+    /// Directories that will hold Flow Bar plugin directory.
     /// </summary>
     public static readonly string[] Directories =
     [
@@ -39,7 +39,7 @@ public static class PluginManager
 
     static PluginManager()
     {
-        // validate user directory
+        // Validate user directory
         if (!Directory.Exists(DataLocation.PluginsDirectory))
         {
             Directory.CreateDirectory(DataLocation.PluginsDirectory);
@@ -49,7 +49,7 @@ public static class PluginManager
     #region Loading & Initialize Plugins
 
     /// <summary>
-    /// Load plugins from the directories specified in Directories
+    /// Load plugins from the directories specified in Directories.
     /// </summary>
     public static void LoadPlugins()
     {
@@ -77,7 +77,7 @@ public static class PluginManager
     }
 
     /// <summary>
-    /// Initialize all plugins asynchronously
+    /// Initialize all plugins asynchronously.
     /// </summary>
     public static async Task InitializePluginsAsync()
     {
@@ -160,10 +160,10 @@ public static class PluginManager
     #region Get Plugin
 
     /// <summary>
-    /// Get specified plugin, return null if not found
+    /// Get specified plugin, return null if not found.
     /// </summary>
     /// <remarks>
-    /// Plugin may not be initialized, so do not use its plugin model to execute any commands
+    /// Plugin may not be initialized, so do not use its plugin model to execute any commands.
     /// </remarks>
     /// <param name="id"></param>
     /// <returns></returns>
