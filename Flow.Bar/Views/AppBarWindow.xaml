@@ -162,6 +162,10 @@
                 <controls:StackView
                     x:Name="LeftOrTopStackView"
                     CanReorderItems="True"
+                    ItemMouseLeftButtonDown="StackView_ItemMouseLeftButtonDown"
+                    ItemMouseLeftButtonUp="StackView_ItemMouseLeftButtonUp"
+                    ItemPreviewMouseRightButtonDown="StackView_ItemPreviewMouseRightButtonDown"
+                    ItemPreviewMouseRightButtonUp="StackView_ItemPreviewMouseRightButtonUp"
                     ItemTemplate="{StaticResource StackViewDataTemplate}"
                     ItemsSource="{Binding LeftOrTopBarElements, Mode=OneTime}"
                     ScrollViewer.HorizontalScrollBarVisibility="Disabled"
@@ -199,6 +203,10 @@
                 <controls:StackView
                     x:Name="RightOrBottomStackView"
                     CanReorderItems="True"
+                    ItemMouseLeftButtonDown="StackView_ItemMouseLeftButtonDown"
+                    ItemMouseLeftButtonUp="StackView_ItemMouseLeftButtonUp"
+                    ItemPreviewMouseRightButtonDown="StackView_ItemPreviewMouseRightButtonDown"
+                    ItemPreviewMouseRightButtonUp="StackView_ItemPreviewMouseRightButtonUp"
                     ItemTemplate="{StaticResource StackViewDataTemplate}"
                     ItemsSource="{Binding RightOrBottomBarElements, Mode=OneTime}"
                     ScrollViewer.HorizontalScrollBarVisibility="Disabled"
@@ -237,6 +245,10 @@
             <controls:StackView
                 x:Name="CenterStackView"
                 CanReorderItems="True"
+                ItemMouseLeftButtonDown="StackView_ItemMouseLeftButtonDown"
+                ItemMouseLeftButtonUp="StackView_ItemMouseLeftButtonUp"
+                ItemPreviewMouseRightButtonDown="StackView_ItemPreviewMouseRightButtonDown"
+                ItemPreviewMouseRightButtonUp="StackView_ItemPreviewMouseRightButtonUp"
                 ItemTemplate="{StaticResource StackViewDataTemplate}"
                 ItemsSource="{Binding CenterBarElements, Mode=OneTime}"
                 ScrollViewer.HorizontalScrollBarVisibility="Disabled"
