@@ -50,6 +50,23 @@ public class StackViewBaseItem : ListBoxItem
 
     #endregion
 
+    #region IsPressed
+
+    public static readonly DependencyProperty IsPressedProperty =
+        DependencyProperty.Register(
+            nameof(IsPressed),
+            typeof(bool),
+            typeof(StackViewBaseItem),
+            new FrameworkPropertyMetadata(false));
+
+    public bool IsPressed
+    {
+        get => (bool)GetValue(IsPressedProperty);
+        set => SetValue(IsPressedProperty, value);
+    }
+
+    #endregion
+
     protected override void OnPreviewMouseLeftButtonDown(MouseButtonEventArgs e)
     {
         if (!e.Handled)
@@ -66,6 +83,11 @@ public class StackViewBaseItem : ListBoxItem
         {
             m_isPressed = true;
             ParentStackPanelViewBase?.NotifyListItemMouseLeftButtonDown(this, e);
+        }
+
+        if (!e.Handled)
+        {
+            IsPressed = true;
         }
 
         base.OnMouseLeftButtonDown(e);
@@ -88,6 +110,11 @@ public class StackViewBaseItem : ListBoxItem
             HandleItemClick(e);
             m_isPressed = false;
             ParentStackPanelViewBase?.NotifyListItemMouseLeftButtonUp(this, e);
+        }
+
+        if (!e.Handled)
+        {
+            IsPressed = false;
         }
 
         base.OnMouseLeftButtonUp(e);
@@ -137,6 +164,7 @@ public class StackViewBaseItem : ListBoxItem
     {
         if (!e.Handled)
         {
+            IsPressed = false;
             m_isPressed = false;
         }
 
