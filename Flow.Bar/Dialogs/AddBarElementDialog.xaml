@@ -59,7 +59,7 @@
             BorderThickness="0" />
     </controls:ContentDialog.FooterContent>
 
-    <ui:ListView
+    <controls:ListViewEx
         x:Name="AllPluginsListView"
         MinHeight="300"
         HorizontalAlignment="Stretch"
@@ -67,10 +67,7 @@
         ScrollViewer.HorizontalScrollBarVisibility="Disabled"
         ScrollViewer.VerticalScrollBarVisibility="Disabled"
         SelectedItem="{Binding Plugin, Mode=TwoWay}">
-        <ui:ListView.Resources>
-            <Thickness x:Key="ListViewItemCompactSelectedBorderThemeThickness">2</Thickness>
-        </ui:ListView.Resources>
-        <ui:ListView.ItemTemplate>
+        <controls:ListViewEx.ItemTemplate>
             <DataTemplate DataType="models:PluginViewModel">
                 <Grid
                     x:Name="PluginCardGrid"
@@ -113,6 +110,6 @@
                     </ikw:SimpleStackPanel>
                 </Grid>
             </DataTemplate>
-        </ui:ListView.ItemTemplate>
-    </ui:ListView>
+        </controls:ListViewEx.ItemTemplate>
+    </controls:ListViewEx>
 </controls:ContentDialog>
