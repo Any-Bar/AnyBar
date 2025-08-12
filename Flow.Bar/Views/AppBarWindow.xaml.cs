@@ -484,7 +484,7 @@ public partial class AppBarWindow : Window
         App.API.LogVerbose(ClassName, $"Prepare {nameof(StackViewItem)} right click context menu");
         if (PluginManager.GetRightClickMenu(model.ID) is IRightClickMenu rightClickMenu)
         {
-            if (BarElementMenuFlyoutHelper.GetMenuFlyoutHelper(item) is not AppBarMenuFlyoutHelper helper)
+            if (BarElementMenuFlyoutDependencyProperty.GetRightClickMenuFlyoutHelper(item) is not AppBarMenuFlyoutHelper helper)
             {
                 helper = new AppBarMenuFlyoutHelper();
                 foreach (var menuItem in rightClickMenu.GetRightClickMenuItems())
@@ -493,7 +493,7 @@ public partial class AppBarWindow : Window
                 }
                 helper.ViewModel = ViewModel;
                 helper.Element = MainGrid;
-                BarElementMenuFlyoutHelper.SetMenuFlyoutHelper(item, helper);
+                BarElementMenuFlyoutDependencyProperty.SetRightClickMenuFlyoutHelper(item, helper);
             }
 
             helper.MouseRightButtonDown(sender, e.OriginalEventArgs);
@@ -509,7 +509,7 @@ public partial class AppBarWindow : Window
         App.API.LogVerbose(ClassName, $"Show {nameof(StackViewItem)} right click context menu");
         if (PluginManager.GetRightClickMenu(model.ID) is IRightClickMenu rightClickMenu)
         {
-            if (BarElementMenuFlyoutHelper.GetMenuFlyoutHelper(item) is not AppBarMenuFlyoutHelper helper)
+            if (BarElementMenuFlyoutDependencyProperty.GetRightClickMenuFlyoutHelper(item) is not AppBarMenuFlyoutHelper helper)
             {
                 helper = new AppBarMenuFlyoutHelper();
                 foreach (var menuItem in rightClickMenu.GetRightClickMenuItems())
@@ -518,7 +518,7 @@ public partial class AppBarWindow : Window
                 }
                 helper.ViewModel = ViewModel;
                 helper.Element = MainGrid;
-                BarElementMenuFlyoutHelper.SetMenuFlyoutHelper(item, helper);
+                BarElementMenuFlyoutDependencyProperty.SetRightClickMenuFlyoutHelper(item, helper);
             }
 
             helper.MouseRightButtonUp(sender, e.OriginalEventArgs);
