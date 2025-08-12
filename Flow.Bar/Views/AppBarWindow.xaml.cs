@@ -123,27 +123,8 @@ public partial class AppBarWindow : Window
             }
         };
         _menuFlyoutHelper.Items.Add(settingItem);
-        _menuFlyoutHelper.ShowMenu = ShowMenuFlyout;
+        _menuFlyoutHelper.ViewModel = ViewModel;
         _menuFlyoutHelper.Handled = true;
-    }
-
-    private void ShowMenuFlyout(MenuFlyoutEx menu, MouseButtonEventArgs e)
-    {
-        var element = (FrameworkElement)MainGrid;
-        var placement = ViewModel.DockMode switch
-        {
-            AppBarDockMode.Left => MenuFlyoutExPlacementMode.AppBarRight,
-            AppBarDockMode.Right => MenuFlyoutExPlacementMode.AppBarLeft,
-            AppBarDockMode.Top => MenuFlyoutExPlacementMode.AppBarBottom,
-            AppBarDockMode.Bottom => MenuFlyoutExPlacementMode.AppBarTop,
-            _ => throw new NotImplementedException()
-        };
-        menu.ShowAt(element, new MenuFlyoutExOptions()
-        {
-            Placement = placement,
-            Position = e.GetPosition(element),
-            Monitor = ViewModel.ActualMonitor
-        });
     }
 
     #endregion
@@ -459,13 +440,13 @@ public partial class AppBarWindow : Window
     private void MainGrid_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
     {
         App.API.LogVerbose(ClassName, $"Prepare {nameof(MainGrid)} right click context menu");
-        _menuFlyoutHelper.MouseRightButtonDown(e);
+        _menuFlyoutHelper.MouseRightButtonDown(sender, e);
     }
 
     private void MainGrid_MouseRightButtonUp(object sender, MouseButtonEventArgs e)
     {
         App.API.LogVerbose(ClassName, $"Show {nameof(MainGrid)} right click context menu");
-        _menuFlyoutHelper.MouseRightButtonUp(e);
+        _menuFlyoutHelper.MouseRightButtonUp(sender, e);
     }
 
     #endregion

@@ -1,5 +1,8 @@
 ﻿using Flow.Bar.Controls;
+using Flow.Bar.Models.Enums;
+using Flow.Bar.ViewModels;
 using System;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using Point = System.Drawing.Point;
@@ -9,10 +12,11 @@ namespace Flow.Bar.Helper.MenuFlyout;
 public class AppBarMenuFlyoutHelper : IDisposable
 {
     public ItemCollection Items => _contextMenu.Items;
-    public Action<MenuFlyoutEx, MouseButtonEventArgs>? ShowMenu { get; set; } = null;
+    public AppBarViewModel ViewModel { get; set; } = null!;
     public bool Handled { get; set; } = false;
 
     private readonly MenuFlyoutEx _contextMenu = new();
+    private FrameworkElement? _element = null;
     private Point? _cursorPosition = null;
     private bool _contextMenuOpened = false;
     private bool _openContextMenuOnClosed = false;
@@ -26,24 +30,26 @@ public class AppBarMenuFlyoutHelper : IDisposable
     private void ContextMenu_Closed(object? sender, object? e)
     {
         _contextMenuOpened = false;
-        if (_openContextMenuOnClosed && _openContextMenuEventArgs != null)
+        if (_openContextMenuOnClosed && _element != null && _openContextMenuEventArgs != null)
         {
-            OpenAppBarMenu(_openContextMenuEventArgs);
+            OpenAppBarMenu(_element, _openContextMenuEventArgs);
             _openContextMenuOnClosed = false;
+            _element = null;
             _openContextMenuEventArgs = null;
         }
     }
 
-    public void MouseRightButtonDown(MouseButtonEventArgs e)
+    public void MouseRightButtonDown(object sender, MouseButtonEventArgs e)
     {
         if (e.Handled) return;
 
         _cursorPosition = Win32Helper.GetCursorPos();
     }
 
-    public void MouseRightButtonUp(MouseButtonEventArgs e)
+    public void MouseRightButtonUp(object sender, MouseButtonEventArgs e)
     {
         if (e.Handled) return;
+        if (sender is not FrameworkElement element) return;
 
         // If users have moved the cursor after right button down, we should not open the context menu.
         if (_cursorPosition != null && _cursorPosition != Win32Helper.GetCursorPos()) return;
@@ -53,19 +59,33 @@ public class AppBarMenuFlyoutHelper : IDisposable
         if (_contextMenuOpened)
         {
             _openContextMenuOnClosed = true;
+            _element = element;
             _openContextMenuEventArgs = e;
             _contextMenu.Hide();
         }
         else
         {
-            OpenAppBarMenu(e);
+            OpenAppBarMenu(element, e);
         }
         _cursorPosition = null;
     }
 
-    private void OpenAppBarMenu(MouseButtonEventArgs e)
+    private void OpenAppBarMenu(FrameworkElement element, MouseButtonEventArgs e)
     {
-        ShowMenu?.Invoke(_contextMenu, e);
+        var placement = ViewModel.DockMode switch
+        {
+            AppBarDockMode.Left => MenuFlyoutExPlacementMode.AppBarRight,
+            AppBarDockMode.Right => MenuFlyoutExPlacementMode.AppBarLeft,
+            AppBarDockMode.Top => MenuFlyoutExPlacementMode.AppBarBottom,
+            AppBarDockMode.Bottom => MenuFlyoutExPlacementMode.AppBarTop,
+            _ => throw new NotImplementedException()
+        };
+        _contextMenu.ShowAt(element, new MenuFlyoutExOptions()
+        {
+            Placement = placement,
+            Position = e.GetPosition(element),
+            Monitor = ViewModel.ActualMonitor
+        });
         _contextMenuOpened = true;
         e.Handled = Handled;
     }
