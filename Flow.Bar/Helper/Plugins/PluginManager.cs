@@ -28,6 +28,7 @@ public static class PluginManager
     private static readonly ConcurrentBag<string> _uninstalledPlugins = [];
 
     private static readonly ConcurrentBag<PluginPair> _translationPlugins = [];
+    private static readonly ConcurrentDictionary<string, PluginPair> _rightClickMenuPlugins = [];
 
     /// <summary>
     /// Directories that will hold Flow Bar plugin directory.
@@ -125,6 +126,10 @@ public static class PluginManager
         {
             _translationPlugins.Add(pair);
         }
+        if (pair.Plugin is IRightClickMenu)
+        {
+            _rightClickMenuPlugins.TryAdd(pair.Metadata.ID, pair);
+        }
         _allInitializedPlugins.TryAdd(pair.Metadata.ID, pair);
     }
 
@@ -212,6 +217,20 @@ public static class PluginManager
         }
 
         return plugin.Plugin.GetBarElement(position);
+    }
+
+    #endregion
+
+    #region Right Click Menu
+
+    public static IRightClickMenu? GetRightClickMenu(string id)
+    {
+        if (_rightClickMenuPlugins.TryGetValue(id, out var pair))
+        {
+            return (IRightClickMenu)pair.Plugin;
+        }
+
+        return null;
     }
 
     #endregion
