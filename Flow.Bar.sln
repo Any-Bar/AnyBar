@@ -36,12 +36,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Flow.Bar.Localization.Share
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Flow.Bar.Localization.SourceGenerators", "Localization\Flow.Bar.Localization.SourceGenerators\Flow.Bar.Localization.SourceGenerators.csproj", "{EBB1D769-0703-B810-7A0E-AAAA633F9FF6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Flow.Bar.Core", "Flow.Bar.Core\Flow.Bar.Core.csproj", "{BCAD8673-A669-4410-B21E-590D1AA20A72}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Flow.Bar.Infrastructure", "Flow.Bar.Infrastructure\Flow.Bar.Infrastructure.csproj", "{B760F7FA-14D2-4AC3-8662-7DD7A369CAFB}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Flow.Bar.Test", "Flow.Bar.Test\Flow.Bar.Test.csproj", "{1C3EBA4B-D550-49DB-B348-378B9D97F1E8}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -80,18 +74,6 @@ Global
 		{EBB1D769-0703-B810-7A0E-AAAA633F9FF6}.Debug|x64.Build.0 = Debug|Any CPU
 		{EBB1D769-0703-B810-7A0E-AAAA633F9FF6}.Release|x64.ActiveCfg = Release|Any CPU
 		{EBB1D769-0703-B810-7A0E-AAAA633F9FF6}.Release|x64.Build.0 = Release|Any CPU
-		{BCAD8673-A669-4410-B21E-590D1AA20A72}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{BCAD8673-A669-4410-B21E-590D1AA20A72}.Debug|x64.Build.0 = Debug|Any CPU
-		{BCAD8673-A669-4410-B21E-590D1AA20A72}.Release|x64.ActiveCfg = Release|Any CPU
-		{BCAD8673-A669-4410-B21E-590D1AA20A72}.Release|x64.Build.0 = Release|Any CPU
-		{B760F7FA-14D2-4AC3-8662-7DD7A369CAFB}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{B760F7FA-14D2-4AC3-8662-7DD7A369CAFB}.Debug|x64.Build.0 = Debug|Any CPU
-		{B760F7FA-14D2-4AC3-8662-7DD7A369CAFB}.Release|x64.ActiveCfg = Release|Any CPU
-		{B760F7FA-14D2-4AC3-8662-7DD7A369CAFB}.Release|x64.Build.0 = Release|Any CPU
-		{1C3EBA4B-D550-49DB-B348-378B9D97F1E8}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{1C3EBA4B-D550-49DB-B348-378B9D97F1E8}.Debug|x64.Build.0 = Debug|Any CPU
-		{1C3EBA4B-D550-49DB-B348-378B9D97F1E8}.Release|x64.ActiveCfg = Release|Any CPU
-		{1C3EBA4B-D550-49DB-B348-378B9D97F1E8}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

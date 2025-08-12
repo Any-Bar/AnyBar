@@ -102,7 +102,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Flow.Bar.Core\Flow.Bar.Core.csproj" />
     <ProjectReference Include="..\Flow.Bar.Plugin\Flow.Bar.Plugin.csproj" />
     <ProjectReference Include="..\Localization\Flow.Bar.Localization.Analyzers\Flow.Bar.Localization.Analyzers.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
     <ProjectReference Include="..\Localization\Flow.Bar.Localization.Attributes\Flow.Bar.Localization.Attributes.csproj" OutputItemType="Analyzer" />
