@@ -7,7 +7,7 @@
     xmlns:ui="http://schemas.inkore.net/lib/ui/wpf/modern">
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary>
-            <Thickness x:Key="StackViewItemLayoutRootMargin">2</Thickness>
+            <Thickness x:Key="StackViewItemLayoutRootMargin">0</Thickness>
         </ResourceDictionary>
     </ResourceDictionary.MergedDictionaries>
 
