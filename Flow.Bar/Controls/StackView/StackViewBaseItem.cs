@@ -56,6 +56,7 @@ public class StackViewBaseItem : ListBoxItem
         {
             ParentStackPanelViewBase?.NotifyListItemPreviewMouseLeftButtonDown(this, e);
         }
+
         base.OnPreviewMouseLeftButtonDown(e);
     }
 
@@ -66,6 +67,7 @@ public class StackViewBaseItem : ListBoxItem
             m_isPressed = true;
             ParentStackPanelViewBase?.NotifyListItemMouseLeftButtonDown(this, e);
         }
+
         base.OnMouseLeftButtonDown(e);
     }
 
@@ -75,6 +77,7 @@ public class StackViewBaseItem : ListBoxItem
         {
             ParentStackPanelViewBase?.NotifyListItemPreviewMouseLeftButtonUp(this, e);
         }
+
         base.OnPreviewMouseLeftButtonUp(e);
     }
 
@@ -86,6 +89,7 @@ public class StackViewBaseItem : ListBoxItem
             m_isPressed = false;
             ParentStackPanelViewBase?.NotifyListItemMouseLeftButtonUp(this, e);
         }
+
         base.OnMouseLeftButtonUp(e);
     }
 
@@ -95,6 +99,7 @@ public class StackViewBaseItem : ListBoxItem
         {
             ParentStackPanelViewBase?.NotifyListItemMouseRightButtonDown(this, e);
         }
+
         base.OnMouseRightButtonDown(e);
     }
 
@@ -104,6 +109,7 @@ public class StackViewBaseItem : ListBoxItem
         {
             ParentStackPanelViewBase?.NotifyListItemMouseRightButtonUp(this, e);
         }
+
         base.OnMouseRightButtonUp(e);
     }
 
@@ -113,6 +119,7 @@ public class StackViewBaseItem : ListBoxItem
         {
             ParentStackPanelViewBase?.NotifyListItemPreviewMouseRightButtonDown(this, e);
         }
+
         base.OnPreviewMouseRightButtonDown(e);
     }
 
@@ -122,6 +129,7 @@ public class StackViewBaseItem : ListBoxItem
         {
             ParentStackPanelViewBase?.NotifyListItemPreviewMouseRightButtonUp(this, e);
         }
+
         base.OnPreviewMouseRightButtonUp(e);
     }
 
@@ -131,6 +139,7 @@ public class StackViewBaseItem : ListBoxItem
         {
             m_isPressed = false;
         }
+
         base.OnMouseLeave(e);
     }
 
@@ -149,7 +158,7 @@ public class StackViewBaseItem : ListBoxItem
     {
         if (m_isPressed)
         {
-            Rect r = new(new Point(), RenderSize);
+            var r = new Rect(new Point(), RenderSize);
 
             if (r.Contains(e.GetPosition(this)))
             {
