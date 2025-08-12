@@ -10,7 +10,7 @@
             <ikw:CornerRadiusFilterConverter x:Key="BottomCornerRadiusDoubleValueConverter" Filter="Bottom" />
             <!--  We use these two thickness to make ContentScrollViewer is only for Content  -->
             <Thickness x:Key="ContentDialogTitleMargin">24 24 24 12</Thickness>
-            <Thickness x:Key="ContentDialogContentScrollViewerPadding">24 0 24 24</Thickness>
+            <Thickness x:Key="ContentDialogContentMargin">24 0 24 24</Thickness>
         </ResourceDictionary>
     </ResourceDictionary.MergedDictionaries>
 
@@ -136,15 +136,7 @@
                                                     HorizontalScrollBarVisibility="{TemplateBinding ScrollViewer.HorizontalScrollBarVisibility}"
                                                     IsTabStop="False"
                                                     VerticalScrollBarVisibility="{TemplateBinding ScrollViewer.VerticalScrollBarVisibility}">
-                                                    <ui:ScrollViewerEx.Style>
-                                                        <Style BasedOn="{StaticResource DefaultScrollViewerStyle}" TargetType="ui:ScrollViewerEx">
-                                                            <Style.Triggers>
-                                                                <DataTrigger Binding="{Binding EnableContentPadding, RelativeSource={RelativeSource AncestorType=local:ContentDialog}}" Value="True">
-                                                                    <Setter Property="Padding" Value="{StaticResource ContentDialogContentScrollViewerPadding}" />
-                                                                </DataTrigger>
-                                                            </Style.Triggers>
-                                                        </Style>
-                                                    </ui:ScrollViewerEx.Style>
+
                                                     <ui:ContentPresenterEx
                                                         x:Name="Content"
                                                         Content="{TemplateBinding Content}"
@@ -448,6 +440,9 @@
                         </Trigger>
                         <Trigger Property="DefaultButton" Value="Close">
                             <Setter TargetName="CloseButton" Property="Style" Value="{DynamicResource AccentButtonStyle}" />
+                        </Trigger>
+                        <Trigger Property="EnableContentPadding" Value="True">
+                            <Setter TargetName="Content" Property="Margin" Value="{StaticResource ContentDialogContentMargin}" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
