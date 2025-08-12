@@ -305,9 +305,7 @@
                                                     </DiscreteObjectKeyFrame.Value>
                                                 </DiscreteObjectKeyFrame>
                                             </ObjectAnimationUsingKeyFrames>
-
                                         </Storyboard>
-
                                     </VisualState>
                                 </VisualStateGroup>
 
