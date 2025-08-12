@@ -505,7 +505,7 @@ public partial class AppBarWindow : Window
         if (e.ClickedItem is not StackViewItem item) return;
         if (item.DataContext is not BarElementModel model) return;
 
-        App.API.LogVerbose(ClassName, $"Prepare {nameof(StackViewItem)} right click context menu");
+        App.API.LogVerbose(ClassName, $"Show {nameof(StackViewItem)} right click context menu");
         if (PluginManager.GetRightClickMenu(model.ID) is IRightClickMenu rightClickMenu)
         {
             if (BarElementMenuFlyoutHelper.GetMenuFlyoutHelper(item) is not AppBarMenuFlyoutHelper helper)
