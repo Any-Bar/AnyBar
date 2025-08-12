@@ -124,6 +124,7 @@ public partial class AppBarWindow : Window
         };
         _menuFlyoutHelper.Items.Add(settingItem);
         _menuFlyoutHelper.ViewModel = ViewModel;
+        _menuFlyoutHelper.Element = MainGrid;
         _menuFlyoutHelper.Handled = true;
     }
 
