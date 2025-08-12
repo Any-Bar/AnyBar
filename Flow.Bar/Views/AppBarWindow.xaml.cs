@@ -32,6 +32,8 @@ public partial class AppBarWindow : Window
     public AppBarViewModel ViewModel { get; } = Ioc.Default.GetRequiredService<AppBarViewModel>();
     public AppBarModel Model { get; }
 
+    private static readonly string ClassName = nameof(AppBarWindow);
+
     private readonly AppBarManagementService _appBarManagementService = Ioc.Default.GetRequiredService<AppBarManagementService>();
     private readonly NavigationViewService _navigationViewService = Ioc.Default.GetRequiredService<NavigationViewService>();
 
@@ -454,11 +456,13 @@ public partial class AppBarWindow : Window
 
     private void MainGrid_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
     {
+        App.API.LogVerbose(ClassName, $"Prepare {nameof(MainGrid)} right click context menu");
         _menuFlyoutHelper.MouseRightButtonDown(e);
     }
 
     private void MainGrid_MouseRightButtonUp(object sender, MouseButtonEventArgs e)
     {
+        App.API.LogVerbose(ClassName, $"Show {nameof(MainGrid)} right click context menu");
         _menuFlyoutHelper.MouseRightButtonUp(e);
     }
 
@@ -548,6 +552,48 @@ public partial class AppBarWindow : Window
                 PInvoke.SetWindowPos(_hwnd, HWND.Null, newActualShadow.X, newActualShadow.Y, newActualShadow.Width, newFrameThickness.Height, 0);
             }
         }
+    }
+
+    #endregion
+
+    #region StackView Events
+
+    private void StackView_ItemMouseLeftButtonDown(object sender, StackViewItemMouseButtonEventArgs e)
+    {
+        if (e.ClickedItem is not StackViewItem item) return;
+        if (item.DataContext is not BarElementModel model) return;
+
+        App.API.LogVerbose(ClassName, $"Prepare {nameof(StackViewItem)} left click context menu");
+        // TODO
+        e.OriginalEventArgs.Handled = true;
+    }
+
+    private void StackView_ItemMouseLeftButtonUp(object sender, StackViewItemMouseButtonEventArgs e)
+    {
+        if (e.ClickedItem is not StackViewItem item) return;
+        if (item.DataContext is not BarElementModel model) return;
+
+        App.API.LogVerbose(ClassName, $"Show {nameof(StackViewItem)} left click context menu");
+        // TODO
+        e.OriginalEventArgs.Handled = true;
+    }
+
+    private void StackView_ItemPreviewMouseRightButtonDown(object sender, StackViewItemMouseButtonEventArgs e)
+    {
+        if (e.ClickedItem is not StackViewItem item) return;
+        if (item.DataContext is not BarElementModel model) return;
+
+        App.API.LogVerbose(ClassName, $"Prepare {nameof(StackViewItem)} right click context menu");
+        e.OriginalEventArgs.Handled = true;
+    }
+
+    private void StackView_ItemPreviewMouseRightButtonUp(object sender, StackViewItemMouseButtonEventArgs e)
+    {
+        if (e.ClickedItem is not StackViewItem item) return;
+        if (item.DataContext is not BarElementModel model) return;
+
+        App.API.LogVerbose(ClassName, $"Prepare {nameof(StackViewItem)} right click context menu");
+        e.OriginalEventArgs.Handled = true;
     }
 
     #endregion
