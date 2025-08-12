@@ -75,7 +75,7 @@ public partial class SettingsCardEx : ButtonBase
         OnHeaderIconChanged();
         OnDescriptionChanged();
         OnIsClickEnabledChanged();
-        CheckInitialVisualState();
+        CheckInitialVisualState(false);
         SetAccessibleContentName();
 
         IsEnabledChanged += OnIsEnabledChanged;
@@ -96,9 +96,9 @@ public partial class SettingsCardEx : ButtonBase
         }
     }
 
-    private void CheckInitialVisualState()
+    private void CheckInitialVisualState(bool useTransitions = true)
     {
-        VisualStateManager.GoToState(this, IsEnabled ? NormalState : DisabledState, App.Settings.EnableAnimationEffects);
+        VisualStateManager.GoToState(this, IsEnabled ? NormalState : DisabledState, App.Settings.EnableAnimationEffects && useTransitions);
 
         if (GetTemplateChild("ContentAlignmentStates") is VisualStateGroup contentAlignmentStatesGroup)
         {
