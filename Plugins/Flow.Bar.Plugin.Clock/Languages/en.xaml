@@ -7,4 +7,8 @@
     <system:String x:Key="FlowBarPlugin_Clock_PluginName">Clock</system:String>
     <system:String x:Key="FlowBarPlugin_Clock_PluginDescription">Display date and time</system:String>
 
+    <!--  Right Click Menu  -->
+    <system:String x:Key="FlowBarPlugin_Clock_RightClickMenu_AdjustDateTime">Adjust date and time</system:String>
+    <system:String x:Key="FlowBarPlugin_Clock_RightClickMenu_FailToOpenDateTime">Failed to open date and time settings</system:String>
+
 </ResourceDictionary>
