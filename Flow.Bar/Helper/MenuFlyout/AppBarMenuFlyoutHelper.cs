@@ -10,6 +10,7 @@ public class AppBarMenuFlyoutHelper : IDisposable
 {
     public ItemCollection Items => _contextMenu.Items;
     public Action<MenuFlyoutEx, MouseButtonEventArgs>? ShowMenu { get; set; } = null;
+    public bool Handled { get; set; } = false;
 
     private readonly MenuFlyoutEx _contextMenu = new();
     private Point? _cursorPosition = null;
@@ -66,7 +67,7 @@ public class AppBarMenuFlyoutHelper : IDisposable
     {
         ShowMenu?.Invoke(_contextMenu, e);
         _contextMenuOpened = true;
-        e.Handled = true;
+        e.Handled = Handled;
     }
 
     public void Dispose()

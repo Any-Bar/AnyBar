@@ -139,6 +139,7 @@ public partial class AppBarWindow : Window
                 Monitor = ViewModel.ActualMonitor
             });
         };
+        _menuFlyoutHelper.Handled = true;
     }
 
     #endregion
