@@ -55,7 +55,7 @@ public class ListViewExBaseItem : ListBoxItem
     {
         base.OnApplyTemplate();
 
-        UpdateMultiSelectStates(ParentListViewBase);
+        UpdateMultiSelectStates(ParentListViewBase, false);
     }
 
     protected override void OnMouseLeftButtonDown(MouseButtonEventArgs e)
@@ -117,12 +117,12 @@ public class ListViewExBaseItem : ListBoxItem
         UpdateMultiSelectStates(sender as ListViewExBase);
     }
 
-    private void UpdateMultiSelectStates(ListViewExBase? parent)
+    private void UpdateMultiSelectStates(ListViewExBase? parent, bool useTransitions = true)
     {
         if (parent != null)
         {
-            var enabled = parent.MultiSelectEnabled && parent.IsMultiSelectCheckBoxEnabled;
-            VisualStateManager.GoToState(this, enabled ? "MultiSelectEnabled" : "MultiSelectDisabled", App.Settings.EnableAnimationEffects);
+            bool enabled = parent.MultiSelectEnabled && parent.IsMultiSelectCheckBoxEnabled;
+            VisualStateManager.GoToState(this, enabled ? "MultiSelectEnabled" : "MultiSelectDisabled", useTransitions && App.Settings.EnableAnimationEffects);
         }
     }
 
