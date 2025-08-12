@@ -81,13 +81,9 @@ public class StackViewBaseItem : ListBoxItem
     {
         if (!e.Handled)
         {
+            IsPressed = true;
             m_isPressed = true;
             ParentStackPanelViewBase?.NotifyListItemMouseLeftButtonDown(this, e);
-        }
-
-        if (!e.Handled)
-        {
-            IsPressed = true;
         }
 
         base.OnMouseLeftButtonDown(e);
@@ -107,14 +103,10 @@ public class StackViewBaseItem : ListBoxItem
     {
         if (!e.Handled)
         {
+            IsPressed = false;
             HandleItemClick(e);
             m_isPressed = false;
             ParentStackPanelViewBase?.NotifyListItemMouseLeftButtonUp(this, e);
-        }
-
-        if (!e.Handled)
-        {
-            IsPressed = false;
         }
 
         base.OnMouseLeftButtonUp(e);
