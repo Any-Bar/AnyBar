@@ -110,9 +110,9 @@ public partial class SettingsPaneAppBarViewModel(AppBarManagementService appBarM
                 InitializeAppBars();
                 SortAppBars();
             }
+            AppBars.CollectionChanged += AppBars_CollectionChanged;
             IsInitialized = true;
         }
-        AppBars.CollectionChanged += AppBars_CollectionChanged;
     }
 
     public void OnNavigatedFrom()

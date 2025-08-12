@@ -98,12 +98,12 @@ public partial class SettingsPaneBarElementSettingViewModel(AppBarManagementServ
 
     public void OnNavigatedTo(object? parameter)
     {
-        void UpdateSortModeLocalization()
+        void UpdateSortModeLocalization(AppBarModel model)
         {
             var leftTopToRightBottom = AllSortModes.Find(x => x.Value == SettingsPaneBarElementSettingSortMode.LeftTopToRightBottom)!;
             var rightBottomToLeftTop = AllSortModes.Find(x => x.Value == SettingsPaneBarElementSettingSortMode.RightBottomToLeftTop)!;
             // Horizontal
-            if (_model.DockMode == AppBarDockMode.Top || _model.DockMode == AppBarDockMode.Bottom)
+            if (model.DockMode == AppBarDockMode.Top || model.DockMode == AppBarDockMode.Bottom)
             {
                 leftTopToRightBottom.LocalizationKey = nameof(Localize.SettingsPaneBarElementSettingSortMode_LeftToRight);
                 leftTopToRightBottom.Display = Localize.SettingsPaneBarElementSettingSortMode_LeftToRight();
@@ -126,27 +126,27 @@ public partial class SettingsPaneBarElementSettingViewModel(AppBarManagementServ
             {
                 _position = args.Position;
                 _model = args.Model;
-                UpdateSortModeLocalization();
+                UpdateSortModeLocalization(_model);
                 lock (_barElementsLock)
                 {
                     InitializeBarElements();
                     SortBarElements();
                 }
+                BarElements.CollectionChanged += BarElements_CollectionChanged;
                 IsInitialized = true;
             }
         }
         else if (parameter is SettingsPaneBarElementSettingReorderParameter reorder)
         {
-            if (reorder.Model != _model || reorder.Position != _position)
+            if (reorder.Model == _model || reorder.Position == _position)
             {
-                return;
-            }
-            if (IsInitialized)
-            {
-                lock (_barElementsLock)
+                if (IsInitialized)
                 {
-                    InitializeBarElements();
-                    SortBarElements();
+                    lock (_barElementsLock)
+                    {
+                        InitializeBarElements();
+                        SortBarElements();
+                    }
                 }
             }
         }
@@ -154,7 +154,6 @@ public partial class SettingsPaneBarElementSettingViewModel(AppBarManagementServ
         {
             App.API.LogError(ClassName, $"{nameof(parameter)} is not of type {nameof(SettingsPaneBarElementSettingNavigationParameter)} or {nameof(SettingsPaneBarElementSettingReorderParameter)}");
         }
-        BarElements.CollectionChanged += BarElements_CollectionChanged;
     }
 
     public void OnNavigatedFrom()
