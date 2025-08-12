@@ -123,25 +123,27 @@ public partial class AppBarWindow : Window
             }
         };
         _menuFlyoutHelper.Items.Add(settingItem);
-        _menuFlyoutHelper.ShowMenu = (menu, e) =>
-        {
-            var element = (FrameworkElement)MainGrid;
-            var placement = ViewModel.DockMode switch
-            {
-                AppBarDockMode.Left => MenuFlyoutExPlacementMode.AppBarRight,
-                AppBarDockMode.Right => MenuFlyoutExPlacementMode.AppBarLeft,
-                AppBarDockMode.Top => MenuFlyoutExPlacementMode.AppBarBottom,
-                AppBarDockMode.Bottom => MenuFlyoutExPlacementMode.AppBarTop,
-                _ => throw new NotImplementedException()
-            };
-            menu.ShowAt(element, new MenuFlyoutExOptions()
-            {
-                Placement = placement,
-                Position = e.GetPosition(element),
-                Monitor = ViewModel.ActualMonitor
-            });
-        };
+        _menuFlyoutHelper.ShowMenu = ShowMenuFlyout;
         _menuFlyoutHelper.Handled = true;
+    }
+
+    private void ShowMenuFlyout(MenuFlyoutEx menu, MouseButtonEventArgs e)
+    {
+        var element = (FrameworkElement)MainGrid;
+        var placement = ViewModel.DockMode switch
+        {
+            AppBarDockMode.Left => MenuFlyoutExPlacementMode.AppBarRight,
+            AppBarDockMode.Right => MenuFlyoutExPlacementMode.AppBarLeft,
+            AppBarDockMode.Top => MenuFlyoutExPlacementMode.AppBarBottom,
+            AppBarDockMode.Bottom => MenuFlyoutExPlacementMode.AppBarTop,
+            _ => throw new NotImplementedException()
+        };
+        menu.ShowAt(element, new MenuFlyoutExOptions()
+        {
+            Placement = placement,
+            Position = e.GetPosition(element),
+            Monitor = ViewModel.ActualMonitor
+        });
     }
 
     #endregion
