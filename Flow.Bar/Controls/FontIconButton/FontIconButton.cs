@@ -12,6 +12,5 @@ public class FontIconButton : Button
 
     public FontIconButton()
     {
-
     }
 }
