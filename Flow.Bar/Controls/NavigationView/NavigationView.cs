@@ -1650,7 +1650,7 @@ public partial class NavigationView : ContentControl, IControlProtected
                 splitViewDisplayMode = SplitViewDisplayMode.CompactOverlay;
             }
 
-            VisualStateManager.GoToState(this, visualStateName, App.Settings.EnableAnimationEffects);
+            VisualStateManager.GoToState(this, visualStateName, false);
 
             // Updating the splitview 'DisplayMode' property in some diplaymodes causes children to be added to the popup root.
             // This causes an exception if the NavigationView is in the popup root itself (as SplitView is trying to add children to the tree while it is being measured).
@@ -2063,9 +2063,9 @@ public partial class NavigationView : ContentControl, IControlProtected
         if (m_appliedTemplate)
         {
             var box = AutoSuggestBox;
-            VisualStateManager.GoToState(this, box != null ? "AutoSuggestBoxVisible" : "AutoSuggestBoxCollapsed", App.Settings.EnableAnimationEffects);
+            VisualStateManager.GoToState(this, box != null ? "AutoSuggestBoxVisible" : "AutoSuggestBoxCollapsed", false);
 
-            VisualStateManager.GoToState(this, "SettingsCollapsed", App.Settings.EnableAnimationEffects);
+            VisualStateManager.GoToState(this, "SettingsCollapsed", false);
         }
     }
 
@@ -2277,13 +2277,13 @@ public partial class NavigationView : ContentControl, IControlProtected
         {
             TemplateSettings.LeftPaneVisibility = Visibility.Visible;
 
-            VisualStateManager.GoToState(this, "PaneVisible", App.Settings.EnableAnimationEffects);
+            VisualStateManager.GoToState(this, "PaneVisible", false);
         }
         else
         {
             TemplateSettings.LeftPaneVisibility = Visibility.Collapsed;
 
-            VisualStateManager.GoToState(this, "PaneCollapsed", App.Settings.EnableAnimationEffects);
+            VisualStateManager.GoToState(this, "PaneCollapsed", false);
         }
     }
 
@@ -2323,7 +2323,7 @@ public partial class NavigationView : ContentControl, IControlProtected
         // As a workaround, we 'quirk' it for RS4 or before release. if it's RS4 or before, HeaderVisible is not related to Header().
         // If theme resource is RS5 or later, we will not show header if header is null.
         showHeader = Header != null && showHeader;
-        VisualStateManager.GoToState(this, showHeader ? "HeaderVisible" : "HeaderCollapsed", App.Settings.EnableAnimationEffects);
+        VisualStateManager.GoToState(this, showHeader ? "HeaderVisible" : "HeaderCollapsed", false);
     }
 
     private void UpdatePaneTabFocusNavigation()

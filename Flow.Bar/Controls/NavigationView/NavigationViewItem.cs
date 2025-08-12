@@ -37,7 +37,7 @@ public partial class NavigationViewItem : NavigationViewItemBase
 
     internal void UpdateVisualStateNoTransition()
     {
-        UpdateVisualState();
+        UpdateVisualState(false);
     }
 
     private protected override void OnNavigationViewItemBaseDepthChanged()
@@ -194,7 +194,7 @@ public partial class NavigationViewItem : NavigationViewItemBase
         if (m_navigationViewItemPresenter is { } presenter)
         {
             var stateName = showIcon ? (showContent ? "IconOnLeft" : "IconOnly") : "ContentOnly";
-            VisualStateManager.GoToState(presenter, stateName, App.Settings.EnableAnimationEffects);
+            VisualStateManager.GoToState(presenter, stateName, false);
         }
     }
 
@@ -206,7 +206,7 @@ public partial class NavigationViewItem : NavigationViewItemBase
             focusState = "KeyboardFocused";
         }
 
-        VisualStateManager.GoToState(this, focusState, App.Settings.EnableAnimationEffects);
+        VisualStateManager.GoToState(this, focusState, false);
     }
 
     private void UpdateVisualStateForToolTip()
@@ -297,7 +297,7 @@ public partial class NavigationViewItem : NavigationViewItemBase
         }
     }
 
-    private void UpdateVisualState()
+    private void UpdateVisualState(bool useTransitions = true)
     {
         if (!m_appliedTemplate)
             return;
@@ -310,7 +310,7 @@ public partial class NavigationViewItem : NavigationViewItemBase
         if (m_navigationViewItemPresenter is { } presenter)
         {
             // Backward Compatibility with RS4-, new implementation prefer IconOnLeft/IconOnly/ContentOnly
-            VisualStateManager.GoToState(presenter, shouldShowIcon ? "IconVisible" : "IconCollapsed", App.Settings.EnableAnimationEffects);
+            VisualStateManager.GoToState(presenter, shouldShowIcon ? "IconVisible" : "IconCollapsed", App.Settings.EnableAnimationEffects && useTransitions);
         }
 
         UpdateVisualStateForToolTip();
