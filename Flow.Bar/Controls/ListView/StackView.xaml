@@ -8,9 +8,6 @@
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary>
             <Thickness x:Key="StackViewItemLayoutRootMargin">2</Thickness>
-            <!--  This margin is to remove the top/left margin of the first item and the bottom/right margin of the last item  -->
-            <!--  And the left/top and right/bottom margin of the items  -->
-            <Thickness x:Key="StackViewItemsPresenterMargin">-2</Thickness>
         </ResourceDictionary>
     </ResourceDictionary.MergedDictionaries>
 
@@ -64,6 +61,7 @@
     </Style>
 
     <Style BasedOn="{StaticResource DefaultStackViewItemStyle}" TargetType="local:StackViewItem">
+        <Setter Property="IsTabStop" Value="False" />
         <Setter Property="KeyboardNavigation.TabNavigation" Value="None" />
     </Style>
 
@@ -81,7 +79,7 @@
         <Setter Property="ItemsPanel">
             <Setter.Value>
                 <ItemsPanelTemplate>
-                    <VirtualizingStackPanel Orientation="{Binding Orientation, RelativeSource={RelativeSource AncestorType=local:StackView}}" />
+                    <StackPanel Orientation="{Binding Orientation, RelativeSource={RelativeSource AncestorType=local:StackView}}" />
                 </ItemsPanelTemplate>
             </Setter.Value>
         </Setter>
@@ -100,22 +98,9 @@
                             Focusable="false"
                             HorizontalScrollBarVisibility="{TemplateBinding ScrollViewer.HorizontalScrollBarVisibility}"
                             VerticalScrollBarVisibility="{TemplateBinding ScrollViewer.VerticalScrollBarVisibility}">
-                            <ItemsPresenter
-                                x:Name="ItemsPresenter"
-                                Grid.Row="1"
-                                Margin="{StaticResource StackViewItemsPresenterMargin}"
-                                SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                            <ItemsPresenter x:Name="ItemsPresenter" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
                         </ui:ScrollViewerEx>
                     </Border>
-                    <ControlTemplate.Triggers>
-                        <MultiTrigger>
-                            <MultiTrigger.Conditions>
-                                <Condition Property="IsGrouping" Value="true" />
-                                <Condition Property="VirtualizingPanel.IsVirtualizingWhenGrouping" Value="false" />
-                            </MultiTrigger.Conditions>
-                            <Setter Property="ScrollViewer.CanContentScroll" Value="false" />
-                        </MultiTrigger>
-                    </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
