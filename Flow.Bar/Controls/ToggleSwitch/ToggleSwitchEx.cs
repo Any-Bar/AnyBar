@@ -73,7 +73,6 @@ public class ToggleSwitchEx : Control
     }
 
     #region Header
-
     
     public object Header
     {
@@ -340,7 +339,7 @@ public class ToggleSwitchEx : Control
         }
 
         UpdateHeaderContentPresenterVisibility();
-        UpdateVisualStates();
+        UpdateVisualStates(false);
     }
 
     protected override AutomationPeer OnCreateAutomationPeer()
@@ -475,7 +474,7 @@ public class ToggleSwitchEx : Control
         }
     }
 
-    private void UpdateVisualStates()
+    private void UpdateVisualStates(bool useTransitions = true)
     {
         string stateName;
 
@@ -495,7 +494,7 @@ public class ToggleSwitchEx : Control
         {
             stateName = VisualStates.StateNormal;
         }
-        VisualStateManager.GoToState(this, stateName, App.Settings.EnableAnimationEffects);
+        VisualStateManager.GoToState(this, stateName, App.Settings.EnableAnimationEffects && useTransitions);
 
         if (SwitchThumb != null && SwitchThumb.IsDragging)
         {
@@ -505,9 +504,9 @@ public class ToggleSwitchEx : Control
         {
             stateName = IsOn ? OnState : OffState;
         }
-        VisualStateManager.GoToState(this, stateName, App.Settings.EnableAnimationEffects);
+        VisualStateManager.GoToState(this, stateName, App.Settings.EnableAnimationEffects && useTransitions);
 
-        VisualStateManager.GoToState(this, IsOn ? OnContentState : OffContentState, App.Settings.EnableAnimationEffects);
+        VisualStateManager.GoToState(this, IsOn ? OnContentState : OffContentState, App.Settings.EnableAnimationEffects && useTransitions);
     }
 
     internal void Toggle()
