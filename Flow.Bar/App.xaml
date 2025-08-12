@@ -22,7 +22,7 @@
                 <ResourceDictionary Source="/Controls/AutoSuggestBox/AutoSuggestBoxEx.xaml" />
                 <ResourceDictionary Source="/Controls/ContentDialog/ContentDialog.xaml" />
                 <ResourceDictionary Source="/Controls/FontIconButton/FontIconButton.xaml" />
-                <ResourceDictionary Source="/Controls/ListView/StackView.xaml" />
+                <ResourceDictionary Source="/Controls/StackView/StackView.xaml" />
                 <ResourceDictionary Source="/Controls/MenuFlyout/MenuFlyoutEx.xaml" />
                 <ResourceDictionary Source="/Controls/NavigationView/NavigationView.xaml" />
                 <ResourceDictionary Source="/Controls/SettingsCard/SettingsCardEx.xaml" />
