@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using Flow.Bar.Helper.Image;
+using Flow.Bar.Helper.Plugins;
 using System.Threading.Tasks;
 using System.Windows.Media;
 
@@ -15,7 +16,7 @@ public partial class PluginViewModel : ObservableObject
     {
         PluginPair = pluginPair;
         ID = pluginPair.Metadata.ID;
-        Disabled = pluginPair.Metadata.Disabled;
+        Disabled = !PluginManager.IsInitialized(pluginPair.Metadata.ID);
         Name = pluginPair.Metadata.Name;
         Description = pluginPair.Metadata.Description;
         VersionAndAuthor = Localize.SettingPanePlugins_VersionAndAuthor(pluginPair.Metadata.Version, pluginPair.Metadata.Author);

@@ -39,14 +39,6 @@ public class PluginMetadata
     public string Website { get; set; }
 
     /// <summary>
-    /// Whether plugin is disabled.
-    /// </summary>
-    /// <remarks>
-    /// If plugin failed to load or init, it will be disabled.
-    /// </remarks>
-    public bool Disabled { get; set; }
-
-    /// <summary>
     /// Plugin execute file path.
     /// </summary>
     public string ExecuteFilePath { get; private set; }

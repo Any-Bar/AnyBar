@@ -95,7 +95,6 @@ public static class PluginManager
             catch (Exception e)
             {
                 App.API.LogFatal(ClassName, $"Fail to Init plugin: {pair.Metadata.Name}", e);
-                pair.Metadata.Disabled = true;
                 App.API.LogDebug(ClassName, $"Disable plugin <{pair.Metadata.Name}> because initialization failed");
 
                 // Even if the plugin cannot be initialized, we still need to add it in all plugin list so that
@@ -180,6 +179,11 @@ public static class PluginManager
     public static bool IsPreinstalled(string id)
     {
         return id == Constants.FlowBarPluginClockPluginId;
+    }
+
+    public static bool IsInitialized(string id)
+    {
+        return _allInitializedPlugins.ContainsKey(id) && !_initFailedPlugins.ContainsKey(id);
     }
 
     private static bool PluginModified(string id)

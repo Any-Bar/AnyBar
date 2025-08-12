@@ -21,7 +21,7 @@ public partial class BarElementViewModel : ObservableObject
         PluginPair = PluginManager.GetPluginForId(barElementModel.ID);
         if (PluginPair != null)
         {
-            Disabled = PluginPair.Metadata.Disabled;
+            Disabled = !PluginManager.IsInitialized(PluginPair.Metadata.ID);
             Name = PluginPair.Metadata.Name;
         }
         else
