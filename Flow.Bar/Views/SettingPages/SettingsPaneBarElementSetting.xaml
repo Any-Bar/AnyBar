@@ -57,18 +57,20 @@
                     SelectedValuePath="Value" />
             </ikw:SimpleStackPanel>
 
-            <controls:StackView
+            <controls:ListViewEx
                 x:Name="BarElementStackView"
                 Margin="{StaticResource SettingsSectionHeaderMargin}"
+                HorizontalContentAlignment="Stretch"
+                VerticalContentAlignment="Center"
                 CanReorderItems="True"
                 DropScrollViewer="{Binding ElementName=RootPageScrollViewer, Mode=OneTime}"
                 IsHoverEnabled="False"
+                IsSelectionEnabled="False"
                 ItemsSource="{Binding BarElements, Mode=OneTime}"
-                Orientation="Vertical"
                 ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                 ScrollViewer.VerticalScrollBarVisibility="Disabled">
-                <controls:StackView.Style>
-                    <Style BasedOn="{StaticResource DefaultStackViewStyle}" TargetType="controls:StackView">
+                <controls:ListViewEx.Style>
+                    <Style BasedOn="{StaticResource DefaultListViewStyle}" TargetType="controls:ListViewEx">
                         <Setter Property="CanReorderItems" Value="False" />
                         <Style.Triggers>
                             <DataTrigger Binding="{Binding SortMode}" Value="{x:Static enums:SettingsPaneBarElementSettingSortMode.LeftTopToRightBottom}">
@@ -94,8 +96,8 @@
                             </DataTrigger>
                         </Style.Triggers>
                     </Style>
-                </controls:StackView.Style>
-                <controls:StackView.ItemTemplate>
+                </controls:ListViewEx.Style>
+                <controls:ListViewEx.ItemTemplate>
                     <DataTemplate DataType="models:BarElementViewModel">
                         <controls:SettingsCardEx x:Name="BarElementSettingsCard">
                             <controls:SettingsCardEx.Header>
@@ -133,8 +135,8 @@
                             </controls:FontIconButton>
                         </controls:SettingsCardEx>
                     </DataTemplate>
-                </controls:StackView.ItemTemplate>
-            </controls:StackView>
+                </controls:ListViewEx.ItemTemplate>
+            </controls:ListViewEx>
         </ikw:SimpleStackPanel>
     </ui:ScrollViewerEx>
 </ui:Page>

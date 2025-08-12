@@ -73,17 +73,19 @@
                     SelectedValuePath="Value" />
             </ikw:SimpleStackPanel>
 
-            <controls:StackView
+            <controls:ListViewEx
                 x:Name="AllPluginsStackView"
                 Margin="{StaticResource SettingsSectionHeaderMargin}"
+                HorizontalContentAlignment="Stretch"
+                VerticalContentAlignment="Center"
                 CanReorderItems="False"
                 IsHoverEnabled="False"
+                IsSelectionEnabled="False"
                 ItemsSource="{Binding AllPlugins, Mode=OneTime}"
-                Orientation="Vertical"
                 ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                 ScrollViewer.VerticalScrollBarVisibility="Disabled">
-                <controls:StackView.Style>
-                    <Style BasedOn="{StaticResource DefaultStackViewStyle}" TargetType="controls:StackView">
+                <controls:ListViewEx.Style>
+                    <Style BasedOn="{StaticResource DefaultListViewStyle}" TargetType="controls:ListViewEx">
                         <Style.Triggers>
                             <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=Items.Count}" Value="0">
                                 <Setter Property="Template">
@@ -98,7 +100,7 @@
                                                     <Style BasedOn="{StaticResource {x:Static ui:ThemeKeys.BodyTextBlockStyleKey}}" TargetType="TextBlock">
                                                         <Setter Property="Text" Value="{DynamicResource SettingPanePlugins_NothingToShow}" />
                                                         <Style.Triggers>
-                                                            <DataTrigger Binding="{Binding DataContext.SearchText, RelativeSource={RelativeSource AncestorType=controls:StackView}}" Value="">
+                                                            <DataTrigger Binding="{Binding DataContext.SearchText, RelativeSource={RelativeSource AncestorType=controls:ListViewEx}}" Value="">
                                                                 <Setter Property="Text" Value="{DynamicResource SettingPanePlugins_NoPluginsYet}" />
                                                             </DataTrigger>
                                                         </Style.Triggers>
@@ -111,8 +113,8 @@
                             </DataTrigger>
                         </Style.Triggers>
                     </Style>
-                </controls:StackView.Style>
-                <controls:StackView.ItemTemplate>
+                </controls:ListViewEx.Style>
+                <controls:ListViewEx.ItemTemplate>
                     <DataTemplate DataType="models:PluginViewModel">
                         <controls:SettingsCardEx x:Name="PluginSettingsCard" ToolTip="{Binding VersionAndAuthor, Mode=OneTime}">
                             <controls:SettingsCardEx.Header>
@@ -166,8 +168,8 @@
                             </controls:FontIconButton>
                         </controls:SettingsCardEx>
                     </DataTemplate>
-                </controls:StackView.ItemTemplate>
-            </controls:StackView>
+                </controls:ListViewEx.ItemTemplate>
+            </controls:ListViewEx>
         </ikw:SimpleStackPanel>
     </ui:ScrollViewerEx>
 </ui:Page>

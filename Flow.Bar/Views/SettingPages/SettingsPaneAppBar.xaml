@@ -60,17 +60,20 @@
                     SelectedValuePath="Value" />
             </ikw:SimpleStackPanel>
 
-            <controls:StackView
+            <controls:ListViewEx
                 x:Name="AppBarStackView"
                 Margin="{StaticResource SettingsSectionHeaderMargin}"
+                HorizontalContentAlignment="Stretch"
+                VerticalContentAlignment="Center"
                 DropScrollViewer="{Binding ElementName=RootPageScrollViewer, Mode=OneTime}"
                 IsHoverEnabled="False"
+                IsSelectionEnabled="False"
+                ItemIsTabStop="False"
                 ItemsSource="{Binding AppBars, Mode=OneTime}"
-                Orientation="Vertical"
                 ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                 ScrollViewer.VerticalScrollBarVisibility="Disabled">
-                <controls:StackView.Style>
-                    <Style BasedOn="{StaticResource DefaultStackViewStyle}" TargetType="controls:StackView">
+                <controls:ListViewEx.Style>
+                    <Style BasedOn="{StaticResource DefaultListViewStyle}" TargetType="controls:ListViewEx">
                         <Setter Property="CanReorderItems" Value="False" />
                         <Style.Triggers>
                             <DataTrigger Binding="{Binding SortMode}" Value="{x:Static enums:SettingsPaneAppBarSortMode.Order}">
@@ -93,12 +96,12 @@
                             </DataTrigger>
                         </Style.Triggers>
                     </Style>
-                </controls:StackView.Style>
-                <controls:StackView.ItemTemplate>
+                </controls:ListViewEx.Style>
+                <controls:ListViewEx.ItemTemplate>
                     <DataTemplate DataType="models:AppBarModel">
                         <controls:SettingsCardEx
                             x:Name="AppBarSettingsCard"
-                            Command="{Binding DataContext.OpenAppBarSettingCommand, RelativeSource={RelativeSource AncestorType=controls:StackView}, Mode=OneTime}"
+                            Command="{Binding DataContext.OpenAppBarSettingCommand, RelativeSource={RelativeSource AncestorType=controls:ListViewEx}, Mode=OneTime}"
                             CommandParameter="{Binding ., Mode=OneTime}"
                             Header="{Binding Name, Mode=OneWay}"
                             IsClickEnabled="True"
@@ -121,8 +124,8 @@
                                 Toggled="AppBarToggleSwitch_Toggled" />
                         </controls:SettingsCardEx>
                     </DataTemplate>
-                </controls:StackView.ItemTemplate>
-            </controls:StackView>
+                </controls:ListViewEx.ItemTemplate>
+            </controls:ListViewEx>
         </ikw:SimpleStackPanel>
     </ui:ScrollViewerEx>
 </ui:Page>
