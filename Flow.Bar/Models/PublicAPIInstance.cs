@@ -54,6 +54,11 @@ public class PublicAPIInstance(Settings settings) : IPublicAPI
         return MessageBox.Show(messageBoxText, caption, button, icon, defaultResult);
     }
 
+    public void LogVerbose(string className, string message, [CallerMemberName] string methodName = "")
+    {
+        FBLogger.Verbose(className, message, methodName);
+    }
+
     public void LogDebug(string className, string message, [CallerMemberName] string methodName = "")
     {
         FBLogger.Debug(className, message, methodName);

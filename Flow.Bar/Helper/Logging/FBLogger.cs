@@ -28,6 +28,12 @@ public static class FBLogger
         return builder.ConfigureLogging(builder => builder.AddSerilog(dispose: true));
     }
 
+    public static void Verbose(string className, string message, [CallerMemberName] string methodName = "")
+    {
+        var logger = GetLogger(className, methodName);
+        logger.Verbose(message);
+    }
+
     public static void Debug(string className, string message, [CallerMemberName] string methodName = "")
     {
         var logger = GetLogger(className, methodName);
