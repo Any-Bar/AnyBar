@@ -492,6 +492,7 @@ public partial class AppBarWindow : Window
                     helper.Items.Add(menuItem);
                 }
                 helper.ViewModel = ViewModel;
+                helper.Element = MainGrid;
                 BarElementMenuFlyoutHelper.SetMenuFlyoutHelper(item, helper);
             }
 
@@ -516,6 +517,7 @@ public partial class AppBarWindow : Window
                     helper.Items.Add(menuItem);
                 }
                 helper.ViewModel = ViewModel;
+                helper.Element = MainGrid;
                 BarElementMenuFlyoutHelper.SetMenuFlyoutHelper(item, helper);
             }
 

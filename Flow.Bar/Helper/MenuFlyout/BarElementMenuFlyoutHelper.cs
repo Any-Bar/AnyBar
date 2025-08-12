@@ -27,6 +27,5 @@ public class BarElementMenuFlyoutHelper
         ArgumentNullException.ThrowIfNull(value);
 
         element.SetValue(MenuFlyoutHelperProperty, value);
-        value.Element = element;
     }
 }
