@@ -92,23 +92,6 @@ public class StackView : StackViewBase
 
     #endregion
 
-    #region IsHoverEnabled
-
-    public static readonly DependencyProperty IsHoverEnabledProperty =
-        DependencyProperty.Register(
-            nameof(IsHoverEnabled),
-            typeof(bool),
-            typeof(StackView),
-            new FrameworkPropertyMetadata(true));
-
-    public bool IsHoverEnabled
-    {
-        get => (bool)GetValue(IsHoverEnabledProperty);
-        set => SetValue(IsHoverEnabledProperty, value);
-    }
-
-    #endregion
-
     protected override bool IsItemItsOwnContainerOverride(object item)
     {
         return item is StackViewItem;
