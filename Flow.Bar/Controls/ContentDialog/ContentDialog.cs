@@ -360,7 +360,7 @@ public class ContentDialog : ContentControl
 
     private static void OnDefaultButtonChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
     {
-        ((ContentDialog)d).UpdateDefaultButtonStates();
+        ((ContentDialog)d).UpdateDefaultButtonStates(true);
     }
 
     #endregion
@@ -382,7 +382,7 @@ public class ContentDialog : ContentControl
 
     private static void OnFullSizeDesiredChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
     {
-        ((ContentDialog)d).UpdateVisualStates();
+        ((ContentDialog)d).UpdateVisualStates(true);
     }
 
     #endregion
@@ -584,7 +584,7 @@ public class ContentDialog : ContentControl
                     }
                 }
 
-                UpdateDialogShowingStates();
+                UpdateDialogShowingStates(true);
             }
         }
     }
@@ -739,7 +739,7 @@ public class ContentDialog : ContentControl
             CloseButton.Click += OnButtonClick;
         }
 
-        UpdateVisualStates();
+        UpdateVisualStates(false);
     }
 
     protected override void OnKeyDown(KeyEventArgs e)
@@ -849,7 +849,7 @@ public class ContentDialog : ContentControl
 
     private void OnLayoutRootLoaded(object sender, RoutedEventArgs e)
     {
-        UpdateVisualStates();
+        UpdateVisualStates(true);
     }
 
     private void OnLayoutRootIsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
@@ -888,7 +888,7 @@ public class ContentDialog : ContentControl
     private void OnCloseTimerTick(object? sender, EventArgs e)
     {
         m_closeTimer.Stop();
-        UpdateVisualStates();
+        UpdateVisualStates(false);
         OnClosed();
     }
 
@@ -961,15 +961,15 @@ public class ContentDialog : ContentControl
         }
     }
 
-    private void UpdateVisualStates()
+    private void UpdateVisualStates(bool useTransitions)
     {
-        UpdateDialogShowingStates();
-        VisualStateManager.GoToState(this, FullSizeDesired ? FullDialogSizingState : DefaultDialogSizingState, App.Settings.EnableAnimationEffects);
-        UpdateButtonsVisibilityStates();
-        UpdateDefaultButtonStates();
+        UpdateDialogShowingStates(useTransitions);
+        VisualStateManager.GoToState(this, FullSizeDesired ? FullDialogSizingState : DefaultDialogSizingState, App.Settings.EnableAnimationEffects && useTransitions);
+        UpdateButtonsVisibilityStates(useTransitions);
+        UpdateDefaultButtonStates(useTransitions);
     }
 
-    private void UpdateDialogShowingStates()
+    private void UpdateDialogShowingStates(bool useTransitions)
     {
         string stateName = IsShowing && IsLoaded ? DialogShowingState : DialogHiddenState;
 
@@ -978,10 +978,10 @@ public class ContentDialog : ContentControl
             stateName = DialogShowingState;
         }
 
-        VisualStateManager.GoToState(this, stateName, App.Settings.EnableAnimationEffects);
+        VisualStateManager.GoToState(this, stateName, App.Settings.EnableAnimationEffects && useTransitions);
     }
 
-    private void UpdateButtonsVisibilityStates()
+    private void UpdateButtonsVisibilityStates(bool useTransitions)
     {
         string stateName;
 
@@ -1026,10 +1026,10 @@ public class ContentDialog : ContentControl
             stateName = AllVisibleState;
         }
 
-        VisualStateManager.GoToState(this, stateName, App.Settings.EnableAnimationEffects);
+        VisualStateManager.GoToState(this, stateName, App.Settings.EnableAnimationEffects && useTransitions);
     }
 
-    private void UpdateDefaultButtonStates()
+    private void UpdateDefaultButtonStates(bool useTransitions)
     {
         string stateName = NoDefaultButtonState;
 
@@ -1046,7 +1046,7 @@ public class ContentDialog : ContentControl
                 break;
         }
 
-        VisualStateManager.GoToState(this, stateName, App.Settings.EnableAnimationEffects);
+        VisualStateManager.GoToState(this, stateName, App.Settings.EnableAnimationEffects && useTransitions);
     }
 
     private void EnsureAdornerLayer(ContentPresenter contentPresenter)
@@ -1149,7 +1149,7 @@ public class ContentDialog : ContentControl
 
     private static void OnButtonTextChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
     {
-        ((ContentDialog)d).UpdateButtonsVisibilityStates();
+        ((ContentDialog)d).UpdateButtonsVisibilityStates(true);
     }
 
     private static void TryExecuteCommand(ICommand command, object parameter)

@@ -122,7 +122,7 @@ public class ListViewExBaseItem : ListBoxItem
         if (parent != null)
         {
             bool enabled = parent.MultiSelectEnabled && parent.IsMultiSelectCheckBoxEnabled;
-            VisualStateManager.GoToState(this, enabled ? "MultiSelectEnabled" : "MultiSelectDisabled", useTransitions && App.Settings.EnableAnimationEffects);
+            VisualStateManager.GoToState(this, enabled ? "MultiSelectEnabled" : "MultiSelectDisabled", App.Settings.EnableAnimationEffects && useTransitions);
         }
     }
 
