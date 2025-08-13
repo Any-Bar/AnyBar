@@ -3,10 +3,15 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:ikw="http://schemas.inkore.net/lib/ui/wpf"
     xmlns:local="clr-namespace:Flow.Bar.Controls"
+    xmlns:sys="clr-namespace:System;assembly=System.Runtime"
     xmlns:ui="http://schemas.inkore.net/lib/ui/wpf/modern">
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary>
             <ikw:CornerRadiusFilterConverter x:Key="BottomCornerRadiusDoubleValueConverter" Filter="Bottom" />
+            <Thickness x:Key="MessageBoxExTitleMargin">0 0 0 12</Thickness>
+            <sys:Double x:Key="UserIconBoxSize">36</sys:Double>
+            <!--  Here -3 is slighly margin for png image transparent part removal  -->
+            <Thickness x:Key="UserIconBoxMargin">-3 0 16 0</Thickness>
         </ResourceDictionary>
     </ResourceDictionary.MergedDictionaries>
 
@@ -31,6 +36,9 @@
         <Setter Property="UseLayoutRounding" Value="True" />
         <Setter Property="WindowChrome.WindowChrome" Value="{DynamicResource AeroWindowChrome}" />
         <Setter Property="ui:ThemeManager.IsThemeAware" Value="True" />
+        <Setter Property="ui:TitleBar.Height" Value="0" />
+        <Setter Property="ui:TitleBar.ResizeBorderThickness" Value="0" />
+        <Setter Property="ui:TitleBar.ExtendViewIntoTitleBar" Value="True" />
         <Setter Property="ResizeMode" Value="NoResize" />
         <Setter Property="SizeToContent" Value="WidthAndHeight" />
         <Setter Property="Template">
@@ -73,7 +81,7 @@
                                                     </Grid.RowDefinitions>
                                                     <ContentControl
                                                         x:Name="Title"
-                                                        Margin="{DynamicResource ContentDialogTitleMargin}"
+                                                        Margin="{StaticResource MessageBoxExTitleMargin}"
                                                         HorizontalAlignment="Left"
                                                         VerticalAlignment="Top"
                                                         Content="{TemplateBinding Caption}"
@@ -102,12 +110,13 @@
                                                             <ColumnDefinition Width="Auto" />
                                                             <ColumnDefinition Width="*" />
                                                         </Grid.ColumnDefinitions>
-                                                        <ContentControl
+                                                        <Image
                                                             x:Name="UserIconBox"
-                                                            Margin="0 0 16 0"
+                                                            Width="{StaticResource UserIconBoxSize}"
+                                                            Height="{StaticResource UserIconBoxSize}"
+                                                            Margin="{StaticResource UserIconBoxMargin}"
                                                             VerticalAlignment="Center"
-                                                            Content="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=TemplateSettings.IconElement}"
-                                                            IsTabStop="False"
+                                                            Source="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=TemplateSettings.IconElement}"
                                                             Visibility="Collapsed" />
                                                         <ui:ContentPresenterEx
                                                             Grid.Column="1"

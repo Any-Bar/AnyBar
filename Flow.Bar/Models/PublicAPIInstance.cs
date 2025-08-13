@@ -70,7 +70,16 @@ public class PublicAPIInstance(Settings settings) : IPublicAPI
 
     public MessageBoxResult ShowMsgBox(string messageBoxText, string caption = "", MessageBoxButton button = MessageBoxButton.OK, MessageBoxImage icon = MessageBoxImage.None, MessageBoxResult defaultResult = MessageBoxResult.OK)
     {
-        return MessageBoxEx.Show(messageBoxText, caption, button, icon, defaultResult, null);
+        ImageSource? iconSource = icon switch
+        {
+            MessageBoxImage.None => null,
+            MessageBoxImage.Error => ImageLoader.ErrorImage,
+            MessageBoxImage.Question => ImageLoader.QuestionImage,
+            MessageBoxImage.Warning => ImageLoader.WarningImage,
+            MessageBoxImage.Information => ImageLoader.InformationImage,
+            _ => null
+        };
+        return MessageBoxEx.Show(messageBoxText, caption, button, iconSource, defaultResult, null);
     }
 
     public void LogVerbose(string className, string message, [CallerMemberName] string methodName = "")

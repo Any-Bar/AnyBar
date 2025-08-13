@@ -1,5 +1,5 @@
 ﻿using System.Windows;
-using iNKORE.UI.WPF.Modern.Controls;
+using System.Windows.Media;
 
 namespace Flow.Bar.Controls;
 
@@ -14,15 +14,15 @@ public class MessageBoxExTemplateSettings : DependencyObject
     private static readonly DependencyPropertyKey IconElementPropertyKey =
         DependencyProperty.RegisterReadOnly(
             nameof(IconElement),
-            typeof(IconElement),
+            typeof(ImageSource),
             typeof(MessageBoxExTemplateSettings),
             null);
 
     public static readonly DependencyProperty IconElementProperty = IconElementPropertyKey.DependencyProperty;
 
-    public IconElement IconElement
+    public ImageSource? IconElement
     {
-        get => (IconElement)GetValue(IconElementProperty);
+        get => (ImageSource)GetValue(IconElementProperty);
         internal set => SetValue(IconElementPropertyKey, value);
     }
 
