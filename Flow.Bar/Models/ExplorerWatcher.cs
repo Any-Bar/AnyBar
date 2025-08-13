@@ -5,7 +5,7 @@ using System.Timers;
 
 namespace Flow.Bar.Models;
 
-internal class ExplorerWatcher : IDisposable
+public class ExplorerWatcher : IDisposable
 {
     private int _lastExplorerProcessId = 0;
     private readonly Timer _timer;
@@ -24,6 +24,10 @@ internal class ExplorerWatcher : IDisposable
                 ExplorerRestarted?.Invoke();
             }
         };
+    }
+
+    public void Start()
+    {
         _timer.Start();
     }
 

@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading;
+using System.Threading.Tasks;
 using Flow.Bar.Enums;
 using Flow.Bar.Extensions;
 using Flow.Bar.Helper.Plugins;
+using Flow.Bar.Models;
 using Flow.Bar.Models.AppBar;
 using Flow.Bar.Models.Monitor;
 using Flow.Bar.Models.UserSettings;
@@ -20,8 +22,12 @@ public class AppBarManagementService(Settings settings)
     private readonly Settings _settings = settings;
 
     private readonly Dictionary<int, AppBarWindow> AppBarWindowPairs = [];
-
     private readonly Lock _appBarWindowLock = new();
+
+    private readonly ExplorerWatcher _explorerWatcher = new();
+    private bool _isExplorerRestarting = false;
+
+    #region Initialization & Disposal
 
     public void InitializeAllAppBarWindows()
     {
@@ -29,7 +35,47 @@ public class AppBarManagementService(Settings settings)
         {
             StartAppBars([.. _settings.AppBars.Values]);
         }
+        InitializaExplorerWatcher();
     }
+
+    private void InitializaExplorerWatcher()
+    {
+        _explorerWatcher.ExplorerRestarted += async () =>
+        {
+            await Task.Delay(300);
+
+            if (_isExplorerRestarting) return;
+            _isExplorerRestarting = true;
+
+            lock (_appBarWindowLock)
+            {
+                foreach (var appbarWindow in AppBarWindowPairs.Values.OrderBy(x => x.Model.Order))
+                {
+                    appbarWindow.ResetAppBarData();
+                }
+            }
+
+            _isExplorerRestarting = false;
+        };
+        _explorerWatcher.Start();
+    }
+
+    public void Dispose()
+    {
+        _explorerWatcher.Dispose();
+        lock (_appBarWindowLock)
+        {
+            foreach (var appBarWindow in AppBarWindowPairs.Values)
+            {
+                appBarWindow.Close();
+            }
+            AppBarWindowPairs.Clear();
+        }
+    }
+
+    #endregion
+
+    #region Monitor Names
 
     public List<MonitorNameLocalized> GetAllMonitorNames(bool includeSettingMonitors)
     {
@@ -38,6 +84,8 @@ public class AppBarManagementService(Settings settings)
             return MonitorNameLocalized.GetValues(includeSettingMonitors ? _settings.AppBars.Values : null);
         }
     }
+
+    #endregion
 
     #region AppBar Management
 

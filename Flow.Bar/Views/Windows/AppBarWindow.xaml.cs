@@ -1,7 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Runtime.InteropServices;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
@@ -15,7 +14,6 @@ using Flow.Bar.Enums;
 using Flow.Bar.Helper.MenuFlyout;
 using Flow.Bar.Helper.Plugins;
 using Flow.Bar.Helper.Windows;
-using Flow.Bar.Models;
 using Flow.Bar.Models.AppBar;
 using Flow.Bar.Plugin;
 using Flow.Bar.Services;
@@ -46,9 +44,6 @@ public partial class AppBarWindow : Window
     private bool _isInAppBarResize;
     private bool _isMinimized;
 
-    private readonly ExplorerWatcher _explorerWatcher = new();
-    private bool _isExplorerRestarting = false;
-
     private readonly AppBarMenuFlyoutHelper _menuFlyoutHelper = new();
 
     #region Constructor
@@ -64,45 +59,12 @@ public partial class AppBarWindow : Window
         ResizeMode = ResizeMode.NoResize;
         Topmost = true;
         ViewModel.PropertyChanged += ViewModel_PropertyChanged;
-        InitializaExplorerWatcher();
         InitializeMenuFlyout();
     }
 
     #endregion
 
     #region Initialization
-
-    private void InitializaExplorerWatcher()
-    {
-        _explorerWatcher.ExplorerRestarted += async () =>
-        {
-            await Task.Delay(300);
-
-            if (_isExplorerRestarting) return;
-            _isExplorerRestarting = true;
-
-            Application.Current.Dispatcher.Invoke(() =>
-            {
-                if (_isAppBarRegistered)
-                {
-                    {
-                        var abd = GetAppBarData();
-                        PInvoke.SHAppBarMessage(PInvoke.ABM_REMOVE, ref abd);
-                    }
-
-                    {
-                        var abd = GetAppBarData();
-                        PInvoke.SHAppBarMessage(PInvoke.ABM_NEW, ref abd);
-                    }
-
-                    // set our initial location
-                    OnDockLocationChanged();
-                }
-
-                _isExplorerRestarting = false;
-            });
-        };
-    }
 
     private void InitializeMenuFlyout()
     {
@@ -375,7 +337,7 @@ public partial class AppBarWindow : Window
         };
     }
 
-    private void OnDockLocationChanged()
+    private void OnDockLocationChanged(bool checkDesigner = true)
     {
         static int WpfDimensionToDesktop(Visual visual, double dim)
         {
@@ -384,7 +346,7 @@ public partial class AppBarWindow : Window
             return (int)Math.Ceiling(dim * dpi.PixelsPerDip);
         }
 
-        if (DesignerProperties.GetIsInDesignMode(this))
+        if (checkDesigner && DesignerProperties.GetIsInDesignMode(this))
         {
             return;
         }
@@ -529,7 +491,33 @@ public partial class AppBarWindow : Window
 
     #endregion
 
-    #region App Bar Helpers
+    #region AppBar Helpers
+
+    /// <summary>
+    /// Resets the app bar data, which includes re-registering the app bar.
+    /// </summary>
+    /// <remarks>
+    /// When explorer.exe is restarted, the app bar may not be registered correctly.
+    /// Call this method to reset the app bar data and re-register it.
+    /// </remarks>
+    public void ResetAppBarData()
+    {
+        if (_isAppBarRegistered)
+        {
+            {
+                var abd = GetAppBarData();
+                PInvoke.SHAppBarMessage(PInvoke.ABM_REMOVE, ref abd);
+            }
+            {
+                var abd = GetAppBarData();
+                PInvoke.SHAppBarMessage(PInvoke.ABM_NEW, ref abd);
+            }
+
+            // Set our initial location
+            // Do not check designer properties because it can cause InvalidOperation
+            OnDockLocationChanged(false);
+        }
+    }
 
     private unsafe APPBARDATA GetAppBarData()
     {

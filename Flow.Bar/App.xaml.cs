@@ -343,6 +343,7 @@ public partial class App : Application, IDisposable, ISingleInstanceApp
                 // since some resources owned by the thread need to be disposed.
                 _notifyIcon.Visible = false;
                 _notifyIcon.Dispose();
+                Ioc.Default.GetRequiredService<AppBarManagementService>().Dispose();
                 ToastNotificationManagerCompat.Uninstall();
                 API.SaveAppAllSettings();
             }
