@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>Library</OutputType>
@@ -22,6 +22,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
+    <NoWarn>FLSG0007</NoWarn>
   </PropertyGroup>
 
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
@@ -32,6 +33,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
+    <NoWarn>FLSG0007</NoWarn>
   </PropertyGroup>
 
   <ItemGroup>
@@ -42,6 +44,10 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Flow.Bar.Plugin\Flow.Bar.Plugin.csproj" />
+    <ProjectReference Include="..\..\Localization\Flow.Bar.Localization.Analyzers\Flow.Bar.Localization.Analyzers.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
+    <ProjectReference Include="..\..\Localization\Flow.Bar.Localization.Attributes\Flow.Bar.Localization.Attributes.csproj" OutputItemType="Analyzer" />
+    <ProjectReference Include="..\..\Localization\Flow.Bar.Localization.Shared\Flow.Bar.Localization.Shared.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
+    <ProjectReference Include="..\..\Localization\Flow.Bar.Localization.SourceGenerators\Flow.Bar.Localization.SourceGenerators.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
   </ItemGroup>
 
   <ItemGroup>
@@ -51,6 +57,15 @@
     <Content Include="Languages\*.xaml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+
+  <PropertyGroup>
+    <FBLUseDependencyInjection>false</FBLUseDependencyInjection>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <CompilerVisibleProperty Include="FBLUseDependencyInjection" />
+    <AdditionalFiles Include="Languages\en.xaml" />
   </ItemGroup>
 
 </Project>

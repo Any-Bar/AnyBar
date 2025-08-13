@@ -25,12 +25,12 @@ public class Main : IPlugin, IPluginI18n, IRightClickMenu
 
     public string GetTranslatedPluginTitle()
     {
-        return Context.API.GetTranslation("FlowBarPlugin_Clock_PluginName");
+        return Localize.FlowBarPlugin_Clock_PluginName();
     }
 
     public string GetTranslatedPluginDescription()
     {
-        return Context.API.GetTranslation("FlowBarPlugin_Clock_PluginDescription");
+        return Localize.FlowBarPlugin_Clock_PluginDescription();
     }
 
     public IList<MenuItem> GetRightClickMenuItems()
@@ -55,7 +55,7 @@ public class Main : IPlugin, IPluginI18n, IRightClickMenu
         }
         catch (Exception ex)
         {
-            Context.API.ShowMsgError(Context.API.GetTranslation("FlowBarPlugin_Clock_RightClickMenu_FailToOpenDateTime"));
+            Context.API.ShowMsgError(Localize.FlowBarPlugin_Clock_RightClickMenu_FailToOpenDateTime());
             Context.API.LogFatal(ClassName, "Failed to open Date and Time settings", ex);
         }
     }
