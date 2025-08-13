@@ -11,11 +11,11 @@ public static class Constants
     public const string Plugins = "Plugins";
     public const string PluginMetadataFileName = "plugin.json";
 
-    public const string ApplicationFileName = FlowBar + ".exe";
+    public const string ApplicationFileName = "Flow.Bar.exe";
 
     private static readonly Assembly Assembly = Assembly.GetExecutingAssembly();
     public static readonly string ProgramDirectory = Directory.GetParent(Assembly.Location)!.ToString();
-    public static readonly string ExecutablePath = Path.Combine(ProgramDirectory, FlowBar + ".exe");
+    public static readonly string ExecutablePath = Path.Combine(ProgramDirectory, ApplicationFileName);
     public static readonly string ApplicationDirectory = Directory.GetParent(ProgramDirectory)!.ToString();
     public static readonly string RootDirectory = Directory.GetParent(ApplicationDirectory)!.ToString();
 
