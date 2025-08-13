@@ -43,8 +43,18 @@ public interface IPublicAPI
     /// </summary>
     /// <param name="title">Message title</param>
     /// <param name="subTitle">Message subtitle</param>
-    /// <param name="iconPath">Message icon path (relative path to your plugin folder)</param>
+    /// <param name="iconPath">
+    /// Message icon path (relative path to your plugin folder).
+    /// If it is invalid, it will show Flow Bar app icon.
+    /// </param>
     void ShowMsg(string title, string subTitle = "", string iconPath = "");
+
+    /// <summary>
+    /// Show message box with error icon.
+    /// </summary>
+    /// <param name="title">Message title</param>
+    /// <param name="subTitle">Message subtitle</param>
+    void ShowMsgError(string title, string subTitle = "");
 
     /// <summary>
     /// Displays a standardised Flow message box.

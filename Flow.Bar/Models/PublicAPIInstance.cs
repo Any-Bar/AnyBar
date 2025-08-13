@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Reflection.Metadata;
 using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
@@ -61,6 +62,11 @@ public class PublicAPIInstance(Settings settings) : IPublicAPI
     public void ShowMsg(string title, string subTitle = "", string iconPath = "")
     {
         NotificationHelper.Show(title, subTitle, iconPath);
+    }
+
+    public void ShowMsgError(string title, string subTitle = "")
+    {
+        NotificationHelper.Show(title, subTitle, Constants.ErrorIcon);
     }
 
     public MessageBoxResult ShowMsgBox(string messageBoxText, string caption = "", MessageBoxButton button = MessageBoxButton.OK, MessageBoxImage icon = MessageBoxImage.None, MessageBoxResult defaultResult = MessageBoxResult.OK)
