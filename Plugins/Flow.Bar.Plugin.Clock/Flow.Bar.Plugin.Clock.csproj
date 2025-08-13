@@ -63,9 +63,6 @@
     <FBLUseDependencyInjection>false</FBLUseDependencyInjection>
   </PropertyGroup>
 
-  <ItemGroup>
-    <CompilerVisibleProperty Include="FBLUseDependencyInjection" />
-    <AdditionalFiles Include="Languages\en.xaml" />
-  </ItemGroup>
+  <Import Project="..\..\Localization\Flow.Bar.Localization\build\Flow.Bar.Localization.props"/>
 
 </Project>
