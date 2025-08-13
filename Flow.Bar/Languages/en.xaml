@@ -85,6 +85,13 @@
     <!--  AppBar Window  -->
     <system:String x:Key="SettingAppBarWindow_AppBarSettings">Appbar settings</system:String>
 
+    <!--  Report Window  -->
+    <system:String x:Key="ReportWindow_AppGotError">App got an error</system:String>
+    <system:String x:Key="ReportWindow_PleaseOpenIssue">Please open a new issue in</system:String>
+    <!-- <param index="0" name="logPath" type="string" />-->
+    <system:String x:Key="ReportWindow_UploadLog">1. Upload this log file: {0}</system:String>
+    <system:String x:Key="ReportWindow_CopyBelow">2. Copy exception messages below</system:String>
+
     <!--  Navigation View  -->
     <system:String x:Key="NavigationView_Back">Back</system:String>
     <system:String x:Key="NavigationView_CloseNavigation">Close navigation</system:String>

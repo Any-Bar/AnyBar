@@ -2,6 +2,7 @@
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using System.Windows.Threading;
+using Flow.Bar.Views.Windows;
 
 namespace Flow.Bar.Helpers.Logging;
 
@@ -13,9 +14,8 @@ public static class ErrorReporting
     {
         FBLogger.Fatal(ClassName, ExceptionFormatter.FormatExcpetion(e), e, methodName);
         if (silent) return;
-        // TODO: Add ReportWindow
-        /*var reportWindow = new ReportWindow(e);
-        reportWindow.Show();*/
+        var reportWindow = new ReportWindow(e);
+        reportWindow.Show();
     }
 
     public static void UnhandledException(object sender, UnhandledExceptionEventArgs e)
