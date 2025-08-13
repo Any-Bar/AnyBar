@@ -308,19 +308,24 @@ public partial class App : Application, IDisposable, ISingleInstanceApp
 
     public static void RestartApp(bool admin, string? param = null)
     {
-        API.LogInfo(ClassName, "Begin Flow Bar restart");
-
         if (!string.IsNullOrEmpty(Constants.ExecutablePath) && File.Exists(Constants.ExecutablePath))
         {
             // Start a new instance of the application
-            Process.Start(new ProcessStartInfo
+            try
             {
-                FileName = Constants.ExecutablePath,
-                UseShellExecute = true,
-                WorkingDirectory = Environment.CurrentDirectory,
-                Arguments = param,
-                Verb = admin ? "runas" : string.Empty
-            });
+                Process.Start(new ProcessStartInfo
+                {
+                    FileName = Constants.ExecutablePath,
+                    UseShellExecute = true,
+                    WorkingDirectory = Environment.CurrentDirectory,
+                    Arguments = param,
+                    Verb = admin ? "runas" : string.Empty
+                });
+            }
+            catch (Exception)
+            {
+                // Ignore any exceptions that occur while starting the new process
+            }
 
             // Close the log
             FBLogger.Close();
