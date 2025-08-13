@@ -1,5 +1,5 @@
 ﻿using Flow.Bar.Enums;
-using Flow.Bar.Extensions.Enumerable;
+using Flow.Bar.Extensions;
 using Flow.Bar.Helper.Plugins;
 using Flow.Bar.Models.AppBar;
 using Flow.Bar.Models.Monitor;

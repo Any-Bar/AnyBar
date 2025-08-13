@@ -1,4 +1,4 @@
-﻿using Flow.Bar.Extensions.Data;
+﻿using Flow.Bar.Extensions;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Serilog;

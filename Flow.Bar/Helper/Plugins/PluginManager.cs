@@ -1,4 +1,4 @@
-﻿using Flow.Bar.Extensions.Data;
+﻿using Flow.Bar.Extensions;
 using Flow.Bar.Models.AppBar;
 using Flow.Bar.Models.Plugins;
 using Flow.Bar.Plugin;

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 
-namespace Flow.Bar.Extensions.Data;
+namespace Flow.Bar.Extensions;
 
 public static class DataLocation
 {

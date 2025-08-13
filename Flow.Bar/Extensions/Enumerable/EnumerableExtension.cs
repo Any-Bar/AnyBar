@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 
-namespace Flow.Bar.Extensions.Enumerable;
+namespace Flow.Bar.Extensions;
 
 public static class EnumerableExtension
 {
