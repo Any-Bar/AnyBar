@@ -53,9 +53,6 @@ public partial class App : Application, IDisposable, ISingleInstanceApp
     [STAThread]
     public static void Main()
     {
-        // Set up Logging
-        FBLogger.Initialize();
-
         // Initialize settings so that we can get language code
         try
         {
@@ -81,9 +78,14 @@ public partial class App : Application, IDisposable, ISingleInstanceApp
         // Start the application as a single instance
         if (SingleInstance<App>.InitializeAsFirstInstance())
         {
+            // Set up Logging
+            FBLogger.Initialize();
+
             using var application = new App();
             application.InitializeComponent();
             application.Run();
+
+            // Close and flush the logger
             FBLogger.Close();
         }
     }
