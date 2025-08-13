@@ -13,7 +13,7 @@
     Title="{DynamicResource SettingPaneBarElementSetting_AddBarElement}"
     d:DesignHeight="450"
     d:DesignWidth="800"
-    CloseButtonText="{DynamicResource AddAppBarContentDialog_Cancel}"
+    CloseButtonText="{DynamicResource MessageBoxEx_Cancel}"
     ContentWidth="507"
     DataContext="{Binding RelativeSource={RelativeSource Self}}"
     DefaultButton="Primary"

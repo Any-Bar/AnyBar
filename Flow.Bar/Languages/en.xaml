@@ -103,7 +103,12 @@
 
     <!--  Add AppBar Content Dialog  -->
     <system:String x:Key="AddAppBarContentDialog_Add">Add</system:String>
-    <system:String x:Key="AddAppBarContentDialog_Cancel">Cancel</system:String>
+
+    <!--  Message Box  -->
+    <system:String x:Key="MessageBoxEx_Ok">Ok</system:String>
+    <system:String x:Key="MessageBoxEx_Yes">Yes</system:String>
+    <system:String x:Key="MessageBoxEx_No">No</system:String>
+    <system:String x:Key="MessageBoxEx_Cancel">Cancel</system:String>
 
     <!--  Enums  -->
     <system:String x:Key="AppBarDockMode_Left">Left</system:String>
