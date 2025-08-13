@@ -1,15 +1,20 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
-using Flow.Bar.Enums;
-using Flow.Bar.Helper.Plugins;
-using Flow.Bar.Interfaces;
-using Flow.Bar.Enums;
-using Flow.Bar.Models.Plugins;
-using Flow.Bar.Plugin;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading;
+using System.Windows;
+using System.Windows.Controls;
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
+using Flow.Bar.Controls;
+using Flow.Bar.Enums;
+using Flow.Bar.Enums;
+using Flow.Bar.Helper.MenuFlyout;
+using Flow.Bar.Helper.Plugins;
+using Flow.Bar.Interfaces;
+using Flow.Bar.Models.Plugins;
+using Flow.Bar.Plugin;
 
 namespace Flow.Bar.ViewModels;
 
@@ -78,22 +83,14 @@ public partial class SettingsPanePluginsViewModel : ObservableObject, INavigatio
             }
             _isInitialized = true;
         }
+
+        // Only need to initialize once
+        InitializeMenuFlyoutHelper();
     }
 
     public void OnNavigatedFrom()
     {
         _isInitialized = false;
-    }
-
-    public void UninstallPlugin(PluginMetadata oldPlugin)
-    {
-        lock (_pluginsLock)
-        {
-            AllPlugins.Remove(AllPlugins.First(x => x.ID == oldPlugin.ID));
-            _allPlugins.Remove(_allPlugins.First(x => x.ID == oldPlugin.ID));
-            _filteredPlugins.Remove(_filteredPlugins.First(x => x.ID == oldPlugin.ID));
-            _sortedPlugins.Remove(_sortedPlugins.First(x => x.ID == oldPlugin.ID));
-        }
     }
 
     private void UpdateFilteredPlugins()
@@ -147,5 +144,53 @@ public partial class SettingsPanePluginsViewModel : ObservableObject, INavigatio
             (PluginManager.IsPreinstalled(viewModel.ID) ? 
                 FilterMode == SettingPanePluginsFilterMode.PreinstalledPlugins :
                 FilterMode == SettingPanePluginsFilterMode.UserinstalledPlugins));
+    }
+
+    private static readonly double ContextMenuWidth = (double)Application.Current.TryFindResource("CustomContextMenuWidth");
+    private static readonly double SecondaryContextMenuWidth = (double)Application.Current.TryFindResource("SecondaryContextMenuWidth");
+    private static readonly double SecondaryContextMenuHeight = (double)Application.Current.TryFindResource("SecondaryContextMenuHeight");
+    private static readonly Style PluginUninstallationContextMenuStyle = (Style)Application.Current.TryFindResource("PluginUninstallationContextMenuStyle");
+
+    private PluginUninstallationMenuFlyoutHelper<PluginViewModel> _menuFlyoutHelper = null!;
+
+    private void InitializeMenuFlyoutHelper()
+    {
+        _menuFlyoutHelper = new(
+            ContextMenuWidth,
+            SecondaryContextMenuWidth,
+            SecondaryContextMenuHeight,
+            PluginUninstallationContextMenuStyle,
+            "UninstallButton",
+            UninstallPlugin);
+        var uninstallItem = new MenuItem();
+        uninstallItem.SetResourceReference(HeaderedItemsControl.HeaderProperty, nameof(Localize.SettingPanePlugins_Uninstall));
+        uninstallItem.Click += UninstallItem_Click;
+        _menuFlyoutHelper.Items.Add(uninstallItem);
+    }
+
+    [RelayCommand]
+    private void ShowPluginMoreOptions(FontIconButton button)
+    {
+        _menuFlyoutHelper.ButtonClick(button);
+    }
+
+    private void UninstallItem_Click(object sender, RoutedEventArgs e)
+    {
+        _menuFlyoutHelper.UninstallItemClick();
+    }
+
+    private async void UninstallPlugin(PluginViewModel plugin)
+    {
+        var oldPlugin = plugin.PluginPair.Metadata;
+        if (await PluginInstaller.UninstallPluginAndCheckRestartAsync(oldPlugin))
+        {
+            lock (_pluginsLock)
+            {
+                AllPlugins.Remove(AllPlugins.First(x => x.ID == oldPlugin.ID));
+                _allPlugins.Remove(_allPlugins.First(x => x.ID == oldPlugin.ID));
+                _filteredPlugins.Remove(_filteredPlugins.First(x => x.ID == oldPlugin.ID));
+                _sortedPlugins.Remove(_sortedPlugins.First(x => x.ID == oldPlugin.ID));
+            }
+        }
     }
 }

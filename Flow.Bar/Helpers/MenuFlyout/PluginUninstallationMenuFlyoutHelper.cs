@@ -31,12 +31,11 @@ public class PluginUninstallationMenuFlyoutHelper<T> : IDisposable
         _uninstallContextMenu.Closed += UninstallContextMenu_Closed;
     }
 
-    public void ButtonClick(object sender, RoutedEventArgs e)
+    public void ButtonClick(Button button)
     {
         _plugin = default;
         _button = null;
-        if (sender is not Button button) return;
-        if (button.Tag is not T plugin) return;
+        if (button.Tag is not T plugin) throw new ArgumentException($"{nameof(Button)} tag must be of type {nameof(T)}", nameof(button));
         _button = button;
         _plugin = plugin;
         _contextMenu.ShowAt(button, new MenuFlyoutExOptions()
@@ -45,7 +44,7 @@ public class PluginUninstallationMenuFlyoutHelper<T> : IDisposable
         });
     }
 
-    public void UninstallItemClick(object sender, RoutedEventArgs e)
+    public void UninstallItemClick()
     {
         if (_plugin != null && _button != null)
         {

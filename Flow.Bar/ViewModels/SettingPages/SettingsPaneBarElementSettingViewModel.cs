@@ -1,16 +1,4 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Input;
-using Flow.Bar.Controls;
-using Flow.Bar.Dialogs;
-using Flow.Bar.Enums;
-using Flow.Bar.Extensions;
-using Flow.Bar.Interfaces;
-using Flow.Bar.Models.AppBar;
-using Flow.Bar.Enums;
-using Flow.Bar.Models.Parameter;
-using Flow.Bar.Services;
-using Flow.Bar.Views;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
@@ -19,6 +7,19 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
+using Flow.Bar.Controls;
+using Flow.Bar.Dialogs;
+using Flow.Bar.Enums;
+using Flow.Bar.Enums;
+using Flow.Bar.Extensions;
+using Flow.Bar.Helper.MenuFlyout;
+using Flow.Bar.Interfaces;
+using Flow.Bar.Models.AppBar;
+using Flow.Bar.Models.Parameter;
+using Flow.Bar.Services;
+using Flow.Bar.Views;
 
 namespace Flow.Bar.ViewModels;
 
@@ -155,6 +156,9 @@ public partial class SettingsPaneBarElementSettingViewModel(AppBarManagementServ
         {
             App.API.LogError(ClassName, $"{nameof(parameter)} is not of type {nameof(SettingsPaneBarElementSettingNavigationParameter)} or {nameof(SettingsPaneBarElementSettingReorderParameter)}");
         }
+
+        // Only need to initialize once
+        InitializeMenuFlyoutHelper();
     }
 
     public void OnNavigatedFrom()
@@ -166,16 +170,6 @@ public partial class SettingsPaneBarElementSettingViewModel(AppBarManagementServ
     private void InitializeBarElements()
     {
         _barElements = [.. _appBarManagementService.GetOrderedBarElements(_position, _model).Select(x => new BarElementViewModel(x))];
-    }
-
-    public void RemoveBarElement(BarElementViewModel oldBarElement)
-    {
-        _appBarManagementService.RemoveBarElement(_position, _model, oldBarElement.Order);
-        lock (_barElementsLock)
-        {
-            _barElements.Remove(oldBarElement);
-            BarElements.Remove(BarElements.First(x => x.Order == oldBarElement.Order));
-        }
     }
 
     private void SortBarElements()
@@ -233,6 +227,49 @@ public partial class SettingsPaneBarElementSettingViewModel(AppBarManagementServ
             {
                 App.API.LogError(ClassName, $"Unsupported {nameof(SortMode)}: {SortMode} for {nameof(NotifyCollectionChangedAction.Move)} action in {nameof(BarElements)} collection");
             }
+        }
+    }
+
+    private static readonly double ContextMenuWidth = (double)Application.Current.TryFindResource("CustomContextMenuWidth");
+    private static readonly double SecondaryContextMenuWidth = (double)Application.Current.TryFindResource("SecondaryContextMenuWidth");
+    private static readonly double SecondaryContextMenuHeight = (double)Application.Current.TryFindResource("SecondaryContextMenuHeight");
+    private static readonly Style BarElementRemoveContextMenuStyle = (Style)Application.Current.TryFindResource("BarElementRemoveContextMenuStyle");
+
+    private PluginUninstallationMenuFlyoutHelper<BarElementViewModel> _menuFlyoutHelper = null!;
+
+    private void InitializeMenuFlyoutHelper()
+    {
+        _menuFlyoutHelper = new(
+            ContextMenuWidth,
+            SecondaryContextMenuWidth,
+            SecondaryContextMenuHeight,
+            BarElementRemoveContextMenuStyle,
+            "RemoveButton",
+            RemoveBarElement);
+        var removeItem = new MenuItem();
+        removeItem.SetResourceReference(HeaderedItemsControl.HeaderProperty, nameof(Localize.SettingPaneAppBarSetting_Remove));
+        removeItem.Click += UninstallItem_Click;
+        _menuFlyoutHelper.Items.Add(removeItem);
+    }
+
+    [RelayCommand]
+    private void ShowBarElementMoreOptions(FontIconButton button)
+    {
+        _menuFlyoutHelper.ButtonClick(button);
+    }
+
+    private void UninstallItem_Click(object sender, RoutedEventArgs e)
+    {
+        _menuFlyoutHelper.UninstallItemClick();
+    }
+
+    private void RemoveBarElement(BarElementViewModel oldBarElement)
+    {
+        _appBarManagementService.RemoveBarElement(_position, _model, oldBarElement.Order);
+        lock (_barElementsLock)
+        {
+            BarElements.Remove(BarElements.First(x => x.Order == oldBarElement.Order));
+            _barElements.Remove(oldBarElement);
         }
     }
 }
