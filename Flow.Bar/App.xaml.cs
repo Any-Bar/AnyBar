@@ -283,6 +283,34 @@ public partial class App : Application, IDisposable, ISingleInstanceApp
 
     #endregion
 
+    #region Restart
+
+    public static void RestartApp(bool admin, string? param = null)
+    {
+        API.LogInfo(ClassName, "Begin Flow Bar restart");
+
+        if (!string.IsNullOrEmpty(Constants.ExecutablePath) && File.Exists(Constants.ExecutablePath))
+        {
+            // Start a new instance of the application
+            Process.Start(new ProcessStartInfo
+            {
+                FileName = Constants.ExecutablePath,
+                UseShellExecute = true,
+                WorkingDirectory = Environment.CurrentDirectory,
+                Arguments = param,
+                Verb = admin ? "runas" : string.Empty
+            });
+
+            // Close the log
+            FBLogger.Close();
+
+            // Kill the current process
+            Process.GetCurrentProcess().Kill();
+        }
+    }
+
+    #endregion
+
     #region NotifyIcon
 
     private void InitNotifyIcon()
