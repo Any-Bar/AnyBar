@@ -18,6 +18,9 @@ public class MenuFlyoutEx : DependencyObject
 
     public MenuFlyoutEx()
     {
+        // Application is exiting
+        if (Application.Current == null) return;
+
         s_contextMenuStyle ??= (Style)Application.Current.Resources[c_contextMenuStyleKey];
 
         ArgumentNullException.ThrowIfNull(s_contextMenuStyle, $"{c_contextMenuStyleKey} not found in {nameof(Application)} {nameof(ResourceDictionary)}");
