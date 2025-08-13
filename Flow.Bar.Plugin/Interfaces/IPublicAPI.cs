@@ -12,6 +12,15 @@ namespace Flow.Bar.Plugin;
 public interface IPublicAPI
 {
     /// <summary>
+    /// Restart the application.
+    /// </summary>
+    /// <remarks>
+    /// If application is running as administrator, it will still restart as administrator no matter what the parameter is.
+    /// </remarks>
+    /// <param name="admin">Whether to restart the app as administrator or not</param>
+    void RestartApp(bool admin = false);
+
+    /// <summary>
     /// Show setting window.
     /// </summary>
     void ShowSettingWindow();
@@ -27,8 +36,6 @@ public interface IPublicAPI
     /// <remarks>
     /// You need to implement IPluginI18n to enable multiple languages for your plugin.
     /// </remarks>
-    /// <param name="key"></param>
-    /// <returns></returns>
     string GetTranslation(string key);
 
     /// <summary>

@@ -22,6 +22,20 @@ public class PublicAPIInstance(Settings settings) : IPublicAPI
 
     private readonly Lock _saveSettingsLock = new();
 
+    public void RestartApp(bool admin)
+    {
+        // Hide all active windows
+        foreach (var window in WindowTracker.GetActiveWindow<Window>())
+        {
+            window.Hide();
+        }
+
+        // Save all settings before restarting
+        SaveAppAllSettings();
+
+        App.RestartApp(admin);
+    }
+
     public void ShowSettingWindow()
     {
         Application.Current.Dispatcher.Invoke(() =>
