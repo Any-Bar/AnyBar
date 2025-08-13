@@ -12,15 +12,13 @@ namespace Flow.Bar.Views;
 public partial class SettingsPaneAppBar : Page
 {
     private SettingsPaneAppBarViewModel _viewModel = null!;
-    private AppBarManagementService _appBarManagementService = null!;
-
+    
     protected override void OnNavigatedTo(NavigationEventArgs e)
     {
         // If the navigation is not triggered by button click, view model will be null again
         if (_viewModel == null)
         {
             _viewModel = Ioc.Default.GetRequiredService<SettingsPaneAppBarViewModel>();
-            _appBarManagementService = Ioc.Default.GetRequiredService<AppBarManagementService>();
             DataContext = _viewModel;
         }
         if (!IsInitialized)
@@ -28,12 +26,5 @@ public partial class SettingsPaneAppBar : Page
             InitializeComponent();
         }
         base.OnNavigatedTo(e);
-    }
-
-    private void AppBarToggleSwitch_Toggled(object sender, RoutedEventArgs e)
-    {
-        if (sender is not ToggleSwitchEx toggleSwitch) return;
-        if (toggleSwitch.Tag is not AppBarModel model) return;
-        _appBarManagementService.SetEnabled(model.Order, toggleSwitch.IsOn);
     }
 }

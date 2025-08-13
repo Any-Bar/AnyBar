@@ -6,6 +6,7 @@
     xmlns:converters="clr-namespace:Flow.Bar.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:enums="clr-namespace:Flow.Bar.Enums"
+    xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
     xmlns:ikw="http://schemas.inkore.net/lib/ui/wpf"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:models="clr-namespace:Flow.Bar.Models.AppBar"
@@ -119,9 +120,15 @@
                             </controls:SettingsCardEx.ActionIcon>
 
                             <controls:ToggleSwitchEx
+                                x:Name="IsEnabledToggleSwitch"
                                 IsOn="{Binding IsEnabled, Mode=TwoWay}"
-                                Tag="{Binding ., Mode=OneTime}"
-                                Toggled="AppBarToggleSwitch_Toggled" />
+                                Tag="{Binding ., Mode=OneTime}">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="Toggled">
+                                        <i:InvokeCommandAction Command="{Binding DataContext.IsEnabledToggleSwitchToggledCommand, RelativeSource={RelativeSource AncestorType=controls:ListViewEx}, Mode=OneTime}" CommandParameter="{Binding ElementName=IsEnabledToggleSwitch}" />
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </controls:ToggleSwitchEx>
                         </controls:SettingsCardEx>
                     </DataTemplate>
                 </controls:ListViewEx.ItemTemplate>

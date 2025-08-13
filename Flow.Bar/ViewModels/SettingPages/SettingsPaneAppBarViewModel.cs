@@ -1,14 +1,4 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Input;
-using Flow.Bar.Controls;
-using Flow.Bar.Dialogs;
-using Flow.Bar.Enums;
-using Flow.Bar.Interfaces;
-using Flow.Bar.Models.AppBar;
-using Flow.Bar.Enums;
-using Flow.Bar.Services;
-using Flow.Bar.Views;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
@@ -17,6 +7,16 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
+using Flow.Bar.Controls;
+using Flow.Bar.Dialogs;
+using Flow.Bar.Enums;
+using Flow.Bar.Enums;
+using Flow.Bar.Interfaces;
+using Flow.Bar.Models.AppBar;
+using Flow.Bar.Services;
+using Flow.Bar.Views;
 
 namespace Flow.Bar.ViewModels;
 
@@ -178,5 +178,12 @@ public partial class SettingsPaneAppBarViewModel(AppBarManagementService appBarM
     private void OpenAppBarSetting(AppBarModel model)
     {
         _navigationService.NavigateTo(SettingPageTag.AppBarSetting, model);
+    }
+
+    [RelayCommand]
+    private void IsEnabledToggleSwitchToggled(ToggleSwitchEx toggleSwitch)
+    {
+        if (toggleSwitch.Tag is not AppBarModel model) return;
+        _appBarManagementService.SetEnabled(model.Order, toggleSwitch.IsOn);
     }
 }
