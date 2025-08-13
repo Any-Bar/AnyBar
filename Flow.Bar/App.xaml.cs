@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.IO;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -93,6 +94,13 @@ public partial class App : Application, IDisposable, ISingleInstanceApp
 
     public App()
     {
+        // Check if the application is running as administrator
+        if (Settings.AlwaysRunAsAdministrator && !PInvokeHelper.IsAdministrator())
+        {
+            RestartApp(true);
+            return;
+        }
+
         // Do not use bitmap cache since it can cause WPF second window freezing issue
         ShadowAssist.UseBitmapCache = false;
 
@@ -218,7 +226,18 @@ public partial class App : Application, IDisposable, ISingleInstanceApp
         {
             try
             {
-                AutoStartupHelper.CheckIsEnabled(Settings.UseLogonTaskForStartup);
+                AutoStartupHelper.CheckIsEnabled(Settings.UseLogonTaskForStartup, Settings.AlwaysRunAsAdministrator);
+            }
+            catch (UnauthorizedAccessException)
+            {
+                // If it fails for permission, we need to ask the user to restart as administrator
+                if (API.ShowMsgBox(
+                    Localize.SettingPaneGeneral_RestartToApplyChange(),
+                    Localize.SettingPaneGeneral_RestartToApplyChangeDescription(),
+                    MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+                {
+                    RestartApp(true);
+                }
             }
             catch (Exception e)
             {

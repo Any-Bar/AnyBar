@@ -3,6 +3,8 @@ using System.Linq;
 using System.Security.Principal;
 using Microsoft.Win32;
 using Microsoft.Win32.TaskScheduler;
+using Windows.Win32;
+using LogonTaskAction = Microsoft.Win32.TaskScheduler.Action;
 
 namespace Flow.Bar.Helpers.Startup;
 
@@ -14,16 +16,16 @@ public class AutoStartupHelper
     private const string LogonTaskName = $"{Constants.FlowBar} Startup";
     private const string LogonTaskDesc = $"Automatically start {Constants.FlowBar} on system startup";
 
-    public static void CheckIsEnabled(bool useLogonTaskForStartup)
+    public static void CheckIsEnabled(bool useLogonTaskForStartup, bool alwaysRunAsAdministrator)
     {
-        var logonTaskEnabled = CheckLogonTask();
+        var logonTaskEnabled = CheckLogonTask(alwaysRunAsAdministrator);
         var registryEnabled = CheckRegistry();
         if (useLogonTaskForStartup)
         {
             // Enable logon task
             if (!logonTaskEnabled)
             {
-                Enable(true);
+                Enable(true, alwaysRunAsAdministrator);
             }
             // Disable registry
             if (registryEnabled)
@@ -36,7 +38,7 @@ public class AutoStartupHelper
             // Enable registry
             if (!registryEnabled)
             {
-                Enable(false);
+                Enable(false, alwaysRunAsAdministrator);
             }
             // Disable logon task
             if (logonTaskEnabled)
@@ -46,7 +48,7 @@ public class AutoStartupHelper
         }
     }
 
-    private static bool CheckLogonTask()
+    private static bool CheckLogonTask(bool alwaysRunAsAdministrator)
     {
         using var taskService = new TaskService();
         var task = taskService.RootFolder.AllTasks.FirstOrDefault(t => t.Name == LogonTaskName);
@@ -54,19 +56,45 @@ public class AutoStartupHelper
         {
             try
             {
-                // Check if the action is the same as the current executable path
-                // If not, we need to unschedule and reschedule the task
-                if (task.Definition.Actions.FirstOrDefault() is Microsoft.Win32.TaskScheduler.Action taskAction)
+                if (task.Definition.Actions.FirstOrDefault() is LogonTaskAction taskAction)
                 {
                     var action = taskAction.ToString().Trim();
-                    if (!action.Equals(Constants.ExecutablePath, StringComparison.OrdinalIgnoreCase))
+                    var pathCorrect = action.Equals(Constants.ExecutablePath, StringComparison.OrdinalIgnoreCase);
+                    var runLevelCorrect = CheckRunLevel(task.Definition.Principal.RunLevel, alwaysRunAsAdministrator);
+
+                    if (PInvokeHelper.IsAdministrator())
                     {
-                        UnscheduleLogonTask();
-                        ScheduleLogonTask();
+                        // If path or run level is not correct, we need to unschedule and reschedule the task
+                        if (!pathCorrect || !runLevelCorrect)
+                        {
+                            UnscheduleLogonTask();
+                            ScheduleLogonTask(alwaysRunAsAdministrator);
+                        }
+                    }
+                    else
+                    {
+                        // If run level is not correct, we cannot edit it because we are not administrator
+                        // So we just throw an exception to let the user know
+                        if (!runLevelCorrect)
+                        {
+                            throw new UnauthorizedAccessException("Cannot edit task run level because the app is not running as administrator.");
+                        }
+
+                        // If run level is correct and path is not correct, we need to unschedule and reschedule the task
+                        if (!pathCorrect)
+                        {
+                            UnscheduleLogonTask();
+                            ScheduleLogonTask(alwaysRunAsAdministrator);
+                        }
                     }
                 }
 
                 return true;
+            }
+            catch (UnauthorizedAccessException e)
+            {
+                App.API.LogError(ClassName, $"Failed to check logon task: {e}");
+                throw; // Throw exception so that App.AutoStartup can show error message
             }
             catch (Exception e)
             {
@@ -76,6 +104,11 @@ public class AutoStartupHelper
         }
 
         return false;
+    }
+
+    private static bool CheckRunLevel(TaskRunLevel rl, bool alwaysRunAsAdministrator)
+    {
+        return alwaysRunAsAdministrator ? rl == TaskRunLevel.Highest : rl != TaskRunLevel.Highest;
     }
 
     private static bool CheckRegistry()
@@ -112,16 +145,19 @@ public class AutoStartupHelper
         Disable(false);
     }
 
-    public static void ChangeToViaLogonTask()
+    public static void ChangeToViaLogonTask(bool alwaysRunAsAdministrator)
     {
         Disable(false);
-        Enable(true);
+        Disable(true); // Remove old logon task so that we can create a new one
+        Enable(true, alwaysRunAsAdministrator);
     }
 
     public static void ChangeToViaRegistry()
     {
         Disable(true);
-        Enable(false);
+        Disable(false); // Remove old registry so that we can create a new one
+        // We do not need to use alwaysRunAsAdministrator for registry, so we just set false here
+        Enable(false, false);
     }
 
     private static void Disable(bool logonTask)
@@ -144,13 +180,13 @@ public class AutoStartupHelper
         }
     }
 
-    private static void Enable(bool logonTask)
+    private static void Enable(bool logonTask, bool alwaysRunAsAdministrator)
     {
         try
         {
             if (logonTask)
             {
-                ScheduleLogonTask();
+                ScheduleLogonTask(alwaysRunAsAdministrator);
             }
             else
             {
@@ -164,14 +200,15 @@ public class AutoStartupHelper
         }
     }
 
-    private static bool ScheduleLogonTask()
+    private static bool ScheduleLogonTask(bool alwaysRunAsAdministrator)
     {
         using var td = TaskService.Instance.NewTask();
         td.RegistrationInfo.Description = LogonTaskDesc;
         td.Triggers.Add(new LogonTrigger { UserId = WindowsIdentity.GetCurrent().Name, Delay = TimeSpan.FromSeconds(2) });
         td.Actions.Add(Constants.ExecutablePath);
 
-        if (IsCurrentUserIsAdmin())
+        // Only if the app is running as administrator, we can set the run level to highest
+        if (PInvokeHelper.IsAdministrator() && alwaysRunAsAdministrator)
         {
             td.Principal.RunLevel = TaskRunLevel.Highest;
         }
@@ -205,13 +242,6 @@ public class AutoStartupHelper
             App.API.LogError(ClassName, $"Failed to unschedule logon task: {e}");
             return false;
         }
-    }
-
-    private static bool IsCurrentUserIsAdmin()
-    {
-        var identity = WindowsIdentity.GetCurrent();
-        var principal = new WindowsPrincipal(identity);
-        return principal.IsInRole(WindowsBuiltInRole.Administrator);
     }
 
     private static bool UnscheduleRegistry()

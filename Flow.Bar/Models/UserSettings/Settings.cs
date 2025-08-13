@@ -31,6 +31,8 @@ public class Settings
     public bool StartOnSystemStartup { get; set; } = false;
     public bool UseLogonTaskForStartup { get; set; } = false;
 
+    public bool AlwaysRunAsAdministrator { get; set; } = false;
+
     public bool HideSettingWindow { get; set; } = false;
 
     public bool EnableTransparencyEffects { get; set; } = true;
