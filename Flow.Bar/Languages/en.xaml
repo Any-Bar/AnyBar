@@ -20,6 +20,14 @@
     <system:String x:Key="SettingPaneGeneral_Language">Language</system:String>
     <system:String x:Key="SettingPaneGeneral_AppDisplayLanguage">App display language</system:String>
     <system:String x:Key="SettingPaneGeneral_Behaviour">Behaviour</system:String>
+    <system:String x:Key="SettingPaneGeneral_StartOnSystemStartup">Start app on system startup</system:String>
+    <system:String x:Key="SettingPaneGeneral_StartOnSystemStartupDescription">Start app automatically after system starting up</system:String>
+    <system:String x:Key="SettingPaneGeneral_UseLogonTaskForStartup">Use logon task instead of startup entry</system:String>
+    <system:String x:Key="SettingPaneGeneral_UseLogonTaskForStartupDescription">Use logon task instead of startup entry for faster startup experience</system:String>
+    <system:String x:Key="SettingPaneGeneral_AlwaysRunAsAdministrator">Always run as administrator</system:String>
+    <system:String x:Key="SettingPaneGeneral_AlwaysRunAsAdministratorDescription">Run app as administrator after starting up</system:String>
+    <system:String x:Key="SettingPaneGeneral_RestartToApplyChange">Restart app to apply change</system:String>
+    <system:String x:Key="SettingPaneGeneral_RestartToApplyChangeDescription">Do you want to restart app as administrator to apply change of Always run as administrator? Or you need to run app as administrator during next start manually</system:String>
     <system:String x:Key="SettingPaneGeneral_HideSettingWindow">Hide setting window on startup</system:String>
     <system:String x:Key="SettingPaneGeneral_HideSettingWindowDescription">Hide setting window after starting up</system:String>
     <system:String x:Key="SettingPaneGeneral_Appearance">Appearance</system:String>

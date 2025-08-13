@@ -45,6 +45,39 @@
                 x:Name="BehaviourTitle"
                 Style="{StaticResource SettingsSectionHeaderTextBlockStyle}"
                 Text="{DynamicResource SettingPaneGeneral_Behaviour}" />
+            <ui:SettingsExpander
+                x:Name="StartOnSystemStartupCard"
+                Description="{DynamicResource SettingPaneGeneral_StartOnSystemStartupDescription}"
+                Header="{DynamicResource SettingPaneGeneral_StartOnSystemStartup}">
+                <ui:SettingsExpander.HeaderIcon>
+                    <ui:FontIcon Glyph="&#xe8fc;" />
+                </ui:SettingsExpander.HeaderIcon>
+
+                <controls:ToggleSwitchEx IsOn="{Binding StartOnSystemStartup, Mode=TwoWay}" />
+
+                <ui:SettingsExpander.Items>
+                    <controls:SettingsCardEx
+                        x:Name="UseLogonTaskForStartupCard"
+                        Description="{DynamicResource SettingPaneGeneral_UseLogonTaskForStartupDescription}"
+                        Header="{DynamicResource SettingPaneGeneral_UseLogonTaskForStartup}">
+                        <controls:SettingsCardEx.HeaderIcon>
+                            <ui:FontIcon Glyph="&#xed1a;" />
+                        </controls:SettingsCardEx.HeaderIcon>
+
+                        <controls:ToggleSwitchEx IsOn="{Binding UseLogonTaskForStartup, Mode=TwoWay}" />
+                    </controls:SettingsCardEx>
+                </ui:SettingsExpander.Items>
+            </ui:SettingsExpander>
+            <controls:SettingsCardEx
+                x:Name="AlwaysRunAsAdministratorCard"
+                Description="{DynamicResource SettingPaneGeneral_AlwaysRunAsAdministratorDescription}"
+                Header="{DynamicResource SettingPaneGeneral_AlwaysRunAsAdministrator}">
+                <controls:SettingsCardEx.HeaderIcon>
+                    <ui:FontIcon Glyph="&#xE7EF;" />
+                </controls:SettingsCardEx.HeaderIcon>
+
+                <controls:ToggleSwitchEx IsOn="{Binding AlwaysRunAsAdministrator, Mode=TwoWay}" />
+            </controls:SettingsCardEx>
             <controls:SettingsCardEx
                 x:Name="HideSettingWindowCard"
                 Description="{DynamicResource SettingPaneGeneral_HideSettingWindowDescription}"
