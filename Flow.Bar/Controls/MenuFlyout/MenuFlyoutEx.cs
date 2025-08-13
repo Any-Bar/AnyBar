@@ -18,7 +18,7 @@ public class MenuFlyoutEx : DependencyObject
 
     public MenuFlyoutEx()
     {
-        // Application is exiting
+        // Sometimes application is exiting but menu is still being created, so we need to check if Application.Current is null
         if (Application.Current == null) return;
 
         s_contextMenuStyle ??= (Style)Application.Current.Resources[c_contextMenuStyleKey];
