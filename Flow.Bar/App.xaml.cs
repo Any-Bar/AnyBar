@@ -241,12 +241,13 @@ public partial class App : Application, IDisposable, ISingleInstanceApp
                     RestartApp(true);
                 }
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 // If it fails (permissions, etc) then don't keep retrying,
                 // just disable auto-startup to give the user a visual indication in the settings window
                 Settings.StartOnSystemStartup = false;
-                API.ShowMsgError(Localize.App_FailedToSetAutoStartup(), e.Message);
+                API.ShowMsgError(Localize.App_FailedToSetAutoStartup());
+                // No need to log error here since it is already logged in AutoStartupHelper
             }
         }
     }

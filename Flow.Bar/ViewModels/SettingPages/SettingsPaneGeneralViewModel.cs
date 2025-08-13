@@ -11,6 +11,8 @@ namespace Flow.Bar.ViewModels;
 
 public partial class SettingsPaneGeneralViewModel(Settings settings, Internationalization translater) : ObservableObject
 {
+    private static readonly string ClassName = nameof(SettingsPaneGeneralViewModel);
+
     public Settings Settings { get; init; } = settings;
 
     #region Language
@@ -58,7 +60,8 @@ public partial class SettingsPaneGeneralViewModel(Settings settings, Internation
             }
             catch (Exception e)
             {
-                App.API.ShowMsgError(Localize.App_FailedToSetAutoStartup(), e.Message);
+                App.API.ShowMsgError(Localize.App_FailedToSetAutoStartup());
+                App.API.LogFatal(ClassName, $"Failed to set auto startup", e);
             }
 
             // If we have enabled logon task startup, we need to check if we need to restart the app
@@ -94,7 +97,8 @@ public partial class SettingsPaneGeneralViewModel(Settings settings, Internation
                 }
                 catch (Exception e)
                 {
-                    App.API.ShowMsgError(Localize.App_FailedToSetAutoStartup(), e.Message);
+                    App.API.ShowMsgError(Localize.App_FailedToSetAutoStartup());
+                    App.API.LogFatal(ClassName, $"Failed to set auto startup", e);
                 }
             }
 
@@ -124,7 +128,8 @@ public partial class SettingsPaneGeneralViewModel(Settings settings, Internation
                 }
                 catch (Exception e)
                 {
-                    App.API.ShowMsgError(Localize.App_FailedToSetAutoStartup(), e.Message);
+                    App.API.ShowMsgError(Localize.App_FailedToSetAutoStartup());
+                    App.API.LogFatal(ClassName, $"Failed to set auto startup", e);
                 }
 
                 // If we have enabled logon task startup, we need to check if we need to restart the app
