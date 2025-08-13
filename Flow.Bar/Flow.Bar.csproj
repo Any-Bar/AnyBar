@@ -129,7 +129,7 @@
     <FBLUseDependencyInjection>true</FBLUseDependencyInjection>
   </PropertyGroup>
 
-  <Import Project="..\Localization\Flow.Bar.Localization\build\Flow.Bar.Localization.props"/>
+  <Import Project="..\Localization\Flow.Bar.Localization\build\Flow.Bar.Localization.props" />
 
   <ItemGroup>
     <None Update="appsettings.json">
