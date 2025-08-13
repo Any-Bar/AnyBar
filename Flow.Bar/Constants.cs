@@ -28,6 +28,9 @@ public static class Constants
     private static readonly string ImagesDirectory = Path.Combine(ProgramDirectory, Images);
     public static readonly string DefaultIcon = Path.Combine(ImagesDirectory, "app.png");
     public static readonly string ErrorIcon = Path.Combine(ImagesDirectory, "error.png");
+    public static readonly string QuestionIcon = Path.Combine(ImagesDirectory, "question.png");
+    public static readonly string WarningIcon = Path.Combine(ImagesDirectory, "warning.png");
+    public static readonly string InformationIcon = Path.Combine(ImagesDirectory, "information.png");
     public static readonly string MissingImgIcon = Path.Combine(ImagesDirectory, "app_missing_img.png");
     public static readonly string ImageIcon = Path.Combine(ImagesDirectory, "image.png");
     public static readonly string TopAppBarIcon = Path.Combine(ImagesDirectory, "top-toolbar.png");

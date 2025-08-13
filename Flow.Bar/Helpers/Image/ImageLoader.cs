@@ -28,6 +28,10 @@ public static class ImageLoader
     private static readonly bool EnableImageHash = true;
     public static ImageSource Image => ImageCache[Constants.ImageIcon, false]!;
     public static ImageSource MissingImage => ImageCache[Constants.MissingImgIcon, false]!;
+    public static ImageSource ErrorImage => ImageCache[Constants.ErrorIcon, false]!;
+    public static ImageSource WarningImage => ImageCache[Constants.WarningIcon, false]!;
+    public static ImageSource QuestionImage => ImageCache[Constants.QuestionIcon, false]!;
+    public static ImageSource InformationImage => ImageCache[Constants.InformationIcon, false]!;
     public const int SmallIconSize = 64;
     public const int FullIconSize = 256;
     public const int FullImageSize = 320;
@@ -47,7 +51,8 @@ public static class ImageLoader
 
             ImageCache.Initialize(usage);
 
-            foreach (var icon in new[] { Constants.DefaultIcon, Constants.ImageIcon, Constants.MissingImgIcon })
+            foreach (var icon in new[] { Constants.DefaultIcon, Constants.ImageIcon, Constants.MissingImgIcon,
+                Constants.ErrorIcon, Constants.WarningIcon, Constants.QuestionIcon, Constants.InformationIcon })
             {
                 ImageSource img = new BitmapImage(new Uri(icon));
                 img.Freeze();
