@@ -234,8 +234,8 @@ public partial class App : Application, IDisposable, ISingleInstanceApp
             {
                 // If it fails for permission, we need to ask the user to restart as administrator
                 if (API.ShowMsgBox(
-                    Localize.SettingPaneGeneral_RestartToApplyChange(),
                     Localize.SettingPaneGeneral_RestartToApplyChangeDescription(),
+                    Localize.SettingPaneGeneral_RestartToApplyChange(),
                     MessageBoxButton.YesNo) == MessageBoxResult.Yes)
                 {
                     RestartApp(true);

@@ -141,8 +141,8 @@ public partial class SettingsPaneGeneralViewModel(Settings settings, Internation
         if (AlwaysRunAsAdministrator && !PInvokeHelper.IsAdministrator())
         {
             if (App.API.ShowMsgBox(
-                Localize.SettingPaneGeneral_RestartToApplyChange(),
                 Localize.SettingPaneGeneral_RestartToApplyChangeDescription(),
+                Localize.SettingPaneGeneral_RestartToApplyChange(),
                 MessageBoxButton.YesNo) == MessageBoxResult.Yes)
             {
                 // Restart the app as administrator
