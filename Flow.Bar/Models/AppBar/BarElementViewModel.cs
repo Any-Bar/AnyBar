@@ -31,12 +31,14 @@ public partial class BarElementViewModel : ObservableObject
         }
     }
 
+    private bool _imageLoaded = false;
+
     private ImageSource _image = ImageLoader.MissingImage;
     public ImageSource Image
     {
         get
         {
-            if (_image == ImageLoader.MissingImage && PluginPair != null)
+            if (!_imageLoaded)
             {
                 _ = LoadIconAsync();
             }
@@ -48,8 +50,12 @@ public partial class BarElementViewModel : ObservableObject
 
     private async Task LoadIconAsync()
     {
-        Image = await App.API.LoadImageAsync(PluginPair!.Metadata.IcoPath);
-        OnPropertyChanged(nameof(Image));
+        if (_image == ImageLoader.MissingImage && PluginPair != null)
+        {
+            Image = await App.API.LoadImageAsync(PluginPair!.Metadata.IcoPath);
+            OnPropertyChanged(nameof(Image));
+        }
+        _imageLoaded = true;
     }
 
     [ObservableProperty]

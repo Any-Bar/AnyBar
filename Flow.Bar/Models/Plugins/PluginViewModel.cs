@@ -22,12 +22,14 @@ public partial class PluginViewModel : ObservableObject
         VersionAndAuthor = Localize.SettingPanePlugins_VersionAndAuthor(pluginPair.Metadata.Version, pluginPair.Metadata.Author);
     }
 
+    private bool _imageLoaded = false;
+
     private ImageSource _image = ImageLoader.MissingImage;
     public ImageSource Image
     {
         get
         {
-            if (_image == ImageLoader.MissingImage)
+            if (!_imageLoaded)
             {
                 _ = LoadIconAsync();
             }
@@ -39,8 +41,12 @@ public partial class PluginViewModel : ObservableObject
 
     private async Task LoadIconAsync()
     {
-        Image = await App.API.LoadImageAsync(PluginPair.Metadata.IcoPath);
-        OnPropertyChanged(nameof(Image));
+        if (_image == ImageLoader.MissingImage)
+        {
+            Image = await App.API.LoadImageAsync(PluginPair.Metadata.IcoPath);
+            OnPropertyChanged(nameof(Image));
+        }
+        _imageLoaded = true;
     }
 
     [ObservableProperty]
