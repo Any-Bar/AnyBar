@@ -59,6 +59,7 @@ public partial class AppBarWindow : Window
         ViewModel.Initialize(model);
         DataContext = ViewModel;
         InitializeComponent();
+        WindowTracker.TrackWindow(this);
         WindowStyle = WindowStyle.None;
         ResizeMode = ResizeMode.NoResize;
         Topmost = true;
