@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 using Flow.Bar.Plugin.Clock.Views;
+using iNKORE.UI.WPF.Modern.Controls;
 
 namespace Flow.Bar.Plugin.Clock;
 
@@ -36,7 +37,10 @@ public class Main : IPlugin, IPluginI18n, IRightClickMenu
     public IList<MenuItem> GetRightClickMenuItems()
     {
         var menuItems = new List<MenuItem>();
-        var adjustDateTimeItem = new MenuItem();
+        var adjustDateTimeItem = new MenuItem()
+        {
+            Icon = new FontIcon { Glyph = "\ue713" }
+        };
         adjustDateTimeItem.SetResourceReference(HeaderedItemsControl.HeaderProperty, "FlowBarPlugin_Clock_RightClickMenu_AdjustDateTime");
         adjustDateTimeItem.Click += AdjustDateTimeItem_Click;
         menuItems.Add(adjustDateTimeItem);

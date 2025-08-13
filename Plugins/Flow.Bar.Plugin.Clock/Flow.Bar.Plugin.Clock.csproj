@@ -59,10 +59,16 @@
     </Content>
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="iNKORE.UI.WPF.Modern" Version="0.10.1">
+      <IncludeAssets>compile</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
   <PropertyGroup>
     <FBLUseDependencyInjection>false</FBLUseDependencyInjection>
   </PropertyGroup>
 
-  <Import Project="..\..\Localization\Flow.Bar.Localization\build\Flow.Bar.Localization.props"/>
+  <Import Project="..\..\Localization\Flow.Bar.Localization\build\Flow.Bar.Localization.props" />
 
 </Project>
