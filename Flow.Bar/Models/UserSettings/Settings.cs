@@ -28,6 +28,9 @@ public class Settings
 
     public string Language { get; set; } = Constants.SystemLanguageCode;
 
+    public bool StartOnSystemStartup { get; set; } = false;
+    public bool UseLogonTaskForStartup { get; set; } = false;
+
     public bool HideSettingWindow { get; set; } = false;
 
     public bool EnableTransparencyEffects { get; set; } = true;

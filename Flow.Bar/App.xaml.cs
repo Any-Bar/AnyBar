@@ -11,6 +11,7 @@ using Flow.Bar.Helper.Application;
 using Flow.Bar.Helper.Image;
 using Flow.Bar.Helper.Logging;
 using Flow.Bar.Helper.Plugins;
+using Flow.Bar.Helpers.Startup;
 using Flow.Bar.Models;
 using Flow.Bar.Models.Language;
 using Flow.Bar.Models.Storage;
@@ -199,9 +200,34 @@ public partial class App : Application, IDisposable, ISingleInstanceApp
 
             RegisterExitEvents();
 
+            AutoStartup();
+
             API.SaveAppAllSettings();
             API.LogInfo(ClassName, "End Flow Bar startup ---------------------------------------------------");
         });
+    }
+
+    /// <summary>
+    /// Check startup only for Release.
+    /// </summary>
+    [Conditional("RELEASE")]
+    private static void AutoStartup()
+    {
+        // We try to enable auto-startup on first launch, or reenable if it was removed
+        if (Settings.StartOnSystemStartup)
+        {
+            try
+            {
+                AutoStartupHelper.CheckIsEnabled(Settings.UseLogonTaskForStartup);
+            }
+            catch (Exception e)
+            {
+                // If it fails (permissions, etc) then don't keep retrying,
+                // just disable auto-startup to give the user a visual indication in the settings window
+                Settings.StartOnSystemStartup = false;
+                API.ShowMsg(Localize.App_FailedToSetAutoStartup(), e.Message);
+            }
+        }
     }
 
     #endregion
@@ -230,7 +256,7 @@ public partial class App : Application, IDisposable, ISingleInstanceApp
     }
 
     /// <summary>
-    /// Let exception throw as normal is better for Debug
+    /// Let exception throw as normal is better for Debug.
     /// </summary>
     [Conditional("RELEASE")]
     private void RegisterDispatcherUnhandledException()
@@ -239,7 +265,7 @@ public partial class App : Application, IDisposable, ISingleInstanceApp
     }
 
     /// <summary>
-    /// Let exception throw as normal is better for Debug
+    /// Let exception throw as normal is better for Debug.
     /// </summary>
     [Conditional("RELEASE")]
     private static void RegisterAppDomainExceptions()
@@ -248,7 +274,7 @@ public partial class App : Application, IDisposable, ISingleInstanceApp
     }
 
     /// <summary>
-    /// Let exception throw as normal is better for Debug
+    /// Let exception throw as normal is better for Debug.
     /// </summary>
     private static void RegisterTaskSchedulerUnhandledException()
     {
