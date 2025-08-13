@@ -230,6 +230,8 @@ public partial class SettingsPaneBarElementSettingViewModel(AppBarManagementServ
         }
     }
 
+    #region Menu Flyout
+
     private static readonly double ContextMenuWidth = (double)Application.Current.TryFindResource("CustomContextMenuWidth");
     private static readonly double SecondaryContextMenuWidth = (double)Application.Current.TryFindResource("SecondaryContextMenuWidth");
     private static readonly double SecondaryContextMenuHeight = (double)Application.Current.TryFindResource("SecondaryContextMenuHeight");
@@ -272,4 +274,6 @@ public partial class SettingsPaneBarElementSettingViewModel(AppBarManagementServ
             _barElements.Remove(oldBarElement);
         }
     }
+
+    #endregion
 }
