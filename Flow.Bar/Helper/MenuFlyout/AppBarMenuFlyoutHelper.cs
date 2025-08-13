@@ -1,5 +1,5 @@
 ﻿using Flow.Bar.Controls;
-using Flow.Bar.Models.Enums;
+using Flow.Bar.Enums;
 using Flow.Bar.ViewModels;
 using System;
 using System.Windows;

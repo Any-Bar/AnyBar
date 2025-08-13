@@ -1,4 +1,4 @@
-﻿using Flow.Bar.Models.Enums;
+﻿using Flow.Bar.Enums;
 using Flow.Bar.Views.SettingPages;
 using iNKORE.UI.WPF.Modern.Controls;
 using System;

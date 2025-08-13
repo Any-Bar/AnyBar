@@ -1,4 +1,4 @@
-﻿using Flow.Bar.Models.Enums;
+﻿using Flow.Bar.Enums;
 using Flow.Bar.Models.Monitor;
 using System;
 using System.Collections.Concurrent;

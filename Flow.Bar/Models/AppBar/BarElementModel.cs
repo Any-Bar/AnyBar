@@ -1,5 +1,5 @@
-﻿using Flow.Bar.Interfaces.Enumerable;
-using Flow.Bar.Models.Enums;
+﻿using Flow.Bar.Enums;
+using Flow.Bar.Interfaces.Enumerable;
 using System.Text.Json.Serialization;
 
 namespace Flow.Bar.Models.AppBar;

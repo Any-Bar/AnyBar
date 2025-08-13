@@ -1,12 +1,15 @@
 ﻿using Flow.Bar.Localization.Attributes;
 
-namespace Flow.Bar.Models.Enums;
+namespace Flow.Bar.Enums;
 
 [EnumLocalize]
-public enum SettingsPaneAppBarSortMode
+public enum SettingsPaneBarElementSettingSortMode
 {
-    [EnumLocalizeKey(nameof(Localize.SettingsPaneAppBarSortMode_Order))]
-    Order,
+    [EnumLocalizeValue("")]
+    LeftTopToRightBottom,
+
+    [EnumLocalizeValue("")]
+    RightBottomToLeftTop,
 
     [EnumLocalizeKey(nameof(Localize.SettingPanePluginsSortMode_Status))]
     Status,

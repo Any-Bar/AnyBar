@@ -1,6 +1,6 @@
 ﻿using Flow.Bar.Localization.Attributes;
 
-namespace Flow.Bar.Models.Enums;
+namespace Flow.Bar.Enums;
 
 [EnumLocalize]
 public enum SettingPanePluginsFilterMode

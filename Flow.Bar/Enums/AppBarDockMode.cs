@@ -1,7 +1,7 @@
 ﻿using System.Text.Json.Serialization;
 using Flow.Bar.Localization.Attributes;
 
-namespace Flow.Bar.Models.Enums;
+namespace Flow.Bar.Enums;
 
 [EnumLocalize]
 [JsonConverter(typeof(JsonStringEnumConverter))]

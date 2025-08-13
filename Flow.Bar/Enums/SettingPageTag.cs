@@ -1,4 +1,4 @@
-﻿namespace Flow.Bar.Models.Enums;
+﻿namespace Flow.Bar.Enums;
 
 public enum SettingPageTag
 {

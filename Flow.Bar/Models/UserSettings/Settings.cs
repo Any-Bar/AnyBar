@@ -1,7 +1,7 @@
-﻿using Flow.Bar.Helper.Http;
+﻿using Flow.Bar.Enums;
+using Flow.Bar.Helper.Http;
 using Flow.Bar.Helper.Monitor;
 using Flow.Bar.Models.AppBar;
-using Flow.Bar.Models.Enums;
 using Flow.Bar.Models.Storage;
 using System;
 using System.Collections.Generic;

@@ -2,9 +2,10 @@
 using CommunityToolkit.Mvvm.Input;
 using Flow.Bar.Controls;
 using Flow.Bar.Dialogs;
+using Flow.Bar.Enums;
 using Flow.Bar.Interfaces.Navigation;
 using Flow.Bar.Models.AppBar;
-using Flow.Bar.Models.Enums;
+using Flow.Bar.Enums;
 using Flow.Bar.Services;
 using Flow.Bar.Views;
 using System;

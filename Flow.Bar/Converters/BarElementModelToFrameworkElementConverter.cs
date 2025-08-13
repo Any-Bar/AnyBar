@@ -1,6 +1,6 @@
-﻿using Flow.Bar.Helper.Plugins;
+﻿using Flow.Bar.Enums;
+using Flow.Bar.Helper.Plugins;
 using Flow.Bar.Models.AppBar;
-using Flow.Bar.Models.Enums;
 using Flow.Bar.Plugin;
 using System;
 using System.Globalization;

@@ -1,7 +1,8 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using Flow.Bar.Controls;
+using Flow.Bar.Enums;
 using Flow.Bar.Helper.Monitor;
-using Flow.Bar.Models.Enums;
+using Flow.Bar.Enums;
 using Flow.Bar.Models.Monitor;
 using System;
 using System.Collections.Generic;

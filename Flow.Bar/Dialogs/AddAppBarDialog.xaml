@@ -4,7 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:controls="clr-namespace:Flow.Bar.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:enum="clr-namespace:Flow.Bar.Models.Enums"
+    xmlns:enum="clr-namespace:Flow.Bar.Enums"
     xmlns:ikw="http://schemas.inkore.net/lib/ui/wpf"
     xmlns:local="clr-namespace:Flow.Bar.Dialogs"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"

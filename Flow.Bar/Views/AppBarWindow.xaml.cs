@@ -1,11 +1,11 @@
 ﻿using CommunityToolkit.Mvvm.DependencyInjection;
 using Flow.Bar.Controls;
+using Flow.Bar.Enums;
 using Flow.Bar.Helper.MenuFlyout;
 using Flow.Bar.Helper.Plugins;
 using Flow.Bar.Helper.Windows;
 using Flow.Bar.Models;
 using Flow.Bar.Models.AppBar;
-using Flow.Bar.Models.Enums;
 using Flow.Bar.Plugin;
 using Flow.Bar.Services;
 using Flow.Bar.ViewModels;

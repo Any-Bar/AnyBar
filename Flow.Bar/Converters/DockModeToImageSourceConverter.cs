@@ -1,4 +1,4 @@
-﻿using Flow.Bar.Models.Enums;
+﻿using Flow.Bar.Enums;
 using System;
 using System.Collections.Generic;
 using System.Globalization;

@@ -5,7 +5,7 @@
     xmlns:controls="clr-namespace:Flow.Bar.Controls"
     xmlns:converters="clr-namespace:Flow.Bar.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:enums="clr-namespace:Flow.Bar.Models.Enums"
+    xmlns:enums="clr-namespace:Flow.Bar.Enums"
     xmlns:ikw="http://schemas.inkore.net/lib/ui/wpf"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:models="clr-namespace:Flow.Bar.Models.AppBar"
