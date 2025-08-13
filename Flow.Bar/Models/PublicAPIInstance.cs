@@ -1,10 +1,10 @@
 ﻿using System;
-using System.Reflection.Metadata;
 using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media;
+using Flow.Bar.Controls;
 using Flow.Bar.Helpers.Image;
 using Flow.Bar.Helpers.Logging;
 using Flow.Bar.Helpers.Notification;
@@ -13,7 +13,6 @@ using Flow.Bar.Models.Language;
 using Flow.Bar.Models.UserSettings;
 using Flow.Bar.Plugin;
 using Flow.Bar.Views;
-using MessageBox = iNKORE.UI.WPF.Modern.Controls.MessageBox;
 
 namespace Flow.Bar.Models;
 
@@ -71,7 +70,7 @@ public class PublicAPIInstance(Settings settings) : IPublicAPI
 
     public MessageBoxResult ShowMsgBox(string messageBoxText, string caption = "", MessageBoxButton button = MessageBoxButton.OK, MessageBoxImage icon = MessageBoxImage.None, MessageBoxResult defaultResult = MessageBoxResult.OK)
     {
-        return MessageBox.Show(messageBoxText, caption, button, icon, defaultResult);
+        return MessageBoxEx.Show(messageBoxText, caption, button, icon, defaultResult, null);
     }
 
     public void LogVerbose(string className, string message, [CallerMemberName] string methodName = "")
