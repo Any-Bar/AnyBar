@@ -113,6 +113,7 @@ public partial class App : Application, IDisposable, ISingleInstanceApp
                     .AddSingleton<NavigationViewService>()
                     .AddSingleton<PageService>()
                     .AddSingleton<AppBarManagementService>()
+                    .AddTransient<SettingViewModel>()
                     .AddTransient<AppBarViewModel>()
                     .AddTransient<SettingsPaneAboutViewModel>()
                     .AddTransient<SettingsPaneAppBarViewModel>()

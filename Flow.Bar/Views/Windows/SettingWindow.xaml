@@ -6,34 +6,44 @@
     xmlns:controls="clr-namespace:Flow.Bar.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:enums="clr-namespace:Flow.Bar.Enums"
+    xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
     xmlns:ikw="http://schemas.inkore.net/lib/ui/wpf"
     xmlns:local="clr-namespace:Flow.Bar.Views"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:ui="http://schemas.inkore.net/lib/ui/wpf/modern"
+    xmlns:viewmodels="clr-namespace:Flow.Bar.ViewModels"
     Title="{DynamicResource SettingWindow_Title}"
     Width="1026"
     Height="618"
     MinWidth="507"
     MinHeight="327"
+    d:DataContext="{d:DesignInstance viewmodels:SettingViewModel}"
     ui:ThemeManager.IsThemeAware="True"
     ui:ThemeManager.RequestedTheme="Default"
     ui:TitleBar.ExtendViewIntoTitleBar="True"
     ui:TitleBar.Height="48"
     ui:WindowHelper.SystemBackdropType="Mica"
     ui:WindowHelper.UseModernWindowStyle="True"
-    Closed="Window_Closed"
-    DataContext="{Binding RelativeSource={RelativeSource Self}}"
     Loaded="Window_Loaded"
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Closed">
+            <i:InvokeCommandAction Command="{Binding SaveAppAllSettingsCommand, Mode=OneTime}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
 
     <controls:NavigationView
         x:Name="NavigationViewControl"
         AlwaysShowHeader="True"
         Canvas.ZIndex="0"
         ExpandedMinimalModeThresholdWidth="824"
-        IsTabStop="False"
-        Loaded="NavigationViewControl_Loaded">
+        IsTabStop="False">
+        <i:Interaction.Triggers>
+            <i:EventTrigger EventName="Loaded">
+                <i:InvokeCommandAction Command="{Binding NavigationViewControlLoadedCommand, Mode=OneTime}" CommandParameter="{Binding ElementName=NavigationViewControl}" />
+            </i:EventTrigger>
+        </i:Interaction.Triggers>
         <controls:NavigationView.Title>
             <Grid
                 Margin="{DynamicResource NavigationViewButtonHolderGridMargin}"
@@ -114,9 +124,15 @@
             </DataTemplate>
         </controls:NavigationView.HeaderTemplate>
 
-        <ui:Frame
-            x:Name="RootFrame"
-            Loaded="RootFrame_Loaded"
-            Unloaded="RootFrame_Unloaded" />
+        <ui:Frame x:Name="RootFrame">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="Loaded">
+                    <i:InvokeCommandAction Command="{Binding RootFrameLoadedCommand, Mode=OneTime}" CommandParameter="{Binding ElementName=RootFrame}" />
+                </i:EventTrigger>
+                <i:EventTrigger EventName="Unloaded">
+                    <i:InvokeCommandAction Command="{Binding RootFrameUnloadedCommand, Mode=OneTime}" CommandParameter="{Binding ElementName=RootFrame}" />
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </ui:Frame>
     </controls:NavigationView>
 </Window>
