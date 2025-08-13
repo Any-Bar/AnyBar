@@ -6,7 +6,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
-using Flow.Bar.Helper.Plugins;
+using Flow.Bar.Helpers.Plugins;
 using Flow.Bar.Models.UserSettings;
 using Flow.Bar.Plugin;
 

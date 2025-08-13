@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using Microsoft.Win32;
 
-namespace Flow.Bar.Helper.Logging;
+namespace Flow.Bar.Helpers.Logging;
 
 public static class ExceptionFormatter
 {

@@ -3,7 +3,7 @@ using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using System.Windows.Threading;
 
-namespace Flow.Bar.Helper.Logging;
+namespace Flow.Bar.Helpers.Logging;
 
 public static class ErrorReporting
 {

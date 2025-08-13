@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows;
 
-namespace Flow.Bar.Helper.MenuFlyout;
+namespace Flow.Bar.Helpers.MenuFlyout;
 
 public class BarElementMenuFlyoutDependencyProperty
 {

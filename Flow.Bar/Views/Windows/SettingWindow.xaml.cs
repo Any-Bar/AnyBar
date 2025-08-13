@@ -1,7 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Shell;
 using CommunityToolkit.Mvvm.DependencyInjection;
-using Flow.Bar.Helper.Windows;
+using Flow.Bar.Helpers.Windows;
 using Flow.Bar.ViewModels;
 
 namespace Flow.Bar.Views;

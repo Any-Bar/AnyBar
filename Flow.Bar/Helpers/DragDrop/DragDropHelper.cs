@@ -5,7 +5,7 @@ using System.Windows.Media;
 using iNKORE.UI.WPF.Modern;
 using WpfDragDrop = GongSolutions.Wpf.DragDrop.DragDrop;
 
-namespace Flow.Bar.Helper.DragDrop;
+namespace Flow.Bar.Helpers.DragDrop;
 
 public static class DragDropHelper
 {

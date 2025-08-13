@@ -4,7 +4,7 @@ using System.Linq;
 using Flow.Bar.Enums;
 using Flow.Bar.Models.Monitor;
 
-namespace Flow.Bar.Helper.Monitor;
+namespace Flow.Bar.Helpers.Monitor;
 
 public class MonitorInfoHelper
 {

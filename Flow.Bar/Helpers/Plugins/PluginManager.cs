@@ -10,7 +10,7 @@ using Flow.Bar.Models.AppBar;
 using Flow.Bar.Models.Plugins;
 using Flow.Bar.Plugin;
 
-namespace Flow.Bar.Helper.Plugins;
+namespace Flow.Bar.Helpers.Plugins;
 
 /// <summary>
 /// Class for co-ordinating and managing all plugin lifecycle.

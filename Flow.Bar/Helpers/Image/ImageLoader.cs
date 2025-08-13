@@ -8,13 +8,13 @@ using System.Threading.Tasks;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using Flow.Bar.Converters;
-using Flow.Bar.Helper.Http;
+using Flow.Bar.Helpers.Http;
 using Flow.Bar.Models.Image;
 using Flow.Bar.Models.Storage;
 using SharpVectors.Converters;
 using SharpVectors.Renderers.Wpf;
 
-namespace Flow.Bar.Helper.Image;
+namespace Flow.Bar.Helpers.Image;
 
 public static class ImageLoader
 {

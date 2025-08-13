@@ -7,7 +7,7 @@ using System.Windows;
 using Flow.Bar.Models.Plugins;
 using Flow.Bar.Plugin;
 
-namespace Flow.Bar.Helper.Plugins;
+namespace Flow.Bar.Helpers.Plugins;
 
 public static class PluginsLoader
 {

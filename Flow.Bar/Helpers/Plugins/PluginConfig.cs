@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text.Json;
 using Flow.Bar.Plugin;
 
-namespace Flow.Bar.Helper.Plugins;
+namespace Flow.Bar.Helpers.Plugins;
 
 internal class PluginConfig
 {

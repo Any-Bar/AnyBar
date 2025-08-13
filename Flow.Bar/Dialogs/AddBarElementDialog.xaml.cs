@@ -5,7 +5,7 @@ using System.Linq;
 using System.Threading;
 using CommunityToolkit.Mvvm.ComponentModel;
 using Flow.Bar.Controls;
-using Flow.Bar.Helper.Plugins;
+using Flow.Bar.Helpers.Plugins;
 using Flow.Bar.Models.Plugins;
 
 namespace Flow.Bar.Dialogs;

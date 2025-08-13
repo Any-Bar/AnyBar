@@ -9,8 +9,8 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Flow.Bar.Controls;
 using Flow.Bar.Enums;
-using Flow.Bar.Helper.MenuFlyout;
-using Flow.Bar.Helper.Plugins;
+using Flow.Bar.Helpers.MenuFlyout;
+using Flow.Bar.Helpers.Plugins;
 using Flow.Bar.Interfaces;
 using Flow.Bar.Models.Plugins;
 

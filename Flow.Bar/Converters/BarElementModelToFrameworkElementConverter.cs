@@ -2,7 +2,7 @@
 using System.Globalization;
 using System.Windows.Data;
 using Flow.Bar.Enums;
-using Flow.Bar.Helper.Plugins;
+using Flow.Bar.Helpers.Plugins;
 using Flow.Bar.Models.AppBar;
 using Flow.Bar.Plugin;
 

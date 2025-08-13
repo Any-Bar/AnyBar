@@ -2,7 +2,7 @@
 using System.IO;
 using Microsoft.Toolkit.Uwp.Notifications;
 
-namespace Flow.Bar.Helper.Notification;
+namespace Flow.Bar.Helpers.Notification;
 
 public class NotificationHelper
 {

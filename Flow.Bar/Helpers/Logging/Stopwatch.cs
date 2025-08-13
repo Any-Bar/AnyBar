@@ -2,7 +2,7 @@
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 
-namespace Flow.Bar.Helper.Logging;
+namespace Flow.Bar.Helpers.Logging;
 
 public static class Stopwatch
 {

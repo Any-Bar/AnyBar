@@ -8,7 +8,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Flow.Bar.Enums;
 
-namespace Flow.Bar.Helper.Http;
+namespace Flow.Bar.Helpers.Http;
 
 public static class HttpHelper
 {

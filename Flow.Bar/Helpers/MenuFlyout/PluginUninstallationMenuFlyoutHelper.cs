@@ -3,7 +3,7 @@ using System.Windows;
 using System.Windows.Controls;
 using Flow.Bar.Controls;
 
-namespace Flow.Bar.Helper.MenuFlyout;
+namespace Flow.Bar.Helpers.MenuFlyout;
 
 public class PluginUninstallationMenuFlyoutHelper<T> : IDisposable
 {

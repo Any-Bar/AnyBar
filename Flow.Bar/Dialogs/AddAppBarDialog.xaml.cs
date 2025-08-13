@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using CommunityToolkit.Mvvm.ComponentModel;
 using Flow.Bar.Controls;
 using Flow.Bar.Enums;
-using Flow.Bar.Helper.Monitor;
+using Flow.Bar.Helpers.Monitor;
 using Flow.Bar.Models.Monitor;
 
 namespace Flow.Bar.Dialogs;

@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Windows;
 
-namespace Flow.Bar.Helper.Windows;
+namespace Flow.Bar.Helpers.Windows;
 
 public static class SingletonWindowOpener
 {

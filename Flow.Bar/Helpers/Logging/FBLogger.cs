@@ -6,7 +6,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Serilog;
 
-namespace Flow.Bar.Helper.Logging;
+namespace Flow.Bar.Helpers.Logging;
 
 public static class FBLogger
 {

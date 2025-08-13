@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using Flow.Bar.Plugin;
 
-namespace Flow.Bar.Helper.Plugins;
+namespace Flow.Bar.Helpers.Plugins;
 
 /// <summary>
 /// Class for installing, updating, and uninstalling plugins.

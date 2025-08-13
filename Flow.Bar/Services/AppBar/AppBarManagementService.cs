@@ -6,7 +6,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Flow.Bar.Enums;
 using Flow.Bar.Extensions;
-using Flow.Bar.Helper.Plugins;
+using Flow.Bar.Helpers.Plugins;
 using Flow.Bar.Models.AppBar;
 using Flow.Bar.Models.Explorer;
 using Flow.Bar.Models.Monitor;

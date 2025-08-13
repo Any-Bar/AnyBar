@@ -8,7 +8,7 @@ using Flow.Bar.ViewModels;
 using Windows.Win32;
 using Point = System.Drawing.Point;
 
-namespace Flow.Bar.Helper.MenuFlyout;
+namespace Flow.Bar.Helpers.MenuFlyout;
 
 public class AppBarMenuFlyoutHelper : IDisposable
 {

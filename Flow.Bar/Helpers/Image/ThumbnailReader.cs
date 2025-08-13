@@ -9,7 +9,7 @@ using Windows.Win32.Foundation;
 using Windows.Win32.Graphics.Gdi;
 using Windows.Win32.UI.Shell;
 
-namespace Flow.Bar.Helper.Image;
+namespace Flow.Bar.Helpers.Image;
 
 /// <summary>
 /// Subclass of <see cref="SIIGBF"/>

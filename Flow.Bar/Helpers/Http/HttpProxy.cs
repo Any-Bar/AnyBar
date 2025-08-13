@@ -1,6 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 
-namespace Flow.Bar.Helper.Http;
+namespace Flow.Bar.Helpers.Http;
 
 public partial class HttpProxy : ObservableObject
 {

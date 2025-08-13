@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 // http://blogs.microsoft.co.il/arik/2010/05/28/wpf-single-instance-application/
 // modified to allow single instace restart
-namespace Flow.Bar.Helper.Application;
+namespace Flow.Bar.Helpers.Application;
 
 public interface ISingleInstanceApp
 {
