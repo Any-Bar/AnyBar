@@ -3,7 +3,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Timers;
 
-namespace Flow.Bar.Models;
+namespace Flow.Bar.Models.Explorer;
 
 public class ExplorerWatcher : IDisposable
 {
