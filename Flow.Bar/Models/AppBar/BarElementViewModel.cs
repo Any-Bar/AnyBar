@@ -40,6 +40,7 @@ public partial class BarElementViewModel : ObservableObject
         {
             if (!_imageLoaded)
             {
+                _imageLoaded = true;
                 _ = LoadIconAsync();
             }
 
@@ -50,12 +51,11 @@ public partial class BarElementViewModel : ObservableObject
 
     private async Task LoadIconAsync()
     {
-        if (_image == ImageLoader.MissingImage && PluginPair != null)
+        if (PluginPair != null)
         {
             Image = await App.API.LoadImageAsync(PluginPair!.Metadata.IcoPath);
             OnPropertyChanged(nameof(Image));
         }
-        _imageLoaded = true;
     }
 
     [ObservableProperty]

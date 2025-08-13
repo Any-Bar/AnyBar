@@ -31,6 +31,7 @@ public partial class PluginViewModel : ObservableObject
         {
             if (!_imageLoaded)
             {
+                _imageLoaded = true;
                 _ = LoadIconAsync();
             }
 
@@ -41,12 +42,8 @@ public partial class PluginViewModel : ObservableObject
 
     private async Task LoadIconAsync()
     {
-        if (_image == ImageLoader.MissingImage)
-        {
-            Image = await App.API.LoadImageAsync(PluginPair.Metadata.IcoPath);
-            OnPropertyChanged(nameof(Image));
-        }
-        _imageLoaded = true;
+        Image = await App.API.LoadImageAsync(PluginPair.Metadata.IcoPath);
+        OnPropertyChanged(nameof(Image));
     }
 
     [ObservableProperty]
