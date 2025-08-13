@@ -96,7 +96,7 @@ public static class HttpHelper
         }
         catch (UriFormatException e)
         {
-            App.API.ShowMsg(Localize.HTTPHelper_PleaseTryAgain(), Localize.HTTPHelper_ParseProxyFailed());
+            App.API.ShowMsgError(Localize.HTTPHelper_PleaseTryAgain(), Localize.HTTPHelper_ParseProxyFailed());
             App.API.LogFatal(ClassName, "Unable to parse uri", e);
         }
     }

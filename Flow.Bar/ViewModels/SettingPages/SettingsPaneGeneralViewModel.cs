@@ -58,7 +58,7 @@ public partial class SettingsPaneGeneralViewModel(Settings settings, Internation
             }
             catch (Exception e)
             {
-                App.API.ShowMsg(Localize.App_FailedToSetAutoStartup(), e.Message);
+                App.API.ShowMsgError(Localize.App_FailedToSetAutoStartup(), e.Message);
             }
 
             // If we have enabled logon task startup, we need to check if we need to restart the app
@@ -94,7 +94,7 @@ public partial class SettingsPaneGeneralViewModel(Settings settings, Internation
                 }
                 catch (Exception e)
                 {
-                    App.API.ShowMsg(Localize.App_FailedToSetAutoStartup(), e.Message);
+                    App.API.ShowMsgError(Localize.App_FailedToSetAutoStartup(), e.Message);
                 }
             }
 
@@ -124,7 +124,7 @@ public partial class SettingsPaneGeneralViewModel(Settings settings, Internation
                 }
                 catch (Exception e)
                 {
-                    App.API.ShowMsg(Localize.App_FailedToSetAutoStartup(), e.Message);
+                    App.API.ShowMsgError(Localize.App_FailedToSetAutoStartup(), e.Message);
                 }
 
                 // If we have enabled logon task startup, we need to check if we need to restart the app

@@ -23,7 +23,7 @@ public static class PluginInstaller
         catch (Exception e)
         {
             App.API.LogFatal(ClassName, $"Failed to uninstall plugin <{oldPlugin}>", e);
-            App.API.ShowMsg(Localize.PluginInstaller_FailedToUninstall(oldPlugin));
+            App.API.ShowMsgError(Localize.PluginInstaller_FailedToUninstall(oldPlugin));
             return false;
         }
 

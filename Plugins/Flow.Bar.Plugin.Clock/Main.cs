@@ -9,6 +9,8 @@ namespace Flow.Bar.Plugin.Clock;
 
 public class Main : IPlugin, IPluginI18n, IRightClickMenu
 {
+    private static readonly string ClassName = nameof(Main);
+
     internal static PluginInitContext Context { get; private set; }
 
     public void Init(PluginInitContext context)
@@ -53,9 +55,8 @@ public class Main : IPlugin, IPluginI18n, IRightClickMenu
         }
         catch (Exception ex)
         {
-            Context.API.ShowMsg(
-                Context.API.GetTranslation("FlowBarPlugin_Clock_RightClickMenu_FailToOpenDateTime"),
-                ex.Message);
+            Context.API.ShowMsgError(Context.API.GetTranslation("FlowBarPlugin_Clock_RightClickMenu_FailToOpenDateTime"));
+            Context.API.LogFatal(ClassName, "Failed to open Date and Time settings", ex);
         }
     }
 }

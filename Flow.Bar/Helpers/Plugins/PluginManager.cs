@@ -114,8 +114,7 @@ public static class PluginManager
         if (!_initFailedPlugins.IsEmpty)
         {
             var failedPluginsStr = string.Join(",", _initFailedPlugins.Values.Select(x => x.Metadata.Name));
-            App.API.ShowMsg(
-                Localize.PluginManager_FailedToInitializePluginsTitle(),
+            App.API.ShowMsgError(Localize.PluginManager_FailedToInitializePluginsTitle(),
                 Localize.PluginManager_FailedToInitializePluginsMessage(failedPluginsStr));
         }
     }
