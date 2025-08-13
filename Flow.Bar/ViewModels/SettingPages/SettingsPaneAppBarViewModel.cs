@@ -20,13 +20,13 @@ using Flow.Bar.Views;
 
 namespace Flow.Bar.ViewModels;
 
-public partial class SettingsPaneAppBarViewModel(AppBarManagementService appBarManagementService, NavigationViewService navigationService) : ObservableObject, INavigationAware
+public partial class SettingsPaneAppBarViewModel(AppBarManagementService appBarManagementService, NavigationViewService navigationViewService) : ObservableObject, INavigationAware
 {
     private static readonly string ClassName = nameof(SettingsPaneAppBarViewModel);
 
     private readonly AppBarManagementService _appBarManagementService = appBarManagementService;
 
-    private readonly NavigationViewService _navigationService = navigationService;
+    private readonly NavigationViewService _navigationViewService = navigationViewService;
 
     [ObservableProperty]
     private bool _isInitialized = false;
@@ -177,7 +177,7 @@ public partial class SettingsPaneAppBarViewModel(AppBarManagementService appBarM
     [RelayCommand]
     private void OpenAppBarSetting(AppBarModel model)
     {
-        _navigationService.NavigateTo(SettingPageTag.AppBarSetting, model);
+        _navigationViewService.NavigateTo(SettingPageTag.AppBarSetting, model);
     }
 
     [RelayCommand]
