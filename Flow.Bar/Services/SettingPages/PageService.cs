@@ -1,5 +1,5 @@
 ﻿using Flow.Bar.Enums;
-using Flow.Bar.Views.SettingPages;
+using Flow.Bar.Views;
 using iNKORE.UI.WPF.Modern.Controls;
 using System;
 using System.Collections.Generic;

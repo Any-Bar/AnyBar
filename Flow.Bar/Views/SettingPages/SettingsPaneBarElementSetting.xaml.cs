@@ -2,14 +2,14 @@
 using Flow.Bar.Helper.MenuFlyout;
 using Flow.Bar.Models.AppBar;
 using Flow.Bar.Services;
-using Flow.Bar.ViewModels.SettingPages;
+using Flow.Bar.ViewModels;
 using iNKORE.UI.WPF.Modern.Controls;
 using System.Windows;
 using System.Windows.Navigation;
 using HeaderedItemsControl = System.Windows.Controls.HeaderedItemsControl;
 using MenuItem = System.Windows.Controls.MenuItem;
 
-namespace Flow.Bar.Views.SettingPages;
+namespace Flow.Bar.Views;
 
 public partial class SettingsPaneBarElementSetting : Page
 {

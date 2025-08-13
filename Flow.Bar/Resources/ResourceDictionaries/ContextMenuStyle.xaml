@@ -3,7 +3,6 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:controls="clr-namespace:Flow.Bar.Controls"
     xmlns:ikw="http://schemas.inkore.net/lib/ui/wpf"
-    xmlns:settingpages="clr-namespace:Flow.Bar.ViewModels.SettingPages"
     xmlns:sys="clr-namespace:System;assembly=mscorlib"
     xmlns:ui="http://schemas.inkore.net/lib/ui/wpf/modern">
 

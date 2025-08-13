@@ -12,7 +12,7 @@ using SharpVectors.Dom;
 using System;
 using System.Collections.Generic;
 
-namespace Flow.Bar.ViewModels.SettingPages;
+namespace Flow.Bar.ViewModels;
 
 public partial class SettingsPaneAppBarSettingViewModel(AppBarManagementService appBarManagementService, NavigationViewService navigationViewService) : ObservableObject, INavigationAware
 {

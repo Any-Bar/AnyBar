@@ -1,6 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 
-namespace Flow.Bar.ViewModels.SettingPages;
+namespace Flow.Bar.ViewModels;
 
 public partial class SettingsPaneAboutViewModel : ObservableObject
 {

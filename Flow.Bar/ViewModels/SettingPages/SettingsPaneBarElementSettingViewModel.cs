@@ -20,7 +20,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace Flow.Bar.ViewModels.SettingPages;
+namespace Flow.Bar.ViewModels;
 
 public partial class SettingsPaneBarElementSettingViewModel(AppBarManagementService appBarManagementService) : ObservableObject, INavigationAware
 {

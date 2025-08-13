@@ -2,12 +2,12 @@
 using Flow.Bar.Controls;
 using Flow.Bar.Models.AppBar;
 using Flow.Bar.Services;
-using Flow.Bar.ViewModels.SettingPages;
+using Flow.Bar.ViewModels;
 using iNKORE.UI.WPF.Modern.Controls;
 using System.Windows;
 using System.Windows.Navigation;
 
-namespace Flow.Bar.Views.SettingPages;
+namespace Flow.Bar.Views;
 
 public partial class SettingsPaneAppBar : Page
 {

@@ -11,7 +11,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading;
 
-namespace Flow.Bar.ViewModels.SettingPages;
+namespace Flow.Bar.ViewModels;
 
 public partial class SettingsPanePluginsViewModel : ObservableObject, INavigationAware
 {

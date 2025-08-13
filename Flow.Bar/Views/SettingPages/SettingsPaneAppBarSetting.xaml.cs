@@ -1,9 +1,9 @@
 ﻿using System.Windows.Navigation;
 using CommunityToolkit.Mvvm.DependencyInjection;
-using Flow.Bar.ViewModels.SettingPages;
+using Flow.Bar.ViewModels;
 using iNKORE.UI.WPF.Modern.Controls;
 
-namespace Flow.Bar.Views.SettingPages;
+namespace Flow.Bar.Views;
 
 public partial class SettingsPaneAppBarSetting : Page
 {

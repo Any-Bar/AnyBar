@@ -10,7 +10,7 @@ using Flow.Bar.Models.UserSettings;
 using Flow.Bar.Plugin;
 using Flow.Bar.Services;
 using Flow.Bar.ViewModels;
-using Flow.Bar.ViewModels.SettingPages;
+using Flow.Bar.ViewModels;
 using Flow.Bar.Views;
 using iNKORE.UI.WPF.Modern.Common;
 using iNKORE.UI.WPF.Modern.Controls;

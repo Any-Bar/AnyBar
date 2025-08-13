@@ -18,7 +18,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace Flow.Bar.ViewModels.SettingPages;
+namespace Flow.Bar.ViewModels;
 
 public partial class SettingsPaneAppBarViewModel(AppBarManagementService appBarManagementService, NavigationViewService navigationService) : ObservableObject, INavigationAware
 {
