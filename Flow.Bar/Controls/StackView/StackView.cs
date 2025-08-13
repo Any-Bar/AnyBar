@@ -1,6 +1,6 @@
-﻿using Flow.Bar.Helper.DragDrop;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
+using Flow.Bar.Helper.DragDrop;
 
 namespace Flow.Bar.Controls;
 

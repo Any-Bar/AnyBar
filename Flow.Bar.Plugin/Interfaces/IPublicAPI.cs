@@ -48,7 +48,7 @@ public interface IPublicAPI
     /// <param name="icon">Specifies the icon to display</param>
     /// <param name="defaultResult">Specifies the default result of the message box</param>
     /// <returns>Specifies which message box button is clicked by the user</returns>
-    public MessageBoxResult ShowMsgBox(string messageBoxText, string caption = "", MessageBoxButton button = MessageBoxButton.OK, MessageBoxImage icon = MessageBoxImage.None, MessageBoxResult defaultResult = MessageBoxResult.OK);
+    MessageBoxResult ShowMsgBox(string messageBoxText, string caption = "", MessageBoxButton button = MessageBoxButton.OK, MessageBoxImage icon = MessageBoxImage.None, MessageBoxResult defaultResult = MessageBoxResult.OK);
 
     /// <summary>
     /// Log verbose message.
@@ -91,26 +91,26 @@ public interface IPublicAPI
     /// Message will only be logged in Debug mode
     /// </summary>
     /// <returns>The time taken to execute the method in milliseconds</returns>
-    public long StopwatchLogDebug(string className, string message, Action action, [CallerMemberName] string methodName = "");
+    long StopwatchLogDebug(string className, string message, Action action, [CallerMemberName] string methodName = "");
 
     /// <summary>
     /// Log debug message of the time taken to execute a method asynchronously.
     /// Message will only be logged in Debug mode.
     /// </summary>
     /// <returns>The time taken to execute the method in milliseconds</returns>
-    public Task<long> StopwatchLogDebugAsync(string className, string message, Func<Task> action, [CallerMemberName] string methodName = "");
+    Task<long> StopwatchLogDebugAsync(string className, string message, Func<Task> action, [CallerMemberName] string methodName = "");
 
     /// <summary>
     /// Log info message of the time taken to execute a method.
     /// </summary>
     /// <returns>The time taken to execute the method in milliseconds</returns>
-    public long StopwatchLogInfo(string className, string message, Action action, [CallerMemberName] string methodName = "");
+    long StopwatchLogInfo(string className, string message, Action action, [CallerMemberName] string methodName = "");
 
     /// <summary>
     /// Log info message of the time taken to execute a method asynchronously.
     /// </summary>
     /// <returns>The time taken to execute the method in milliseconds</returns>
-    public Task<long> StopwatchLogInfoAsync(string className, string message, Func<Task> action, [CallerMemberName] string methodName = "");
+    Task<long> StopwatchLogInfoAsync(string className, string message, Func<Task> action, [CallerMemberName] string methodName = "");
 
     /// <summary>
     /// Load image from path.

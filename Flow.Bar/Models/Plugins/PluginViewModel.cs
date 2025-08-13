@@ -1,8 +1,8 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using System.Threading.Tasks;
+using System.Windows.Media;
+using CommunityToolkit.Mvvm.ComponentModel;
 using Flow.Bar.Helper.Image;
 using Flow.Bar.Helper.Plugins;
-using System.Threading.Tasks;
-using System.Windows.Media;
 
 namespace Flow.Bar.Models.Plugins;
 

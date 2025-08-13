@@ -1,9 +1,9 @@
 ﻿// Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-using iNKORE.UI.WPF.Modern.Controls;
 using System.Windows.Automation.Peers;
 using System.Windows.Automation.Provider;
+using iNKORE.UI.WPF.Modern.Controls;
 
 namespace Flow.Bar.Controls;
 
@@ -14,7 +14,7 @@ public class NavigationViewItemAutomationPeer(NavigationViewItem owner) :
 {
     protected override string GetNameCore()
     {
-        string returnHString = base.GetNameCore();
+        var returnHString = base.GetNameCore();
 
         // If a name hasn't been provided by AutomationProperties.Name in markup:
         if (string.IsNullOrEmpty(returnHString))
@@ -67,9 +67,9 @@ public class NavigationViewItemAutomationPeer(NavigationViewItem owner) :
     // We go through all the items and then we determine if the listviewitem from the left listview can be a navigation view item header
     // or a navigation view item. If it's the former, we just reset the count. If it's the latter, we increment the counter.
     // In case of calculating the position, if this is the NavigationViewItemAutomationPeer we're iterating through we break the loop.
-    int GetPositionOrSetCountInLeftNavHelper(AutomationOutput automationOutput)
+    private int GetPositionOrSetCountInLeftNavHelper(AutomationOutput automationOutput)
     {
-        int returnValue = 0;
+        var returnValue = 0;
 
         if (GetParentItemsRepeater() is { } repeater)
         {
@@ -77,7 +77,7 @@ public class NavigationViewItemAutomationPeer(NavigationViewItem owner) :
             {
                 if (parent.GetChildren() is { } children)
                 {
-                    int index = 0;
+                    var index = 0;
 
                     foreach (var child in children)
                     {
@@ -108,7 +108,7 @@ public class NavigationViewItemAutomationPeer(NavigationViewItem owner) :
         return returnValue;
     }
 
-    ItemsRepeater? GetParentItemsRepeater()
+    private ItemsRepeater? GetParentItemsRepeater()
     {
         if (GetParentNavigationView() is { })
         {
@@ -131,7 +131,7 @@ public class NavigationViewItemAutomationPeer(NavigationViewItem owner) :
         }
     }
 
-    NavigationView? GetParentNavigationView()
+    private NavigationView? GetParentNavigationView()
     {
         NavigationView? navigationView = null;
 
@@ -185,7 +185,7 @@ public class NavigationViewItemAutomationPeer(NavigationViewItem owner) :
         ChangeSelection(false);
     }
 
-    void ChangeSelection(bool isSelected)
+    private void ChangeSelection(bool isSelected)
     {
         if (Owner is NavigationViewItem nvi)
         {

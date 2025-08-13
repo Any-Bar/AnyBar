@@ -55,9 +55,9 @@ public static class SingleInstance<TApplication> where TApplication : System.Win
     public static bool InitializeAsFirstInstance()
     {
         // Build unique application Id and the IPC channel name.
-        string applicationIdentifier = InstanceMutexName + Environment.UserName;
+        var applicationIdentifier = InstanceMutexName + Environment.UserName;
 
-        string channelName = string.Concat(applicationIdentifier, Delimiter, ChannelNameSuffix);
+        var channelName = string.Concat(applicationIdentifier, Delimiter, ChannelNameSuffix);
 
         // Create mutex based on unique application Id to check if this is the first instance of the application. 
         SingleInstanceMutex = new Mutex(true, applicationIdentifier, out var firstInstance);
@@ -92,7 +92,7 @@ public static class SingleInstance<TApplication> where TApplication : System.Win
     /// <param name="channelName">Application's IPC channel name.</param>
     private static async Task CreateRemoteServiceAsync(string channelName)
     {
-        using NamedPipeServerStream pipeServer = new NamedPipeServerStream(channelName, PipeDirection.In);
+        using var pipeServer = new NamedPipeServerStream(channelName, PipeDirection.In);
         while (true)
         {
             // Wait for connection to the pipe
@@ -116,7 +116,7 @@ public static class SingleInstance<TApplication> where TApplication : System.Win
     private static async Task SignalFirstInstanceAsync(string channelName)
     {
         // Create a client pipe connected to server
-        using NamedPipeClientStream pipeClient = new NamedPipeClientStream(".", channelName, PipeDirection.Out);
+        using var pipeClient = new NamedPipeClientStream(".", channelName, PipeDirection.Out);
 
         // Connect to the available pipe
         await pipeClient.ConnectAsync(0);

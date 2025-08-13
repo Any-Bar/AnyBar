@@ -211,7 +211,7 @@ public partial class SplitViewEx : Control
 
     private void UpdateIsLightDismissActive()
     {
-        bool value = IsVisible && IsPaneOpen && IsLightDismissible;
+        var value = IsVisible && IsPaneOpen && IsLightDismissible;
 
         if (_isLightDismissActive != value)
         {

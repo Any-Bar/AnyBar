@@ -1,6 +1,6 @@
-﻿using Flow.Bar.Plugin;
-using System;
+﻿using System;
 using System.Threading.Tasks;
+using Flow.Bar.Plugin;
 
 namespace Flow.Bar.Helper.Plugins;
 

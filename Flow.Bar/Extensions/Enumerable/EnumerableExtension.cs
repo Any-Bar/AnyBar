@@ -1,8 +1,8 @@
-﻿using Flow.Bar.Interfaces;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using Flow.Bar.Interfaces;
 
 namespace Flow.Bar.Extensions;
 

@@ -8,7 +8,6 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Threading;
-using Flow.Bar.Helper;
 using iNKORE.UI.WPF.Helpers;
 using iNKORE.UI.WPF.Modern.Common;
 using iNKORE.UI.WPF.Modern.Controls.Primitives;
@@ -909,7 +908,7 @@ public class ContentDialog : ContentControl
             if (m_adorner != null)
             {
                 RestoreKeyboardNavigation(m_adorner.AdornedElement);
-            m_adornerLayer.Remove(m_adorner);
+                m_adornerLayer.Remove(m_adorner);
             }
             m_adornerLayer = null;
         }
@@ -972,7 +971,7 @@ public class ContentDialog : ContentControl
 
     private void UpdateDialogShowingStates(bool useTransitions)
     {
-        string stateName = IsShowing && IsLoaded ? DialogShowingState : DialogHiddenState;
+        var stateName = IsShowing && IsLoaded ? DialogShowingState : DialogHiddenState;
 
         if (DesignerProperties.GetIsInDesignMode(this))
         {
@@ -986,9 +985,9 @@ public class ContentDialog : ContentControl
     {
         string stateName;
 
-        bool primaryVisible = !string.IsNullOrEmpty(PrimaryButtonText);
-        bool secondaryVisible = !string.IsNullOrEmpty(SecondaryButtonText);
-        bool closeVisible = !string.IsNullOrEmpty(CloseButtonText);
+        var primaryVisible = !string.IsNullOrEmpty(PrimaryButtonText);
+        var secondaryVisible = !string.IsNullOrEmpty(SecondaryButtonText);
+        var closeVisible = !string.IsNullOrEmpty(CloseButtonText);
 
         if (primaryVisible && secondaryVisible && closeVisible)
         {
@@ -1032,7 +1031,7 @@ public class ContentDialog : ContentControl
 
     private void UpdateDefaultButtonStates(bool useTransitions)
     {
-        string stateName = NoDefaultButtonState;
+        var stateName = NoDefaultButtonState;
 
         switch (DefaultButton)
         {

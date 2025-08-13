@@ -1,13 +1,13 @@
 ﻿using System;
-using System.Runtime.InteropServices;
 using System.IO;
+using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Interop;
 using System.Windows.Media.Imaging;
 using Windows.Win32;
 using Windows.Win32.Foundation;
-using Windows.Win32.UI.Shell;
 using Windows.Win32.Graphics.Gdi;
+using Windows.Win32.UI.Shell;
 
 namespace Flow.Bar.Helper.Image;
 
@@ -37,7 +37,7 @@ public class WindowsThumbnailProvider
 
     public static BitmapSource GetThumbnail(string fileName, int width, int height, ThumbnailOptions options)
     {
-        HBITMAP hBitmap = GetHBitmap(Path.GetFullPath(fileName), width, height, options);
+        var hBitmap = GetHBitmap(Path.GetFullPath(fileName), width, height, options);
 
         try
         {

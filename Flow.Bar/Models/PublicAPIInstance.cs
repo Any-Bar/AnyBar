@@ -1,4 +1,10 @@
-﻿using Flow.Bar.Helper.Image;
+﻿using System;
+using System.Runtime.CompilerServices;
+using System.Threading;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Media;
+using Flow.Bar.Helper.Image;
 using Flow.Bar.Helper.Logging;
 using Flow.Bar.Helper.Notification;
 using Flow.Bar.Helper.Windows;
@@ -6,12 +12,6 @@ using Flow.Bar.Models.Language;
 using Flow.Bar.Models.UserSettings;
 using Flow.Bar.Plugin;
 using Flow.Bar.Views;
-using System;
-using System.Runtime.CompilerServices;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Media;
 using MessageBox = iNKORE.UI.WPF.Modern.Controls.MessageBox;
 
 namespace Flow.Bar.Models;

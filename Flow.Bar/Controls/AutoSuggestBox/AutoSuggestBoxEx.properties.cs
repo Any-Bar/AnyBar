@@ -4,7 +4,7 @@ using iNKORE.UI.WPF.Modern.Controls.Helpers;
 
 namespace Flow.Bar.Controls;
 
-partial class AutoSuggestBoxEx
+public partial class AutoSuggestBoxEx
 {
     #region UpdateTextOnSelect
 
@@ -160,7 +160,7 @@ partial class AutoSuggestBoxEx
 
     public object QueryIcon
     {
-        get => (object)GetValue(QueryIconProperty);
+        get => GetValue(QueryIconProperty);
         set => SetValue(QueryIconProperty, value);
     }
 

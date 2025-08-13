@@ -12,7 +12,6 @@ using CommunityToolkit.Mvvm.Input;
 using Flow.Bar.Controls;
 using Flow.Bar.Dialogs;
 using Flow.Bar.Enums;
-using Flow.Bar.Enums;
 using Flow.Bar.Extensions;
 using Flow.Bar.Helper.MenuFlyout;
 using Flow.Bar.Interfaces;

@@ -1,6 +1,4 @@
-﻿using iNKORE.UI.WPF.Modern.Common;
-using iNKORE.UI.WPF.Modern.Controls.Helpers;
-using System;
+﻿using System;
 using System.Windows;
 using System.Windows.Automation;
 using System.Windows.Automation.Peers;
@@ -9,6 +7,8 @@ using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using System.Windows.Markup;
 using System.Windows.Media;
+using iNKORE.UI.WPF.Modern.Common;
+using iNKORE.UI.WPF.Modern.Controls.Helpers;
 
 namespace Flow.Bar.Controls;
 
@@ -73,7 +73,7 @@ public class ToggleSwitchEx : Control
     }
 
     #region Header
-    
+
     public object Header
     {
         get => GetValue(HeaderProperty);
@@ -424,7 +424,7 @@ public class ToggleSwitchEx : Control
         if (e.HorizontalChange != 0)
         {
             _wasDragged = true;
-            double dragTranslation = _startTranslation + e.HorizontalChange;
+            var dragTranslation = _startTranslation + e.HorizontalChange;
             KnobTranslateTransform!.X = Math.Max(_offTranslation, Math.Min(_onTranslation, dragTranslation));
         }
         UpdateVisualStates();
@@ -433,10 +433,10 @@ public class ToggleSwitchEx : Control
     private void OnSwitchThumbDragCompleted(object sender, DragCompletedEventArgs e)
     {
         e.Handled = true;
-        bool click = false;
+        var click = false;
         if (_wasDragged)
         {
-            double edge = (_onTranslation + _offTranslation) / 2;
+            var edge = (_onTranslation + _offTranslation) / 2;
             if ((IsOn && KnobTranslateTransform!.X <= edge) || (!IsOn && KnobTranslateTransform!.X >= edge))
             {
                 click = true;
@@ -469,7 +469,7 @@ public class ToggleSwitchEx : Control
 
         if (HeaderContentPresenter != null)
         {
-            bool showHeader = !IsNullOrEmptyString(Header) || HeaderTemplate != null;
+            var showHeader = !IsNullOrEmptyString(Header) || HeaderTemplate != null;
             HeaderContentPresenter.Visibility = showHeader ? Visibility.Visible : Visibility.Collapsed;
         }
     }

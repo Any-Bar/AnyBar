@@ -1,4 +1,7 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using System;
+using System.Collections.ObjectModel;
+using System.Collections.Specialized;
+using CommunityToolkit.Mvvm.ComponentModel;
 using Flow.Bar.Enums;
 using Flow.Bar.Helper.Monitor;
 using Flow.Bar.Helper.Plugins;
@@ -6,9 +9,6 @@ using Flow.Bar.Models.AppBar;
 using Flow.Bar.Models.Monitor;
 using Flow.Bar.Models.Parameter;
 using Flow.Bar.Services;
-using System;
-using System.Collections.ObjectModel;
-using System.Collections.Specialized;
 
 namespace Flow.Bar.ViewModels;
 

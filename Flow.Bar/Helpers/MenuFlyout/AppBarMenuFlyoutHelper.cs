@@ -1,10 +1,10 @@
-﻿using Flow.Bar.Controls;
-using Flow.Bar.Enums;
-using Flow.Bar.ViewModels;
-using System;
+﻿using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using Flow.Bar.Controls;
+using Flow.Bar.Enums;
+using Flow.Bar.ViewModels;
 using Windows.Win32;
 using Point = System.Drawing.Point;
 

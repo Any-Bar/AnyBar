@@ -1,10 +1,10 @@
-﻿using Flow.Bar.Extensions;
+﻿using System;
+using System.Diagnostics;
+using System.Runtime.CompilerServices;
+using Flow.Bar.Extensions;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Serilog;
-using System;
-using System.Diagnostics;
-using System.Runtime.CompilerServices;
 
 namespace Flow.Bar.Helper.Logging;
 

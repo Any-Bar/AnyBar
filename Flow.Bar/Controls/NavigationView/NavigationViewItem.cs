@@ -1,12 +1,12 @@
 ﻿// Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-using iNKORE.UI.WPF.Modern.Controls;
 using System.Diagnostics;
 using System.Windows;
 using System.Windows.Automation.Peers;
 using System.Windows.Controls;
 using System.Windows.Input;
+using iNKORE.UI.WPF.Modern.Controls;
 using static Flow.Bar.Controls.CppWinRTHelpers;
 using PointerRoutedEventArgs = System.Windows.Input.MouseEventArgs;
 
@@ -161,7 +161,7 @@ public partial class NavigationViewItem : NavigationViewItemBase
     private void SuggestedToolTipChanged(object newContent)
     {
         var potentialString = newContent;
-        bool stringableToolTip = (potentialString != null && potentialString is string);
+        var stringableToolTip = (potentialString != null && potentialString is string);
 
         object? newToolTipContent = null;
         if (stringableToolTip)
@@ -238,7 +238,7 @@ public partial class NavigationViewItem : NavigationViewItemBase
     {
         // DisabledStates and CommonStates
         var enabledStateValue = C_enabled;
-        bool isSelected = IsSelected;
+        var isSelected = IsSelected;
         var selectedStateValue = C_normal;
         if (IsEnabled)
         {
@@ -304,8 +304,8 @@ public partial class NavigationViewItem : NavigationViewItemBase
 
         UpdateVisualStateForPointer();
 
-        bool shouldShowIcon = ShouldShowIcon();
-        bool shouldShowContent = ShouldShowContent();
+        var shouldShowIcon = ShouldShowIcon();
+        var shouldShowContent = ShouldShowContent();
 
         if (m_navigationViewItemPresenter is { } presenter)
         {

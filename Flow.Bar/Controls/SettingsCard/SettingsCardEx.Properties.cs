@@ -1,4 +1,4 @@
-// Licensed to the .NET Foundation under one or more agreements.
+﻿// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the MIT license.
 // See the LICENSE file in the project root for more information.
 
@@ -16,7 +16,7 @@ public partial class SettingsCardEx
         nameof(Header),
         typeof(object),
         typeof(SettingsCardEx),
-        new PropertyMetadata(defaultValue: null, (d, e) => ((SettingsCardEx)d).OnHeaderPropertyChanged((object)e.OldValue, (object)e.NewValue)));
+        new PropertyMetadata(defaultValue: null, (d, e) => ((SettingsCardEx)d).OnHeaderPropertyChanged(e.OldValue, e.NewValue)));
 
     /// <summary>
     /// The backing <see cref="DependencyProperty"/> for the <see cref="Description"/> property.
@@ -25,7 +25,7 @@ public partial class SettingsCardEx
         nameof(Description),
         typeof(object),
         typeof(SettingsCardEx),
-        new PropertyMetadata(defaultValue: null, (d, e) => ((SettingsCardEx)d).OnDescriptionPropertyChanged((object)e.OldValue, (object)e.NewValue)));
+        new PropertyMetadata(defaultValue: null, (d, e) => ((SettingsCardEx)d).OnDescriptionPropertyChanged(e.OldValue, e.NewValue)));
 
     /// <summary>
     /// The backing <see cref="DependencyProperty"/> for the <see cref="HeaderIcon"/> property.
@@ -34,7 +34,7 @@ public partial class SettingsCardEx
         nameof(HeaderIcon),
         typeof(object),
         typeof(SettingsCardEx),
-        new PropertyMetadata(defaultValue: null, (d, e) => ((SettingsCardEx)d).OnHeaderIconPropertyChanged((object)e.OldValue, (object)e.NewValue)));
+        new PropertyMetadata(defaultValue: null, (d, e) => ((SettingsCardEx)d).OnHeaderIconPropertyChanged(e.OldValue, e.NewValue)));
 
     /// <summary>
     /// The backing <see cref="DependencyProperty"/> for the <see cref="ActionIcon"/> property.
@@ -86,7 +86,7 @@ public partial class SettingsCardEx
     /// </summary>
     public object Header
     {
-        get => (object)GetValue(HeaderProperty);
+        get => GetValue(HeaderProperty);
         set => SetValue(HeaderProperty, value);
     }
 
@@ -97,7 +97,7 @@ public partial class SettingsCardEx
     public new object Description
 #pragma warning restore CS0109 // Member does not hide an inherited member; new keyword is not required
     {
-        get => (object)GetValue(DescriptionProperty);
+        get => GetValue(DescriptionProperty);
         set => SetValue(DescriptionProperty, value);
     }
 
@@ -106,7 +106,7 @@ public partial class SettingsCardEx
     /// </summary>
     public object HeaderIcon
     {
-        get => (object)GetValue(HeaderIconProperty);
+        get => GetValue(HeaderIconProperty);
         set => SetValue(HeaderIconProperty, value);
     }
 
@@ -115,7 +115,7 @@ public partial class SettingsCardEx
     /// </summary>
     public object ActionIcon
     {
-        get => (object)GetValue(ActionIconProperty);
+        get => GetValue(ActionIconProperty);
         set => SetValue(ActionIconProperty, value);
     }
 

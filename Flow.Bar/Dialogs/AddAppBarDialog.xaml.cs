@@ -1,11 +1,10 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using System;
+using System.Collections.Generic;
+using CommunityToolkit.Mvvm.ComponentModel;
 using Flow.Bar.Controls;
 using Flow.Bar.Enums;
 using Flow.Bar.Helper.Monitor;
-using Flow.Bar.Enums;
 using Flow.Bar.Models.Monitor;
-using System;
-using System.Collections.Generic;
 
 namespace Flow.Bar.Dialogs;
 
@@ -59,7 +58,7 @@ public partial class AddAppBarDialog : ContentDialog
 
     [ObservableProperty]
     private bool _isResizable = false;
-    
+
     public AddAppBarDialog()
     {
         UpdateMinAndMaxDockedWidthOrHeight();

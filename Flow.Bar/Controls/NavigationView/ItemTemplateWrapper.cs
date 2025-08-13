@@ -1,11 +1,11 @@
 ﻿// Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-using iNKORE.UI.WPF.Modern.Controls;
 using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Shapes;
+using iNKORE.UI.WPF.Modern.Controls;
 
 namespace Flow.Bar.Controls;
 
@@ -75,7 +75,7 @@ internal class ItemTemplateWrapper : IElementFactoryShim
     public void RecycleElement(ElementFactoryRecycleArgs args)
     {
         var element = args.Element;
-        DataTemplate? selectedTemplate = Template ??
+        var selectedTemplate = Template ??
             element.GetValue(RecyclePool.OriginTemplateProperty) as DataTemplate;
         var recyclePool = RecyclePool.GetPoolInstance(selectedTemplate);
         if (recyclePool == null)

@@ -1,11 +1,11 @@
-﻿using Flow.Bar.Models.Plugins;
-using Flow.Bar.Plugin;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows;
+using Flow.Bar.Models.Plugins;
+using Flow.Bar.Plugin;
 
 namespace Flow.Bar.Helper.Plugins;
 
@@ -89,7 +89,7 @@ public static class PluginsLoader
             var errorPluginString = string.Join(Environment.NewLine, erroredPlugins);
 
             var errorMessage = erroredPlugins.Count > 1 ?
-                Localize.PluginLoader_PluginsHaveErrored():
+                Localize.PluginLoader_PluginsHaveErrored() :
                 Localize.PluginLoader_PluginHasErrored();
 
             _ = Task.Run(() =>

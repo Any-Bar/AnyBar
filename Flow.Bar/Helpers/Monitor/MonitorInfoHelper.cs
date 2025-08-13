@@ -1,8 +1,8 @@
-﻿using Flow.Bar.Enums;
-using Flow.Bar.Models.Monitor;
-using System;
+﻿using System;
 using System.Collections.Concurrent;
 using System.Linq;
+using Flow.Bar.Enums;
+using Flow.Bar.Models.Monitor;
 
 namespace Flow.Bar.Helper.Monitor;
 

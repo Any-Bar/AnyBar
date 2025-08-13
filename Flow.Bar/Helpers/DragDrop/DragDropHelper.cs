@@ -1,15 +1,15 @@
-﻿using iNKORE.UI.WPF.Modern;
-using System;
+﻿using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using iNKORE.UI.WPF.Modern;
 using WpfDragDrop = GongSolutions.Wpf.DragDrop.DragDrop;
 
 namespace Flow.Bar.Helper.DragDrop;
 
 public static class DragDropHelper
 {
-    private readonly static DataTemplate _emptyEffectAdornerTemplate = new();
+    private static readonly DataTemplate _emptyEffectAdornerTemplate = new();
 
     public static void EnableDragDrop(this DependencyObject element)
     {

@@ -1,7 +1,7 @@
-﻿using iNKORE.UI.WPF.Helpers;
-using System;
+﻿using System;
 using System.Reflection;
 using System.Windows.Controls.Primitives;
+using iNKORE.UI.WPF.Helpers;
 
 namespace Flow.Bar.Controls;
 

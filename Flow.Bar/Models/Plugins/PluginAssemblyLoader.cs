@@ -34,7 +34,7 @@ internal class PluginAssemblyLoader : AssemblyLoadContext
 
         return existAssembly ?? (assemblyPath == null ? null : LoadFromAssemblyPath(assemblyPath));
     }
-    
+
     protected override nint LoadUnmanagedDll(string unmanagedDllName)
     {
         var path = dependencyResolver.ResolveUnmanagedDllToPath(unmanagedDllName);

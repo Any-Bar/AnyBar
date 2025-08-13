@@ -1,6 +1,6 @@
-﻿using Microsoft.Toolkit.Uwp.Notifications;
-using System;
+﻿using System;
 using System.IO;
+using Microsoft.Toolkit.Uwp.Notifications;
 
 namespace Flow.Bar.Helper.Notification;
 

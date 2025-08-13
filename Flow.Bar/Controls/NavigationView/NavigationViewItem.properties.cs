@@ -19,7 +19,7 @@ public partial class NavigationViewItem
 
     public object Icon
     {
-        get => (object)GetValue(IconProperty);
+        get => GetValue(IconProperty);
         set => SetValue(IconProperty, value);
     }
 

@@ -1,6 +1,6 @@
-﻿using Flow.Bar.Models.Monitor;
-using System;
+﻿using System;
 using System.Windows;
+using Flow.Bar.Models.Monitor;
 
 namespace Flow.Bar.Controls;
 

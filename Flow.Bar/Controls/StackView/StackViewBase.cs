@@ -1,7 +1,7 @@
-﻿using iNKORE.UI.WPF.Modern.Controls.Helpers;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using iNKORE.UI.WPF.Modern.Controls.Helpers;
 
 namespace Flow.Bar.Controls;
 

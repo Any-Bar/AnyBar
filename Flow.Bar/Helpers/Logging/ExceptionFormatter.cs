@@ -1,9 +1,9 @@
-﻿using Microsoft.Win32;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Text;
+using Microsoft.Win32;
 
 namespace Flow.Bar.Helper.Logging;
 
@@ -108,7 +108,7 @@ public static class ExceptionFormatter
             var result = new List<string>();
             using (var ndpKey = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Microsoft\NET Framework Setup\NDP\"))
             {
-                foreach (string versionKeyName in ndpKey!.GetSubKeyNames())
+                foreach (var versionKeyName in ndpKey!.GetSubKeyNames())
                 {
                     if (versionKeyName.StartsWith('v'))
                     {
@@ -133,7 +133,7 @@ public static class ExceptionFormatter
                             continue;
                         }
 
-                        foreach (string subKeyName in versionKey.GetSubKeyNames())
+                        foreach (var subKeyName in versionKey.GetSubKeyNames())
                         {
                             var subKey = versionKey.OpenSubKey(subKeyName);
                             name = subKey!.GetValue("Version", "") as string;

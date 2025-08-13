@@ -13,10 +13,10 @@ namespace Flow.Bar.Controls;
 
 public sealed class AutoSuggestBoxExHelper
 {
-    const string c_popupName = "SuggestionsPopup";
-    const string c_popupBorderName = "SuggestionsContainer";
-    const string c_textBoxName = "TextBox";
-    const string c_overlayCornerRadiusKey = "OverlayCornerRadius";
+    private const string c_popupName = "SuggestionsPopup";
+    private const string c_popupBorderName = "SuggestionsContainer";
+    private const string c_textBoxName = "TextBox";
+    private const string c_overlayCornerRadiusKey = "OverlayCornerRadius";
 
     internal AutoSuggestBoxExHelper()
     {
@@ -49,7 +49,7 @@ public sealed class AutoSuggestBoxExHelper
     {
         if (sender is AutoSuggestBoxEx autoSuggestBox)
         {
-            bool shouldMonitorAutoSuggestEvents = (bool)args.NewValue;
+            var shouldMonitorAutoSuggestEvents = (bool)args.NewValue;
             if (shouldMonitorAutoSuggestEvents)
             {
                 var revokers = new AutoSuggestEventRevokers();
@@ -124,7 +124,7 @@ public sealed class AutoSuggestBoxExHelper
 
         if (isPopupOpen)
         {
-            bool isOpenDown = IsPopupOpenDown(autoSuggestBox);
+            var isOpenDown = IsPopupOpenDown(autoSuggestBox);
 
             var popupRadiusFilter = isOpenDown ? CornerRadiusFilterKind.Bottom : CornerRadiusFilterKind.Top;
             popupRadius = CornerRadiusFilterConverter.Convert(popupRadius, popupRadiusFilter);

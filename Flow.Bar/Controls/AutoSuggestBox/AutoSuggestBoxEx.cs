@@ -17,11 +17,11 @@ namespace Flow.Bar.Controls;
 
 public sealed partial class AutoSuggestBoxEx : ItemsControl
 {
-    const string c_popupName = "SuggestionsPopup";
-    const string c_popupBorderName = "SuggestionsContainer";
-    const string c_textBoxName = "TextBox";
-    const string c_textBoxBorderName = "BorderElement";
-    const string c_overlayCornerRadiusKey = "OverlayCornerRadius";
+    private const string C_popupName = "SuggestionsPopup";
+    private const string C_popupBorderName = "SuggestionsContainer";
+    private const string C_textBoxName = "TextBox";
+    private const string C_textBoxBorderName = "BorderElement";
+    private const string C_overlayCornerRadiusKey = "OverlayCornerRadius";
 
     static AutoSuggestBoxEx()
     {
@@ -71,8 +71,8 @@ public sealed partial class AutoSuggestBoxEx : ItemsControl
 
         base.OnApplyTemplate();
 
-        m_textBox = GetTemplateChild(c_textBoxName) as TextBox;
-        m_suggestionsPopup = GetTemplateChild(c_popupName) as Popup;
+        m_textBox = GetTemplateChild(C_textBoxName) as TextBox;
+        m_suggestionsPopup = GetTemplateChild(C_popupName) as Popup;
         m_suggestionsList = GetTemplateChild("SuggestionsList") as AutoSuggestBoxExListView;
 
         if (m_textBox != null)
@@ -100,7 +100,7 @@ public sealed partial class AutoSuggestBoxEx : ItemsControl
 
             if (m_textBox != null)
             {
-                var textBoxBorder = m_textBox.GetTemplateChild<FrameworkElement>(c_textBoxBorderName);
+                var textBoxBorder = m_textBox.GetTemplateChild<FrameworkElement>(C_textBoxBorderName);
                 if (textBoxBorder != null)
                 {
                     m_suggestionsPopup.PlacementTarget = textBoxBorder;
@@ -372,7 +372,7 @@ public sealed partial class AutoSuggestBoxEx : ItemsControl
     {
         if (m_textBox != null)
         {
-            string text = Text;
+            var text = Text;
             if (m_textBox.Text != text)
             {
                 m_ignoreTextBoxTextChange = true;
@@ -430,7 +430,7 @@ public sealed partial class AutoSuggestBoxEx : ItemsControl
     {
         if (m_suggestionsList != null)
         {
-            int index = m_suggestionsList.SelectedIndex;
+            var index = m_suggestionsList.SelectedIndex;
             m_suggestionsList.SelectedIndex = index + 1 >= m_suggestionsList.Items.Count ? -1 : index + 1;
         }
     }
@@ -439,7 +439,7 @@ public sealed partial class AutoSuggestBoxEx : ItemsControl
     {
         if (m_suggestionsList != null)
         {
-            int index = m_suggestionsList.SelectedIndex;
+            var index = m_suggestionsList.SelectedIndex;
             if (index >= 0)
             {
                 m_suggestionsList.SelectedIndex--;
@@ -481,7 +481,7 @@ public sealed partial class AutoSuggestBoxEx : ItemsControl
     {
         if (m_textBox != null)
         {
-            bool shouldCloseSuggestionList = IsSuggestionListOpen;
+            var shouldCloseSuggestionList = IsSuggestionListOpen;
             SubmitQuery(m_textBox.Text, null);
             if (shouldCloseSuggestionList)
             {
@@ -505,7 +505,7 @@ public sealed partial class AutoSuggestBoxEx : ItemsControl
     {
         if (m_textBox != null)
         {
-            int textLength = m_textBox.Text.Length;
+            var textLength = m_textBox.Text.Length;
             if (m_textBox.CaretIndex < textLength)
             {
                 m_textBox.CaretIndex = textLength;
@@ -518,11 +518,11 @@ public sealed partial class AutoSuggestBoxEx : ItemsControl
     private void UpdateCornerRadius(bool isPopupOpen)
     {
         var textBoxRadius = CornerRadius;
-        var popupRadius = (CornerRadius)ResourceLookup(c_overlayCornerRadiusKey);
+        var popupRadius = (CornerRadius)ResourceLookup(C_overlayCornerRadiusKey);
 
         if (isPopupOpen)
         {
-            bool isOpenDown = IsPopupOpenDown();
+            var isOpenDown = IsPopupOpenDown();
 
             var popupRadiusFilter = isOpenDown ? CornerRadiusFilterKind.Bottom : CornerRadiusFilterKind.Top;
             popupRadius = CornerRadiusFilterConverter.Convert(popupRadius, popupRadiusFilter);
@@ -531,12 +531,12 @@ public sealed partial class AutoSuggestBoxEx : ItemsControl
             textBoxRadius = CornerRadiusFilterConverter.Convert(textBoxRadius, textBoxRadiusFilter);
         }
 
-        if (GetTemplateChild(c_popupBorderName) is Border popupBorder)
+        if (GetTemplateChild(C_popupBorderName) is Border popupBorder)
         {
             popupBorder.CornerRadius = popupRadius;
         }
 
-        if (GetTemplateChild(c_textBoxName) is TextBox textBox)
+        if (GetTemplateChild(C_textBoxName) is TextBox textBox)
         {
             ControlHelper.SetCornerRadius(textBox, textBoxRadius);
         }
@@ -545,9 +545,9 @@ public sealed partial class AutoSuggestBoxEx : ItemsControl
     private bool IsPopupOpenDown()
     {
         double verticalOffset = 0;
-        if (GetTemplateChild(c_popupBorderName) is Border popupBorder)
+        if (GetTemplateChild(C_popupBorderName) is Border popupBorder)
         {
-            if (GetTemplateChild(c_textBoxName) is TextBox textBox)
+            if (GetTemplateChild(C_textBoxName) is TextBox textBox)
             {
                 var popupTop = popupBorder.TranslatePoint(new Point(0, 0), textBox);
                 verticalOffset = popupTop.Y;

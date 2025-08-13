@@ -7,8 +7,8 @@ public static class DataLocation
 {
     public const string PortableFolderName = "UserData";
     public const string DeletionIndicatorFile = ".dead";
-    public readonly static string PortableDataPath = Path.Combine(Constants.ProgramDirectory, PortableFolderName);
-    public readonly static string RoamingDataPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), Constants.FlowBar);
+    public static readonly string PortableDataPath = Path.Combine(Constants.ProgramDirectory, PortableFolderName);
+    public static readonly string RoamingDataPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), Constants.FlowBar);
     public static string DataDirectory() =>
         PortableDataLocationInUse() ? PortableDataPath : RoamingDataPath;
 

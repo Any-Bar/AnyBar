@@ -126,14 +126,14 @@ public class NavigationViewItemsFactory : ElementFactory
         }
     }
 
-    static void UnlinkElementFromParent(ElementFactoryRecycleArgs args)
+    private static void UnlinkElementFromParent(ElementFactoryRecycleArgs args)
     {
         // We want to unlink the containers from the parent repeater
         // in case we are required to move it to a different repeater.
         if (args.Parent is Panel panel)
         {
             var children = panel.Children;
-            if (IndexOf(children, args.Element, out int childIndex))
+            if (IndexOf(children, args.Element, out var childIndex))
             {
                 children.RemoveAt(childIndex);
             }
@@ -142,7 +142,7 @@ public class NavigationViewItemsFactory : ElementFactory
 
     private static bool IndexOf(UIElementCollection collection, UIElement element, out int index)
     {
-        int i = collection.IndexOf(element);
+        var i = collection.IndexOf(element);
         if (i >= 0)
         {
             index = i;

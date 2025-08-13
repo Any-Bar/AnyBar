@@ -1,4 +1,4 @@
-// Licensed to the .NET Foundation under one or more agreements.
+﻿// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the MIT license.
 // See the LICENSE file in the project root for more information.
 
@@ -160,7 +160,7 @@ public partial class SettingsCardEx : ButtonBase
         else if (IsClickEnabled == false)
         {
             state = NormalState;
-        }    
+        }
         else
         {
             if (IsPressed)
@@ -223,7 +223,7 @@ public partial class SettingsCardEx : ButtonBase
     {
         // Manually go to states, adapted from:
         // https://github.com/CommunityToolkit/Windows/blob/main/components/SettingsControls/src/SettingsCard/SettingsCard.xaml#L369
-        
+
         var state = Content == null || Content as string == ""
             ? nameof(Visibility.Collapsed)
             : nameof(Visibility.Visible);

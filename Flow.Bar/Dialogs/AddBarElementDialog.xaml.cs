@@ -1,12 +1,12 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
-using Flow.Bar.Controls;
-using Flow.Bar.Helper.Plugins;
-using Flow.Bar.Models.Plugins;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading;
+using CommunityToolkit.Mvvm.ComponentModel;
+using Flow.Bar.Controls;
+using Flow.Bar.Helper.Plugins;
+using Flow.Bar.Models.Plugins;
 
 namespace Flow.Bar.Dialogs;
 

@@ -34,7 +34,7 @@ public class SplitVector<T, SplitVectorID>(SplitVectorID id, Func<T, int> indexO
             RemoveAt(indexInOriginalVector);
         }
 
-        for (int i = 0; i < m_indexesInOriginalVector.Count; i++)
+        for (var i = 0; i < m_indexesInOriginalVector.Count; i++)
         {
             var v = m_indexesInOriginalVector[i];
             if (v > indexInOriginalVector)
@@ -46,7 +46,7 @@ public class SplitVector<T, SplitVectorID>(SplitVectorID id, Func<T, int> indexO
 
     public void OnRawDataInsert(int preferIndex, int indexInOriginalVector, T? value, SplitVectorID? vectorID)
     {
-        for (int i = 0; i < m_indexesInOriginalVector.Count; i++)
+        for (var i = 0; i < m_indexesInOriginalVector.Count; i++)
         {
             var v = m_indexesInOriginalVector[i];
             if (v > indexInOriginalVector)
@@ -96,7 +96,7 @@ public class SplitVector<T, SplitVectorID>(SplitVectorID id, Func<T, int> indexO
 
     public int IndexOf(T value)
     {
-        int indexInOriginalVector = m_indexFunctionFromDataSource(value);
+        var indexInOriginalVector = m_indexFunctionFromDataSource(value);
         return IndexFromIndexInOriginalVector(indexInOriginalVector);
     }
 
@@ -116,17 +116,18 @@ public class SplitVector<T, SplitVectorID>(SplitVectorID id, Func<T, int> indexO
         return -1;
     }
 
-    int Size() { return m_indexesInOriginalVector.Count; }
+    private int Size()
+    { return m_indexesInOriginalVector.Count; }
 
-    readonly SplitVectorID m_vectorID = id;
-    readonly Collection<T?> m_vector = new ObservableCollection<T?>();
-    readonly List<int> m_indexesInOriginalVector = [];
-    readonly Func<T, int> m_indexFunctionFromDataSource = indexOfFunction;
+    private readonly SplitVectorID m_vectorID = id;
+    private readonly Collection<T?> m_vector = new ObservableCollection<T?>();
+    private readonly List<int> m_indexesInOriginalVector = [];
+    private readonly Func<T, int> m_indexFunctionFromDataSource = indexOfFunction;
 }
 
 internal class SplitDataSourceBase<T, SplitVectorID, AttachedDataType> where SplitVectorID : Enum
 {
-    static readonly int s_splitVectorSize = Enum.GetNames(typeof(SplitVectorID)).Length;
+    private static readonly int s_splitVectorSize = Enum.GetNames(typeof(SplitVectorID)).Length;
 
     public SplitVectorID? GetVectorIDForItem(int index)
     {
@@ -153,7 +154,7 @@ internal class SplitDataSourceBase<T, SplitVectorID, AttachedDataType> where Spl
 
     public void ResetAttachedData(AttachedDataType? attachedData)
     {
-        for (int i = 0; i < RawDataSize(); i++)
+        for (var i = 0; i < RawDataSize(); i++)
         {
             m_attachedData[i] = attachedData;
         }
@@ -176,7 +177,7 @@ internal class SplitDataSourceBase<T, SplitVectorID, AttachedDataType> where Spl
     public void MoveItemsToVector(int start, int end, SplitVectorID newVectorID)
     {
         Debug.Assert(start >= 0 && end <= RawDataSize());
-        for (int i = start; i < end; i++)
+        for (var i = start; i < end; i++)
         {
             MoveItemToVector(i, newVectorID);
         }
@@ -200,7 +201,7 @@ internal class SplitDataSourceBase<T, SplitVectorID, AttachedDataType> where Spl
             // insert item to vector which matches with the newVectorID
             if (m_splitVectors[Convert.ToInt32(newVectorID)] is { } toVector)
             {
-                int pos = GetPreferIndex(index, newVectorID);
+                var pos = GetPreferIndex(index, newVectorID);
 
                 var value = GetAt(index);
                 toVector.InsertAt(pos, index, value);
@@ -235,8 +236,8 @@ internal class SplitDataSourceBase<T, SplitVectorID, AttachedDataType> where Spl
 
     public int IndexOfImpl(T value, SplitVectorID vectorID)
     {
-        int indexInOriginalVector = IndexOf(value);
-        int index = -1;
+        var indexInOriginalVector = IndexOf(value);
+        var index = -1;
         if (indexInOriginalVector != -1)
         {
             var vector = GetVectorForItem(indexInOriginalVector);
@@ -276,7 +277,7 @@ internal class SplitDataSourceBase<T, SplitVectorID, AttachedDataType> where Spl
 
     public void OnRemoveAt(int startIndex, int count)
     {
-        for (int i = startIndex + count - 1; i >= startIndex; i--)
+        for (var i = startIndex + count - 1; i >= startIndex; i--)
         {
             OnRemoveAt(i);
         }
@@ -284,7 +285,7 @@ internal class SplitDataSourceBase<T, SplitVectorID, AttachedDataType> where Spl
 
     public void OnInsertAt(int startIndex, int count)
     {
-        for (int i = startIndex; i < startIndex + count; i++)
+        for (var i = startIndex; i < startIndex + count; i++)
         {
             OnInsertAt(i);
         }
@@ -298,7 +299,7 @@ internal class SplitDataSourceBase<T, SplitVectorID, AttachedDataType> where Spl
     public void SyncAndInitVectorFlagsWithID(SplitVectorID defaultID, AttachedDataType defaultAttachedData)
     {
         // Initialize the flags
-        for (int i = 0; i < Size(); i++)
+        for (var i = 0; i < Size(); i++)
         {
             m_flags.Add(defaultID);
             m_attachedData.Add(defaultAttachedData);
@@ -310,7 +311,7 @@ internal class SplitDataSourceBase<T, SplitVectorID, AttachedDataType> where Spl
         OnClear();
     }
 
-    void OnRemoveAt(int index)
+    private void OnRemoveAt(int index)
     {
         var vectorID = m_flags[index];
 
@@ -324,7 +325,7 @@ internal class SplitDataSourceBase<T, SplitVectorID, AttachedDataType> where Spl
         m_attachedData.RemoveAt(index);
     }
 
-    void OnInsertAt(int index)
+    private void OnInsertAt(int index)
     {
         var vectorID = DefaultVectorIDOnInsert();
         var defaultAttachedData = DefaultAttachedData();
@@ -341,15 +342,15 @@ internal class SplitDataSourceBase<T, SplitVectorID, AttachedDataType> where Spl
         m_attachedData.Insert(index, defaultAttachedData);
     }
 
-    int GetPreferIndex(int index, SplitVectorID? vectorID)
+    private int GetPreferIndex(int index, SplitVectorID? vectorID)
     {
         return RangeCount(0, index, vectorID);
     }
 
-    int RangeCount(int start, int end, SplitVectorID? vectorID)
+    private int RangeCount(int start, int end, SplitVectorID? vectorID)
     {
-        int count = 0;
-        for (int i = start; i < end; i++)
+        var count = 0;
+        for (var i = start; i < end; i++)
         {
             if (Equals(m_flags[i], vectorID))
             {
@@ -360,7 +361,7 @@ internal class SplitDataSourceBase<T, SplitVectorID, AttachedDataType> where Spl
     }
 
     // length is the same as data source, and used to identify which SplitVector it belongs to.
-    readonly List<SplitVectorID?> m_flags = [];
-    readonly List<AttachedDataType?> m_attachedData = [];
-    readonly SplitVector<T, SplitVectorID>[] m_splitVectors = new SplitVector<T, SplitVectorID>[s_splitVectorSize];
+    private readonly List<SplitVectorID?> m_flags = [];
+    private readonly List<AttachedDataType?> m_attachedData = [];
+    private readonly SplitVector<T, SplitVectorID>[] m_splitVectors = new SplitVector<T, SplitVectorID>[s_splitVectorSize];
 }

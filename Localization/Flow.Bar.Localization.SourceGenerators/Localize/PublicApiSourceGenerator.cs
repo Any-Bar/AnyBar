@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Text;
 using Flow.Bar.Localization.Shared;
-using Microsoft.CodeAnalysis.Diagnostics;
 using Microsoft.CodeAnalysis;
+using Microsoft.CodeAnalysis.Diagnostics;
 using Microsoft.CodeAnalysis.Text;
 
 namespace Flow.Bar.Localization.SourceGenerators.Localize

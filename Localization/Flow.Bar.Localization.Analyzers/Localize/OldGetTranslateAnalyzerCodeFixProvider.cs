@@ -62,7 +62,7 @@ namespace Flow.Bar.Localization.Analyzers.Localize
             var argumentList = invocationExpr.ArgumentList.Arguments;
 
             // Loop through the arguments to find the translation key.
-            for (int i = 0; i < argumentList.Count; i++)
+            for (var i = 0; i < argumentList.Count; i++)
             {
                 var argument = argumentList[i].Expression;
 

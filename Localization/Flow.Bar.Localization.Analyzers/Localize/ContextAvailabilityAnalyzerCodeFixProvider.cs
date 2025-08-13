@@ -131,7 +131,8 @@ namespace Flow.Bar.Localization.Analyzers.Localize
             return context.Document.WithSyntaxRoot(newRoot);
         }
 
-        private static Document FixContextIsAFieldError(CodeFixContext context, SyntaxNode root, TextSpan diagnosticSpan) {
+        private static Document FixContextIsAFieldError(CodeFixContext context, SyntaxNode root, TextSpan diagnosticSpan)
+        {
             var fieldDeclaration = GetDeclarationSyntax<FieldDeclarationSyntax>(root, diagnosticSpan);
             if (fieldDeclaration is null) return context.Document;
 

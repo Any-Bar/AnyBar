@@ -1,4 +1,12 @@
-﻿using CommunityToolkit.Mvvm.DependencyInjection;
+﻿using System;
+using System.Diagnostics;
+using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Interop;
+using CommunityToolkit.Mvvm.DependencyInjection;
 using Flow.Bar.Helper.Application;
 using Flow.Bar.Helper.Image;
 using Flow.Bar.Helper.Logging;
@@ -10,25 +18,16 @@ using Flow.Bar.Models.UserSettings;
 using Flow.Bar.Plugin;
 using Flow.Bar.Services;
 using Flow.Bar.ViewModels;
-using Flow.Bar.ViewModels;
 using Flow.Bar.Views;
 using iNKORE.UI.WPF.Modern.Common;
 using iNKORE.UI.WPF.Modern.Controls;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Toolkit.Uwp.Notifications;
-using System;
-using System.Diagnostics;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Interop;
-using MessageBox = System.Windows.MessageBox;
-using NotifyIcon = System.Windows.Forms.NotifyIcon;
-using MouseButtons = System.Windows.Forms.MouseButtons;
 using Windows.Win32;
+using MessageBox = System.Windows.MessageBox;
+using MouseButtons = System.Windows.Forms.MouseButtons;
+using NotifyIcon = System.Windows.Forms.NotifyIcon;
 
 namespace Flow.Bar;
 
@@ -312,7 +311,7 @@ public partial class App : Application, IDisposable, ISingleInstanceApp
         };
     }
 
-#endregion
+    #endregion
 
     #region IDisposable
 

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.IO;
+using System.Linq;
 using System.Text.Json;
 using Flow.Bar.Plugin;
 
@@ -44,11 +44,11 @@ internal class PluginConfig
             }
         }
 
-        (List<PluginMetadata> uniqueList, List<PluginMetadata> duplicateList) = GetUniqueLatestPluginMetadata(allPluginMetadata);
+        (var uniqueList, var duplicateList) = GetUniqueLatestPluginMetadata(allPluginMetadata);
 
         duplicateList
             .ForEach(
-                x => App.API.LogWarning(ClassName, 
+                x => App.API.LogWarning(ClassName,
                     string.Format("Duplicate plugin name: {0}, id: {1}, version: {2} " +
                         "not loaded due to version not the highest of the duplicates",
                         x.Name, x.ID, x.Version),
@@ -75,7 +75,7 @@ internal class PluginConfig
 
                     // If metadata's version greater than each duplicate's version, CompareTo > 0
                     var count = group.Where(x => metadata.Version.CompareTo(x.Version) > 0).Count();
-                    
+
                     // Only add if the meatadata's version is the highest of all duplicates in the group
                     if (count == group.Count() - 1)
                     {
@@ -87,7 +87,7 @@ internal class PluginConfig
                     }
                 }
             }
-            
+
             if (!duplicatesExist)
                 unique_list.Add(metadata);
         }
@@ -97,7 +97,7 @@ internal class PluginConfig
 
     private static PluginMetadata? GetPluginMetadata(string pluginDirectory)
     {
-        string configPath = Path.Combine(pluginDirectory, Constants.PluginMetadataFileName);
+        var configPath = Path.Combine(pluginDirectory, Constants.PluginMetadataFileName);
         if (!File.Exists(configPath))
         {
             App.API.LogError(ClassName, $"Didn't find config file <{configPath}>");

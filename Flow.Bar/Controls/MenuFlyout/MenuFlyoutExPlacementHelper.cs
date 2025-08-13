@@ -1,8 +1,8 @@
-﻿using Flow.Bar.Models.Monitor;
-using System;
+﻿using System;
 using System.Windows;
 using System.Windows.Controls.Primitives;
 using System.Windows.Media;
+using Flow.Bar.Models.Monitor;
 
 namespace Flow.Bar.Controls;
 
@@ -45,7 +45,7 @@ internal static class MenuFlyoutExPlacementHelper
             TryGetTransformToDevice(child, out transformToDevice);
         }
 
-        CustomPopupPlacement preferredPlacement = CalculatePopupPlacement(placement, popupSize, targetSize, monitor, cursor, offset, target, child, transformToDevice);
+        var preferredPlacement = CalculatePopupPlacement(placement, popupSize, targetSize, monitor, cursor, offset, target, child, transformToDevice);
 
         CustomPopupPlacement? alternativePlacement = null;
         var alternativePlacementMode = GetAlternativePlacementMode(placement);

@@ -9,12 +9,10 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Flow.Bar.Controls;
 using Flow.Bar.Enums;
-using Flow.Bar.Enums;
 using Flow.Bar.Helper.MenuFlyout;
 using Flow.Bar.Helper.Plugins;
 using Flow.Bar.Interfaces;
 using Flow.Bar.Models.Plugins;
-using Flow.Bar.Plugin;
 
 namespace Flow.Bar.ViewModels;
 
@@ -141,7 +139,7 @@ public partial class SettingsPanePluginsViewModel : ObservableObject, INavigatio
             viewModel.Name.Contains(SearchText, StringComparison.InvariantCultureIgnoreCase) ||
             viewModel.Description.Contains(SearchText, StringComparison.InvariantCultureIgnoreCase)) &&
             (FilterMode == SettingPanePluginsFilterMode.AllPlugins ||
-            (PluginManager.IsPreinstalled(viewModel.ID) ? 
+            (PluginManager.IsPreinstalled(viewModel.ID) ?
                 FilterMode == SettingPanePluginsFilterMode.PreinstalledPlugins :
                 FilterMode == SettingPanePluginsFilterMode.UserinstalledPlugins));
     }

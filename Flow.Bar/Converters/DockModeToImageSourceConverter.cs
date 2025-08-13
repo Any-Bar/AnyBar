@@ -1,10 +1,10 @@
-﻿using Flow.Bar.Enums;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Threading.Tasks;
 using System.Windows.Data;
 using System.Windows.Media;
+using Flow.Bar.Enums;
 
 namespace Flow.Bar.Converters;
 

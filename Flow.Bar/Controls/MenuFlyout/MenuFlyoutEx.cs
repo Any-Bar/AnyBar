@@ -288,7 +288,7 @@ public class MenuFlyoutEx : DependencyObject
     private CustomPopupPlacement[] PositionPopup(Size popupSize, Size targetSize, Point offset)
     {
         return MenuFlyoutExPlacementHelper.PositionPopup(Placement, popupSize, targetSize, ShowOptions.Monitor, ShowOptions.Position, offset, m_target!, m_presenter!);
-    }   
+    }
 
     private MenuFlyoutExPresenter EnsurePresenter()
     {
@@ -342,11 +342,11 @@ public class MenuFlyoutEx : DependencyObject
 
     internal Rect GetPlacementRectangle(UIElement target)
     {
-        Rect value = Rect.Empty;
+        var value = Rect.Empty;
 
         if (target != null)
         {
-            Size targetSize = target.RenderSize;
+            var targetSize = target.RenderSize;
 
             switch (Placement)
             {

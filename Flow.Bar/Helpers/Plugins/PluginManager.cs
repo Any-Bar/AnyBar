@@ -1,14 +1,14 @@
-﻿using Flow.Bar.Extensions;
-using Flow.Bar.Models.AppBar;
-using Flow.Bar.Models.Plugins;
-using Flow.Bar.Plugin;
-using System;
+﻿using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using Flow.Bar.Extensions;
+using Flow.Bar.Models.AppBar;
+using Flow.Bar.Models.Plugins;
+using Flow.Bar.Plugin;
 
 namespace Flow.Bar.Helper.Plugins;
 

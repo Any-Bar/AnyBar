@@ -12,5 +12,5 @@ public interface IRightClickMenu
     /// Retrieves a list of menu items for the right-click context menu.
     /// </summary>
     /// <returns></returns>
-    public IList<MenuItem> GetRightClickMenuItems();
+    IList<MenuItem> GetRightClickMenuItems();
 }

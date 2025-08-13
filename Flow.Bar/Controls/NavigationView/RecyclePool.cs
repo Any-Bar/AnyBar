@@ -93,8 +93,8 @@ public class RecyclePool
                     var panel = elementInfo.Owner;
                     if (panel != null)
                     {
-                        int childIndex = panel.Children.IndexOf(elementInfo.Element);
-                        bool found = childIndex >= 0;
+                        var childIndex = panel.Children.IndexOf(elementInfo.Element);
+                        var found = childIndex >= 0;
                         if (!found)
                         {
                             throw new Exception($"{nameof(panel)}'s child not found in its {nameof(panel.Children)}");

@@ -1,9 +1,9 @@
-﻿using Flow.Bar.Enums;
-using Flow.Bar.Views;
-using iNKORE.UI.WPF.Modern.Controls;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Flow.Bar.Enums;
+using Flow.Bar.Views;
+using iNKORE.UI.WPF.Modern.Controls;
 
 namespace Flow.Bar.Services;
 

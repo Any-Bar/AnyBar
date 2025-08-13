@@ -26,10 +26,10 @@ internal static class SelectorHelper
             else
             {
                 // Check the data item
-                ItemsControl itemsControl = ItemsControl.ItemsControlFromItemContainer(o);
+                var itemsControl = ItemsControl.ItemsControlFromItemContainer(o);
                 if (itemsControl != null)
                 {
-                    object data = itemsControl.ItemContainerGenerator.ItemFromContainer(o);
+                    var data = itemsControl.ItemContainerGenerator.ItemFromContainer(o);
                     if (data != o)
                     {
                         return ItemGetIsSelectable(data);

@@ -1,7 +1,7 @@
-﻿using Flow.Bar.Controls;
-using System;
+﻿using System;
 using System.Windows;
 using System.Windows.Controls;
+using Flow.Bar.Controls;
 
 namespace Flow.Bar.Helper.MenuFlyout;
 

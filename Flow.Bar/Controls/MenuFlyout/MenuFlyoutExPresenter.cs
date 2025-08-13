@@ -1,5 +1,4 @@
-﻿using iNKORE.UI.WPF.Modern.Controls.Primitives;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
@@ -8,6 +7,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Threading;
+using iNKORE.UI.WPF.Modern.Controls.Primitives;
 using ControlHelper = iNKORE.UI.WPF.Modern.Controls.Helpers.ControlHelper;
 
 namespace Flow.Bar.Controls;
@@ -159,7 +159,7 @@ public class MenuFlyoutExPresenter : ContextMenu
             }
 
             double? from = null;
-            DependencyProperty dp = TranslateTransform.YProperty;
+            var dp = TranslateTransform.YProperty;
             double timeDuration = 0;
             if (m_owningFlyout != null && m_owningFlyout.TryGetTarget(out var flyout))
             {

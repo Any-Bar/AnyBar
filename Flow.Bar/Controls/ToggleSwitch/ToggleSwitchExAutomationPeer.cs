@@ -23,7 +23,7 @@ public class ToggleSwitchExAutomationPeer(ToggleSwitchEx owner) : FrameworkEleme
 
     protected override string GetNameCore()
     {
-        string name = base.GetNameCore();
+        var name = base.GetNameCore();
 
         if (string.IsNullOrEmpty(name))
         {

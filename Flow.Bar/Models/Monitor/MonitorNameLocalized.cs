@@ -1,8 +1,8 @@
-﻿using Flow.Bar.Models.AppBar;
-using Flow.Bar.Enums;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Flow.Bar.Enums;
+using Flow.Bar.Models.AppBar;
 
 namespace Flow.Bar.Models.Monitor;
 

@@ -1,10 +1,6 @@
 ﻿// Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-using iNKORE.UI.WPF.Helpers;
-using iNKORE.UI.WPF.Modern.Common;
-using iNKORE.UI.WPF.Modern.Controls;
-using iNKORE.UI.WPF.Modern.Media.Animation;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -18,6 +14,10 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shell;
 using System.Windows.Threading;
+using iNKORE.UI.WPF.Helpers;
+using iNKORE.UI.WPF.Modern.Common;
+using iNKORE.UI.WPF.Modern.Controls;
+using iNKORE.UI.WPF.Modern.Media.Animation;
 using static Flow.Bar.Controls.CppWinRTHelpers;
 
 #pragma warning disable IDE0060 // Remove unused parameter
@@ -189,7 +189,7 @@ public partial class NavigationView : ContentControl, IControlProtected
             return;
         }
 
-        bool setSelectedItem = true;
+        var setSelectedItem = true;
         if (setSelectedItem)
         {
             SetSelectedItemAndExpectItemInvokeWhenSelectionChangedIfNotInvokedFromAPI(selectedItem);
@@ -371,7 +371,8 @@ public partial class NavigationView : ContentControl, IControlProtected
                     UpdateSelectionForMenuItems();
                     return MenuItems;
                 }
-            };
+            }
+            ;
             itemsSource = init();
         }
 
@@ -425,8 +426,8 @@ public partial class NavigationView : ContentControl, IControlProtected
         if (sender is NavigationViewItem nvi)
         {
             // Check whether the container that triggered this call back is the selected container
-            bool isContainerSelectedInModel = IsContainerTheSelectedItemInTheSelectionModel(nvi);
-            bool isSelectedInContainer = nvi.IsSelected;
+            var isContainerSelectedInModel = IsContainerTheSelectedItemInTheSelectionModel(nvi);
+            var isSelectedInContainer = nvi.IsSelected;
 
             if (isSelectedInContainer && !isContainerSelectedInModel)
             {
@@ -476,7 +477,7 @@ public partial class NavigationView : ContentControl, IControlProtected
         m_shouldRaiseItemInvokedAfterSelection = true;
 
         var selectedItem = SelectedItem;
-        bool updateSelection = m_selectionModel != null;
+        var updateSelection = m_selectionModel != null;
         if (updateSelection)
         {
             var ip = GetIndexPathForContainer(nvi);
@@ -618,7 +619,7 @@ public partial class NavigationView : ContentControl, IControlProtected
             if (args.Element is NavigationViewItem nvi)
             {
                 // Propagate depth to children items if they exist
-                int childDepth = nvibImpl.Depth + 1;
+                var childDepth = nvibImpl.Depth + 1;
 
                 // Register for item events
                 InputHelper.AddTappedHandler(nvi, OnNavigationViewItemTapped);
@@ -900,7 +901,7 @@ public partial class NavigationView : ContentControl, IControlProtected
     // where you will stop the close if the cancel is triggered
     private bool AttemptClosePaneLightly()
     {
-        bool pendingPaneClosingCancel = false;
+        var pendingPaneClosingCancel = false;
 
         var eventArgs = new NavigationViewPaneClosingEventArgs();
         PaneClosing?.Invoke(this, eventArgs);
@@ -932,7 +933,7 @@ public partial class NavigationView : ContentControl, IControlProtected
 
     private void OnSplitViewPaneClosing(DependencyObject sender, SplitViewPaneClosingEventArgs args)
     {
-        bool pendingPaneClosingCancel = false;
+        var pendingPaneClosingCancel = false;
         if (PaneClosing != null)
         {
             if (!m_blockNextClosingEvent) // If this is true, we already sent one out "manually" and don't need to forward SplitView's event
@@ -1017,7 +1018,7 @@ public partial class NavigationView : ContentControl, IControlProtected
         }
 
         TemplateSettings.PaneToggleButtonWidth = newButtonWidths;
-        TemplateSettings.SmallerPaneToggleButtonWidth = Math.Max(0, newButtonWidths-8);
+        TemplateSettings.SmallerPaneToggleButtonWidth = Math.Max(0, newButtonWidths - 8);
     }
 
     private void OnBackButtonClicked(object sender, RoutedEventArgs args)
@@ -1099,10 +1100,10 @@ public partial class NavigationView : ContentControl, IControlProtected
     // when the layout is invalidated as it's called in OnLayoutUpdated.
     private void AnimateSelectionChanged(object nextItem)
     {
-        UIElement? prevIndicator = m_activeIndicator;
-        UIElement? nextIndicator = FindSelectionIndicator(nextItem);
+        var prevIndicator = m_activeIndicator;
+        var nextIndicator = FindSelectionIndicator(nextItem);
 
-        bool haveValidAnimation = false;
+        var haveValidAnimation = false;
         // It's possible that AnimateSelectionChanged is called multiple times before the first animation is complete.
         // To have better user experience, if the selected target is the same, keep the first animation
         // If the selected target is not the same, abort the first animation and launch another animation.
@@ -1125,7 +1126,7 @@ public partial class NavigationView : ContentControl, IControlProtected
 
         if (!haveValidAnimation)
         {
-            UIElement? paneContentGrid = m_paneContentGrid;
+            var paneContentGrid = m_paneContentGrid;
 
             if ((prevIndicator != nextIndicator) && paneContentGrid != null && prevIndicator != null && nextIndicator != null &&
                 App.Settings.EnableAnimationEffects && RenderCapability.Tier > 0) // SharedHelpers.IsAnimationsEnabled
@@ -1139,12 +1140,12 @@ public partial class NavigationView : ContentControl, IControlProtected
                 double prevPos;
                 double nextPos;
 
-                Point prevPosPoint = prevIndicator.SafeTransformToVisual(paneContentGrid).Transform(point);
-                Point nextPosPoint = nextIndicator.SafeTransformToVisual(paneContentGrid).Transform(point);
-                Size prevSize = prevIndicator.RenderSize;
-                Size nextSize = nextIndicator.RenderSize;
+                var prevPosPoint = prevIndicator.SafeTransformToVisual(paneContentGrid).Transform(point);
+                var nextPosPoint = nextIndicator.SafeTransformToVisual(paneContentGrid).Transform(point);
+                var prevSize = prevIndicator.RenderSize;
+                var nextSize = nextIndicator.RenderSize;
 
-                bool areElementsAtSameDepth = false;
+                var areElementsAtSameDepth = false;
                 prevPos = prevPosPoint.Y;
                 nextPos = nextPosPoint.Y;
                 areElementsAtSameDepth = prevPosPoint.X == nextPosPoint.X;
@@ -1153,7 +1154,7 @@ public partial class NavigationView : ContentControl, IControlProtected
 
                 if (!areElementsAtSameDepth)
                 {
-                    bool isNextBelow = prevPosPoint.Y < nextPosPoint.Y;
+                    var isNextBelow = prevPosPoint.Y < nextPosPoint.Y;
                     if (prevIndicator.RenderSize.Height > prevIndicator.RenderSize.Width)
                     {
                         PlayIndicatorNonSameLevelAnimations(prevIndicator, true, !isNextBelow, storyboard.Children);
@@ -1175,8 +1176,8 @@ public partial class NavigationView : ContentControl, IControlProtected
                 }
                 else
                 {
-                    double outgoingEndPosition = nextPos - prevPos;
-                    double incomingStartPosition = prevPos - nextPos;
+                    var outgoingEndPosition = nextPos - prevPos;
+                    var incomingStartPosition = prevPos - nextPos;
 
                     // Play the animation on both the previous and next indicators
                     PlayIndicatorAnimations(prevIndicator,
@@ -1222,8 +1223,8 @@ public partial class NavigationView : ContentControl, IControlProtected
     private void PlayIndicatorNonSameLevelAnimations(UIElement indicator, bool isOutgoing, bool fromTop, TimelineCollection animations)
     {
         // Determine scaling of indicator (whether it is appearing or dissapearing)
-        double beginScale = isOutgoing ? 1.0 : 0.0;
-        double endScale = isOutgoing ? 0.0 : 1.0;
+        var beginScale = isOutgoing ? 1.0 : 0.0;
+        var endScale = isOutgoing ? 0.0 : 1.0;
         var scaleAnim = new DoubleAnimationUsingKeyFrames
         {
             KeyFrames =
@@ -1236,9 +1237,9 @@ public partial class NavigationView : ContentControl, IControlProtected
         animations.Add(scaleAnim);
 
         // Determine where the indicator is animating from/to
-        Size size = indicator.RenderSize;
-        double dimension = size.Height;
-        double newCenter = fromTop ? 0.0 : dimension;
+        var size = indicator.RenderSize;
+        var dimension = size.Height;
+        var newCenter = fromTop ? 0.0 : dimension;
         var indicatorCenterPoint = new Point
         {
             Y = newCenter
@@ -1252,8 +1253,8 @@ public partial class NavigationView : ContentControl, IControlProtected
     private void PlayIndicatorNonSameLevelTopPrimaryAnimation(UIElement indicator, bool isOutgoing, TimelineCollection animations)
     {
         // Determine scaling of indicator (whether it is appearing or dissapearing)
-        double beginScale = isOutgoing ? 1.0 : 0.0;
-        double endScale = isOutgoing ? 0.0 : 1.0;
+        var beginScale = isOutgoing ? 1.0 : 0.0;
+        var endScale = isOutgoing ? 0.0 : 1.0;
         var scaleAnim = new DoubleAnimationUsingKeyFrames
         {
             KeyFrames =
@@ -1266,8 +1267,8 @@ public partial class NavigationView : ContentControl, IControlProtected
         animations.Add(scaleAnim);
 
         // Determine where the indicator is animating from/to
-        Size size = indicator.RenderSize;
-        double newCenter = size.Width / 2;
+        var size = indicator.RenderSize;
+        var newCenter = size.Width / 2;
         var indicatorCenterPoint = new Point
         {
             Y = newCenter
@@ -1280,11 +1281,11 @@ public partial class NavigationView : ContentControl, IControlProtected
 
     private void PlayIndicatorAnimations(UIElement indicator, double from, double to, Size beginSize, Size endSize, bool isOutgoing, TimelineCollection animations)
     {
-        Size size = indicator.RenderSize;
-        double dimension = size.Height;
+        var size = indicator.RenderSize;
+        var dimension = size.Height;
 
-        double beginScale = 1.0;
-        double endScale = 1.0;
+        var beginScale = 1.0;
+        var endScale = 1.0;
 
         var posAnim = new DoubleAnimationUsingKeyFrames
         {
@@ -1730,7 +1731,7 @@ public partial class NavigationView : ContentControl, IControlProtected
             return;
         }
 
-        bool shouldHandleFocus = true;
+        var shouldHandleFocus = true;
         var nviImpl = nvi;
         var nextFocusableElement = FocusManagerEx.FindNextFocusableElement(FocusNavigationDirection.Up);
 
@@ -1781,7 +1782,7 @@ public partial class NavigationView : ContentControl, IControlProtected
 
     private void KeyboardFocusFirstItemFromItem(NavigationViewItemBase nvib)
     {
-        UIElement? firstElement = GetParentRootItemsRepeaterForContainer(nvib)?.TryGetElement(0);
+        var firstElement = GetParentRootItemsRepeaterForContainer(nvib)?.TryGetElement(0);
 
         if (firstElement is Control controlFirst)
         {
@@ -1822,7 +1823,7 @@ public partial class NavigationView : ContentControl, IControlProtected
                         isFocusOutsideCurrentRootRepeater = init();
                         bool init()
                         {
-                            bool isFocusOutsideCurrentRootRepeater = true;
+                            var isFocusOutsideCurrentRootRepeater = true;
                             var treeWalkerCursor = oldFocusedElement;
 
                             // check if last focused element was in same root repeater
@@ -1879,7 +1880,7 @@ public partial class NavigationView : ContentControl, IControlProtected
         var eventArgs = e;
         var key = eventArgs.Key;
 
-        bool handled = false;
+        var handled = false;
         m_tabKeyPrecedesFocusChange = false;
 
         switch (key)
@@ -1890,7 +1891,7 @@ public partial class NavigationView : ContentControl, IControlProtected
                 m_tabKeyPrecedesFocusChange = true;
                 break;
             case Key.Left:
-                bool isAltPressed = Keyboard.Modifiers.HasFlag(ModifierKeys.Alt);
+                var isAltPressed = Keyboard.Modifiers.HasFlag(ModifierKeys.Alt);
 
                 if (isAltPressed && IsPaneOpen && IsLightDismissible())
                 {
@@ -1951,7 +1952,7 @@ public partial class NavigationView : ContentControl, IControlProtected
             || recommendedTransitionDirection == NavigationRecommendedTransitionDirection.FromRight)
         {
             SlideNavigationTransitionInfo sliderNav = new();
-            SlideNavigationTransitionEffect effect =
+            var effect =
                 recommendedTransitionDirection == NavigationRecommendedTransitionDirection.FromRight ?
                 SlideNavigationTransitionEffect.FromRight :
                 SlideNavigationTransitionEffect.FromLeft;
@@ -2077,7 +2078,7 @@ public partial class NavigationView : ContentControl, IControlProtected
 
     private void PropertyChanged(DependencyPropertyChangedEventArgs args)
     {
-        DependencyProperty property = args.Property;
+        var property = args.Property;
 
         if (property == IsPaneOpenProperty)
         {
@@ -2315,7 +2316,7 @@ public partial class NavigationView : ContentControl, IControlProtected
     private void UpdateHeaderVisibility(NavigationViewDisplayMode displayMode)
     {
         // Ignore AlwaysShowHeader property in case DisplayMode is Minimal and it's not Top NavigationView
-        bool showHeader = AlwaysShowHeader || displayMode == NavigationViewDisplayMode.Minimal;
+        var showHeader = AlwaysShowHeader || displayMode == NavigationViewDisplayMode.Minimal;
 
         // Like bug 17517627, Customer like WallPaper Studio 10 expects a HeaderContent visual even if Header() is null. 
         // App crashes when they have dependency on that visual, but the crash is not directly state that it's a header problem.   
@@ -2333,7 +2334,7 @@ public partial class NavigationView : ContentControl, IControlProtected
             return;
         }
 
-        KeyboardNavigationMode mode = KeyboardNavigationMode.Local;
+        var mode = KeyboardNavigationMode.Local;
 
         if (m_rootSplitView is { } splitView)
         {
@@ -2385,7 +2386,7 @@ public partial class NavigationView : ContentControl, IControlProtected
                 {
                     var rowDef = rowDefs[c_backButtonRowDefinition];
 
-                    int backButtonRowHeight = 0;
+                    var backButtonRowHeight = 0;
                     if (!IsOverlay() && shouldShowBackButton)
                     {
                         backButtonRowHeight = c_backButtonHeight;
@@ -2425,7 +2426,7 @@ public partial class NavigationView : ContentControl, IControlProtected
 
     private bool UpdateSelectedItemFromMenuItems(IList menuItems, bool foundFirstSelected = false)
     {
-        for (int i = 0; i < menuItems.Count; i++)
+        for (var i = 0; i < menuItems.Count; i++)
         {
             if (menuItems[i] is NavigationViewItem item)
             {
@@ -2485,7 +2486,7 @@ public partial class NavigationView : ContentControl, IControlProtected
 
         if (m_coreTitleBar is { } coreTitleBar)
         {
-            bool needsTopPadding = false;
+            var needsTopPadding = false;
 
             // Do not set a top padding when the IsTitleBarAutoPaddingEnabled property is set to False.
             if (IsTitleBarAutoPaddingEnabled)
@@ -2506,9 +2507,9 @@ public partial class NavigationView : ContentControl, IControlProtected
             {
                 // Only add extra padding if the NavView is the "root" of the app,
                 // but not if the app is expanding into the titlebar
-                UIElement? root = (Window.GetWindow(this) ?? Application.Current?.MainWindow)?.Content as UIElement;
-                GeneralTransform gt = this.SafeTransformToVisual(root!);
-                Point pos = gt.Transform(new Point());
+                var root = (Window.GetWindow(this) ?? Application.Current?.MainWindow)?.Content as UIElement;
+                var gt = this.SafeTransformToVisual(root!);
+                var pos = gt.Transform(new Point());
 
                 if (pos.Y == 0.0)
                 {
@@ -2670,9 +2671,9 @@ public partial class NavigationView : ContentControl, IControlProtected
         var container = firstContainer;
         if (ip.GetSize() > 2)
         {
-            for (int i = 2; i < ip.GetSize(); i++)
+            for (var i = 2; i < ip.GetSize(); i++)
             {
-                bool succeededGettingNextContainer = false;
+                var succeededGettingNextContainer = false;
                 if (container is NavigationViewItem nvi)
                 {
                     if (lastVisible)

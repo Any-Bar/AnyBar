@@ -1,10 +1,10 @@
-﻿using Flow.Bar.Enums;
+﻿using System;
+using System.Globalization;
+using System.Windows.Data;
+using Flow.Bar.Enums;
 using Flow.Bar.Helper.Plugins;
 using Flow.Bar.Models.AppBar;
 using Flow.Bar.Plugin;
-using System;
-using System.Globalization;
-using System.Windows.Data;
 
 namespace Flow.Bar.Converters;
 

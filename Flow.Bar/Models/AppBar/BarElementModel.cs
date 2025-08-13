@@ -1,6 +1,6 @@
-﻿using Flow.Bar.Enums;
+﻿using System.Text.Json.Serialization;
+using Flow.Bar.Enums;
 using Flow.Bar.Interfaces;
-using System.Text.Json.Serialization;
 
 namespace Flow.Bar.Models.AppBar;
 

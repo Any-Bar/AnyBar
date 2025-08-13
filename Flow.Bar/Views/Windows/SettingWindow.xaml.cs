@@ -1,5 +1,4 @@
-﻿using System;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Shell;
 using CommunityToolkit.Mvvm.DependencyInjection;
 using Flow.Bar.Helper.Windows;

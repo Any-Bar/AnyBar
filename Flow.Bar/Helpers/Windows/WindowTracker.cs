@@ -5,7 +5,7 @@ namespace Flow.Bar.Helper.Windows;
 
 public static class WindowTracker
 {
-    private readonly static List<Window> _activeWindows = [];
+    private static readonly List<Window> _activeWindows = [];
 
     public static void TrackWindow(Window window)
     {

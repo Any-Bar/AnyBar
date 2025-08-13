@@ -151,30 +151,30 @@ internal class PopupPositioner : DependencyObject, IDisposable
         if (_popupRoot == null)
             return;
 
-        PlacementMode placement = PlacementInternal;
+        var placement = PlacementInternal;
 
         // Get a list of the corners of the target/child in screen space
-        Point[] placementTargetInterestPoints = GetPlacementTargetInterestPoints(placement);
-        Point[] childInterestPoints = GetChildInterestPoints(placement);
+        var placementTargetInterestPoints = GetPlacementTargetInterestPoints(placement);
+        var childInterestPoints = GetChildInterestPoints(placement);
 
         // Find bounds of screen and child in screen space
-        Rect targetBounds = GetBounds(placementTargetInterestPoints);
+        var targetBounds = GetBounds(placementTargetInterestPoints);
         Rect screenBounds;
-        Rect childBounds = GetBounds(childInterestPoints);
+        var childBounds = GetBounds(childInterestPoints);
 
-        double childArea = childBounds.Width * childBounds.Height;
+        var childArea = childBounds.Width * childBounds.Height;
 
-        Rect windowRect = _secHelper.GetWindowRect();
+        var windowRect = _secHelper.GetWindowRect();
         _positionInfo ??= new PositionInfo();
         _positionInfo.X = (int)windowRect.X;
         _positionInfo.Y = (int)windowRect.Y;
         _positionInfo.ChildSize = windowRect.Size;
 
         // Rank possible positions
-        int bestIndex = -1;
+        var bestIndex = -1;
         Vector bestTranslation = new(_positionInfo.X, _positionInfo.Y);
         double bestScore = -1;
-        PopupPrimaryAxis bestAxis = PopupPrimaryAxis.None;
+        var bestAxis = PopupPrimaryAxis.None;
 
         int positions;
 
@@ -183,7 +183,7 @@ internal class PopupPositioner : DependencyObject, IDisposable
         // Find the number of possible positions
         if (placement == PlacementMode.Custom)
         {
-            CustomPopupPlacementCallback customCallback = CustomPopupPlacementCallback;
+            var customCallback = CustomPopupPlacementCallback;
             if (customCallback != null)
             {
                 customPlacements = customCallback(childBounds.Size, targetBounds.Size, new Point(HorizontalOffset, VerticalOffset));
@@ -200,7 +200,7 @@ internal class PopupPositioner : DependencyObject, IDisposable
         }
 
         // Try each position until the best one is found
-        for (int i = 0; i < positions; i++)
+        for (var i = 0; i < positions; i++)
         {
             Vector popupTranslation;
 
@@ -218,10 +218,10 @@ internal class PopupPositioner : DependencyObject, IDisposable
             }
             else
             {
-                PointCombination pointCombination = GetPointCombination(placement, i, out axis);
+                var pointCombination = GetPointCombination(placement, i, out axis);
 
-                InterestPoint targetInterestPoint = pointCombination.TargetInterestPoint;
-                InterestPoint childInterestPoint = pointCombination.ChildInterestPoint;
+                var targetInterestPoint = pointCombination.TargetInterestPoint;
+                var childInterestPoint = pointCombination.ChildInterestPoint;
 
                 // Compute the vector from the screen origin to the top left corner of the popup
                 // that will cause the the two interest points to overlap
@@ -235,12 +235,12 @@ internal class PopupPositioner : DependencyObject, IDisposable
             //       not the percent of the child that is on screen.  For certain
             //       scenarios, this may produce in counter-intuitive results.
             //       If this is a problem, more complex scoring is needed
-            Rect tranlsatedChildBounds = Rect.Offset(childBounds, popupTranslation);
+            var tranlsatedChildBounds = Rect.Offset(childBounds, popupTranslation);
             screenBounds = GetScreenBounds(targetBounds, placementTargetInterestPoints[(int)InterestPoint.TopLeft]);
-            Rect currentIntersection = Rect.Intersect(screenBounds, tranlsatedChildBounds);
+            var currentIntersection = Rect.Intersect(screenBounds, tranlsatedChildBounds);
 
             // Calculate area of intersection
-            double score = currentIntersection != Rect.Empty ? currentIntersection.Width * currentIntersection.Height : 0;
+            var score = currentIntersection != Rect.Empty ? currentIntersection.Width * currentIntersection.Height : 0;
 
             // If current score is better than the best score so far, save the position info
             if (score - bestScore > Tolerance)
@@ -262,29 +262,29 @@ internal class PopupPositioner : DependencyObject, IDisposable
         // Popups are not nudged if their axes do not align with the screen axes
 
         // Use the size of the popupRoot in case it is clipping the popup content
-        Matrix transformToDevice = _secHelper.GetTransformToDevice();
+        var transformToDevice = _secHelper.GetTransformToDevice();
         childBounds = new Rect((Size)transformToDevice.Transform((Point)GetChildSize()));
 
         childBounds.Offset(bestTranslation);
 
-        Vector childTranslation = (Vector)transformToDevice.Transform(GetChildTranslation());
+        var childTranslation = (Vector)transformToDevice.Transform(GetChildTranslation());
         childBounds.Offset(childTranslation);
 
         screenBounds = GetScreenBounds(targetBounds, placementTargetInterestPoints[(int)InterestPoint.TopLeft]);
-        Rect intersection = Rect.Intersect(screenBounds, childBounds);
+        var intersection = Rect.Intersect(screenBounds, childBounds);
 
         // See if width/height of intersection are less than child's
         if (Math.Abs(intersection.Width - childBounds.Width) > Tolerance ||
             Math.Abs(intersection.Height - childBounds.Height) > Tolerance)
         {
             // Nudge Horizontally
-            Point topLeft = placementTargetInterestPoints[(int)InterestPoint.TopLeft];
-            Point topRight = placementTargetInterestPoints[(int)InterestPoint.TopRight];
+            var topLeft = placementTargetInterestPoints[(int)InterestPoint.TopLeft];
+            var topRight = placementTargetInterestPoints[(int)InterestPoint.TopRight];
 
             // Create a vector pointing from the top of the placement target to the bottom
             // to determine which direction the popup should be nudged in.
             // If the vector is zero (NaN's after normalization), nudge horizontally
-            Vector horizontalAxis = topRight - topLeft;
+            var horizontalAxis = topRight - topLeft;
             horizontalAxis.Normalize();
 
             // See if target's horizontal axis is aligned with screen
@@ -319,12 +319,12 @@ internal class PopupPositioner : DependencyObject, IDisposable
             }
 
             // Nudge Vertically
-            Point bottomLeft = placementTargetInterestPoints[(int)InterestPoint.BottomLeft];
+            var bottomLeft = placementTargetInterestPoints[(int)InterestPoint.BottomLeft];
 
             // Create a vector pointing from the top of the placement target to the bottom
             // to determine which direction the popup should be nudged in
             // If the vector is zero (NaN's after normalization), nudge vertically
-            Vector verticalAxis = topLeft - bottomLeft;
+            var verticalAxis = topLeft - bottomLeft;
             verticalAxis.Normalize();
 
             // Axis is aligned with screen, nudge
@@ -357,8 +357,8 @@ internal class PopupPositioner : DependencyObject, IDisposable
         }
 
         // Finally, take the best position and apply it to the popup
-        int bestX = DoubleUtil.DoubleToInt(bestTranslation.X);
-        int bestY = DoubleUtil.DoubleToInt(bestTranslation.Y);
+        var bestX = DoubleUtil.DoubleToInt(bestTranslation.X);
+        var bestY = DoubleUtil.DoubleToInt(bestTranslation.Y);
         if (bestX != _positionInfo.X || bestY != _positionInfo.Y)
         {
             _positionInfo.X = bestX;
@@ -393,7 +393,7 @@ internal class PopupPositioner : DependencyObject, IDisposable
     // Returns the ith possible alignment for the given PlacementMode
     private PointCombination GetPointCombination(PlacementMode placement, int i, out PopupPrimaryAxis axis)
     {
-        bool dropFromRight = SystemParameters.MenuDropAlignment;
+        var dropFromRight = SystemParameters.MenuDropAlignment;
 
         switch (placement)
         {
@@ -499,10 +499,10 @@ internal class PopupPositioner : DependencyObject, IDisposable
         left = right = interestPoints[0].X;
         top = bottom = interestPoints[0].Y;
 
-        for (int i = 1; i < interestPoints.Length; i++)
+        for (var i = 1; i < interestPoints.Length; i++)
         {
-            double x = interestPoints[i].X;
-            double y = interestPoints[i].Y;
+            var x = interestPoints[i].X;
+            var y = interestPoints[i].Y;
             if (x < left) left = x;
             if (x > right) right = x;
             if (y < top) top = y;
@@ -560,7 +560,7 @@ internal class PopupPositioner : DependencyObject, IDisposable
         {
             if (_window != null)
             {
-                HwndSource hwnd = _window;
+                var hwnd = _window;
 
                 _window = null;
 
@@ -572,7 +572,7 @@ internal class PopupPositioner : DependencyObject, IDisposable
         {
             if (_window != null)
             {
-                HwndSource hwnd = _window;
+                var hwnd = _window;
                 return (hwnd != null) && !hwnd.IsDisposed;
             }
 
@@ -601,7 +601,7 @@ internal class PopupPositioner : DependencyObject, IDisposable
                 if (!PInvoke.GetWindowRect(Handle, out var rect))
                 {
                     return new Rect(rect.X, rect.Y, rect.Width, rect.Height);
-                    
+
                 }
                 else
                 {

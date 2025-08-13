@@ -1,7 +1,7 @@
-﻿using Flow.Bar.Enums;
-using Flow.Bar.Interfaces;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using Flow.Bar.Enums;
+using Flow.Bar.Interfaces;
 
 namespace Flow.Bar.Models.AppBar;
 

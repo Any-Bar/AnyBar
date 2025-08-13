@@ -42,7 +42,7 @@ namespace Flow.Bar.Localization.Analyzers.Localize
             {
                 var arguments = invocationExpr.ArgumentList.Arguments;
                 // Check all arguments is an invocation (i.e. a candidate for Context.API.GetTranslation(…))
-                for (int i = 0; i < arguments.Count; i++)
+                for (var i = 0; i < arguments.Count; i++)
                 {
                     if (GetArgumentInvocationExpression(invocationExpr, i) is InvocationExpressionSyntax innerInvocationExpr &&
                         IsTranslateCall(semanticModel.GetSymbolInfo(innerInvocationExpr)) &&

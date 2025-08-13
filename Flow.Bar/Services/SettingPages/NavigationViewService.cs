@@ -1,10 +1,10 @@
-﻿using Flow.Bar.Controls;
+﻿using System;
+using System.Collections.Generic;
+using System.Windows.Navigation;
+using Flow.Bar.Controls;
 using Flow.Bar.Enums;
 using Flow.Bar.Interfaces;
 using iNKORE.UI.WPF.Modern.Media.Animation;
-using System;
-using System.Collections.Generic;
-using System.Windows.Navigation;
 using Frame = iNKORE.UI.WPF.Modern.Controls.Frame;
 using Page = iNKORE.UI.WPF.Modern.Controls.Page;
 
@@ -117,7 +117,7 @@ public class NavigationViewService(PageService pageService)
         if (_frame.Content?.GetType() != pageType || (parameter != null && parameter != _parameterStack.Peek()))
         {
             var navigated = _frame.Navigate(pageType,
-                parameter: parameter, 
+                parameter: parameter,
                 infoOverride: App.Settings.EnableAnimationEffects ? null : // Default transition animation
                 new SuppressNavigationTransitionInfo()); // Suppress animation if disabled);
             if (navigated)

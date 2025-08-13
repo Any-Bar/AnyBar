@@ -1,7 +1,7 @@
-﻿using CommunityToolkit.Mvvm.DependencyInjection;
+﻿using System.Windows.Navigation;
+using CommunityToolkit.Mvvm.DependencyInjection;
 using Flow.Bar.ViewModels;
 using iNKORE.UI.WPF.Modern.Controls;
-using System.Windows.Navigation;
 
 namespace Flow.Bar.Views;
 

@@ -1,10 +1,4 @@
-﻿using Flow.Bar.Converters;
-using Flow.Bar.Helper.Http;
-using Flow.Bar.Models.Image;
-using Flow.Bar.Models.Storage;
-using SharpVectors.Converters;
-using SharpVectors.Renderers.Wpf;
-using System;
+﻿using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.IO;
@@ -13,6 +7,12 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using Flow.Bar.Converters;
+using Flow.Bar.Helper.Http;
+using Flow.Bar.Models.Image;
+using Flow.Bar.Models.Storage;
+using SharpVectors.Converters;
+using SharpVectors.Renderers.Wpf;
 
 namespace Flow.Bar.Helper.Image;
 
@@ -144,7 +144,7 @@ public static class ImageLoader
                 App.API.LogFatal(ClassName, $"Failed to get thumbnail for <{path}> on first try", e);
                 App.API.LogFatal(ClassName, $"Failed to get thumbnail for <{path}> on second try", e2);
 
-                ImageSource? image = ImageCache[Constants.MissingImgIcon, false];
+                var image = ImageCache[Constants.MissingImgIcon, false];
                 ImageCache[path, false] = image;
                 imageResult = new ImageResult(image, ImageType.Error);
             }
@@ -179,7 +179,7 @@ public static class ImageLoader
     private static ImageResult GetThumbnailResult(ref string path, bool loadFullImage = false)
     {
         ImageSource image;
-        ImageType type = ImageType.Error;
+        var type = ImageType.Error;
 
         if (Directory.Exists(path))
         {
@@ -373,7 +373,7 @@ public static class ImageLoader
 
         // Convert the Drawing to a Bitmap
         var drawingVisual = new DrawingVisual();
-        using (DrawingContext drawingContext = drawingVisual.RenderOpen())
+        using (var drawingContext = drawingVisual.RenderOpen())
         {
             drawingContext.PushTransform(new ScaleTransform(scale, scale));
             drawingContext.DrawDrawing(drawing);

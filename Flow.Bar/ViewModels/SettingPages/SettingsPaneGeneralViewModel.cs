@@ -1,7 +1,7 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using System.Collections.Generic;
+using CommunityToolkit.Mvvm.ComponentModel;
 using Flow.Bar.Models.Language;
 using Flow.Bar.Models.UserSettings;
-using System.Collections.Generic;
 
 namespace Flow.Bar.ViewModels;
 

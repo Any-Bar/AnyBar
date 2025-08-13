@@ -6,7 +6,7 @@ internal static class CppWinRTHelpers
 {
     public static WinRTReturn? GetTemplateChildT<WinRTReturn>(string childName, IControlProtected controlProtected) where WinRTReturn : DependencyObject
     {
-        DependencyObject childAsDO = controlProtected.GetTemplateChild(childName);
+        var childAsDO = controlProtected.GetTemplateChild(childName);
 
         if (childAsDO != null)
         {

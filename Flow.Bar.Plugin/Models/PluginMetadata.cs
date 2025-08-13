@@ -73,7 +73,7 @@ public class PluginMetadata
     /// <summary>
     /// Plugin icon path.
     /// </summary>
-    public string IcoPath { get; set;}
+    public string IcoPath { get; set; }
 
     /// <summary>
     /// Init time include both plugin load time and init time.

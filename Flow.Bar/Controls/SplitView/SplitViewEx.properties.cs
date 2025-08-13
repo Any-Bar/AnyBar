@@ -8,7 +8,7 @@ namespace Flow.Bar.Controls;
 
 #pragma warning disable IDE0060 // Remove unused parameter
 
-partial class SplitViewEx
+public partial class SplitViewEx
 {
     #region CompactPaneLength
 

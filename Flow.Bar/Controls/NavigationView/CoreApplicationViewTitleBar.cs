@@ -1,7 +1,7 @@
-﻿using iNKORE.UI.WPF.Modern.Common;
-using iNKORE.UI.WPF.Modern.Controls.Primitives;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Data;
+using iNKORE.UI.WPF.Modern.Common;
+using iNKORE.UI.WPF.Modern.Controls.Primitives;
 
 namespace Flow.Bar.Controls;
 
@@ -70,7 +70,7 @@ internal sealed class CoreApplicationViewTitleBar
         public Listener(CoreApplicationViewTitleBar owner)
         {
             _owner = owner;
-            Window owner2 = _owner._owner;
+            var owner2 = _owner._owner;
             BindingOperations.SetBinding(this, ExtendViewIntoTitleBarProperty, new Binding
             {
                 Path = new PropertyPath(TitleBar.ExtendViewIntoTitleBarProperty),
@@ -183,7 +183,7 @@ internal sealed class CoreApplicationViewTitleBar
 
     internal static CoreApplicationViewTitleBar GetTitleBar(Window window)
     {
-        CoreApplicationViewTitleBar coreApplicationViewTitleBar = (CoreApplicationViewTitleBar)window.GetValue(TitleBarProperty);
+        var coreApplicationViewTitleBar = (CoreApplicationViewTitleBar)window.GetValue(TitleBarProperty);
         if (coreApplicationViewTitleBar == null)
         {
             coreApplicationViewTitleBar = new CoreApplicationViewTitleBar(window);
@@ -195,7 +195,7 @@ internal sealed class CoreApplicationViewTitleBar
 
     internal static CoreApplicationViewTitleBar? GetTitleBar(DependencyObject dependencyObject)
     {
-        Window window = Window.GetWindow(dependencyObject);
+        var window = Window.GetWindow(dependencyObject);
         if (window != null)
         {
             return GetTitleBar(window);

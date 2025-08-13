@@ -1,11 +1,11 @@
 ﻿// Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-using iNKORE.UI.WPF.Modern.Controls.Helpers;
 using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using iNKORE.UI.WPF.Modern.Controls.Helpers;
 using static Flow.Bar.Controls.CppWinRTHelpers;
 using ControlHelper = iNKORE.UI.WPF.Modern.Controls.Helpers.ControlHelper;
 
@@ -48,7 +48,7 @@ public class NavigationViewItemPresenter : ContentControl, IControlProtected
 
     public object Icon
     {
-        get => (object)GetValue(IconProperty);
+        get => GetValue(IconProperty);
         set => SetValue(IconProperty, value);
     }
 
@@ -110,7 +110,7 @@ public class NavigationViewItemPresenter : ContentControl, IControlProtected
         return m_helper.GetSelectionIndicator();
     }
 
-    NavigationViewItem? GetNavigationViewItem()
+    private NavigationViewItem? GetNavigationViewItem()
     {
         NavigationViewItem? navigationViewItem = null;
 
@@ -149,7 +149,7 @@ public class NavigationViewItemPresenter : ContentControl, IControlProtected
         UpdateMargin();
     }
 
-    void UpdateMargin()
+    private void UpdateMargin()
     {
         if (m_contentGrid is { } grid)
         {

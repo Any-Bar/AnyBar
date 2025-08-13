@@ -25,7 +25,7 @@ internal static class InputHelper
 
     private static void OnIsTapEnabledChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
     {
-        UIElement uIElement = (UIElement)d;
+        var uIElement = (UIElement)d;
         _ = (bool)e.OldValue;
         if ((bool)e.NewValue)
         {
@@ -82,7 +82,7 @@ internal static class InputHelper
 
     private static void OnMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
     {
-        UIElement element = (UIElement)sender;
+        var element = (UIElement)sender;
         if (!GetIsPressed(element))
         {
             SetIsPressed(element, value: true);
@@ -91,14 +91,14 @@ internal static class InputHelper
 
     private static void OnMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
     {
-        UIElement uIElement = (UIElement)sender;
+        var uIElement = (UIElement)sender;
         if (!GetIsPressed(uIElement))
         {
             return;
         }
 
         SetIsPressed((UIElement)sender, value: false);
-        TappedRoutedEventArgs? lastTappedArgs = _lastTappedArgs;
+        var lastTappedArgs = _lastTappedArgs;
         if (lastTappedArgs == null || !lastTappedArgs.Handled || lastTappedArgs.Timestamp != e.Timestamp)
         {
             Rect rect = new(default, uIElement.RenderSize);
