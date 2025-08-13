@@ -1,4 +1,5 @@
 ﻿using System.Runtime.InteropServices;
+using System.Security.Principal;
 using System.Windows;
 using System.Windows.Interop;
 using Windows.Win32.Foundation;
@@ -6,7 +7,7 @@ using Point = System.Drawing.Point;
 
 namespace Windows.Win32;
 
-public static class PInvokeHelper
+internal static class PInvokeHelper
 {
     public static bool SetForegroundWindow(Window window)
     {
@@ -18,7 +19,7 @@ public static class PInvokeHelper
         return PInvoke.SetForegroundWindow(new(handle));
     }
 
-    internal static HWND GetWindowHandle(Window window, bool ensure = false)
+    public static HWND GetWindowHandle(Window window, bool ensure = false)
     {
         var windowHelper = new WindowInteropHelper(window);
         if (ensure)
@@ -38,17 +39,24 @@ public static class PInvokeHelper
         return null;
     }
 
-    internal static HWND GetActiveWindowHandle()
+    public static HWND GetActiveWindowHandle()
     {
         return PInvoke.GetActiveWindow();
     }
 
-    internal static Point GetCursorPos()
+    public static Point GetCursorPos()
     {
         if (!PInvoke.GetCursorPos(out var pt))
         {
             Marshal.ThrowExceptionForHR(Marshal.GetLastWin32Error());
         }
         return pt;
+    }
+
+    public static bool IsAdministrator()
+    {
+        var identity = WindowsIdentity.GetCurrent();
+        var principal = new WindowsPrincipal(identity);
+        return principal.IsInRole(WindowsBuiltInRole.Administrator);
     }
 }
