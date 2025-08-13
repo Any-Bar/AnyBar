@@ -100,7 +100,7 @@ public class MonitorInfo : IEquatable<MonitorInfo>
     /// <returns>The display monitor that contains the cursor, or null if no monitor is found.</returns>
     public static unsafe MonitorInfo? GetCursorDisplayMonitor()
     {
-        var pt = Win32Helper.GetCursorPos();
+        var pt = PInvokeHelper.GetCursorPos();
         var cursorMonitor = PInvoke.MonitorFromPoint(pt, MONITOR_FROM_FLAGS.MONITOR_DEFAULTTONEAREST);
         MonitorInfo? cursorMonitorInfo = null;
         var callback = new MONITORENUMPROC((monitor, deviceContext, rect, data) =>

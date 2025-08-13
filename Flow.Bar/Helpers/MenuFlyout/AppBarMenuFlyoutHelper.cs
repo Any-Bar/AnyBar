@@ -5,6 +5,7 @@ using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using Windows.Win32;
 using Point = System.Drawing.Point;
 
 namespace Flow.Bar.Helper.MenuFlyout;
@@ -42,7 +43,7 @@ public class AppBarMenuFlyoutHelper : IDisposable
     {
         if (e.Handled) return;
 
-        _cursorPosition = Win32Helper.GetCursorPos();
+        _cursorPosition = PInvokeHelper.GetCursorPos();
     }
 
     public void MouseRightButtonUp(object sender, MouseButtonEventArgs e)
@@ -50,7 +51,7 @@ public class AppBarMenuFlyoutHelper : IDisposable
         if (e.Handled) return;
 
         // If users have moved the cursor after right button down, we should not open the context menu.
-        if (_cursorPosition != null && _cursorPosition != Win32Helper.GetCursorPos()) return;
+        if (_cursorPosition != null && _cursorPosition != PInvokeHelper.GetCursorPos()) return;
         // This is workaround for a bug in WPF that element position will change if the old appbar menu is still open
         // (Pop up menu will be considered as part of that element which can cause wrong position calculation)
         // So we need to manually hide old appbar menu and open new appbar menu after it is closed.

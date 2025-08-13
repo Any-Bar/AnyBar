@@ -1,5 +1,4 @@
 ﻿using CommunityToolkit.Mvvm.DependencyInjection;
-using Flow.Bar.Helper;
 using Flow.Bar.Helper.Application;
 using Flow.Bar.Helper.Image;
 using Flow.Bar.Helper.Logging;
@@ -29,6 +28,7 @@ using System.Windows.Interop;
 using MessageBox = System.Windows.MessageBox;
 using NotifyIcon = System.Windows.Forms.NotifyIcon;
 using MouseButtons = System.Windows.Forms.MouseButtons;
+using Windows.Win32;
 
 namespace Flow.Bar;
 
@@ -302,7 +302,7 @@ public partial class App : Application, IDisposable, ISingleInstanceApp
                     // Get context menu handle and bring it to the foreground at the topmost
                     if (PresentationSource.FromVisual(_contextMenu) is HwndSource hwndSource)
                     {
-                        Win32Helper.SetForegroundWindow(hwndSource.Handle);
+                        PInvokeHelper.SetForegroundWindow(hwndSource.Handle);
                     }
                     _contextMenu.Focus();
 

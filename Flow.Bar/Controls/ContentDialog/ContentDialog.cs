@@ -12,6 +12,7 @@ using Flow.Bar.Helper;
 using iNKORE.UI.WPF.Helpers;
 using iNKORE.UI.WPF.Modern.Common;
 using iNKORE.UI.WPF.Modern.Controls.Primitives;
+using Windows.Win32;
 
 namespace Flow.Bar.Controls;
 
@@ -528,7 +529,7 @@ public class ContentDialog : ContentControl
 
     public Window? Owner { get; set; }
 
-    private Window? ActualOwner => Owner ?? Win32Helper.GetActiveWindow();
+    private Window? ActualOwner => Owner ?? PInvokeHelper.GetActiveWindow();
 
     private Border? Container { get; set; }
 

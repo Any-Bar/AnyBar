@@ -1,12 +1,12 @@
 ﻿using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Interop;
-using Windows.Win32;
 using Windows.Win32.Foundation;
+using Point = System.Drawing.Point;
 
-namespace Flow.Bar.Helper;
+namespace Windows.Win32;
 
-public static class Win32Helper
+public static class PInvokeHelper
 {
     public static bool SetForegroundWindow(Window window)
     {
@@ -43,7 +43,7 @@ public static class Win32Helper
         return PInvoke.GetActiveWindow();
     }
 
-    internal static System.Drawing.Point GetCursorPos()
+    internal static Point GetCursorPos()
     {
         if (!PInvoke.GetCursorPos(out var pt))
         {
