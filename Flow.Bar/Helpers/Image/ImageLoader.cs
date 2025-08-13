@@ -144,7 +144,7 @@ public static class ImageLoader
                 App.API.LogFatal(ClassName, $"Failed to get thumbnail for <{path}> on first try", e);
                 App.API.LogFatal(ClassName, $"Failed to get thumbnail for <{path}> on second try", e2);
 
-                var image = ImageCache[Constants.MissingImgIcon, false];
+                var image = MissingImage;
                 ImageCache[path, false] = image;
                 imageResult = new ImageResult(image, ImageType.Error);
             }
@@ -243,8 +243,7 @@ public static class ImageLoader
         }
         else
         {
-            image = ImageCache[Constants.MissingImgIcon, false] ?? throw new InvalidOperationException(
-                $"Missing image icon not found in cache: {Constants.MissingImgIcon}");
+            image = MissingImage;
             path = Constants.MissingImgIcon;
         }
 
