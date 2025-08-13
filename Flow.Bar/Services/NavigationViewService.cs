@@ -1,6 +1,6 @@
 ﻿using Flow.Bar.Controls;
 using Flow.Bar.Enums;
-using Flow.Bar.Interfaces.Navigation;
+using Flow.Bar.Interfaces;
 using iNKORE.UI.WPF.Modern.Media.Animation;
 using System;
 using System.Collections.Generic;

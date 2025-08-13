@@ -4,7 +4,7 @@ using Flow.Bar.Controls;
 using Flow.Bar.Dialogs;
 using Flow.Bar.Enums;
 using Flow.Bar.Extensions;
-using Flow.Bar.Interfaces.Navigation;
+using Flow.Bar.Interfaces;
 using Flow.Bar.Models.AppBar;
 using Flow.Bar.Enums;
 using Flow.Bar.Models.Parameter;

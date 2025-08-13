@@ -1,5 +1,5 @@
 ﻿using Flow.Bar.Enums;
-using Flow.Bar.Interfaces.Enumerable;
+using Flow.Bar.Interfaces;
 using System;
 using System.Collections.Generic;
 

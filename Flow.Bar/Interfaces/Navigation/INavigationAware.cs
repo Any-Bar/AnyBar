@@ -1,4 +1,4 @@
-﻿namespace Flow.Bar.Interfaces.Navigation;
+﻿namespace Flow.Bar.Interfaces;
 
 public interface INavigationAware
 {
