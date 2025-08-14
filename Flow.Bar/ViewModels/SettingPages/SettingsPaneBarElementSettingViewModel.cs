@@ -236,7 +236,7 @@ public partial class SettingsPaneBarElementSettingViewModel(AppBarManagementServ
     private static readonly double SecondaryContextMenuHeight = (double)Application.Current.TryFindResource("SecondaryContextMenuHeight");
     private static readonly Style BarElementRemoveContextMenuStyle = (Style)Application.Current.TryFindResource("BarElementRemoveContextMenuStyle");
 
-    private PluginUninstallationMenuFlyoutHelper<BarElementViewModel> _menuFlyoutHelper = null!;
+    private DoubleMenuFlyoutHelper<BarElementViewModel> _menuFlyoutHelper = null!;
 
     private void InitializeMenuFlyoutHelper()
     {
@@ -249,7 +249,7 @@ public partial class SettingsPaneBarElementSettingViewModel(AppBarManagementServ
             RemoveBarElement);
         var removeItem = new MenuItem();
         removeItem.SetResourceReference(HeaderedItemsControl.HeaderProperty, nameof(Localize.SettingPaneAppBarSetting_Remove));
-        removeItem.Click += UninstallItem_Click;
+        removeItem.Click += RemoveItem_Click;
         _menuFlyoutHelper.Items.Add(removeItem);
     }
 
@@ -259,9 +259,9 @@ public partial class SettingsPaneBarElementSettingViewModel(AppBarManagementServ
         _menuFlyoutHelper.ButtonClick(button);
     }
 
-    private void UninstallItem_Click(object sender, RoutedEventArgs e)
+    private void RemoveItem_Click(object sender, RoutedEventArgs e)
     {
-        _menuFlyoutHelper.UninstallItemClick();
+        _menuFlyoutHelper.MenuItemClick();
     }
 
     private void RemoveBarElement(BarElementViewModel oldBarElement)

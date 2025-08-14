@@ -6,46 +6,46 @@ using iNKORE.UI.WPF.Helpers;
 
 namespace Flow.Bar.Helpers.MenuFlyout;
 
-public class PluginUninstallationMenuFlyoutHelper<T> : IDisposable
+public class DoubleMenuFlyoutHelper<T> : IDisposable
 {
     public ItemCollection Items => _contextMenu.Items;
 
     private readonly MenuFlyoutEx _contextMenu = new();
     private Button? _button = null;
     private T? _plugin = default;
-    private bool _openUninstallationContextMenu = new();
+    private bool _openSecondContextMenu = new();
 
-    private readonly MenuFlyoutEx _uninstallContextMenu = new();
-    private readonly string _uninstallButtonName;
-    private readonly Action<T> _uninstallationAction;
+    private readonly MenuFlyoutEx _secondContextMenu = new();
+    private readonly string _secondMenuButtonName;
+    private readonly Action<T> _secondMenuButtonAction;
 
-    public PluginUninstallationMenuFlyoutHelper(
+    public DoubleMenuFlyoutHelper(
         double contextMenuWidth,
         double secondContextMenuWidth,
         double secondContextMenuHeight,
         Style secondContextMenuStyle,
-        string uninstallButtonName,
-        Action<T> uninstallationAction)
+        string secondMenuButtonName,
+        Action<T> secondMenuButtonAction)
     {
         _contextMenu.Placement = MenuFlyoutExPlacementMode.BottomEdgeAlignedRight;
         _contextMenu.Width = contextMenuWidth;
-        _uninstallContextMenu.Placement = MenuFlyoutExPlacementMode.BottomEdgeAlignedRight;
-        _uninstallContextMenu.Width = secondContextMenuWidth;
-        _uninstallContextMenu.Height = secondContextMenuHeight;
-        _uninstallContextMenu.MenuFlyoutPresenterStyle = secondContextMenuStyle;
-        _uninstallButtonName = uninstallButtonName;
-        _uninstallationAction = uninstallationAction;
-        _uninstallContextMenu.OnApplyTemplateAction = OnApplyTemplate;
+        _secondContextMenu.Placement = MenuFlyoutExPlacementMode.BottomEdgeAlignedRight;
+        _secondContextMenu.Width = secondContextMenuWidth;
+        _secondContextMenu.Height = secondContextMenuHeight;
+        _secondContextMenu.MenuFlyoutPresenterStyle = secondContextMenuStyle;
+        _secondMenuButtonName = secondMenuButtonName;
+        _secondMenuButtonAction = secondMenuButtonAction;
+        _secondContextMenu.OnApplyTemplateAction = OnApplyTemplate;
 
         _contextMenu.Closed += ContextMenu_Closed;
-        _uninstallContextMenu.Closed += UninstallContextMenu_Closed;
+        _secondContextMenu.Closed += SecondContextMenu_Closed;
     }
 
     public void OnApplyTemplate(ContextMenu menu)
     {
-        if (menu.GetTemplateChild<Button>(_uninstallButtonName) is { } button)
+        if (menu.GetTemplateChild<Button>(_secondMenuButtonName) is { } button)
         {
-            button.Click += (s, e) => UninstallButtonClick();
+            button.Click += (s, e) => SecondMenuButtonClick();
         }
     }
 
@@ -59,22 +59,22 @@ public class PluginUninstallationMenuFlyoutHelper<T> : IDisposable
         _contextMenu.ShowAt(button);
     }
 
-    public void UninstallItemClick()
+    public void MenuItemClick()
     {
         if (_plugin != null && _button != null)
         {
-            _openUninstallationContextMenu = true;
+            _openSecondContextMenu = true;
         }
     }
 
     private void ContextMenu_Closed(object? sender, object? e)
     {
-        if (_openUninstallationContextMenu)
+        if (_openSecondContextMenu)
         {
-            _openUninstallationContextMenu = false;
+            _openSecondContextMenu = false;
             if (_plugin != null && _button != null)
             {
-                _uninstallContextMenu.ShowAt(_button);
+                _secondContextMenu.ShowAt(_button);
             }
         }
         else
@@ -84,30 +84,30 @@ public class PluginUninstallationMenuFlyoutHelper<T> : IDisposable
         }
     }
 
-    private void UninstallContextMenu_Closed(object? sender, object? e)
+    private void SecondContextMenu_Closed(object? sender, object? e)
     {
-        _openUninstallationContextMenu = false;
+        _openSecondContextMenu = false;
         _plugin = default;
         _button = null;
     }
 
-    private void UninstallButtonClick()
+    private void SecondMenuButtonClick()
     {
         var oldPlugin = _plugin;
-        _uninstallContextMenu.Hide();
+        _secondContextMenu.Hide();
         if (oldPlugin != null)
         {
-            _uninstallationAction(oldPlugin);
+            _secondMenuButtonAction(oldPlugin);
         }
     }
 
     public void Dispose()
     {
-        _uninstallContextMenu.Hide();
+        _secondContextMenu.Hide();
         _contextMenu.Hide();
         _contextMenu.Closed -= ContextMenu_Closed;
         _contextMenu.Items.Clear();
-        _uninstallContextMenu.Closed -= UninstallContextMenu_Closed;
+        _secondContextMenu.Closed -= SecondContextMenu_Closed;
         _plugin = default;
         _button = null;
     }

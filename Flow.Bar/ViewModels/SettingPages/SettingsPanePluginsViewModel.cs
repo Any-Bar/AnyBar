@@ -151,7 +151,7 @@ public partial class SettingsPanePluginsViewModel : ObservableObject, INavigatio
     private static readonly double SecondaryContextMenuHeight = (double)Application.Current.TryFindResource("SecondaryContextMenuHeight");
     private static readonly Style PluginUninstallationContextMenuStyle = (Style)Application.Current.TryFindResource("PluginUninstallationContextMenuStyle");
 
-    private PluginUninstallationMenuFlyoutHelper<PluginViewModel> _menuFlyoutHelper = null!;
+    private DoubleMenuFlyoutHelper<PluginViewModel> _menuFlyoutHelper = null!;
 
     private void InitializeMenuFlyoutHelper()
     {
@@ -176,7 +176,7 @@ public partial class SettingsPanePluginsViewModel : ObservableObject, INavigatio
 
     private void UninstallItem_Click(object sender, RoutedEventArgs e)
     {
-        _menuFlyoutHelper.UninstallItemClick();
+        _menuFlyoutHelper.MenuItemClick();
     }
 
     private async void UninstallPlugin(PluginViewModel plugin)
