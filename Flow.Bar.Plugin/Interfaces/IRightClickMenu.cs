@@ -1,16 +1,15 @@
-﻿using System.Collections.Generic;
-using System.Windows.Controls;
-
-namespace Flow.Bar.Plugin;
+﻿namespace Flow.Bar.Plugin;
 
 /// <summary>
-/// Interface for right-click context menus in Flow Bar plugins.
+/// Interface for right-click context menus with menu items in Flow Bar plugins.
 /// </summary>
-public interface IRightClickMenu
+public interface IRightClickMenu : IMenu
 {
-    /// <summary>
-    /// Retrieves a list of menu items for the right-click context menu.
-    /// </summary>
-    /// <returns></returns>
-    IList<MenuItem> GetRightClickMenuItems();
+}
+
+/// <summary>
+/// Interface for customized right-click context menus in Flow Bar plugins.
+/// </summary>
+public interface ICustomRightClickMenu : ICustomMenu
+{
 }
