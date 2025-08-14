@@ -371,8 +371,8 @@ public class MenuFlyoutEx : DependencyObject
                 case MenuFlyoutExPlacementMode.BottomEdgeAlignedLeft:
                 case MenuFlyoutExPlacementMode.BottomEdgeAlignedRight:
                     value = new Rect(
-                        new Point(0, -Offset),
-                        new Point(targetSize.Width, targetSize.Height + Offset));
+                        new Point(0, -C_offset),
+                        new Point(targetSize.Width, targetSize.Height + C_offset));
                     break;
                 case MenuFlyoutExPlacementMode.Left:
                 case MenuFlyoutExPlacementMode.Right:
@@ -381,22 +381,22 @@ public class MenuFlyoutEx : DependencyObject
                 case MenuFlyoutExPlacementMode.RightEdgeAlignedTop:
                 case MenuFlyoutExPlacementMode.RightEdgeAlignedBottom:
                     value = new Rect(
-                        new Point(-Offset, 0),
-                        new Point(targetSize.Width + Offset, targetSize.Height));
+                        new Point(-C_offset, 0),
+                        new Point(targetSize.Width + C_offset, targetSize.Height));
                     break;
                 case MenuFlyoutExPlacementMode.Auto:
                     throw new NotImplementedException($"{MenuFlyoutExPlacementMode.Auto} is not supported in {nameof(MenuFlyoutEx)}");
                 case MenuFlyoutExPlacementMode.AppBarTop:
                 case MenuFlyoutExPlacementMode.AppBarBottom:
                     value = new Rect(
-                        new Point(0, -Offset),
-                        new Point(targetSize.Width, targetSize.Height + Offset));
+                        new Point(0, -C_offset),
+                        new Point(targetSize.Width, targetSize.Height + C_offset));
                     break;
                 case MenuFlyoutExPlacementMode.AppBarLeft:
                 case MenuFlyoutExPlacementMode.AppBarRight:
                     value = new Rect(
-                        new Point(-Offset, 0),
-                        new Point(targetSize.Width + Offset, targetSize.Height));
+                        new Point(-C_offset, 0),
+                        new Point(targetSize.Width + C_offset, targetSize.Height));
                     break;
             }
         }
@@ -452,18 +452,16 @@ public class MenuFlyoutEx : DependencyObject
         }
     }
 
-    private MenuFlyoutExPresenter? m_presenter;
-    private MenuFlyoutExPlacementMode? m_currentPlacement;
-
-    private double Offset { get; set; } = s_offset;
-
     public event EventHandler<object?>? Opening;
     public event EventHandler<object?>? Opened;
     public event EventHandler<object?>? Closed;
 
+    private MenuFlyoutExPresenter? m_presenter;
+    private MenuFlyoutExPlacementMode? m_currentPlacement;
+
     private static readonly IValueConverter s_placementConverter = new PlacementConverter();
 
-    private const double s_offset = 4;
+    private const double C_offset = 4;
 
     private FrameworkElement? m_target;
     private bool m_opened;
