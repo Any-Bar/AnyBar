@@ -6,6 +6,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Threading;
+using iNKORE.UI.WPF.Helpers;
 using ControlHelper = iNKORE.UI.WPF.Modern.Controls.Helpers.ControlHelper;
 
 namespace Flow.Bar.Controls;
@@ -136,7 +137,7 @@ public class MenuFlyoutExPresenter : ContextMenu
 
     private void ApplyOpenAnimation()
     {
-        if (Template?.FindName("Shdw", this) is Decorator chorme)
+        if (this.GetTemplateChild<Decorator>("Shdw") is { } chorme)
         {
             // Ensure RenderTransform is a TranslateTransform
             if (chorme.RenderTransform is TranslateTransform translateTransform)

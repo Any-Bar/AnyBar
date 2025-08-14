@@ -6,8 +6,9 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using iNKORE.UI.WPF.Converters;
+using iNKORE.UI.WPF.Helpers;
 using iNKORE.UI.WPF.Modern.Common;
-using iNKORE.UI.WPF.Modern.Controls.Helpers;
+using ControlHelper = iNKORE.UI.WPF.Modern.Controls.Helpers.ControlHelper;
 
 namespace Flow.Bar.Controls;
 
@@ -92,7 +93,7 @@ public sealed class AutoSuggestBoxExHelper
 
         if (revokers.m_popupOpenedRevoker == null || revokers.m_popupClosedRevoker == null)
         {
-            if (GetTemplateChild<Popup>(C_popupName, autoSuggestBox) is Popup popup)
+            if (autoSuggestBox.GetTemplateChild<Popup>(C_popupName) is Popup popup)
             {
                 var autoSuggestBoxWeakRef = new WeakReference<AutoSuggestBoxEx>(autoSuggestBox);
 
@@ -133,12 +134,12 @@ public sealed class AutoSuggestBoxExHelper
             textBoxRadius = CornerRadiusFilterConverter.Convert(textBoxRadius, textBoxRadiusFilter);
         }
 
-        if (GetTemplateChild<Border>(C_popupBorderName, autoSuggestBox) is Border popupBorder)
+        if (autoSuggestBox.GetTemplateChild<Border>(C_popupBorderName) is { } popupBorder)
         {
             popupBorder.CornerRadius = popupRadius;
         }
 
-        if (GetTemplateChild<TextBox>(C_textBoxName, autoSuggestBox) is TextBox textBox)
+        if (autoSuggestBox.GetTemplateChild<TextBox>(C_textBoxName) is { } textBox)
         {
             ControlHelper.SetCornerRadius(textBox, textBoxRadius);
         }
@@ -147,9 +148,9 @@ public sealed class AutoSuggestBoxExHelper
     private static bool IsPopupOpenDown(AutoSuggestBoxEx autoSuggestBox)
     {
         double verticalOffset = 0;
-        if (GetTemplateChild<Border>(C_popupBorderName, autoSuggestBox) is Border popupBorder)
+        if (autoSuggestBox.GetTemplateChild<Border>(C_popupBorderName) is { } popupBorder)
         {
-            if (GetTemplateChild<TextBox>(C_textBoxName, autoSuggestBox) is TextBox textBox)
+            if (autoSuggestBox.GetTemplateChild<TextBox>(C_textBoxName) is { } textBox)
             {
                 var popupTop = popupBorder.TranslatePoint(new Point(0, 0), textBox);
                 verticalOffset = popupTop.Y;
@@ -161,11 +162,6 @@ public sealed class AutoSuggestBoxExHelper
     private static object ResourceLookup(Control control, object key)
     {
         return control.Resources.Contains(key) ? control.Resources[key] : UIApplication.Current.FindResource(key);
-    }
-
-    private static T? GetTemplateChild<T>(string childName, Control control) where T : DependencyObject
-    {
-        return control.Template?.FindName(childName, control) as T;
     }
 }
 
