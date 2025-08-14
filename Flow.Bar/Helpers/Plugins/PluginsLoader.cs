@@ -91,12 +91,9 @@ public static class PluginsLoader
                 Localize.PluginLoader_PluginsHaveErrored() :
                 Localize.PluginLoader_PluginHasErrored();
 
-            _ = Task.Run(() =>
-            {
-                App.API.ShowMsgError($"{errorMessage}{Environment.NewLine}{Environment.NewLine}" +
-                    $"{errorPluginString}{Environment.NewLine}{Environment.NewLine}" +
-                    Localize.PluginLoader_ReferToLogs());
-            });
+            App.API.ShowMsgError($"{errorMessage}{Environment.NewLine}{Environment.NewLine}" +
+                $"{errorPluginString}{Environment.NewLine}{Environment.NewLine}" +
+                Localize.PluginLoader_ReferToLogs());
         }
 
         return plugins;
