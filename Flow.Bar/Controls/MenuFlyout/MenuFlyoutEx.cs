@@ -33,6 +33,12 @@ public class MenuFlyoutEx : DependencyObject
         set => EnsurePresenter().OnApplyTemplateAction = value;
     }
 
+    public bool EnableHideAnimation
+    {
+        get => EnsurePresenter().EnableHideAnimation;
+        set => EnsurePresenter().EnableHideAnimation = value;
+    }
+
     #region Width
 
     public static readonly DependencyProperty WidthProperty =
@@ -410,7 +416,7 @@ public class MenuFlyoutEx : DependencyObject
 
     private void CancelAsyncShow()
     {
-        m_presenter?.CancelAsyncShow();
+        m_presenter?.CancelAsyncShowOrHide();
         m_pendingShow = null;
 
         if (m_asyncShow != null)
