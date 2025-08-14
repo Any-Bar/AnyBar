@@ -13,10 +13,10 @@ namespace Flow.Bar.Controls;
 
 public sealed class AutoSuggestBoxExHelper
 {
-    private const string c_popupName = "SuggestionsPopup";
-    private const string c_popupBorderName = "SuggestionsContainer";
-    private const string c_textBoxName = "TextBox";
-    private const string c_overlayCornerRadiusKey = "OverlayCornerRadius";
+    private const string C_popupName = "SuggestionsPopup";
+    private const string C_popupBorderName = "SuggestionsContainer";
+    private const string C_textBoxName = "TextBox";
+    private const string C_overlayCornerRadiusKey = "OverlayCornerRadius";
 
     internal AutoSuggestBoxExHelper()
     {
@@ -92,7 +92,7 @@ public sealed class AutoSuggestBoxExHelper
 
         if (revokers.m_popupOpenedRevoker == null || revokers.m_popupClosedRevoker == null)
         {
-            if (GetTemplateChild<Popup>(c_popupName, autoSuggestBox) is Popup popup)
+            if (GetTemplateChild<Popup>(C_popupName, autoSuggestBox) is Popup popup)
             {
                 var autoSuggestBoxWeakRef = new WeakReference<AutoSuggestBoxEx>(autoSuggestBox);
 
@@ -120,7 +120,7 @@ public sealed class AutoSuggestBoxExHelper
     private static void UpdateCornerRadius(AutoSuggestBoxEx autoSuggestBox, bool isPopupOpen)
     {
         var textBoxRadius = autoSuggestBox.CornerRadius;
-        var popupRadius = (CornerRadius)ResourceLookup(autoSuggestBox, c_overlayCornerRadiusKey);
+        var popupRadius = (CornerRadius)ResourceLookup(autoSuggestBox, C_overlayCornerRadiusKey);
 
         if (isPopupOpen)
         {
@@ -133,12 +133,12 @@ public sealed class AutoSuggestBoxExHelper
             textBoxRadius = CornerRadiusFilterConverter.Convert(textBoxRadius, textBoxRadiusFilter);
         }
 
-        if (GetTemplateChild<Border>(c_popupBorderName, autoSuggestBox) is Border popupBorder)
+        if (GetTemplateChild<Border>(C_popupBorderName, autoSuggestBox) is Border popupBorder)
         {
             popupBorder.CornerRadius = popupRadius;
         }
 
-        if (GetTemplateChild<TextBox>(c_textBoxName, autoSuggestBox) is TextBox textBox)
+        if (GetTemplateChild<TextBox>(C_textBoxName, autoSuggestBox) is TextBox textBox)
         {
             ControlHelper.SetCornerRadius(textBox, textBoxRadius);
         }
@@ -147,9 +147,9 @@ public sealed class AutoSuggestBoxExHelper
     private static bool IsPopupOpenDown(AutoSuggestBoxEx autoSuggestBox)
     {
         double verticalOffset = 0;
-        if (GetTemplateChild<Border>(c_popupBorderName, autoSuggestBox) is Border popupBorder)
+        if (GetTemplateChild<Border>(C_popupBorderName, autoSuggestBox) is Border popupBorder)
         {
-            if (GetTemplateChild<TextBox>(c_textBoxName, autoSuggestBox) is TextBox textBox)
+            if (GetTemplateChild<TextBox>(C_textBoxName, autoSuggestBox) is TextBox textBox)
             {
                 var popupTop = popupBorder.TranslatePoint(new Point(0, 0), textBox);
                 verticalOffset = popupTop.Y;

@@ -130,7 +130,7 @@ public class NavigationViewItemBase : ContentControl, IControlProtected
         return GetTemplateChild(childName);
     }
 
-    internal const int c_itemIndentation = 25;
+    internal const int C_itemIndentation = 25;
 
     internal bool IsTopLevelItem
     {

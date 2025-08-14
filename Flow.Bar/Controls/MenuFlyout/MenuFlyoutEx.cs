@@ -13,7 +13,7 @@ namespace Flow.Bar.Controls;
 [ContentProperty(nameof(Items))]
 public class MenuFlyoutEx : DependencyObject
 {
-    private const string c_contextMenuStyleKey = "DefaultContextMenuStyle";
+    private const string C_contextMenuStyleKey = "DefaultContextMenuStyle";
     private static Style? s_contextMenuStyle;
 
     public MenuFlyoutEx()
@@ -21,9 +21,9 @@ public class MenuFlyoutEx : DependencyObject
         // Sometimes application is exiting but menu is still being created, so we need to check if Application.Current is null
         if (Application.Current == null) return;
 
-        s_contextMenuStyle ??= (Style)Application.Current.Resources[c_contextMenuStyleKey];
+        s_contextMenuStyle ??= (Style)Application.Current.Resources[C_contextMenuStyleKey];
 
-        ArgumentNullException.ThrowIfNull(s_contextMenuStyle, $"{c_contextMenuStyleKey} not found in {nameof(Application)} {nameof(ResourceDictionary)}");
+        ArgumentNullException.ThrowIfNull(s_contextMenuStyle, $"{C_contextMenuStyleKey} not found in {nameof(Application)} {nameof(ResourceDictionary)}");
 
         MenuFlyoutPresenterStyle = s_contextMenuStyle;
     }

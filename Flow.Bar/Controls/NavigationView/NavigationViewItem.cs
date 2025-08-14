@@ -364,7 +364,7 @@ public partial class NavigationViewItem : NavigationViewItemBase
         // Update item indentation based on its depth
         if (m_navigationViewItemPresenter is { } presenter)
         {
-            var newLeftMargin = Depth * c_itemIndentation;
+            var newLeftMargin = Depth * C_itemIndentation;
             presenter.UpdateContentLeftIndentation(newLeftMargin);
         }
     }

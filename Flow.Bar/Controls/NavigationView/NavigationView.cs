@@ -35,42 +35,42 @@ internal enum NavigationRecommendedTransitionDirection
 public partial class NavigationView : ContentControl, IControlProtected
 {
     // General items
-    private const string c_togglePaneButtonName = "TogglePaneButton";
-    private const string c_rootSplitViewName = "RootSplitView";
-    private const string c_menuItemsHost = "MenuItemsHost";
-    private const string c_paneContentGridName = "PaneContentGrid";
-    private const string c_rootGridName = "RootGrid";
-    private const string c_contentGridName = "ContentGrid";
-    private const string c_searchButtonName = "PaneAutoSuggestButton";
-    private const string c_togglePaneTopPadding = "TogglePaneTopPadding";
-    private const string c_contentPaneTopPadding = "ContentPaneTopPadding";
-    private const string c_navViewBackButton = "NavigationViewBackButton";
-    private const string c_navViewCloseButton = "NavigationViewCloseButton";
+    private const string C_togglePaneButtonName = "TogglePaneButton";
+    private const string C_rootSplitViewName = "RootSplitView";
+    private const string C_menuItemsHost = "MenuItemsHost";
+    private const string C_paneContentGridName = "PaneContentGrid";
+    private const string C_rootGridName = "RootGrid";
+    private const string C_contentGridName = "ContentGrid";
+    private const string C_searchButtonName = "PaneAutoSuggestButton";
+    private const string C_togglePaneTopPadding = "TogglePaneTopPadding";
+    private const string C_contentPaneTopPadding = "ContentPaneTopPadding";
+    private const string C_navViewBackButton = "NavigationViewBackButton";
+    private const string C_navViewCloseButton = "NavigationViewCloseButton";
 
     // DisplayMode Left specific items
-    private const string c_leftNavPaneAutoSuggestBoxPresenter = "PaneAutoSuggestBoxPresenter";
+    private const string C_leftNavPaneAutoSuggestBoxPresenter = "PaneAutoSuggestBoxPresenter";
 
-    private const string c_itemsContainer = "ItemsContainerGrid";
-    private const string c_itemsContainerRow = "ItemsContainerRow";
-    private const string c_menuItemsScrollViewer = "MenuItemsScrollViewer";
+    private const string C_itemsContainer = "ItemsContainerGrid";
+    private const string C_itemsContainerRow = "ItemsContainerRow";
+    private const string C_menuItemsScrollViewer = "MenuItemsScrollViewer";
 
-    private const int c_backButtonHeight = 40;
-    private const int c_paneToggleButtonWidth = 40;
-    private const int c_toggleButtonHeightWhenShouldPreserveNavigationViewRS3Behavior = 56;
-    private const int c_backButtonRowDefinition = 1;
+    private const int C_backButtonHeight = 40;
+    private const int C_paneToggleButtonWidth = 40;
+    private const int C_toggleButtonHeightWhenShouldPreserveNavigationViewRS3Behavior = 56;
+    private const int C_backButtonRowDefinition = 1;
 
-    private const int c_mainMenuBlockIndex = 0;
+    private const int C_mainMenuBlockIndex = 0;
 
-    private const int c_headerContentTopMargin = 44;
-    private const int c_contentPaneTopPaddingHeight = 40;
+    private const int C_headerContentTopMargin = 44;
+    private const int C_contentPaneTopPaddingHeight = 40;
 
-    private const string c_navigationBackButtonNormalStyleKey = "NavigationBackButtonNormalStyle";
+    private const string C_navigationBackButtonNormalStyleKey = "NavigationBackButtonNormalStyle";
     private static Style? s_navigationBackButtonNormalStyle;
 
-    private const string c_navigationViewMinimalHeaderTopMarginKey = "NavigationViewMinimalHeaderTopMargin";
-    private const string c_navigationViewMinimalContentPaneTopMarginKey = "NavigationViewMinimalContentPaneTopMargin";
-    private static readonly Thickness s_navigationViewMinimalHeaderTopMargin = new(0, c_headerContentTopMargin, 0, 0);
-    private static readonly Thickness s_navigationViewMinimalContentPaneTopMargin = new(0, c_contentPaneTopPaddingHeight, 0, 0);
+    private const string C_navigationViewMinimalHeaderTopMarginKey = "NavigationViewMinimalHeaderTopMargin";
+    private const string C_navigationViewMinimalContentPaneTopMarginKey = "NavigationViewMinimalContentPaneTopMargin";
+    private static readonly Thickness s_navigationViewMinimalHeaderTopMargin = new(0, C_headerContentTopMargin, 0, 0);
+    private static readonly Thickness s_navigationViewMinimalContentPaneTopMargin = new(0, C_contentPaneTopPaddingHeight, 0, 0);
 
     protected override AutomationPeer OnCreateAutomationPeer()
     {
@@ -121,14 +121,14 @@ public partial class NavigationView : ContentControl, IControlProtected
 
     public NavigationView()
     {
-        s_navigationBackButtonNormalStyle ??= (Style)Application.Current.Resources[c_navigationBackButtonNormalStyleKey];
+        s_navigationBackButtonNormalStyle ??= (Style)Application.Current.Resources[C_navigationBackButtonNormalStyleKey];
 
-        ArgumentNullException.ThrowIfNull(s_navigationBackButtonNormalStyle, $"{c_navigationBackButtonNormalStyleKey} not found in {nameof(Application)} {nameof(ResourceDictionary)}");
+        ArgumentNullException.ThrowIfNull(s_navigationBackButtonNormalStyle, $"{C_navigationBackButtonNormalStyleKey} not found in {nameof(Application)} {nameof(ResourceDictionary)}");
 
-        Resources.Add(c_navigationBackButtonNormalStyleKey, s_navigationBackButtonNormalStyle);
+        Resources.Add(C_navigationBackButtonNormalStyleKey, s_navigationBackButtonNormalStyle);
 
-        Resources.Add(c_navigationViewMinimalHeaderTopMarginKey, s_navigationViewMinimalHeaderTopMargin);
-        Resources.Add(c_navigationViewMinimalContentPaneTopMarginKey, s_navigationViewMinimalContentPaneTopMargin);
+        Resources.Add(C_navigationViewMinimalHeaderTopMarginKey, s_navigationViewMinimalHeaderTopMargin);
+        Resources.Add(C_navigationViewMinimalContentPaneTopMarginKey, s_navigationViewMinimalContentPaneTopMargin);
 
         SetValue(s_templateSettingsPropertyKey, new NavigationViewTemplateSettings());
 
@@ -228,7 +228,7 @@ public partial class NavigationView : ContentControl, IControlProtected
             IControlProtected controlProtected = this;
 
             // Set up the pane toggle button click handler
-            if (GetTemplateChild(c_togglePaneButtonName) is Button paneToggleButton)
+            if (GetTemplateChild(C_togglePaneButtonName) is Button paneToggleButton)
             {
                 m_paneToggleButton = paneToggleButton;
                 paneToggleButton.Click += OnPaneToggleButtonClick;
@@ -237,7 +237,7 @@ public partial class NavigationView : ContentControl, IControlProtected
             }
 
             // Get a pointer to the root SplitView
-            if (GetTemplateChild(c_rootSplitViewName) is SplitViewEx splitView)
+            if (GetTemplateChild(C_rootSplitViewName) is SplitViewEx splitView)
             {
                 m_rootSplitView = splitView;
                 splitView.IsPaneOpenChanged += OnSplitViewClosedCompactChanged;
@@ -253,7 +253,7 @@ public partial class NavigationView : ContentControl, IControlProtected
             }
 
             // Change code to NOT do this if we're in top nav mode, to prevent it from being realized:
-            if (GetTemplateChild(c_menuItemsHost) is ItemsRepeater leftNavRepeater)
+            if (GetTemplateChild(C_menuItemsHost) is ItemsRepeater leftNavRepeater)
             {
                 m_leftNavRepeater = leftNavRepeater;
 
@@ -276,19 +276,19 @@ public partial class NavigationView : ContentControl, IControlProtected
                 leftNavRepeater.ItemTemplate = m_navigationViewItemsFactory;
             }
 
-            m_leftNavPaneAutoSuggestBoxPresenter = GetTemplateChild(c_leftNavPaneAutoSuggestBoxPresenter) as ContentControl;
+            m_leftNavPaneAutoSuggestBoxPresenter = GetTemplateChild(C_leftNavPaneAutoSuggestBoxPresenter) as ContentControl;
 
             // Get pointer to the pane content area, for use in the selection indicator animation
-            m_paneContentGrid = GetTemplateChild(c_paneContentGridName) as UIElement;
+            m_paneContentGrid = GetTemplateChild(C_paneContentGridName) as UIElement;
 
             // Set automation name on search button
-            if (GetTemplateChild(c_searchButtonName) is Button button)
+            if (GetTemplateChild(C_searchButtonName) is Button button)
             {
                 m_paneSearchButton = button;
                 button.Click += OnPaneSearchButtonClick;
             }
 
-            if (GetTemplateChild(c_navViewBackButton) is Button backButton)
+            if (GetTemplateChild(C_navViewBackButton) is Button backButton)
             {
                 m_backButton = backButton;
                 backButton.Click += OnBackButtonClicked;
@@ -303,11 +303,11 @@ public partial class NavigationView : ContentControl, IControlProtected
                 coreTitleBar.LayoutMetricsChanged += OnTitleBarMetricsChanged;
                 coreTitleBar.IsVisibleChanged += OnTitleBarIsVisibleChanged;
 
-                m_togglePaneTopPadding = GetTemplateChild(c_togglePaneTopPadding) as FrameworkElement;
-                m_contentPaneTopPadding = GetTemplateChild(c_contentPaneTopPadding) as FrameworkElement;
+                m_togglePaneTopPadding = GetTemplateChild(C_togglePaneTopPadding) as FrameworkElement;
+                m_contentPaneTopPadding = GetTemplateChild(C_contentPaneTopPadding) as FrameworkElement;
             }
 
-            if (GetTemplateChild(c_navViewCloseButton) is Button closeButton)
+            if (GetTemplateChild(C_navViewCloseButton) is Button closeButton)
             {
                 m_closeButton = closeButton;
                 closeButton.Click += OnPaneToggleButtonClick;
@@ -315,11 +315,11 @@ public partial class NavigationView : ContentControl, IControlProtected
                 WindowChrome.SetIsHitTestVisibleInChrome(closeButton, true);
             }
 
-            m_itemsContainerRow = GetTemplateChildT<RowDefinition>(c_itemsContainerRow, controlProtected);
-            m_menuItemsScrollViewer = GetTemplateChildT<FrameworkElement>(c_menuItemsScrollViewer, controlProtected);
+            m_itemsContainerRow = GetTemplateChildT<RowDefinition>(C_itemsContainerRow, controlProtected);
+            m_menuItemsScrollViewer = GetTemplateChildT<FrameworkElement>(C_menuItemsScrollViewer, controlProtected);
 
             m_itemsContainerSizeChangedRevoker?.Revoke();
-            if (GetTemplateChildT<FrameworkElement>(c_itemsContainer, controlProtected) is { } itemsContainerRow)
+            if (GetTemplateChildT<FrameworkElement>(C_itemsContainer, controlProtected) is { } itemsContainerRow)
             {
                 m_itemsContainerSizeChangedRevoker = new FrameworkElementSizeChangedRevoker(itemsContainerRow, OnItemsContainerSizeChanged);
             }
@@ -327,12 +327,12 @@ public partial class NavigationView : ContentControl, IControlProtected
             // Get hold of the outermost grid and enable XYKeyboardNavigationMode
             // However, we only want this to work in the content pane + the hamburger button (which is not inside the splitview)
             // so disable it on the grid in the content area of the SplitView
-            if (GetTemplateChildT<Grid>(c_rootGridName, controlProtected) is { } rootGrid)
+            if (GetTemplateChildT<Grid>(C_rootGridName, controlProtected) is { } rootGrid)
             {
                 KeyboardNavigation.SetDirectionalNavigation(rootGrid, KeyboardNavigationMode.Contained);
             }
 
-            if (GetTemplateChildT<Grid>(c_contentGridName, controlProtected) is { } contentGrid)
+            if (GetTemplateChildT<Grid>(C_contentGridName, controlProtected) is { } contentGrid)
             {
                 KeyboardNavigation.SetDirectionalNavigation(contentGrid, KeyboardNavigationMode.None);
             }
@@ -588,7 +588,7 @@ public partial class NavigationView : ContentControl, IControlProtected
             }
         }
 
-        path.Insert(0, c_mainMenuBlockIndex);
+        path.Insert(0, C_mainMenuBlockIndex);
 
         return IndexPath.CreateFromIndices(path);
     }
@@ -1010,7 +1010,7 @@ public partial class NavigationView : ContentControl, IControlProtected
             {
                 if (DisplayMode == NavigationViewDisplayMode.Minimal)
                 {
-                    return c_paneToggleButtonWidth;
+                    return C_paneToggleButtonWidth;
                 }
                 return CompactPaneLength;
             }
@@ -2382,19 +2382,19 @@ public partial class NavigationView : ContentControl, IControlProtected
             {
                 var rowDefs = paneContentGrid.RowDefinitions;
 
-                if (rowDefs.Count >= c_backButtonRowDefinition)
+                if (rowDefs.Count >= C_backButtonRowDefinition)
                 {
-                    var rowDef = rowDefs[c_backButtonRowDefinition];
+                    var rowDef = rowDefs[C_backButtonRowDefinition];
 
                     var backButtonRowHeight = 0;
                     if (!IsOverlay() && shouldShowBackButton)
                     {
-                        backButtonRowHeight = c_backButtonHeight;
+                        backButtonRowHeight = C_backButtonHeight;
                     }
                     else if (m_backButton == null)
                     {
                         // This row represented the height of the hamburger+margin in RS3 and prior
-                        backButtonRowHeight = c_toggleButtonHeightWhenShouldPreserveNavigationViewRS3Behavior;
+                        backButtonRowHeight = C_toggleButtonHeightWhenShouldPreserveNavigationViewRS3Behavior;
                     }
 
                     var length = GridLengthHelper.FromPixels(backButtonRowHeight);
