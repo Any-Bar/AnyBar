@@ -7,7 +7,6 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Threading;
-using iNKORE.UI.WPF.Modern.Controls.Primitives;
 using ControlHelper = iNKORE.UI.WPF.Modern.Controls.Helpers.ControlHelper;
 
 namespace Flow.Bar.Controls;
@@ -145,7 +144,7 @@ public class MenuFlyoutExPresenter : ContextMenu
 
     private void ApplyOpenAnimation()
     {
-        if (Template?.FindName("Shdw", this) is ThemeShadowChrome chorme)
+        if (Template?.FindName("Shdw", this) is Decorator chorme)
         {
             // Ensure RenderTransform is a TranslateTransform
             if (chorme.RenderTransform is TranslateTransform translateTransform)
@@ -165,16 +164,16 @@ public class MenuFlyoutExPresenter : ContextMenu
             {
                 from = flyout.Placement switch
                 {
-                    MenuFlyoutExPlacementMode.Left or MenuFlyoutExPlacementMode.Top => s_offset,
-                    MenuFlyoutExPlacementMode.Right or MenuFlyoutExPlacementMode.Bottom => -s_offset,
+                    MenuFlyoutExPlacementMode.Left or MenuFlyoutExPlacementMode.Top => C_offset,
+                    MenuFlyoutExPlacementMode.Right or MenuFlyoutExPlacementMode.Bottom => -C_offset,
                     MenuFlyoutExPlacementMode.Full => null,
-                    MenuFlyoutExPlacementMode.TopEdgeAlignedLeft or MenuFlyoutExPlacementMode.TopEdgeAlignedRight => s_offset,
-                    MenuFlyoutExPlacementMode.BottomEdgeAlignedLeft or MenuFlyoutExPlacementMode.BottomEdgeAlignedRight => -s_offset,
-                    MenuFlyoutExPlacementMode.LeftEdgeAlignedTop or MenuFlyoutExPlacementMode.LeftEdgeAlignedBottom => s_offset,
-                    MenuFlyoutExPlacementMode.RightEdgeAlignedTop or MenuFlyoutExPlacementMode.RightEdgeAlignedBottom => -s_offset,
+                    MenuFlyoutExPlacementMode.TopEdgeAlignedLeft or MenuFlyoutExPlacementMode.TopEdgeAlignedRight => C_offset,
+                    MenuFlyoutExPlacementMode.BottomEdgeAlignedLeft or MenuFlyoutExPlacementMode.BottomEdgeAlignedRight => -C_offset,
+                    MenuFlyoutExPlacementMode.LeftEdgeAlignedTop or MenuFlyoutExPlacementMode.LeftEdgeAlignedBottom => C_offset,
+                    MenuFlyoutExPlacementMode.RightEdgeAlignedTop or MenuFlyoutExPlacementMode.RightEdgeAlignedBottom => -C_offset,
                     MenuFlyoutExPlacementMode.Auto => throw new NotImplementedException($"{MenuFlyoutExPlacementMode.Auto} is not supported in {nameof(MenuFlyoutEx)}"),
-                    MenuFlyoutExPlacementMode.AppBarLeft or MenuFlyoutExPlacementMode.AppBarTop => s_offset,
-                    MenuFlyoutExPlacementMode.AppBarRight or MenuFlyoutExPlacementMode.AppBarBottom => -s_offset,
+                    MenuFlyoutExPlacementMode.AppBarLeft or MenuFlyoutExPlacementMode.AppBarTop => C_offset,
+                    MenuFlyoutExPlacementMode.AppBarRight or MenuFlyoutExPlacementMode.AppBarBottom => -C_offset,
                     _ => null
                 };
                 dp = flyout.Placement switch
@@ -193,15 +192,15 @@ public class MenuFlyoutExPresenter : ContextMenu
                 };
                 timeDuration = flyout.Placement switch
                 {
-                    MenuFlyoutExPlacementMode.Top or MenuFlyoutExPlacementMode.Bottom => RenderSize.Height * vtd_factor,
-                    MenuFlyoutExPlacementMode.Left or MenuFlyoutExPlacementMode.Right => RenderSize.Width * htd_factor,
+                    MenuFlyoutExPlacementMode.Top or MenuFlyoutExPlacementMode.Bottom => RenderSize.Height * Vtd_factor,
+                    MenuFlyoutExPlacementMode.Left or MenuFlyoutExPlacementMode.Right => RenderSize.Width * Htd_factor,
                     MenuFlyoutExPlacementMode.Full => 0,
-                    MenuFlyoutExPlacementMode.TopEdgeAlignedLeft or MenuFlyoutExPlacementMode.TopEdgeAlignedRight => RenderSize.Height * vtd_factor,
-                    MenuFlyoutExPlacementMode.BottomEdgeAlignedLeft or MenuFlyoutExPlacementMode.BottomEdgeAlignedRight => RenderSize.Height * vtd_factor,
-                    MenuFlyoutExPlacementMode.LeftEdgeAlignedTop or MenuFlyoutExPlacementMode.LeftEdgeAlignedBottom => RenderSize.Width * htd_factor,
-                    MenuFlyoutExPlacementMode.RightEdgeAlignedTop or MenuFlyoutExPlacementMode.RightEdgeAlignedBottom => RenderSize.Width * htd_factor,
-                    MenuFlyoutExPlacementMode.AppBarTop or MenuFlyoutExPlacementMode.AppBarBottom => RenderSize.Height * vtd_factor,
-                    MenuFlyoutExPlacementMode.AppBarLeft or MenuFlyoutExPlacementMode.AppBarRight => RenderSize.Width * htd_factor,
+                    MenuFlyoutExPlacementMode.TopEdgeAlignedLeft or MenuFlyoutExPlacementMode.TopEdgeAlignedRight => RenderSize.Height * Vtd_factor,
+                    MenuFlyoutExPlacementMode.BottomEdgeAlignedLeft or MenuFlyoutExPlacementMode.BottomEdgeAlignedRight => RenderSize.Height * Vtd_factor,
+                    MenuFlyoutExPlacementMode.LeftEdgeAlignedTop or MenuFlyoutExPlacementMode.LeftEdgeAlignedBottom => RenderSize.Width * Htd_factor,
+                    MenuFlyoutExPlacementMode.RightEdgeAlignedTop or MenuFlyoutExPlacementMode.RightEdgeAlignedBottom => RenderSize.Width * Htd_factor,
+                    MenuFlyoutExPlacementMode.AppBarTop or MenuFlyoutExPlacementMode.AppBarBottom => RenderSize.Height * Vtd_factor,
+                    MenuFlyoutExPlacementMode.AppBarLeft or MenuFlyoutExPlacementMode.AppBarRight => RenderSize.Width * Htd_factor,
                     _ => timeDuration
                 };
             }
@@ -232,7 +231,7 @@ public class MenuFlyoutExPresenter : ContextMenu
     private WeakReference<MenuFlyoutEx>? m_owningFlyout;
     private DispatcherOperation? m_asyncShow;
 
-    private const double s_offset = 30;
-    private const double vtd_factor = 0.002734375;
-    private const double htd_factor = 0.000735294;
+    private const double C_offset = 30;
+    private const double Vtd_factor = 0.002734375;
+    private const double Htd_factor = 0.000735294;
 }
