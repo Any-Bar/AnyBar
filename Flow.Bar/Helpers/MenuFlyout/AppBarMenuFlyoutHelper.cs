@@ -28,6 +28,7 @@ public class AppBarMenuFlyoutHelper : IDisposable
         ContextMenuPopupMode popupMode = ContextMenuPopupMode.AlwaysPopup,
         Style? contextMenuStyle = null, Action<ContextMenu>? onApplyTemplate = null)
     {
+        _handled = handled;
         // TODO: Support popupMode
         _popupMode = popupMode;
         if (contextMenuStyle != null)
