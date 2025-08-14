@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Windows;
-using Flow.Bar.Models.Monitor;
 
 namespace Flow.Bar.Controls;
 
@@ -10,7 +9,7 @@ public class MenuFlyoutExOptions : IEquatable<MenuFlyoutExOptions>
 
     public Point? Position { get; set; } = null;
 
-    public MonitorInfo Monitor { get; set; } = null!;
+    public Window? Window { get; set; } = null;
 
     public MenuFlyoutExOptions()
     {
@@ -21,7 +20,7 @@ public class MenuFlyoutExOptions : IEquatable<MenuFlyoutExOptions>
     {
         return x?.Placement == y?.Placement &&
                x?.Position == y?.Position &&
-               x?.Monitor == y?.Monitor;
+               x?.Window == y?.Window;
     }
 
     public static bool operator !=(MenuFlyoutExOptions? x, MenuFlyoutExOptions? y)
@@ -48,6 +47,6 @@ public class MenuFlyoutExOptions : IEquatable<MenuFlyoutExOptions>
     {
         return Placement.GetHashCode() ^
                (Position?.GetHashCode() ?? 0) ^
-               Monitor.GetHashCode();
+               (Window?.GetHashCode() ?? 0);
     }
 }

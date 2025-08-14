@@ -1,10 +1,9 @@
 ﻿using System;
-using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using Flow.Bar.Controls;
 using Flow.Bar.Enums;
-using Flow.Bar.ViewModels;
+using Flow.Bar.Views;
 using Windows.Win32;
 using Point = System.Drawing.Point;
 
@@ -13,8 +12,7 @@ namespace Flow.Bar.Helpers.MenuFlyout;
 public class AppBarMenuFlyoutHelper : IDisposable
 {
     public ItemCollection Items => _contextMenu.Items;
-    public AppBarViewModel ViewModel { get; set; } = null!;
-    public FrameworkElement Element { get; set; } = null!;
+    public AppBarWindow Window { get; set; } = null!;
     public bool Handled { get; set; } = false;
 
     private readonly MenuFlyoutEx _contextMenu = new();
@@ -70,7 +68,7 @@ public class AppBarMenuFlyoutHelper : IDisposable
 
     private void OpenAppBarMenu(MouseButtonEventArgs e)
     {
-        var placement = ViewModel.DockMode switch
+        var placement = Window.ViewModel.DockMode switch
         {
             AppBarDockMode.Left => MenuFlyoutExPlacementMode.AppBarRight,
             AppBarDockMode.Right => MenuFlyoutExPlacementMode.AppBarLeft,
@@ -78,11 +76,11 @@ public class AppBarMenuFlyoutHelper : IDisposable
             AppBarDockMode.Bottom => MenuFlyoutExPlacementMode.AppBarTop,
             _ => throw new NotImplementedException()
         };
-        _contextMenu.ShowAt(Element, new MenuFlyoutExOptions()
+        _contextMenu.ShowAt(Window, new MenuFlyoutExOptions()
         {
             Placement = placement,
-            Position = e.GetPosition(Element),
-            Monitor = ViewModel.ActualMonitor
+            Position = e.GetPosition(Window),
+            Window = Window
         });
         _contextMenuOpened = true;
         e.Handled = Handled;

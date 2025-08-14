@@ -160,9 +160,10 @@ public class MenuFlyoutExPresenter : ContextMenu
             double? from = null;
             var dp = TranslateTransform.YProperty;
             double timeDuration = 0;
-            if (m_owningFlyout != null && m_owningFlyout.TryGetTarget(out var flyout) && flyout.CurrentPlacement != null)
+            if (m_owningFlyout != null && m_owningFlyout.TryGetTarget(out var flyout) &&
+                flyout.CurrentOptions?.Placement is MenuFlyoutExPlacementMode placement)
             {
-                from = flyout.CurrentPlacement switch
+                from = placement switch
                 {
                     MenuFlyoutExPlacementMode.Left or MenuFlyoutExPlacementMode.Top => C_offset,
                     MenuFlyoutExPlacementMode.Right or MenuFlyoutExPlacementMode.Bottom => -C_offset,
@@ -176,7 +177,7 @@ public class MenuFlyoutExPresenter : ContextMenu
                     MenuFlyoutExPlacementMode.AppBarRight or MenuFlyoutExPlacementMode.AppBarBottom => -C_offset,
                     _ => null
                 };
-                dp = flyout.CurrentPlacement switch
+                dp = placement switch
                 {
                     MenuFlyoutExPlacementMode.Top or MenuFlyoutExPlacementMode.Bottom => TranslateTransform.YProperty,
                     MenuFlyoutExPlacementMode.Left or MenuFlyoutExPlacementMode.Right => TranslateTransform.XProperty,
@@ -190,7 +191,7 @@ public class MenuFlyoutExPresenter : ContextMenu
                     MenuFlyoutExPlacementMode.AppBarLeft or MenuFlyoutExPlacementMode.AppBarRight => TranslateTransform.XProperty,
                     _ => dp
                 };
-                timeDuration = flyout.CurrentPlacement switch
+                timeDuration = placement switch
                 {
                     MenuFlyoutExPlacementMode.Top or MenuFlyoutExPlacementMode.Bottom => RenderSize.Height * Vtd_factor,
                     MenuFlyoutExPlacementMode.Left or MenuFlyoutExPlacementMode.Right => RenderSize.Width * Htd_factor,

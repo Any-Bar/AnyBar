@@ -88,8 +88,7 @@ public partial class AppBarWindow : Window
             }
         };
         _menuFlyoutHelper.Items.Add(settingItem);
-        _menuFlyoutHelper.ViewModel = ViewModel;
-        _menuFlyoutHelper.Element = MainGrid;
+        _menuFlyoutHelper.Window = this;
         _menuFlyoutHelper.Handled = true;
     }
 
@@ -454,8 +453,7 @@ public partial class AppBarWindow : Window
                 {
                     helper.Items.Add(menuItem);
                 }
-                helper.ViewModel = ViewModel;
-                helper.Element = MainGrid;
+                helper.Window = this;
                 BarElementMenuFlyoutDependencyProperty.SetRightClickMenuFlyoutHelper(item, helper);
             }
 
@@ -479,8 +477,7 @@ public partial class AppBarWindow : Window
                 {
                     helper.Items.Add(menuItem);
                 }
-                helper.ViewModel = ViewModel;
-                helper.Element = MainGrid;
+                helper.Window = this;
                 BarElementMenuFlyoutDependencyProperty.SetRightClickMenuFlyoutHelper(item, helper);
             }
 

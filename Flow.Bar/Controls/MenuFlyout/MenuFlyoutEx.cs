@@ -189,23 +189,6 @@ public class MenuFlyoutEx : DependencyObject
 
     #endregion
 
-    #region ShowOptions
-
-    public static readonly DependencyProperty ShowOptionsProperty =
-        DependencyProperty.Register(
-            nameof(ShowOptions),
-            typeof(MenuFlyoutExOptions),
-            typeof(MenuFlyoutEx),
-            new PropertyMetadata(null));
-
-    public MenuFlyoutExOptions ShowOptions
-    {
-        get => (MenuFlyoutExOptions)GetValue(ShowOptionsProperty);
-        set => SetValue(ShowOptionsProperty, value);
-    }
-
-    #endregion
-
     public void ShowAt(FrameworkElement placementTarget)
     {
         ArgumentNullException.ThrowIfNull(placementTarget);
@@ -222,9 +205,7 @@ public class MenuFlyoutEx : DependencyObject
         ArgumentNullException.ThrowIfNull(placementTarget);
         ArgumentNullException.ThrowIfNull(showOptions);
 
-        ShowOptions = showOptions;
-        Placement = showOptions.Placement;
-        ShowAtCore(placementTarget);
+        ShowAtCore(placementTarget, showOptions);
     }
 
     public void Hide()
@@ -233,7 +214,7 @@ public class MenuFlyoutEx : DependencyObject
         HideCore();
     }
 
-    internal void ShowAtCore(FrameworkElement placementTarget)
+    internal void ShowAtCore(FrameworkElement placementTarget, MenuFlyoutExOptions showOptions)
     {
         CancelAsyncShow();
 
@@ -241,14 +222,14 @@ public class MenuFlyoutEx : DependencyObject
             m_presenter.IsOpen &&
             m_presenter.PlacementTarget == placementTarget &&
             m_presenter.Placement == PlacementMode.Custom &&
-            m_currentPlacement == Placement)
+            m_currentOptions == showOptions)
         {
             return;
         }
 
         if (m_opened)
         {
-            m_pendingShow = () => ShowAtCore(placementTarget);
+            m_pendingShow = () => ShowAtCore(placementTarget, showOptions);
             return;
         }
 
@@ -260,12 +241,12 @@ public class MenuFlyoutEx : DependencyObject
             m_presenter.IsOpen = false;
         }
 
+        m_currentOptions = showOptions;
+
         m_presenter.Placement = PlacementMode.Custom;
         m_presenter.PlacementTarget = placementTarget;
-
         m_presenter.PlacementRectangle = GetPlacementRectangle(placementTarget);
 
-        m_currentPlacement = Placement;
         OnOpening();
         m_presenter.IsOpen = true;
     }
@@ -327,7 +308,7 @@ public class MenuFlyoutEx : DependencyObject
 
     private CustomPopupPlacement[] PositionPopup(Size popupSize, Size targetSize, Point offset)
     {
-        return MenuFlyoutExPlacementHelper.PositionPopup(m_currentOptions!.Placement, popupSize, targetSize, m_currentOptions.Monitor, m_currentOptions.Position, offset, m_target!, m_presenter!);
+        return MenuFlyoutExPlacementHelper.PositionPopup(m_currentOptions!, popupSize, targetSize, offset, m_target!, m_presenter!);
     }
 
     private void OnPresenterOpened(object? sender, RoutedEventArgs e)
@@ -342,7 +323,7 @@ public class MenuFlyoutEx : DependencyObject
             m_presenter.ClearValue(ContextMenu.PlacementProperty);
             m_presenter.ClearValue(ContextMenu.PlacementTargetProperty);
             m_presenter.ClearValue(ContextMenu.PlacementRectangleProperty);
-            m_currentPlacement = null;
+            m_currentOptions = null;
         }
 
         OnClosed();
@@ -361,7 +342,7 @@ public class MenuFlyoutEx : DependencyObject
         {
             var targetSize = target.RenderSize;
 
-            switch (Placement)
+            switch (m_currentOptions!.Placement)
             {
                 case MenuFlyoutExPlacementMode.Top:
                 case MenuFlyoutExPlacementMode.Bottom:
@@ -455,8 +436,10 @@ public class MenuFlyoutEx : DependencyObject
     public event EventHandler<object?>? Opened;
     public event EventHandler<object?>? Closed;
 
+    internal MenuFlyoutExOptions? CurrentOptions => m_currentOptions;
+
     private MenuFlyoutExPresenter? m_presenter;
-    private MenuFlyoutExPlacementMode? m_currentPlacement;
+    private MenuFlyoutExOptions? m_currentOptions;
 
     private static readonly IValueConverter s_placementConverter = new PlacementConverter();
 

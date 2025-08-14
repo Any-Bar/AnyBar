@@ -2,9 +2,9 @@
 using System.Windows;
 using System.Windows.Controls.Primitives;
 using System.Windows.Media;
-using Flow.Bar.Models.Monitor;
-
 namespace Flow.Bar.Controls;
+
+#pragma warning disable IDE0060 // Remove unused parameter
 
 internal static class MenuFlyoutExPlacementHelper
 {
@@ -30,11 +30,9 @@ internal static class MenuFlyoutExPlacementHelper
     #endregion
 
     internal static CustomPopupPlacement[] PositionPopup(
-        MenuFlyoutExPlacementMode placement,
+        MenuFlyoutExOptions options,
         Size popupSize,
         Size targetSize,
-        MonitorInfo monitor,
-        Point? cursor,
         Point offset,
         FrameworkElement target,
         FrameworkElement? child = null)
@@ -45,13 +43,16 @@ internal static class MenuFlyoutExPlacementHelper
             TryGetTransformToDevice(child, out transformToDevice);
         }
 
-        var preferredPlacement = CalculatePopupPlacement(placement, popupSize, targetSize, monitor, cursor, offset, target, child, transformToDevice);
+        var placement = options.Placement;
+        var position = options.Position;
+        var window = options.Window;
+        var preferredPlacement = CalculatePopupPlacement(placement, popupSize, targetSize, position, window, target, child, transformToDevice);
 
         CustomPopupPlacement? alternativePlacement = null;
         var alternativePlacementMode = GetAlternativePlacementMode(placement);
         if (alternativePlacementMode.HasValue)
         {
-            alternativePlacement = CalculatePopupPlacement(alternativePlacementMode.Value, popupSize, targetSize, monitor, cursor, offset, target, child, transformToDevice);
+            alternativePlacement = CalculatePopupPlacement(alternativePlacementMode.Value, popupSize, targetSize, position, window, target, child, transformToDevice);
         }
 
         if (alternativePlacement.HasValue)
@@ -68,9 +69,8 @@ internal static class MenuFlyoutExPlacementHelper
         MenuFlyoutExPlacementMode placement,
         Size popupSize,
         Size targetSize,
-        MonitorInfo monitor,
-        Point? cursor,
-        Point _,
+        Point? position,
+        Window? window,
         FrameworkElement target,
         FrameworkElement? child = null,
         Matrix transformToDevice = default)
@@ -154,7 +154,7 @@ internal static class MenuFlyoutExPlacementHelper
                 throw new ArgumentOutOfRangeException(nameof(placement));
         }
 
-        if (cursor != null)
+        if (position != null && window != null)
         {
             switch (placement)
             {
@@ -162,15 +162,15 @@ internal static class MenuFlyoutExPlacementHelper
                 case MenuFlyoutExPlacementMode.AppBarBottom:
                 case MenuFlyoutExPlacementMode.AppBarLeft:
                 case MenuFlyoutExPlacementMode.AppBarRight:
-                    // Adjust the point based on the cursor position
-                    var cursorToScreenOffset = cursor.Value;
-                    if (transformToDevice != default)
+                    if (target != window)
                     {
-                        cursorToScreenOffset = transformToDevice.Transform(cursorToScreenOffset);
+                        throw new NotImplementedException($"placementTarget of {nameof(MenuFlyoutEx)} should be " +
+                            $"the same as {nameof(MenuFlyoutExOptions)}.{nameof(MenuFlyoutExOptions.Window)} " +
+                            $"when {nameof(MenuFlyoutExPlacementMode)} is {placement}");
                     }
-                    var targetToScreenOffset = target.PointToScreen(new Point());
-                    targetToScreenOffset -= new Vector(monitor.Bounds.X, monitor.Bounds.Y);
-                    var cursorToTargetOffset = cursorToScreenOffset - targetToScreenOffset;
+
+                    // Adjust the point based on the cursor position
+                    var cursorToTargetOffset = (Point)position;
                     switch (placement)
                     {
                         case MenuFlyoutExPlacementMode.AppBarTop:
