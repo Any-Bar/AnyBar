@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media;
 using Flow.Bar.Controls;
+using Flow.Bar.Helpers.Dispatcher;
 using Flow.Bar.Helpers.Image;
 using Flow.Bar.Helpers.Logging;
 using Flow.Bar.Helpers.Notification;
@@ -38,7 +39,7 @@ public class PublicAPIInstance(Settings settings) : IPublicAPI
 
     public void ShowSettingWindow()
     {
-        Application.Current.Dispatcher.Invoke(() =>
+        DispatcherHelper.RunOnMainThread(() =>
         {
             var settingWindow = SingletonWindowOpener.Open<SettingWindow>();
         });

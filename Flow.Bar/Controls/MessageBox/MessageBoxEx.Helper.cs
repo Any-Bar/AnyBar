@@ -1,6 +1,7 @@
 ﻿using System.Media;
 using System.Windows;
 using System.Windows.Media;
+using Flow.Bar.Helpers.Dispatcher;
 
 namespace Flow.Bar.Controls;
 
@@ -8,12 +9,7 @@ public partial class MessageBoxEx
 {
     public static MessageBoxResult Show(string messageBoxText, string caption = "", MessageBoxButton button = MessageBoxButton.OK, ImageSource? icon = null, MessageBoxResult defaultResult = MessageBoxResult.OK, SystemSound? sound = null)
     {
-        if (!Application.Current.Dispatcher.CheckAccess())
-        {
-            return Application.Current.Dispatcher.Invoke(() => ShowDialog(messageBoxText, caption, button, icon, defaultResult, sound), System.Windows.Threading.DispatcherPriority.Render);
-        }
-
-        return ShowDialog(messageBoxText, caption, button, icon, defaultResult, sound);
+        return DispatcherHelper.RunOnMainThread(() => ShowDialog(messageBoxText, caption, button, icon, defaultResult, sound));
     }
 
     private static MessageBoxResult ShowDialog(string messageBoxText, string caption = "", MessageBoxButton button = MessageBoxButton.OK, ImageSource? icon = null, MessageBoxResult defaultResult = MessageBoxResult.OK, SystemSound? sound = null)
