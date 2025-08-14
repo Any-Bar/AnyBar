@@ -299,11 +299,6 @@ public class MenuFlyoutEx : DependencyObject
         IsOpen = m_presenter != null && m_presenter.IsOpen;
     }
 
-    private CustomPopupPlacement[] PositionPopup(Size popupSize, Size targetSize, Point offset)
-    {
-        return MenuFlyoutExPlacementHelper.PositionPopup(Placement, popupSize, targetSize, ShowOptions.Monitor, ShowOptions.Position, offset, m_target!, m_presenter!);
-    }
-
     private MenuFlyoutExPresenter EnsurePresenter()
     {
         if (m_presenter == null)
@@ -328,6 +323,11 @@ public class MenuFlyoutEx : DependencyObject
         }
 
         return m_presenter;
+    }
+
+    private CustomPopupPlacement[] PositionPopup(Size popupSize, Size targetSize, Point offset)
+    {
+        return MenuFlyoutExPlacementHelper.PositionPopup(m_currentOptions!.Placement, popupSize, targetSize, m_currentOptions.Monitor, m_currentOptions.Position, offset, m_target!, m_presenter!);
     }
 
     private void OnPresenterOpened(object? sender, RoutedEventArgs e)
