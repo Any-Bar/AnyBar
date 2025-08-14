@@ -294,7 +294,6 @@ public class MenuFlyoutEx : DependencyObject
                 StaysOpen = StaysOpen
             };
             presenter.SetOwningFlyout(this);
-            BindPlacement(presenter);
             presenter.UpdatePopupAnimation();
             presenter.Opened += OnPresenterOpened;
             presenter.Closed += OnPresenterClosed;
@@ -382,18 +381,6 @@ public class MenuFlyoutEx : DependencyObject
         }
 
         return value;
-    }
-
-    internal void BindPlacement(Control presenter)
-    {
-        presenter.SetBinding(
-            MenuFlyoutExPlacementHelper.PlacementProperty,
-            new Binding
-            {
-                Path = new PropertyPath(PlacementProperty),
-                Source = this,
-                Converter = s_placementConverter
-            });
     }
 
     internal virtual void OnOpening()
