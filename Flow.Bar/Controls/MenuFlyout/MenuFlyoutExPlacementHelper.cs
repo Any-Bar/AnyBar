@@ -171,6 +171,10 @@ internal static class MenuFlyoutExPlacementHelper
 
                     // Adjust the point based on the cursor position
                     var cursorToTargetOffset = (Point)position;
+                    if (transformToDevice != default)
+                    {
+                        cursorToTargetOffset = transformToDevice.Transform(cursorToTargetOffset);
+                    }
                     switch (placement)
                     {
                         case MenuFlyoutExPlacementMode.AppBarTop:
