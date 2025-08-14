@@ -129,7 +129,7 @@ public class MenuFlyoutEx : DependencyObject
             nameof(Placement),
             typeof(MenuFlyoutExPlacementMode),
             typeof(MenuFlyoutEx),
-            new PropertyMetadata(MenuFlyoutExPlacementMode.AppBarBottom));
+            new PropertyMetadata(MenuFlyoutExPlacementMode.Top));
 
     public MenuFlyoutExPlacementMode Placement
     {
