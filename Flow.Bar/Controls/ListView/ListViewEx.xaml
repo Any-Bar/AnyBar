@@ -241,27 +241,6 @@
                         <DataTrigger Binding="{Binding SelectionMode, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:ListViewEx}}" Value="Multiple">
                             <Setter TargetName="LayoutRoot" Property="ui:ControlHelper.VisualState" Value="MultiSelectEnabled" />
                         </DataTrigger>
-                        <MultiDataTrigger>
-                            <MultiDataTrigger.Conditions>
-                                <Condition Binding="{Binding IsHoverEnabled, RelativeSource={RelativeSource AncestorType=local:ListViewEx}}" Value="True" />
-                                <Condition Binding="{Binding IsSelected, RelativeSource={RelativeSource Self}}" Value="False" />
-                                <Condition Binding="{Binding IsMouseOver, RelativeSource={RelativeSource Self}}" Value="True" />
-                            </MultiDataTrigger.Conditions>
-                            <Setter TargetName="LayoutRoot" Property="Background" Value="{DynamicResource ListViewItemBackgroundPointerOver}" />
-                            <Setter Property="Foreground" Value="{DynamicResource ListViewItemForegroundPointerOver}" />
-                            <Setter TargetName="MultiSelectSquare" Property="BorderBrush" Value="{DynamicResource ListViewItemCheckBoxPointerOverBorderBrush}" />
-                            <Setter TargetName="MultiSelectSquare" Property="Background" Value="{DynamicResource ListViewItemCheckBoxPointerOverBrush}" />
-                        </MultiDataTrigger>
-                        <MultiTrigger>
-                            <MultiTrigger.Conditions>
-                                <Condition Property="IsSelected" Value="False" />
-                                <Condition SourceName="LayoutRoot" Property="ui:PressHelper.IsPressed" Value="True" />
-                            </MultiTrigger.Conditions>
-                            <Setter TargetName="LayoutRoot" Property="Background" Value="{DynamicResource ListViewItemBackgroundPressed}" />
-                            <Setter Property="Foreground" Value="{DynamicResource ListViewItemForegroundPointerOver}" />
-                            <Setter TargetName="MultiSelectSquare" Property="BorderBrush" Value="{DynamicResource ListViewItemCheckBoxPressedBorderBrush}" />
-                            <Setter TargetName="MultiSelectSquare" Property="Background" Value="{DynamicResource ListViewItemCheckBoxPressedBrush}" />
-                        </MultiTrigger>
                         <!--  Selected  -->
                         <Trigger Property="IsSelected" Value="True">
                             <Setter TargetName="MultiSelectCheck" Property="Opacity" Value="1" />
@@ -276,6 +255,17 @@
                         <MultiDataTrigger>
                             <MultiDataTrigger.Conditions>
                                 <Condition Binding="{Binding IsHoverEnabled, RelativeSource={RelativeSource AncestorType=local:ListViewEx}}" Value="True" />
+                                <Condition Binding="{Binding IsSelected, RelativeSource={RelativeSource Self}}" Value="False" />
+                                <Condition Binding="{Binding IsMouseOver, RelativeSource={RelativeSource Self}}" Value="True" />
+                            </MultiDataTrigger.Conditions>
+                            <Setter TargetName="LayoutRoot" Property="Background" Value="{DynamicResource ListViewItemBackgroundPointerOver}" />
+                            <Setter Property="Foreground" Value="{DynamicResource ListViewItemForegroundPointerOver}" />
+                            <Setter TargetName="MultiSelectSquare" Property="BorderBrush" Value="{DynamicResource ListViewItemCheckBoxPointerOverBorderBrush}" />
+                            <Setter TargetName="MultiSelectSquare" Property="Background" Value="{DynamicResource ListViewItemCheckBoxPointerOverBrush}" />
+                        </MultiDataTrigger>
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding IsHoverEnabled, RelativeSource={RelativeSource AncestorType=local:ListViewEx}}" Value="True" />
                                 <Condition Binding="{Binding IsSelected, RelativeSource={RelativeSource Self}}" Value="True" />
                                 <Condition Binding="{Binding IsMouseOver, RelativeSource={RelativeSource Self}}" Value="True" />
                             </MultiDataTrigger.Conditions>
@@ -287,6 +277,16 @@
                             <Setter TargetName="MultiSelectCheck" Property="Foreground" Value="{DynamicResource ListViewItemCheckBrush}" />
                         </MultiDataTrigger>
                         <!--  SelectedPressed  -->
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="IsSelected" Value="False" />
+                                <Condition SourceName="LayoutRoot" Property="ui:PressHelper.IsPressed" Value="True" />
+                            </MultiTrigger.Conditions>
+                            <Setter TargetName="LayoutRoot" Property="Background" Value="{DynamicResource ListViewItemBackgroundPressed}" />
+                            <Setter Property="Foreground" Value="{DynamicResource ListViewItemForegroundPointerOver}" />
+                            <Setter TargetName="MultiSelectSquare" Property="BorderBrush" Value="{DynamicResource ListViewItemCheckBoxPressedBorderBrush}" />
+                            <Setter TargetName="MultiSelectSquare" Property="Background" Value="{DynamicResource ListViewItemCheckBoxPressedBrush}" />
+                        </MultiTrigger>
                         <MultiTrigger>
                             <MultiTrigger.Conditions>
                                 <Condition Property="IsSelected" Value="True" />
