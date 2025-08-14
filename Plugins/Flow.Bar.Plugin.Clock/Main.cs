@@ -34,6 +34,8 @@ public class Main : IPlugin, IPluginI18n, IRightClickMenu
         return Localize.FlowBarPlugin_Clock_PluginDescription();
     }
 
+    ContextMenuPopupMode IMenuBase.PopupMode => ContextMenuPopupMode.AlwaysPopup;
+
     public IList<MenuItem> GetRightClickMenuItems()
     {
         var menuItems = new List<MenuItem>();

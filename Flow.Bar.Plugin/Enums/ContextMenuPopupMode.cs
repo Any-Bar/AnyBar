@@ -8,7 +8,7 @@ public enum ContextMenuPopupMode
     /// <summary>
     /// Context menu will popup on each click and fade away after losing focus.
     /// </summary>
-    PopupAlways,
+    AlwaysPopup,
 
     /// <summary>
     /// Context menu will popup on the first click and fade away on the second click or after losing focus.
