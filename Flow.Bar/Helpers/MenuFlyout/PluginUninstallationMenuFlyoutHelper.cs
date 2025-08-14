@@ -20,7 +20,9 @@ public class PluginUninstallationMenuFlyoutHelper<T> : IDisposable
     public PluginUninstallationMenuFlyoutHelper(double contextMenuWidth, double secondContextMenuWidth, double secondContextMenuHeight,
         Style secondContextMenuStyle, string uninstallButtonName, Action<T> uninstallationAction)
     {
+        _contextMenu.Placement = MenuFlyoutExPlacementMode.BottomEdgeAlignedRight;
         _contextMenu.Width = contextMenuWidth;
+        _uninstallContextMenu.Placement = MenuFlyoutExPlacementMode.BottomEdgeAlignedRight;
         _uninstallContextMenu.Width = secondContextMenuWidth;
         _uninstallContextMenu.Height = secondContextMenuHeight;
         _uninstallContextMenu.MenuFlyoutPresenterStyle = secondContextMenuStyle;
@@ -38,10 +40,7 @@ public class PluginUninstallationMenuFlyoutHelper<T> : IDisposable
         if (button.Tag is not T plugin) throw new ArgumentException($"{nameof(Button)} tag must be of type {nameof(T)}", nameof(button));
         _button = button;
         _plugin = plugin;
-        _contextMenu.ShowAt(button, new MenuFlyoutExOptions()
-        {
-            Placement = MenuFlyoutExPlacementMode.BottomEdgeAlignedRight
-        });
+        _contextMenu.ShowAt(button);
     }
 
     public void UninstallItemClick()
@@ -59,10 +58,7 @@ public class PluginUninstallationMenuFlyoutHelper<T> : IDisposable
             _openUninstallationContextMenu = false;
             if (_plugin != null && _button != null)
             {
-                _uninstallContextMenu.ShowAt(_button, new MenuFlyoutExOptions()
-                {
-                    Placement = MenuFlyoutExPlacementMode.BottomEdgeAlignedRight
-                });
+                _uninstallContextMenu.ShowAt(_button);
             }
         }
         else

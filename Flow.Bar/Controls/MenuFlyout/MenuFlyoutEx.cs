@@ -206,6 +206,17 @@ public class MenuFlyoutEx : DependencyObject
 
     #endregion
 
+    public void ShowAt(FrameworkElement placementTarget)
+    {
+        ArgumentNullException.ThrowIfNull(placementTarget);
+
+        var showOptions = new MenuFlyoutExOptions
+        {
+            Placement = Placement
+        };
+        ShowAt(placementTarget, showOptions);
+    }
+
     public void ShowAt(FrameworkElement placementTarget, MenuFlyoutExOptions showOptions)
     {
         ArgumentNullException.ThrowIfNull(placementTarget);
