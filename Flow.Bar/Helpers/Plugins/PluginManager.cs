@@ -28,6 +28,7 @@ public static class PluginManager
     private static readonly ConcurrentBag<string> _uninstalledPlugins = [];
 
     private static readonly ConcurrentBag<PluginPair> _translationPlugins = [];
+    private static readonly ConcurrentDictionary<string, PluginPair> _leftClickMenuPlugins = [];
     private static readonly ConcurrentDictionary<string, PluginPair> _rightClickMenuPlugins = [];
 
     /// <summary>
@@ -125,7 +126,11 @@ public static class PluginManager
         {
             _translationPlugins.Add(pair);
         }
-        if (pair.Plugin is IRightClickMenu)
+        if (pair.Plugin is ILeftClickMenu || pair.Plugin is ICustomLeftClickMenu)
+        {
+            _leftClickMenuPlugins.TryAdd(pair.Metadata.ID, pair);
+        }
+        if (pair.Plugin is IRightClickMenu || pair.Plugin is ICustomRightClickMenu)
         {
             _rightClickMenuPlugins.TryAdd(pair.Metadata.ID, pair);
         }
@@ -220,13 +225,23 @@ public static class PluginManager
 
     #endregion
 
-    #region Right Click Menu
+    #region Left & Right Click Menu
 
-    public static IRightClickMenu? GetRightClickMenu(string id)
+    public static ILeftClickMenuBase? GetLeftClickMenu(string id)
+    {
+        if (_leftClickMenuPlugins.TryGetValue(id, out var pair))
+        {
+            return (ILeftClickMenuBase)pair.Plugin;
+        }
+
+        return null;
+    }
+
+    public static IRightClickMenuBase? GetRightClickMenu(string id)
     {
         if (_rightClickMenuPlugins.TryGetValue(id, out var pair))
         {
-            return (IRightClickMenu)pair.Plugin;
+            return (IRightClickMenuBase)pair.Plugin;
         }
 
         return null;
