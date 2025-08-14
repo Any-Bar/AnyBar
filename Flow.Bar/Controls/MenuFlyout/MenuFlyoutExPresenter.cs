@@ -232,6 +232,6 @@ public class MenuFlyoutExPresenter : ContextMenu
     private DispatcherOperation? m_asyncShow;
 
     private const double C_offset = 30;
-    private const double Vtd_factor = 0.002734375;
+    private const double Vtd_factor = 0.001734375;
     private const double Htd_factor = 0.000735294;
 }
