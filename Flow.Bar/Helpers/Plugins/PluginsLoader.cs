@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
-using System.Windows;
 using Flow.Bar.Models.Plugins;
 using Flow.Bar.Plugin;
 
@@ -94,10 +93,9 @@ public static class PluginsLoader
 
             _ = Task.Run(() =>
             {
-                App.API.ShowMsgBox($"{errorMessage}{Environment.NewLine}{Environment.NewLine}" +
+                App.API.ShowMsgError($"{errorMessage}{Environment.NewLine}{Environment.NewLine}" +
                     $"{errorPluginString}{Environment.NewLine}{Environment.NewLine}" +
-                    Localize.PluginLoader_ReferToLogs(), string.Empty,
-                    MessageBoxButton.OK, MessageBoxImage.Warning);
+                    Localize.PluginLoader_ReferToLogs());
             });
         }
 
