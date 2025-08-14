@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Globalization;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
-using System.Windows.Data;
 using System.Windows.Markup;
 using System.Windows.Threading;
 
@@ -431,25 +429,10 @@ public class MenuFlyoutEx : DependencyObject
     private MenuFlyoutExPresenter? m_presenter;
     private MenuFlyoutExOptions? m_currentOptions;
 
-    private static readonly IValueConverter s_placementConverter = new PlacementConverter();
-
     private const double C_offset = 4;
 
     private FrameworkElement? m_target;
     private bool m_opened;
     private Action? m_pendingShow;
     private DispatcherOperation? m_asyncShow;
-
-    private class PlacementConverter : IValueConverter
-    {
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            return (MenuFlyoutExPlacementMode)value;
-        }
-
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            throw new NotImplementedException();
-        }
-    }
 }
