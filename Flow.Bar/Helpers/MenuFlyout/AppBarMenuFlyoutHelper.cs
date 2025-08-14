@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using Flow.Bar.Controls;
 using Flow.Bar.Enums;
+using Flow.Bar.Plugin;
 using Flow.Bar.Views;
 using Windows.Win32;
 using Point = System.Drawing.Point;
@@ -14,6 +16,7 @@ public class AppBarMenuFlyoutHelper : IDisposable
     public ItemCollection Items => _contextMenu.Items;
     public AppBarWindow Window { get; set; } = null!;
     public bool Handled { get; set; } = false;
+    public ContextMenuPopupMode PopupMode { get; set; } = ContextMenuPopupMode.AlwaysPopup;
 
     private readonly MenuFlyoutEx _contextMenu = new();
     private Point? _cursorPosition = null;
@@ -21,8 +24,18 @@ public class AppBarMenuFlyoutHelper : IDisposable
     private bool _openContextMenuOnClosed = false;
     private MouseButtonEventArgs? _openContextMenuEventArgs = null;
 
-    public AppBarMenuFlyoutHelper()
+    public AppBarMenuFlyoutHelper(ContextMenuPopupMode popupMode,
+        Style? contextMenuStyle, Action<ContextMenu>? onApplyTemplate)
     {
+        // TODO: Support popupMode
+        if (contextMenuStyle != null)
+        {
+            _contextMenu.MenuFlyoutPresenterStyle = contextMenuStyle;
+        }
+        if (onApplyTemplate != null)
+        {
+            _contextMenu.OnApplyTemplateAction = onApplyTemplate;
+        }
         _contextMenu.Closed += ContextMenu_Closed;
     }
 

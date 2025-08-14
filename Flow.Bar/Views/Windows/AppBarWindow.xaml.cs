@@ -424,7 +424,7 @@ public partial class AppBarWindow : Window
         if (item.DataContext is not BarElementModel model) return;
 
         App.API.LogVerbose(ClassName, $"Prepare {nameof(StackViewItem)} left click context menu");
-        // TODO
+        GetLeftClickAppBarMenuFlyoutHelper(item, model)?.MouseRightButtonDown(sender, e.OriginalEventArgs);
         e.OriginalEventArgs.Handled = true;
     }
 
@@ -434,8 +434,47 @@ public partial class AppBarWindow : Window
         if (item.DataContext is not BarElementModel model) return;
 
         App.API.LogVerbose(ClassName, $"Show {nameof(StackViewItem)} left click context menu");
-        // TODO
+        GetLeftClickAppBarMenuFlyoutHelper(item, model)?.MouseRightButtonUp(sender, e.OriginalEventArgs);
         e.OriginalEventArgs.Handled = true;
+    }
+
+    private AppBarMenuFlyoutHelper? GetLeftClickAppBarMenuFlyoutHelper(StackViewItem item, BarElementModel model)
+    {
+        var menuBase = PluginManager.GetLeftClickMenu(model.ID);
+        if (menuBase == null)
+        {
+            return null;
+        }
+
+        if (MenuFlyoutHelperDependencyProperty.GetLeftClickMenuFlyoutHelper(item) is not AppBarMenuFlyoutHelper helper)
+        {
+            if (menuBase is ILeftClickMenu leftClickMenu)
+            {
+                helper = new(leftClickMenu.LeftClickMenuPopupMode, null, null);
+                foreach (var menuItem in leftClickMenu.GetLeftClickMenuItems())
+                {
+                    helper.Items.Add(menuItem);
+                }
+                helper.Window = this;
+                MenuFlyoutHelperDependencyProperty.SetLeftClickMenuFlyoutHelper(item, helper);
+            }
+            else if (menuBase is ICustomLeftClickMenu customLeftClickMenu)
+            {
+                helper = new(customLeftClickMenu.LeftClickMenuPopupMode,
+                    customLeftClickMenu.GetContextMenuStyle(), customLeftClickMenu.OnApplyTemplate)
+                {
+                    Window = this
+                };
+                MenuFlyoutHelperDependencyProperty.SetLeftClickMenuFlyoutHelper(item, helper);
+            }
+            else
+            {
+                App.API.LogError(ClassName, $"Left click menu for {model.ID} is not a valid type");
+                return null;
+            }
+        }
+
+        return helper;
     }
 
     private void StackView_ItemPreviewMouseRightButtonDown(object sender, StackViewItemMouseButtonEventArgs e)
@@ -444,21 +483,7 @@ public partial class AppBarWindow : Window
         if (item.DataContext is not BarElementModel model) return;
 
         App.API.LogVerbose(ClassName, $"Prepare {nameof(StackViewItem)} right click context menu");
-        if (PluginManager.GetRightClickMenu(model.ID) is IRightClickMenu rightClickMenu)
-        {
-            if (MenuFlyoutHelperDependencyProperty.GetRightClickMenuFlyoutHelper(item) is not AppBarMenuFlyoutHelper helper)
-            {
-                helper = new AppBarMenuFlyoutHelper();
-                foreach (var menuItem in rightClickMenu.GetRightClickMenuItems())
-                {
-                    helper.Items.Add(menuItem);
-                }
-                helper.Window = this;
-                MenuFlyoutHelperDependencyProperty.SetRightClickMenuFlyoutHelper(item, helper);
-            }
-
-            helper.MouseRightButtonDown(sender, e.OriginalEventArgs);
-        }
+        GetRightClickAppBarMenuFlyoutHelper(item, model)?.MouseRightButtonDown(sender, e.OriginalEventArgs);
         e.OriginalEventArgs.Handled = true;
     }
 
@@ -468,11 +493,23 @@ public partial class AppBarWindow : Window
         if (item.DataContext is not BarElementModel model) return;
 
         App.API.LogVerbose(ClassName, $"Show {nameof(StackViewItem)} right click context menu");
-        if (PluginManager.GetRightClickMenu(model.ID) is IRightClickMenu rightClickMenu)
+        GetRightClickAppBarMenuFlyoutHelper(item, model)?.MouseRightButtonUp(sender, e.OriginalEventArgs);
+        e.OriginalEventArgs.Handled = true;
+    }
+
+    private AppBarMenuFlyoutHelper? GetRightClickAppBarMenuFlyoutHelper(StackViewItem item, BarElementModel model)
+    {
+        var menuBase = PluginManager.GetRightClickMenu(model.ID);
+        if (menuBase == null)
         {
-            if (MenuFlyoutHelperDependencyProperty.GetRightClickMenuFlyoutHelper(item) is not AppBarMenuFlyoutHelper helper)
+            return null;
+        }
+
+        if (MenuFlyoutHelperDependencyProperty.GetRightClickMenuFlyoutHelper(item) is not AppBarMenuFlyoutHelper helper)
+        {
+            if (menuBase is IRightClickMenu rightClickMenu)
             {
-                helper = new AppBarMenuFlyoutHelper();
+                helper = new(rightClickMenu.RightClickMenuPopupMode, null, null);
                 foreach (var menuItem in rightClickMenu.GetRightClickMenuItems())
                 {
                     helper.Items.Add(menuItem);
@@ -480,10 +517,23 @@ public partial class AppBarWindow : Window
                 helper.Window = this;
                 MenuFlyoutHelperDependencyProperty.SetRightClickMenuFlyoutHelper(item, helper);
             }
-
-            helper.MouseRightButtonUp(sender, e.OriginalEventArgs);
+            else if (menuBase is ICustomRightClickMenu customRightClickMenu)
+            {
+                helper = new(customRightClickMenu.RightClickMenuPopupMode,
+                    customRightClickMenu.GetContextMenuStyle(), customRightClickMenu.OnApplyTemplate)
+                {
+                    Window = this
+                };
+                MenuFlyoutHelperDependencyProperty.SetRightClickMenuFlyoutHelper(item, helper);
+            }
+            else
+            {
+                App.API.LogError(ClassName, $"Right click menu for {model.ID} is not a valid type");
+                return null;
+            }
         }
-        e.OriginalEventArgs.Handled = true;
+
+        return helper;
     }
 
     #endregion
