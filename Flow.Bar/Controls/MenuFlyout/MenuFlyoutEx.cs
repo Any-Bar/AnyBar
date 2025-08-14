@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Globalization;
 using System.Windows;
 using System.Windows.Controls;
@@ -30,7 +29,11 @@ public class MenuFlyoutEx : DependencyObject
 
     public ItemCollection Items => EnsurePresenter().Items;
 
-    public Dictionary<string, RoutedEventHandler> ButtonClickEvents => EnsurePresenter().ButtonClickEvents;
+    public Action<ContextMenu>? OnApplyTemplateAction
+    {
+        get => EnsurePresenter().OnApplyTemplateAction;
+        set => EnsurePresenter().OnApplyTemplateAction = value;
+    }
 
     #region Width
 
