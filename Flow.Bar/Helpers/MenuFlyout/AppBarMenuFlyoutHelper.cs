@@ -15,19 +15,21 @@ public class AppBarMenuFlyoutHelper : IDisposable
 {
     public ItemCollection Items => _contextMenu.Items;
     public AppBarWindow Window { get; set; } = null!;
-    public bool Handled { get; set; } = false;
-    public ContextMenuPopupMode PopupMode { get; set; } = ContextMenuPopupMode.AlwaysPopup;
 
+    private readonly bool _handled;
+    private readonly ContextMenuPopupMode _popupMode;
     private readonly MenuFlyoutEx _contextMenu = new();
     private Point? _cursorPosition = null;
     private bool _contextMenuOpened = false;
     private bool _openContextMenuOnClosed = false;
     private MouseButtonEventArgs? _openContextMenuEventArgs = null;
 
-    public AppBarMenuFlyoutHelper(ContextMenuPopupMode popupMode,
-        Style? contextMenuStyle, Action<ContextMenu>? onApplyTemplate)
+    public AppBarMenuFlyoutHelper(bool handled = false,
+        ContextMenuPopupMode popupMode = ContextMenuPopupMode.AlwaysPopup,
+        Style? contextMenuStyle = null, Action<ContextMenu>? onApplyTemplate = null)
     {
         // TODO: Support popupMode
+        _popupMode = popupMode;
         if (contextMenuStyle != null)
         {
             _contextMenu.MenuFlyoutPresenterStyle = contextMenuStyle;
@@ -96,7 +98,7 @@ public class AppBarMenuFlyoutHelper : IDisposable
             Window = Window
         });
         _contextMenuOpened = true;
-        e.Handled = Handled;
+        e.Handled = _handled;
     }
 
     public void Dispose()

@@ -44,7 +44,7 @@ public partial class AppBarWindow : Window
     private bool _isInAppBarResize;
     private bool _isMinimized;
 
-    private readonly AppBarMenuFlyoutHelper _menuFlyoutHelper = new();
+    private readonly AppBarMenuFlyoutHelper _menuFlyoutHelper = new(true);
 
     #region Constructor
 
@@ -89,7 +89,6 @@ public partial class AppBarWindow : Window
         };
         _menuFlyoutHelper.Items.Add(settingItem);
         _menuFlyoutHelper.Window = this;
-        _menuFlyoutHelper.Handled = true;
     }
 
     #endregion
@@ -450,7 +449,7 @@ public partial class AppBarWindow : Window
         {
             if (menuBase is ILeftClickMenu leftClickMenu)
             {
-                helper = new(leftClickMenu.LeftClickMenuPopupMode, null, null);
+                helper = new(false, leftClickMenu.LeftClickMenuPopupMode);
                 foreach (var menuItem in leftClickMenu.GetLeftClickMenuItems())
                 {
                     helper.Items.Add(menuItem);
@@ -460,7 +459,7 @@ public partial class AppBarWindow : Window
             }
             else if (menuBase is ICustomLeftClickMenu customLeftClickMenu)
             {
-                helper = new(customLeftClickMenu.LeftClickMenuPopupMode,
+                helper = new(false, customLeftClickMenu.LeftClickMenuPopupMode,
                     customLeftClickMenu.GetContextMenuStyle(), customLeftClickMenu.OnApplyTemplate)
                 {
                     Window = this
@@ -509,7 +508,7 @@ public partial class AppBarWindow : Window
         {
             if (menuBase is IRightClickMenu rightClickMenu)
             {
-                helper = new(rightClickMenu.RightClickMenuPopupMode, null, null);
+                helper = new(false, rightClickMenu.RightClickMenuPopupMode);
                 foreach (var menuItem in rightClickMenu.GetRightClickMenuItems())
                 {
                     helper.Items.Add(menuItem);
@@ -519,7 +518,7 @@ public partial class AppBarWindow : Window
             }
             else if (menuBase is ICustomRightClickMenu customRightClickMenu)
             {
-                helper = new(customRightClickMenu.RightClickMenuPopupMode,
+                helper = new(false, customRightClickMenu.RightClickMenuPopupMode,
                     customRightClickMenu.GetContextMenuStyle(), customRightClickMenu.OnApplyTemplate)
                 {
                     Window = this
