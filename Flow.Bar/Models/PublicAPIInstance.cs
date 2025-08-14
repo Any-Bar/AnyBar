@@ -70,7 +70,7 @@ public class PublicAPIInstance(Settings settings) : IPublicAPI
 
     public MessageBoxResult ShowMsgBox(string messageBoxText, string caption = "", MessageBoxButton button = MessageBoxButton.OK, MessageBoxImage icon = MessageBoxImage.None, MessageBoxResult defaultResult = MessageBoxResult.OK)
     {
-        ImageSource? iconSource = icon switch
+        var iconSource = icon switch
         {
             MessageBoxImage.None => null,
             MessageBoxImage.Error => ImageLoader.ErrorImage,
