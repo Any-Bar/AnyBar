@@ -8,7 +8,7 @@ using iNKORE.UI.WPF.Modern.Controls;
 
 namespace Flow.Bar.Plugin.Clock;
 
-public class Main : IPlugin, IPluginI18n, IRightClickMenu
+public class Main : IPlugin, IPluginI18n, ILeftClickMenu, IRightClickMenu
 {
     private static readonly string ClassName = nameof(Main);
 
@@ -32,6 +32,21 @@ public class Main : IPlugin, IPluginI18n, IRightClickMenu
     public string GetTranslatedPluginDescription()
     {
         return Localize.FlowBarPlugin_Clock_PluginDescription();
+    }
+
+    public ContextMenuPopupMode LeftClickMenuPopupMode => ContextMenuPopupMode.PopupAndFadeAway;
+
+    public IList<MenuItem> GetLeftClickMenuItems()
+    {
+        var menuItems = new List<MenuItem>();
+        var adjustDateTimeItem = new MenuItem()
+        {
+            Icon = new FontIcon { Glyph = "\ue713" }
+        };
+        adjustDateTimeItem.SetResourceReference(HeaderedItemsControl.HeaderProperty, "FlowBarPlugin_Clock_RightClickMenu_AdjustDateTime");
+        adjustDateTimeItem.Click += AdjustDateTimeItem_Click;
+        menuItems.Add(adjustDateTimeItem);
+        return menuItems;
     }
 
     public ContextMenuPopupMode RightClickMenuPopupMode => ContextMenuPopupMode.AlwaysPopup;
