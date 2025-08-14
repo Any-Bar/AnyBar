@@ -29,7 +29,6 @@ public class AppBarMenuFlyoutHelper : IDisposable
         Style? contextMenuStyle = null, Action<ContextMenu>? onApplyTemplate = null)
     {
         _handled = handled;
-        // TODO: Support popupMode
         _popupMode = popupMode;
         if (contextMenuStyle != null)
         {
@@ -44,8 +43,12 @@ public class AppBarMenuFlyoutHelper : IDisposable
 
     private void ContextMenu_Closed(object? sender, object? e)
     {
+        // Set context menu opened flag
         _contextMenuOpened = false;
-        if (_openContextMenuOnClosed && _openContextMenuEventArgs != null)
+
+        // If we are in AlwaysPopup mode and the context menu is closed, we should open it again
+        if (_popupMode == ContextMenuPopupMode.AlwaysPopup &&
+            _openContextMenuOnClosed && _openContextMenuEventArgs != null)
         {
             OpenAppBarMenu(_openContextMenuEventArgs);
             _openContextMenuOnClosed = false;
@@ -66,19 +69,35 @@ public class AppBarMenuFlyoutHelper : IDisposable
 
         // If users have moved the cursor after right button down, we should not open the context menu.
         if (_cursorPosition != null && _cursorPosition != PInvokeHelper.GetCursorPos()) return;
-        // This is workaround for a bug in WPF that element position will change if the old appbar menu is still open
-        // (Pop up menu will be considered as part of that element which can cause wrong position calculation)
-        // So we need to manually hide old appbar menu and open new appbar menu after it is closed.
-        if (_contextMenuOpened)
+
+        if (_popupMode == ContextMenuPopupMode.AlwaysPopup)
         {
-            _openContextMenuOnClosed = true;
-            _openContextMenuEventArgs = e;
-            _contextMenu.Hide();
+            // This is workaround for a bug in WPF that element position will change if the old appbar menu is still open
+            // (Pop up menu will be considered as part of that element which can cause wrong position calculation)
+            // So we need to manually hide old appbar menu and open new appbar menu after it is closed.
+            if (_contextMenuOpened)
+            {
+                _openContextMenuOnClosed = true;
+                _openContextMenuEventArgs = e;
+                _contextMenu.Hide();
+            }
+            else
+            {
+                OpenAppBarMenu(e);
+            }
         }
         else
         {
-            OpenAppBarMenu(e);
+            if (_contextMenuOpened)
+            {
+                _contextMenu.Hide();
+            }
+            else
+            {
+                OpenAppBarMenu(e);
+            }
         }
+
         _cursorPosition = null;
     }
 
@@ -98,8 +117,10 @@ public class AppBarMenuFlyoutHelper : IDisposable
             Position = e.GetPosition(Window),
             Window = Window
         });
-        _contextMenuOpened = true;
         e.Handled = _handled;
+
+        // Set context menu opened flag
+        _contextMenuOpened = true;
     }
 
     public void Dispose()
