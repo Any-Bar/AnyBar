@@ -162,6 +162,8 @@ internal static class MenuFlyoutExPlacementHelper
                 case MenuFlyoutExPlacementMode.AppBarBottom:
                 case MenuFlyoutExPlacementMode.AppBarLeft:
                 case MenuFlyoutExPlacementMode.AppBarRight:
+                    // Currently, we only support AppBar placements with the window as the target.
+                    // This can help us avoid unnecessary margin in calculations.
                     if (target != window)
                     {
                         throw new NotImplementedException($"placementTarget of {nameof(MenuFlyoutEx)} should be " +
