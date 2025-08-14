@@ -112,7 +112,7 @@ internal class PopupPositioner : DependencyObject, IDisposable
             }
             else
             {
-                Dispatcher.BeginInvoke(DispatcherPriority.Normal, new DispatcherOperationCallback(delegate (object param)
+                Dispatcher.BeginInvoke(DispatcherPriority.Normal, new DispatcherOperationCallback((param) =>
                 {
                     Reposition();
 
