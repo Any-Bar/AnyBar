@@ -65,6 +65,7 @@
                 CanReorderItems="True"
                 DropScrollViewer="{Binding ElementName=RootPageScrollViewer, Mode=OneTime}"
                 IsHoverEnabled="False"
+                IsItemClickEnabled="False"
                 IsSelectionEnabled="False"
                 ItemsSource="{Binding BarElements, Mode=OneTime}"
                 ScrollViewer.HorizontalScrollBarVisibility="Disabled"
@@ -99,7 +100,7 @@
                 </controls:ListViewEx.Style>
                 <controls:ListViewEx.ItemTemplate>
                     <DataTemplate DataType="models:BarElementViewModel">
-                        <controls:SettingsCardEx x:Name="BarElementSettingsCard">
+                        <controls:SettingsCardEx x:Name="BarElementSettingsCard" IsClickEnabled="False">
                             <controls:SettingsCardEx.Header>
                                 <TextBlock
                                     Text="{Binding Name, Mode=OneTime}"

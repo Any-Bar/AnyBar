@@ -80,6 +80,7 @@
                 VerticalContentAlignment="Center"
                 CanReorderItems="False"
                 IsHoverEnabled="False"
+                IsItemClickEnabled="False"
                 IsSelectionEnabled="False"
                 ItemsSource="{Binding AllPlugins, Mode=OneTime}"
                 ScrollViewer.HorizontalScrollBarVisibility="Disabled"
@@ -116,7 +117,10 @@
                 </controls:ListViewEx.Style>
                 <controls:ListViewEx.ItemTemplate>
                     <DataTemplate DataType="models:PluginViewModel">
-                        <controls:SettingsCardEx x:Name="PluginSettingsCard" ToolTip="{Binding VersionAndAuthor, Mode=OneTime}">
+                        <controls:SettingsCardEx
+                            x:Name="PluginSettingsCard"
+                            IsClickEnabled="False"
+                            ToolTip="{Binding VersionAndAuthor, Mode=OneTime}">
                             <controls:SettingsCardEx.Header>
                                 <TextBlock
                                     Text="{Binding Name, Mode=OneTime}"
