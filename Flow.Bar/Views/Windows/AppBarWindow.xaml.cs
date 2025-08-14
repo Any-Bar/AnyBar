@@ -405,13 +405,13 @@ public partial class AppBarWindow : Window
     private void MainGrid_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
     {
         App.API.LogVerbose(ClassName, $"Prepare {nameof(MainGrid)} right click context menu");
-        _menuFlyoutHelper.MouseRightButtonDown(sender, e);
+        _menuFlyoutHelper.MouseButtonDown(sender, e);
     }
 
     private void MainGrid_MouseRightButtonUp(object sender, MouseButtonEventArgs e)
     {
         App.API.LogVerbose(ClassName, $"Show {nameof(MainGrid)} right click context menu");
-        _menuFlyoutHelper.MouseRightButtonUp(sender, e);
+        _menuFlyoutHelper.MouseButtonUp(sender, e);
     }
 
     #endregion
@@ -424,7 +424,7 @@ public partial class AppBarWindow : Window
         if (item.DataContext is not BarElementModel model) return;
 
         App.API.LogVerbose(ClassName, $"Prepare {nameof(StackViewItem)} left click context menu");
-        GetLeftClickAppBarMenuFlyoutHelper(item, model)?.MouseRightButtonDown(sender, e.OriginalEventArgs);
+        GetLeftClickAppBarMenuFlyoutHelper(item, model)?.MouseButtonDown(sender, e.OriginalEventArgs);
         e.OriginalEventArgs.Handled = true;
     }
 
@@ -434,7 +434,7 @@ public partial class AppBarWindow : Window
         if (item.DataContext is not BarElementModel model) return;
 
         App.API.LogVerbose(ClassName, $"Show {nameof(StackViewItem)} left click context menu");
-        GetLeftClickAppBarMenuFlyoutHelper(item, model)?.MouseRightButtonUp(sender, e.OriginalEventArgs);
+        GetLeftClickAppBarMenuFlyoutHelper(item, model)?.MouseButtonUp(sender, e.OriginalEventArgs);
         e.OriginalEventArgs.Handled = true;
     }
 
@@ -483,7 +483,7 @@ public partial class AppBarWindow : Window
         if (item.DataContext is not BarElementModel model) return;
 
         App.API.LogVerbose(ClassName, $"Prepare {nameof(StackViewItem)} right click context menu");
-        GetRightClickAppBarMenuFlyoutHelper(item, model)?.MouseRightButtonDown(sender, e.OriginalEventArgs);
+        GetRightClickAppBarMenuFlyoutHelper(item, model)?.MouseButtonDown(sender, e.OriginalEventArgs);
         e.OriginalEventArgs.Handled = true;
     }
 
@@ -493,7 +493,7 @@ public partial class AppBarWindow : Window
         if (item.DataContext is not BarElementModel model) return;
 
         App.API.LogVerbose(ClassName, $"Show {nameof(StackViewItem)} right click context menu");
-        GetRightClickAppBarMenuFlyoutHelper(item, model)?.MouseRightButtonUp(sender, e.OriginalEventArgs);
+        GetRightClickAppBarMenuFlyoutHelper(item, model)?.MouseButtonUp(sender, e.OriginalEventArgs);
         e.OriginalEventArgs.Handled = true;
     }
 

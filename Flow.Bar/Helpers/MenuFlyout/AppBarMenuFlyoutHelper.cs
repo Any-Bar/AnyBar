@@ -50,14 +50,14 @@ public class AppBarMenuFlyoutHelper : IDisposable
         }
     }
 
-    public void MouseRightButtonDown(object sender, MouseButtonEventArgs e)
+    public void MouseButtonDown(object sender, MouseButtonEventArgs e)
     {
         if (e.Handled) return;
 
         _cursorPosition = PInvokeHelper.GetCursorPos();
     }
 
-    public void MouseRightButtonUp(object sender, MouseButtonEventArgs e)
+    public void MouseButtonUp(object sender, MouseButtonEventArgs e)
     {
         if (e.Handled) return;
 
