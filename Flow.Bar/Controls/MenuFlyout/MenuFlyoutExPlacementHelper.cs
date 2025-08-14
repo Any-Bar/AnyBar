@@ -190,7 +190,7 @@ internal static class MenuFlyoutExPlacementHelper
             }
         }
 
-        if (child != null) // Popup Presenter
+        if (child != null) // MenuFlyoutExPresenter relative to its parent - Popup 
         {
             var childToParentOffset = VisualTreeHelper.GetOffset(child);
             if (transformToDevice != default)
