@@ -742,13 +742,13 @@ public partial class MessageBoxEx : Window
     private void UpdateMessageState()
     {
         var stateName = Caption == null || (Caption is string str && string.IsNullOrEmpty(str)) ? TitleCollapsedState : TitleVisibleState;
-        VisualStateManager.GoToState(this, stateName, true);
+        VisualStateManager.GoToState(this, stateName, App.Settings.EnableAnimationEffects);
     }
 
     private void UpdateIconState()
     {
         var stateName = TemplateSettings.IconElement == null ? IconCollapsedState : IconVisibleState;
-        VisualStateManager.GoToState(this, stateName, true);
+        VisualStateManager.GoToState(this, stateName, App.Settings.EnableAnimationEffects);
     }
 
     private void UpdateMessageBoxButtonState()
@@ -781,7 +781,7 @@ public partial class MessageBoxEx : Window
                 break;
         }
 
-        VisualStateManager.GoToState(this, stateName, true);
+        VisualStateManager.GoToState(this, stateName, App.Settings.EnableAnimationEffects);
 
         if (_result == null)
         {
@@ -806,7 +806,7 @@ public partial class MessageBoxEx : Window
             };
         }
 
-        VisualStateManager.GoToState(this, stateName, true);
+        VisualStateManager.GoToState(this, stateName, App.Settings.EnableAnimationEffects);
     }
 
     /// <summary>
