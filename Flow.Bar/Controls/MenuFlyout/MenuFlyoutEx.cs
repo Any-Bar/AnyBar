@@ -122,23 +122,6 @@ public class MenuFlyoutEx : DependencyObject
 
     #endregion
 
-    #region Placement
-
-    public static readonly DependencyProperty PlacementProperty =
-        DependencyProperty.Register(
-            nameof(Placement),
-            typeof(MenuFlyoutExPlacementMode),
-            typeof(MenuFlyoutEx),
-            new PropertyMetadata(MenuFlyoutExPlacementMode.Top));
-
-    public MenuFlyoutExPlacementMode Placement
-    {
-        get => (MenuFlyoutExPlacementMode)GetValue(PlacementProperty);
-        set => SetValue(PlacementProperty, value);
-    }
-
-    #endregion
-
     #region StaysOpen
 
     private static readonly DependencyPropertyKey StaysOpenPropertyKey =
@@ -185,6 +168,23 @@ public class MenuFlyoutEx : DependencyObject
     private static void OnIsOpenChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
     {
         ((MenuFlyoutEx)d).OnIsOpenChanged();
+    }
+
+    #endregion
+
+    #region Placement
+
+    public static readonly DependencyProperty PlacementProperty =
+        DependencyProperty.Register(
+            nameof(Placement),
+            typeof(MenuFlyoutExPlacementMode),
+            typeof(MenuFlyoutEx),
+            new PropertyMetadata(MenuFlyoutExPlacementMode.Top));
+
+    public MenuFlyoutExPlacementMode Placement
+    {
+        get => (MenuFlyoutExPlacementMode)GetValue(PlacementProperty);
+        set => SetValue(PlacementProperty, value);
     }
 
     #endregion
