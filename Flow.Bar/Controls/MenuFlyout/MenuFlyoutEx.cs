@@ -315,12 +315,11 @@ public class MenuFlyoutEx : DependencyObject
                 Style = MenuFlyoutPresenterStyle,
                 Placement = PlacementMode.Custom,
                 CustomPopupPlacementCallback = PositionPopup,
-                StaysOpen = false
+                StaysOpen = StaysOpen
             };
             presenter.SetOwningFlyout(this);
             BindPlacement(presenter);
             presenter.UpdatePopupAnimation();
-            presenter.StaysOpen = StaysOpen;
             presenter.Opened += OnPresenterOpened;
             presenter.Closed += OnPresenterClosed;
             presenter.IsOpenChanged += OnPresenterIsOpenChanged;
