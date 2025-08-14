@@ -3,13 +3,13 @@ using System.Windows;
 
 namespace Flow.Bar.Helpers.MenuFlyout;
 
-public class BarElementMenuFlyoutDependencyProperty
+public class MenuFlyoutHelperDependencyProperty
 {
     public static readonly DependencyProperty RightClickMenuFlyoutHelperProperty =
         DependencyProperty.RegisterAttached(
             "RightClickMenuFlyoutHelper",
             typeof(AppBarMenuFlyoutHelper),
-            typeof(BarElementMenuFlyoutDependencyProperty),
+            typeof(MenuFlyoutHelperDependencyProperty),
             new PropertyMetadata(null));
 
     [AttachedPropertyBrowsableForType(typeof(UIElement))]
