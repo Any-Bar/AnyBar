@@ -16,8 +16,10 @@ using Flow.Bar.Helpers.Plugins;
 using Flow.Bar.Helpers.Windows;
 using Flow.Bar.Models.AppBar;
 using Flow.Bar.Plugin;
+using Flow.Bar.Plugin.Interfaces;
 using Flow.Bar.Services;
 using Flow.Bar.ViewModels;
+using iNKORE.UI.WPF.Helpers;
 using Windows.Win32;
 using Windows.Win32.Foundation;
 using Windows.Win32.Graphics.Dwm;
@@ -41,6 +43,7 @@ public partial class AppBarWindow : Window
     private HwndSource? _hwndSource;
 
     private bool _isAppBarRegistered;
+    private bool _isInitialized;
     private bool _isInAppBarResize;
     private bool _isMinimized;
 
@@ -147,6 +150,7 @@ public partial class AppBarWindow : Window
         UpdateDockedWidthOrHeight();
         OnIsResizableChanged();
         ViewModel.InitializeBarElements();
+        _isInitialized = true;
     }
 
     private void Window_DpiChanged(object sender, DpiChangedEventArgs e)
@@ -239,6 +243,10 @@ public partial class AppBarWindow : Window
         {
             case nameof(AppBarViewModel.DockMode):
                 OnDockLocationChanged();
+                if (_isInitialized)
+                {
+                    OnPositionChanged();
+                }
                 break;
             case nameof(AppBarViewModel.ActualMonitor):
                 OnDockLocationChanged();
@@ -255,6 +263,48 @@ public partial class AppBarWindow : Window
             case nameof(AppBarViewModel.ActualDockedWidthOrHeight):
                 OnDockLocationChanged();
                 break;
+        }
+    }
+
+    private void OnPositionChanged()
+    {
+        OnPositionChanged(BarElementModelPosition.LeftOrTop);
+        OnPositionChanged(BarElementModelPosition.Center);
+        OnPositionChanged(BarElementModelPosition.RightOrBottom);
+    }
+
+    private void OnPositionChanged(BarElementModelPosition barElementPosition)
+    {
+        var view = barElementPosition switch
+        {
+            BarElementModelPosition.LeftOrTop => LeftOrTopStackView,
+            BarElementModelPosition.RightOrBottom => RightOrBottomStackView,
+            BarElementModelPosition.Center => CenterStackView,
+            _ => throw new NotImplementedException()
+        };
+        var stackPanel = view.FindVisualChild<StackPanel>();
+        var stackViewItems = stackPanel?.Children;
+        if (stackViewItems != null)
+        {
+            foreach (var item in stackViewItems)
+            {
+                if (item is not StackViewItem stackViewItem) return;
+                var contentPresenterEx = stackViewItem.ContentPresenterEx;
+                var contentPresenter = contentPresenterEx.FindVisualChild<ContentPresenter>();
+                var content = contentPresenter?.Content;
+                if (content is IPositionChanged positionChanged)
+                {
+                    var isHorizontal = ViewModel.DockMode is AppBarDockMode.Top or AppBarDockMode.Bottom;
+                    var position = barElementPosition switch
+                    {
+                        BarElementModelPosition.LeftOrTop => isHorizontal ? BarElementPosition.Left : BarElementPosition.Top,
+                        BarElementModelPosition.Center => isHorizontal ? BarElementPosition.HorizontalCenter : BarElementPosition.VerticalCenter,
+                        BarElementModelPosition.RightOrBottom => isHorizontal ? BarElementPosition.Right : BarElementPosition.Bottom,
+                        _ => throw new NotSupportedException()
+                    };
+                    positionChanged.OnDockModeChanged(position);
+                }
+            }
         }
     }
 
