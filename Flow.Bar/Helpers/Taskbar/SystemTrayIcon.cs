@@ -9,8 +9,8 @@ using Windows.Win32;
 using Windows.Win32.Foundation;
 using Windows.Win32.UI.Shell;
 using Windows.Win32.UI.WindowsAndMessaging;
-using RoutedEventHandler = System.Windows.RoutedEventHandler;
 using RoutedEventArgs = System.Windows.RoutedEventArgs;
+using RoutedEventHandler = System.Windows.RoutedEventHandler;
 
 namespace Flow.Bar.Helpers.Taskbar;
 
@@ -115,7 +115,7 @@ public sealed partial class SystemTrayIcon : IDisposable
             identifier.guidItem = Id;
 
             // Get RECT
-            PInvoke.Shell_NotifyIconGetRect(in identifier, out RECT _IconLocation);
+            PInvoke.Shell_NotifyIconGetRect(in identifier, out var _IconLocation);
 
             return new Rect(
                 _IconLocation.left,

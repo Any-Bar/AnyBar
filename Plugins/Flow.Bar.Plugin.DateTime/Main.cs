@@ -43,7 +43,7 @@ public class Main : IPlugin, IPluginI18n, ICustomLeftClickMenu, IRightClickMenu
 
     public void OnApplyLeftClickMenuTemplate(ContextMenu menu)
     {
-        
+
     }
 
     public ContextMenuPopupMode RightClickMenuPopupMode => ContextMenuPopupMode.AlwaysPopup;
