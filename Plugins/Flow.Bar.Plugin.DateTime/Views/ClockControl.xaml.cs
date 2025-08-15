@@ -8,6 +8,8 @@ namespace Flow.Bar.Plugin.DateTime.Views;
 
 public partial class DateTimeControl : UserControl, IPositionChanged
 {
+    private static readonly string ClassName = nameof(DateTimeControl);
+
     private readonly DispatcherTimer _timer = new()
     {
         Interval = TimeSpan.FromSeconds(1)
@@ -35,6 +37,7 @@ public partial class DateTimeControl : UserControl, IPositionChanged
 
     public void OnDockModeChanged(BarElementPosition position)
     {
+        Main.Context.API.LogVerbose(ClassName, "Dock mode changed");
         switch (position)
         {
             case BarElementPosition.Left:
