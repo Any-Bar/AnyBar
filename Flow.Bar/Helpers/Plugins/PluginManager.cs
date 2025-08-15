@@ -9,6 +9,7 @@ using Flow.Bar.Extensions;
 using Flow.Bar.Models.AppBar;
 using Flow.Bar.Models.Plugins;
 using Flow.Bar.Plugin;
+using Flow.Bar.Services;
 
 namespace Flow.Bar.Helpers.Plugins;
 
@@ -59,6 +60,9 @@ public static class PluginManager
 
         // Load plugins
         _allLoadedPlugins = PluginsLoader.Plugins(metadatas);
+
+        // Load plugin resources
+        ResourcesService.LoadPluginResources();
 
         // Since dotnet plugins need to get assembly name first, we should update plugin directory after loading plugins
         UpdatePluginDirectory(metadatas);
