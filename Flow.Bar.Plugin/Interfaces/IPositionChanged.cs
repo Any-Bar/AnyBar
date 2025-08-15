@@ -6,10 +6,10 @@
 /// <remarks>
 /// This interface should be implemented by bar elements returned from <see cref="IAsyncPlugin.GetBarElement(BarElementPosition)"/>.
 /// </remarks>
-public interface IDockModeChanged
+public interface IPositionChanged
 {
     /// <summary>
-    /// Invoked when the dock mode changes.
+    /// Invoked when the position of the current element changes.
     /// </summary>
     /// <param name="position"></param>
     void OnDockModeChanged(BarElementPosition position);
