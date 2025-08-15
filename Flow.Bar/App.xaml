@@ -15,9 +15,9 @@
                 <!--  Languages  -->
                 <ResourceDictionary Source="/Languages/en.xaml" />
                 <!--  Styles  -->
-                <ResourceDictionary Source="/Resources/ResourceDictionaries/SettingWindowStyle.xaml" />
-                <ResourceDictionary Source="/Resources/ResourceDictionaries/ContentDialogStyle.xaml" />
-                <ResourceDictionary Source="/Resources/ResourceDictionaries/ContextMenuStyle.xaml" />
+                <ResourceDictionary Source="/Styles/SettingWindowStyle.xaml" />
+                <ResourceDictionary Source="/Styles/ContentDialogStyle.xaml" />
+                <ResourceDictionary Source="/Styles/ContextMenuStyle.xaml" />
                 <!--  Controls  -->
                 <ResourceDictionary Source="/Controls/AutoSuggestBox/AutoSuggestBoxEx.xaml" />
                 <ResourceDictionary Source="/Controls/ContentDialog/ContentDialog.xaml" />
