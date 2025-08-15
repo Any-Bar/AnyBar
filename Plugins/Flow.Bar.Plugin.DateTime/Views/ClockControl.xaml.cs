@@ -3,16 +3,16 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Threading;
 
-namespace Flow.Bar.Plugin.Clock.Views;
+namespace Flow.Bar.Plugin.DateTime.Views;
 
-public partial class ClockControl : UserControl
+public partial class DateTimeControl : UserControl
 {
     private readonly DispatcherTimer _timer = new()
     {
         Interval = TimeSpan.FromSeconds(1)
     };
 
-    public ClockControl(BarElementPosition position)
+    public DateTimeControl(BarElementPosition position)
     {
         InitializeComponent();
         SetTime();
@@ -66,7 +66,7 @@ public partial class ClockControl : UserControl
 
     private void SetTime()
     {
-        TimeTextBlock.Text = DateTime.Now.ToShortTimeString();
-        DateTextBlock.Text = DateTime.Now.ToShortDateString();
+        TimeTextBlock.Text = System.DateTime.Now.ToShortTimeString();
+        DateTextBlock.Text = System.DateTime.Now.ToShortDateString();
     }
 }

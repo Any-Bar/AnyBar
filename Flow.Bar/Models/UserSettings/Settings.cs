@@ -76,8 +76,8 @@ public class Settings
                 new()
                 {
                     Order = 0,
-                    ID = Constants.FlowBarPluginClockPluginId,
-                    Name = "Clock",
+                    ID = Constants.FlowBarPluginDateTimePluginId,
+                    Name = "Date and time",
                 }
             ]
         };

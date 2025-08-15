@@ -191,7 +191,7 @@ public static class PluginManager
 
     public static bool IsPreinstalled(string id)
     {
-        return id == Constants.FlowBarPluginClockPluginId;
+        return id == Constants.FlowBarPluginDateTimePluginId;
     }
 
     public static bool IsInitialized(string id)

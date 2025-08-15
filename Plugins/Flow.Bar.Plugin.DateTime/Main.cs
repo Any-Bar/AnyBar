@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
-using Flow.Bar.Plugin.Clock.Views;
+using Flow.Bar.Plugin.DateTime.Views;
 using iNKORE.UI.WPF.Modern.Controls;
 
-namespace Flow.Bar.Plugin.Clock;
+namespace Flow.Bar.Plugin.DateTime;
 
 public class Main : IPlugin, IPluginI18n, ICustomLeftClickMenu, IRightClickMenu
 {
@@ -21,24 +21,24 @@ public class Main : IPlugin, IPluginI18n, ICustomLeftClickMenu, IRightClickMenu
 
     public FrameworkElement GetBarElement(BarElementPosition position)
     {
-        return new ClockControl(position);
+        return new DateTimeControl(position);
     }
 
     public string GetTranslatedPluginTitle()
     {
-        return Localize.FlowBarPlugin_Clock_PluginName();
+        return Localize.FlowBarPlugin_DateTime_PluginName();
     }
 
     public string GetTranslatedPluginDescription()
     {
-        return Localize.FlowBarPlugin_Clock_PluginDescription();
+        return Localize.FlowBarPlugin_DateTime_PluginDescription();
     }
 
     public ContextMenuPopupMode LeftClickMenuPopupMode => ContextMenuPopupMode.PopupAndFadeAway;
 
     public Style GetLeftClickMenuMenuStyle()
     {
-        return (Style)Application.Current.Resources["FlowBarPlugin_Clock_LeftClickMenuStyle"];
+        return (Style)Application.Current.Resources["FlowBarPlugin_DateTime_LeftClickMenuStyle"];
     }
 
     public void OnApplyLeftClickMenuTemplate(ContextMenu menu)
@@ -55,7 +55,7 @@ public class Main : IPlugin, IPluginI18n, ICustomLeftClickMenu, IRightClickMenu
         {
             Icon = new FontIcon { Glyph = "\ue713" }
         };
-        adjustDateTimeItem.SetResourceReference(HeaderedItemsControl.HeaderProperty, nameof(Localize.FlowBarPlugin_Clock_RightClickMenu_AdjustDateTime));
+        adjustDateTimeItem.SetResourceReference(HeaderedItemsControl.HeaderProperty, nameof(Localize.FlowBarPlugin_DateTime_RightClickMenu_AdjustDateTime));
         adjustDateTimeItem.Click += AdjustDateTimeItem_Click;
         menuItems.Add(adjustDateTimeItem);
         return menuItems;
@@ -73,7 +73,7 @@ public class Main : IPlugin, IPluginI18n, ICustomLeftClickMenu, IRightClickMenu
         }
         catch (Exception ex)
         {
-            Context.API.ShowMsgError(Localize.FlowBarPlugin_Clock_RightClickMenu_FailToOpenDateTime());
+            Context.API.ShowMsgError(Localize.FlowBarPlugin_DateTime_RightClickMenu_FailToOpenDateTime());
             Context.API.LogFatal(ClassName, "Failed to open Date and Time settings", ex);
         }
     }
