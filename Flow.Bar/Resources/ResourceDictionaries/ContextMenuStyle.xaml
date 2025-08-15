@@ -170,10 +170,7 @@
     <Style
         x:Key="PluginUninstallationContextMenuStyle"
         BasedOn="{StaticResource PluginUninstallationContextMenuStyleBase}"
-        TargetType="controls:MenuFlyoutExPresenter">
-        <Setter Property="IsDefaultShadowEnabled" Value="{DynamicResource {x:Static SystemParameters.DropShadowKey}}" />
-        <Setter Property="HasDropShadow" Value="{Binding IsDefaultShadowEnabled, RelativeSource={RelativeSource Self}}" />
-    </Style>
+        TargetType="controls:MenuFlyoutExPresenter" />
 
     <!--  Bar Element Remove Context Menu  -->
     <Style x:Key="BarElementRemoveContextMenuStyleBase" TargetType="ContextMenu">
@@ -225,9 +222,6 @@
     <Style
         x:Key="BarElementRemoveContextMenuStyle"
         BasedOn="{StaticResource BarElementRemoveContextMenuStyleBase}"
-        TargetType="controls:MenuFlyoutExPresenter">
-        <Setter Property="IsDefaultShadowEnabled" Value="{DynamicResource {x:Static SystemParameters.DropShadowKey}}" />
-        <Setter Property="HasDropShadow" Value="{Binding IsDefaultShadowEnabled, RelativeSource={RelativeSource Self}}" />
-    </Style>
+        TargetType="controls:MenuFlyoutExPresenter" />
 
 </ResourceDictionary>
