@@ -5,7 +5,7 @@ using System.Windows.Controls;
 namespace Flow.Bar.Plugin;
 
 /// <summary>
-/// Interface for right-click context menus with menu items in Flow Bar plugins.
+/// Interface for Flow Bar plugins that have right-click context menus with menu items.
 /// </summary>
 public interface IRightClickMenu : IRightClickMenuBase
 {
@@ -17,7 +17,7 @@ public interface IRightClickMenu : IRightClickMenuBase
 }
 
 /// <summary>
-/// Interface for customized right-click context menus in Flow Bar plugins.
+/// Interface for Flow Bar plugins that have customized right-click context menus.
 /// </summary>
 public interface ICustomRightClickMenu : IRightClickMenuBase
 {
@@ -34,7 +34,7 @@ public interface ICustomRightClickMenu : IRightClickMenuBase
 }
 
 /// <summary>
-/// Base interface for right-click context menus in Flow Bar plugins.
+/// Base interface for Flow Bar plugins that have right-click context menus.
 /// </summary>
 /// <remarks>
 /// Do not implement this interface directly.

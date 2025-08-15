@@ -7,7 +7,7 @@ using System.Windows.Media;
 namespace Flow.Bar.Plugin;
 
 /// <summary>
-/// Public APIs that plugin can use.
+/// Public APIs that Flow Bar plugins can use.
 /// </summary>
 public interface IPublicAPI
 {

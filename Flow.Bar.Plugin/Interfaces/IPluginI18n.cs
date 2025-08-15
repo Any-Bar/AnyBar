@@ -1,9 +1,9 @@
-using System.Globalization;
+﻿using System.Globalization;
 
 namespace Flow.Bar.Plugin;
 
 /// <summary>
-/// Represent plugins that support internationalization.
+/// Interface for Flow Bar plugins that support internationalization.
 /// </summary>
 public interface IPluginI18n
 {

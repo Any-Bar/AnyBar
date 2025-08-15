@@ -5,7 +5,7 @@ using System.Windows.Controls;
 namespace Flow.Bar.Plugin;
 
 /// <summary>
-/// Interface for left-click context menus with menu items in Flow Bar plugins.
+/// Interface for Flow Bar plugins that have left-click context menus with menu items.
 /// </summary>
 public interface ILeftClickMenu : ILeftClickMenuBase
 {
@@ -17,7 +17,7 @@ public interface ILeftClickMenu : ILeftClickMenuBase
 }
 
 /// <summary>
-/// Interface for customized left-click context menus in Flow Bar plugins.
+/// Interface for Flow Bar plugins that have customized left-click context menus.
 /// </summary>
 public interface ICustomLeftClickMenu : ILeftClickMenuBase
 {
@@ -34,7 +34,7 @@ public interface ICustomLeftClickMenu : ILeftClickMenuBase
 }
 
 /// <summary>
-/// Base interface for left-click context menus in Flow Bar plugins.
+/// Base interface for Flow Bar plugins that have left-click context menus.
 /// </summary>
 /// <remarks>
 /// Do not implement this interface directly.
