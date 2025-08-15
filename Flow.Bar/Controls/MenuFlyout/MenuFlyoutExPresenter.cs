@@ -62,7 +62,7 @@ public class MenuFlyoutExPresenter : ContextMenu
 
     #endregion
 
-    internal Action<ContextMenu>? OnApplyTemplateAction { get; set; }
+    internal Action<ContextMenu>? OnApplyTemplateAction { get; set; } = null;
 
     internal ContextMenuPopupMode PopupMode { get; set; } = ContextMenuPopupMode.AlwaysPopup;
 
