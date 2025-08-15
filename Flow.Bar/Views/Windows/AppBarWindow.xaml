@@ -87,28 +87,28 @@
                         <MultiDataTrigger>
                             <MultiDataTrigger.Conditions>
                                 <Condition Binding="{Binding DockMode}" Value="{x:Static enum:AppBarDockMode.Top}" />
-                                <Condition Binding="{Binding IsResizable}" Value="False" />
+                                <Condition Binding="{Binding IsResizable}" Value="True" />
                             </MultiDataTrigger.Conditions>
                             <Setter Property="Cursor" Value="SizeNS" />
                         </MultiDataTrigger>
                         <MultiDataTrigger>
                             <MultiDataTrigger.Conditions>
                                 <Condition Binding="{Binding DockMode}" Value="{x:Static enum:AppBarDockMode.Bottom}" />
-                                <Condition Binding="{Binding IsResizable}" Value="False" />
+                                <Condition Binding="{Binding IsResizable}" Value="True" />
                             </MultiDataTrigger.Conditions>
                             <Setter Property="Cursor" Value="SizeNS" />
                         </MultiDataTrigger>
                         <MultiDataTrigger>
                             <MultiDataTrigger.Conditions>
                                 <Condition Binding="{Binding DockMode}" Value="{x:Static enum:AppBarDockMode.Left}" />
-                                <Condition Binding="{Binding IsResizable}" Value="False" />
+                                <Condition Binding="{Binding IsResizable}" Value="True" />
                             </MultiDataTrigger.Conditions>
                             <Setter Property="Cursor" Value="SizeWE" />
                         </MultiDataTrigger>
                         <MultiDataTrigger>
                             <MultiDataTrigger.Conditions>
                                 <Condition Binding="{Binding DockMode}" Value="{x:Static enum:AppBarDockMode.Right}" />
-                                <Condition Binding="{Binding IsResizable}" Value="False" />
+                                <Condition Binding="{Binding IsResizable}" Value="True" />
                             </MultiDataTrigger.Conditions>
                             <Setter Property="Cursor" Value="SizeWE" />
                         </MultiDataTrigger>
