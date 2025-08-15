@@ -58,7 +58,7 @@ public class Main : IPlugin, IPluginI18n, ILeftClickMenu, IRightClickMenu
         {
             Icon = new FontIcon { Glyph = "\ue713" }
         };
-        adjustDateTimeItem.SetResourceReference(HeaderedItemsControl.HeaderProperty, "FlowBarPlugin_Clock_RightClickMenu_AdjustDateTime");
+        adjustDateTimeItem.SetResourceReference(HeaderedItemsControl.HeaderProperty, nameof(Localize.FlowBarPlugin_Clock_RightClickMenu_AdjustDateTime));
         adjustDateTimeItem.Click += AdjustDateTimeItem_Click;
         menuItems.Add(adjustDateTimeItem);
         return menuItems;
