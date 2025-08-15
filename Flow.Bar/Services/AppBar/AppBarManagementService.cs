@@ -67,7 +67,15 @@ public class AppBarManagementService(Settings settings)
         {
             foreach (var appBarWindow in AppBarWindowPairs.Values)
             {
-                appBarWindow.Close();
+                try
+                {
+                    appBarWindow.Close();
+                }
+                catch (Exception e)
+                {
+                    // Log the exception but do not throw it, as we are disposing
+                    App.API.LogError(nameof(AppBarManagementService), "Error while closing AppBarWindow", e);
+                }
             }
             AppBarWindowPairs.Clear();
         }
