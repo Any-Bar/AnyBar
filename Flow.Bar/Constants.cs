@@ -26,6 +26,11 @@ public static class Constants
 
     public static readonly string Images = "Images";
     private static readonly string ImagesDirectory = Path.Combine(ProgramDirectory, Images);
+#if DEBUG
+    public static readonly string AppIcon = Path.Combine(ImagesDirectory, "dev.ico");
+#else
+    public static readonly string AppIcon = Path.Combine(ImagesDirectory, "app.ico");
+#endif
     public static readonly string DefaultIcon = Path.Combine(ImagesDirectory, "app.png");
     public static readonly string ErrorIcon = Path.Combine(ImagesDirectory, "error.png");
     public static readonly string QuestionIcon = Path.Combine(ImagesDirectory, "question.png");

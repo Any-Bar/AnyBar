@@ -7,7 +7,6 @@
     <OutputType Condition="'$(Configuration)' == 'Release'">WinExe</OutputType>
     <TargetFramework>net9.0-windows10.0.19041.0</TargetFramework>
     <UseWPF>true</UseWPF>
-    <UseWindowsForms>true</UseWindowsForms>
     <StartupObject>Flow.Bar.App</StartupObject>
     <ApplicationIcon>Images\app.ico</ApplicationIcon>
     <ApplicationManifest>app.manifest</ApplicationManifest>
@@ -108,21 +107,6 @@
     <ProjectReference Include="..\Localization\Flow.Bar.Localization.Attributes\Flow.Bar.Localization.Attributes.csproj" OutputItemType="Analyzer" />
     <ProjectReference Include="..\Localization\Flow.Bar.Localization.Shared\Flow.Bar.Localization.Shared.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
     <ProjectReference Include="..\Localization\Flow.Bar.Localization.SourceGenerators\Flow.Bar.Localization.SourceGenerators.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Compile Update="Properties\Resource.Designer.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resource.resx</DependentUpon>
-    </Compile>
-  </ItemGroup>
-
-  <ItemGroup>
-    <EmbeddedResource Update="Properties\Resource.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resource.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
   </ItemGroup>
 
   <PropertyGroup>

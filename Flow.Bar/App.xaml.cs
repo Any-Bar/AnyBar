@@ -13,6 +13,7 @@ using Flow.Bar.Helpers.Image;
 using Flow.Bar.Helpers.Logging;
 using Flow.Bar.Helpers.Plugins;
 using Flow.Bar.Helpers.Startup;
+using Flow.Bar.Helpers.Taskbar;
 using Flow.Bar.Models;
 using Flow.Bar.Models.Language;
 using Flow.Bar.Models.Storage;
@@ -28,8 +29,6 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Toolkit.Uwp.Notifications;
 using Windows.Win32;
 using MessageBox = System.Windows.MessageBox;
-using MouseButtons = System.Windows.Forms.MouseButtons;
-using NotifyIcon = System.Windows.Forms.NotifyIcon;
 
 namespace Flow.Bar;
 
@@ -42,7 +41,7 @@ public partial class App : Application, IDisposable, ISingleInstanceApp
 
     private static bool _disposed;
 
-    private NotifyIcon _notifyIcon = null!;
+    private SystemTrayIcon _notifyIcon = null!;
     private readonly ContextMenu _contextMenu = new();
 
     // To prevent two disposals running at the same time.
@@ -196,13 +195,13 @@ public partial class App : Application, IDisposable, ISingleInstanceApp
 
             await imageLoadertask;
 
+            InitNotifyIcon();
+
             if (!Settings.HideSettingWindow)
             {
                 var settingWindow = new SettingWindow();
                 settingWindow.Show();
             }
-
-            InitNotifyIcon();
 
             Ioc.Default.GetRequiredService<AppBarManagementService>().InitializeAllAppBarWindows();
 
@@ -363,33 +362,22 @@ public partial class App : Application, IDisposable, ISingleInstanceApp
         };
         _contextMenu.Items.Add(settingItem);
         _contextMenu.Items.Add(exitItem);
-        _notifyIcon = new NotifyIcon
+        _notifyIcon = new SystemTrayIcon
         {
-            Text = Constants.FlowBarFullName,
-#if DEBUG
-            Icon = Flow.Bar.Properties.Resource.dev,
-#else
-            Icon = Flow.Bar.Properties.Resource.app,
-#endif
-            Visible = true
+            Tooltip = Constants.FlowBarFullName,
+            Icon = new(Constants.AppIcon)
         };
-        _notifyIcon.MouseClick += (o, e) =>
+        _notifyIcon.RightClick += (o, e) =>
         {
-            switch (e.Button)
+            _contextMenu.IsOpen = true;
+            // Get context menu handle and bring it to the foreground at the topmost
+            if (PresentationSource.FromVisual(_contextMenu) is HwndSource hwndSource)
             {
-                case MouseButtons.Right:
-
-                    _contextMenu.IsOpen = true;
-                    // Get context menu handle and bring it to the foreground at the topmost
-                    if (PresentationSource.FromVisual(_contextMenu) is HwndSource hwndSource)
-                    {
-                        PInvokeHelper.SetForegroundWindow(hwndSource.Handle);
-                    }
-                    _contextMenu.Focus();
-
-                    break;
+                PInvokeHelper.SetForegroundWindow(hwndSource.Handle);
             }
+            _contextMenu.Focus();
         };
+        _notifyIcon.Show();
     }
 
     #endregion
@@ -422,7 +410,7 @@ public partial class App : Application, IDisposable, ISingleInstanceApp
             {
                 // Dispose needs to be called on the main Windows thread,
                 // since some resources owned by the thread need to be disposed.
-                _notifyIcon.Visible = false;
+                _notifyIcon.Hide();
                 _notifyIcon.Dispose();
                 Ioc.Default.GetRequiredService<AppBarManagementService>().Dispose();
                 ToastNotificationManagerCompat.Uninstall();
