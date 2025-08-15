@@ -22,15 +22,15 @@ public interface ILeftClickMenu : ILeftClickMenuBase
 public interface ICustomLeftClickMenu : ILeftClickMenuBase
 {
     /// <summary>
-    /// Retrieves style for the context menu.
+    /// Retrieves style for the left-click context menu.
     /// </summary>
     /// <returns></returns>
-    Style GetContextMenuStyle();
+    Style GetLeftClickMenuMenuStyle();
 
     /// <summary>
-    /// Applies the template to the context menu.
+    /// Applies the template to the left-click context menu.
     /// </summary>
-    void OnApplyTemplate(ContextMenu menu);
+    void OnApplyLeftClickMenuTemplate(ContextMenu menu);
 }
 
 /// <summary>

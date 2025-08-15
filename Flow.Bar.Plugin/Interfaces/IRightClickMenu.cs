@@ -22,15 +22,15 @@ public interface IRightClickMenu : IRightClickMenuBase
 public interface ICustomRightClickMenu : IRightClickMenuBase
 {
     /// <summary>
-    /// Retrieves style for the context menu.
+    /// Retrieves style for the right-click context menu.
     /// </summary>
     /// <returns></returns>
-    Style GetContextMenuStyle();
+    Style GetRightClickMenuStyle();
 
     /// <summary>
-    /// Applies the template to the context menu.
+    /// Applies the template to the right-click context menu.
     /// </summary>
-    void OnApplyTemplate(ContextMenu menu);
+    void OnApplyRightClickMenuTemplate(ContextMenu menu);
 }
 
 /// <summary>

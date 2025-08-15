@@ -460,7 +460,7 @@ public partial class AppBarWindow : Window
             else if (menuBase is ICustomLeftClickMenu customLeftClickMenu)
             {
                 helper = new(false, customLeftClickMenu.LeftClickMenuPopupMode,
-                    customLeftClickMenu.GetContextMenuStyle(), customLeftClickMenu.OnApplyTemplate)
+                    customLeftClickMenu.GetLeftClickMenuMenuStyle(), customLeftClickMenu.OnApplyLeftClickMenuTemplate)
                 {
                     Window = this
                 };
@@ -519,7 +519,7 @@ public partial class AppBarWindow : Window
             else if (menuBase is ICustomRightClickMenu customRightClickMenu)
             {
                 helper = new(false, customRightClickMenu.RightClickMenuPopupMode,
-                    customRightClickMenu.GetContextMenuStyle(), customRightClickMenu.OnApplyTemplate)
+                    customRightClickMenu.GetRightClickMenuStyle(), customRightClickMenu.OnApplyRightClickMenuTemplate)
                 {
                     Window = this
                 };
