@@ -362,6 +362,7 @@ public partial class App : Application, IDisposable, ISingleInstanceApp
         };
         _contextMenu.Items.Add(settingItem);
         _contextMenu.Items.Add(exitItem);
+        _contextMenu.Style = (Style)Current.FindResource("TrayIconContextMenuStyle");
         _notifyIcon = new SystemTrayIcon
         {
             Tooltip = Constants.FlowBarFullName,

@@ -115,6 +115,83 @@
 
     <Style BasedOn="{StaticResource DefaultMenuItemStyle}" TargetType="MenuItem" />
 
+    <!--  Tray Icon Context Menu  -->
+    <Style x:Key="TrayIconContextMenuStyle" TargetType="ContextMenu">
+        <Setter Property="Background" Value="{DynamicResource MenuFlyoutPresenterBackground}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource MenuFlyoutPresenterBorderBrush}" />
+        <Setter Property="BorderThickness" Value="{DynamicResource MenuFlyoutPresenterBorderThemeThickness}" />
+        <Setter Property="Padding" Value="{DynamicResource MenuFlyoutPresenterThemePadding}" />
+        <Setter Property="FontFamily" Value="{DynamicResource ContentControlThemeFontFamily}" />
+        <Setter Property="FontSize" Value="{DynamicResource ControlContentThemeFontSize}" />
+        <Setter Property="FontStyle" Value="Normal" />
+        <Setter Property="IsTabStop" Value="False" />
+        <Setter Property="KeyboardNavigation.TabNavigation" Value="None" />
+        <Setter Property="KeyboardNavigation.IsTabStop" Value="False" />
+        <Setter Property="FontWeight" Value="Normal" />
+        <Setter Property="Grid.IsSharedSizeScope" Value="true" />
+        <Setter Property="HasDropShadow" Value="{DynamicResource {x:Static SystemParameters.DropShadowKey}}" />
+        <Setter Property="Stylus.IsFlicksEnabled" Value="False" />
+        <Setter Property="MinWidth" Value="120" />
+        <Setter Property="MaxWidth" Value="{DynamicResource FlyoutThemeMaxWidth}" />
+        <Setter Property="MinHeight" Value="{DynamicResource MenuFlyoutThemeMinHeight}" />
+        <Setter Property="ui:ControlHelper.CornerRadius" Value="{DynamicResource OverlayCornerRadius}" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ContextMenu">
+                    <ui:ThemeShadowChrome
+                        x:Name="Shdw"
+                        CornerRadius="{TemplateBinding ui:ControlHelper.CornerRadius}"
+                        IsShadowEnabled="{TemplateBinding HasDropShadow}"
+                        SnapsToDevicePixels="True">
+                        <ui:ThemeShadowChrome.RenderTransform>
+                            <TranslateTransform Y="30" />
+                        </ui:ThemeShadowChrome.RenderTransform>
+                        <Border
+                            MinHeight="{DynamicResource MenuFlyoutThemeMinHeight}"
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="{TemplateBinding ui:ControlHelper.CornerRadius}">
+                            <ui:ScrollViewerEx
+                                x:Name="ContextMenuScrollViewer"
+                                MinWidth="{DynamicResource FlyoutThemeMinWidth}"
+                                Margin="{TemplateBinding Padding}"
+                                Style="{DynamicResource {ComponentResourceKey ResourceId=MenuScrollViewer,
+                                                                              TypeInTargetAssembly={x:Type FrameworkElement}}}">
+                                <ItemsPresenter
+                                    KeyboardNavigation.DirectionalNavigation="None"
+                                    KeyboardNavigation.TabNavigation="None"
+                                    RenderOptions.ClearTypeHint="Enabled"
+                                    SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                            </ui:ScrollViewerEx>
+                        </Border>
+                    </ui:ThemeShadowChrome>
+                    <!--  // TODO: Add support for popup animation for different popup directions  -->
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsOpen" Value="True">
+                            <Trigger.EnterActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation
+                                            Storyboard.TargetName="Shdw"
+                                            Storyboard.TargetProperty="(Border.RenderTransform).(TranslateTransform.Y)"
+                                            From="30"
+                                            To="0"
+                                            Duration="00:00:00.167">
+                                            <DoubleAnimation.EasingFunction>
+                                                <CircleEase EasingMode="EaseOut" />
+                                            </DoubleAnimation.EasingFunction>
+                                        </DoubleAnimation>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.EnterActions>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
     <!--  Custom Context Menu  -->
     <sys:Double x:Key="CustomContextMenuWidth">275</sys:Double>
     <sys:Double x:Key="SecondaryContextMenuWidth">300</sys:Double>
