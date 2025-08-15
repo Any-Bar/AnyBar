@@ -30,7 +30,7 @@ public class AppBarMenuFlyoutHelper : IDisposable
     {
         _handled = handled;
         _popupMode = popupMode;
-        _contextMenu.EnableHideAnimation = popupMode == ContextMenuPopupMode.PopupAndFadeAway;
+        _contextMenu.PopupMode = popupMode;
         if (contextMenuStyle != null)
         {
             _contextMenu.MenuFlyoutPresenterStyle = contextMenuStyle;

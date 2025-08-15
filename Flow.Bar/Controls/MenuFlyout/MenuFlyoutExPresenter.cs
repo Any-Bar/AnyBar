@@ -6,6 +6,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Threading;
+using Flow.Bar.Plugin;
 using iNKORE.UI.WPF.Helpers;
 using ControlHelper = iNKORE.UI.WPF.Modern.Controls.Helpers.ControlHelper;
 
@@ -63,7 +64,7 @@ public class MenuFlyoutExPresenter : ContextMenu
 
     internal Action<ContextMenu>? OnApplyTemplateAction { get; set; }
 
-    internal bool EnableHideAnimation { get; set; }
+    internal ContextMenuPopupMode PopupMode { get; set; } = ContextMenuPopupMode.AlwaysPopup;
 
     internal event EventHandler<DependencyPropertyChangedEventArgs>? IsOpenChanged;
 
@@ -127,7 +128,7 @@ public class MenuFlyoutExPresenter : ContextMenu
         }
         else
         {
-            if (EnableHideAnimation && App.Settings.EnableAnimationEffects)
+            if (PopupMode == ContextMenuPopupMode.PopupAndFadeAway && App.Settings.EnableAnimationEffects)
             {
                 m_asyncHide = Dispatcher.BeginInvoke(DispatcherPriority.Loaded, ApplyCloseAnimation);
             }

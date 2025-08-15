@@ -4,6 +4,7 @@ using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Markup;
 using System.Windows.Threading;
+using Flow.Bar.Plugin;
 
 namespace Flow.Bar.Controls;
 
@@ -33,10 +34,10 @@ public class MenuFlyoutEx : DependencyObject
         set => EnsurePresenter().OnApplyTemplateAction = value;
     }
 
-    public bool EnableHideAnimation
+    public ContextMenuPopupMode PopupMode
     {
-        get => EnsurePresenter().EnableHideAnimation;
-        set => EnsurePresenter().EnableHideAnimation = value;
+        get => EnsurePresenter().PopupMode;
+        set => EnsurePresenter().PopupMode = value;
     }
 
     #region Width
