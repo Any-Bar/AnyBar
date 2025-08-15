@@ -165,40 +165,11 @@ public class MenuFlyoutExPresenter : ContextMenu
                 chorme.RenderTransform = translateTransform;
             }
 
-            double? from = null;
-            var dp = TranslateTransform.YProperty;
             double timeDuration = 0;
             if (m_owningFlyout != null && m_owningFlyout.TryGetTarget(out var flyout) &&
                 flyout.CurrentOptions?.Placement is MenuFlyoutExPlacementMode placement)
             {
-                from = placement switch
-                {
-                    MenuFlyoutExPlacementMode.Left or MenuFlyoutExPlacementMode.Top => C_offset,
-                    MenuFlyoutExPlacementMode.Right or MenuFlyoutExPlacementMode.Bottom => -C_offset,
-                    MenuFlyoutExPlacementMode.Full => null,
-                    MenuFlyoutExPlacementMode.TopEdgeAlignedLeft or MenuFlyoutExPlacementMode.TopEdgeAlignedRight => C_offset,
-                    MenuFlyoutExPlacementMode.BottomEdgeAlignedLeft or MenuFlyoutExPlacementMode.BottomEdgeAlignedRight => -C_offset,
-                    MenuFlyoutExPlacementMode.LeftEdgeAlignedTop or MenuFlyoutExPlacementMode.LeftEdgeAlignedBottom => C_offset,
-                    MenuFlyoutExPlacementMode.RightEdgeAlignedTop or MenuFlyoutExPlacementMode.RightEdgeAlignedBottom => -C_offset,
-                    MenuFlyoutExPlacementMode.Auto => throw new NotImplementedException($"{MenuFlyoutExPlacementMode.Auto} is not supported in {nameof(MenuFlyoutEx)}"),
-                    MenuFlyoutExPlacementMode.AppBarLeft or MenuFlyoutExPlacementMode.AppBarTop => C_offset,
-                    MenuFlyoutExPlacementMode.AppBarRight or MenuFlyoutExPlacementMode.AppBarBottom => -C_offset,
-                    _ => null
-                };
-                dp = placement switch
-                {
-                    MenuFlyoutExPlacementMode.Top or MenuFlyoutExPlacementMode.Bottom => TranslateTransform.YProperty,
-                    MenuFlyoutExPlacementMode.Left or MenuFlyoutExPlacementMode.Right => TranslateTransform.XProperty,
-                    MenuFlyoutExPlacementMode.Full => dp,
-                    MenuFlyoutExPlacementMode.TopEdgeAlignedLeft or MenuFlyoutExPlacementMode.TopEdgeAlignedRight => TranslateTransform.YProperty,
-                    MenuFlyoutExPlacementMode.BottomEdgeAlignedLeft or MenuFlyoutExPlacementMode.BottomEdgeAlignedRight => TranslateTransform.YProperty,
-                    MenuFlyoutExPlacementMode.LeftEdgeAlignedTop or MenuFlyoutExPlacementMode.LeftEdgeAlignedBottom => TranslateTransform.XProperty,
-                    MenuFlyoutExPlacementMode.RightEdgeAlignedTop or MenuFlyoutExPlacementMode.RightEdgeAlignedBottom => TranslateTransform.XProperty,
-                    MenuFlyoutExPlacementMode.Auto => dp,
-                    MenuFlyoutExPlacementMode.AppBarTop or MenuFlyoutExPlacementMode.AppBarBottom => TranslateTransform.YProperty,
-                    MenuFlyoutExPlacementMode.AppBarLeft or MenuFlyoutExPlacementMode.AppBarRight => TranslateTransform.XProperty,
-                    _ => dp
-                };
+                var animationProperty = GetAnimationProperty(placement);
                 timeDuration = placement switch
                 {
                     MenuFlyoutExPlacementMode.Top or MenuFlyoutExPlacementMode.Bottom => RenderSize.Height * Vtd_factor,
@@ -212,17 +183,52 @@ public class MenuFlyoutExPresenter : ContextMenu
                     MenuFlyoutExPlacementMode.AppBarLeft or MenuFlyoutExPlacementMode.AppBarRight => RenderSize.Width * Htd_factor,
                     _ => timeDuration
                 };
+
+
+                double? from;
+                if (PopupMode == ContextMenuPopupMode.AlwaysPopup)
+                {
+                    from = GetTargetValue(placement, true);
+
+                    var animation = new DoubleAnimation
+                    {
+                        From = from,
+                        To = 0,
+                        Duration = TimeSpan.FromSeconds(timeDuration),
+                        EasingFunction = new CircleEase { EasingMode = EasingMode.EaseOut }
+                    };
+
+                    translateTransform.BeginAnimation(animationProperty, animation);
+                }
+                else
+                {
+                    from = GetTargetValue(placement, false);
+
+                    // This makes sure that the initial position is set correctly
+                    // And it will only work before any animation is applied
+                    if (!translateTransform.IsSealed)
+                    {
+                        translateTransform.SetValue(animationProperty, from);
+                    }
+
+                    var animationDuration = TimeSpan.FromSeconds(timeDuration);
+                    var animation = new DoubleAnimationUsingKeyFrames
+                    {
+                        KeyFrames =
+                        [
+                            new SplineDoubleKeyFrame
+                            {
+                                KeySpline = new KeySpline(0, 0, 0, 1),
+                                KeyTime = animationDuration,
+                                Value = 0
+                            },
+                        ],
+                        Duration = animationDuration
+                    };
+
+                    translateTransform.BeginAnimation(animationProperty, animation);
+                }
             }
-
-            var animation = new DoubleAnimation
-            {
-                From = from,
-                To = 0,
-                Duration = TimeSpan.FromSeconds(timeDuration),
-                EasingFunction = new CircleEase { EasingMode = EasingMode.EaseOut }
-            };
-
-            translateTransform.BeginAnimation(dp, animation);
         }
 
         m_asyncShow = null;
@@ -244,39 +250,13 @@ public class MenuFlyoutExPresenter : ContextMenu
             }
 
             double? to = null;
-            var dp = TranslateTransform.YProperty;
+            var animationProperty = TranslateTransform.YProperty;
             double timeDuration = 0;
             if (m_owningFlyout != null && m_owningFlyout.TryGetTarget(out var flyout) &&
                 flyout.CurrentOptions?.Placement is MenuFlyoutExPlacementMode placement)
             {
-                to = placement switch
-                {
-                    MenuFlyoutExPlacementMode.Left or MenuFlyoutExPlacementMode.Top => C_closeOffset,
-                    MenuFlyoutExPlacementMode.Right or MenuFlyoutExPlacementMode.Bottom => -C_closeOffset,
-                    MenuFlyoutExPlacementMode.Full => null,
-                    MenuFlyoutExPlacementMode.TopEdgeAlignedLeft or MenuFlyoutExPlacementMode.TopEdgeAlignedRight => C_closeOffset,
-                    MenuFlyoutExPlacementMode.BottomEdgeAlignedLeft or MenuFlyoutExPlacementMode.BottomEdgeAlignedRight => -C_closeOffset,
-                    MenuFlyoutExPlacementMode.LeftEdgeAlignedTop or MenuFlyoutExPlacementMode.LeftEdgeAlignedBottom => C_closeOffset,
-                    MenuFlyoutExPlacementMode.RightEdgeAlignedTop or MenuFlyoutExPlacementMode.RightEdgeAlignedBottom => -C_closeOffset,
-                    MenuFlyoutExPlacementMode.Auto => throw new NotImplementedException($"{MenuFlyoutExPlacementMode.Auto} is not supported in {nameof(MenuFlyoutEx)}"),
-                    MenuFlyoutExPlacementMode.AppBarLeft or MenuFlyoutExPlacementMode.AppBarTop => C_closeOffset,
-                    MenuFlyoutExPlacementMode.AppBarRight or MenuFlyoutExPlacementMode.AppBarBottom => -C_closeOffset,
-                    _ => null
-                };
-                dp = placement switch
-                {
-                    MenuFlyoutExPlacementMode.Top or MenuFlyoutExPlacementMode.Bottom => TranslateTransform.YProperty,
-                    MenuFlyoutExPlacementMode.Left or MenuFlyoutExPlacementMode.Right => TranslateTransform.XProperty,
-                    MenuFlyoutExPlacementMode.Full => dp,
-                    MenuFlyoutExPlacementMode.TopEdgeAlignedLeft or MenuFlyoutExPlacementMode.TopEdgeAlignedRight => TranslateTransform.YProperty,
-                    MenuFlyoutExPlacementMode.BottomEdgeAlignedLeft or MenuFlyoutExPlacementMode.BottomEdgeAlignedRight => TranslateTransform.YProperty,
-                    MenuFlyoutExPlacementMode.LeftEdgeAlignedTop or MenuFlyoutExPlacementMode.LeftEdgeAlignedBottom => TranslateTransform.XProperty,
-                    MenuFlyoutExPlacementMode.RightEdgeAlignedTop or MenuFlyoutExPlacementMode.RightEdgeAlignedBottom => TranslateTransform.XProperty,
-                    MenuFlyoutExPlacementMode.Auto => dp,
-                    MenuFlyoutExPlacementMode.AppBarTop or MenuFlyoutExPlacementMode.AppBarBottom => TranslateTransform.YProperty,
-                    MenuFlyoutExPlacementMode.AppBarLeft or MenuFlyoutExPlacementMode.AppBarRight => TranslateTransform.XProperty,
-                    _ => dp
-                };
+                to = GetTargetValue(placement, false);
+                animationProperty = GetAnimationProperty(placement);
                 timeDuration = placement switch
                 {
                     MenuFlyoutExPlacementMode.Top or MenuFlyoutExPlacementMode.Bottom => RenderSize.Height * Cvtd_factor,
@@ -292,20 +272,76 @@ public class MenuFlyoutExPresenter : ContextMenu
                 };
             }
 
+            var animationDuration = TimeSpan.FromSeconds(timeDuration);
             var animation = new DoubleAnimation
             {
                 From = 0,
                 To = to,
-                Duration = TimeSpan.FromSeconds(timeDuration),
+                Duration = animationDuration,
                 EasingFunction = new CircleEase { EasingMode = EasingMode.EaseOut }
             };
 
-            translateTransform.BeginAnimation(dp, animation);
+            translateTransform.BeginAnimation(animationProperty, animation);
         }
 
         m_asyncHide = null;
     }
 
+    private static double? GetTargetValue(MenuFlyoutExPlacementMode placement, bool open)
+    {
+        if (open)
+        {
+            return placement switch
+            {
+                MenuFlyoutExPlacementMode.Left or MenuFlyoutExPlacementMode.Top => C_offset,
+                MenuFlyoutExPlacementMode.Right or MenuFlyoutExPlacementMode.Bottom => -C_offset,
+                MenuFlyoutExPlacementMode.Full => null,
+                MenuFlyoutExPlacementMode.TopEdgeAlignedLeft or MenuFlyoutExPlacementMode.TopEdgeAlignedRight => C_offset,
+                MenuFlyoutExPlacementMode.BottomEdgeAlignedLeft or MenuFlyoutExPlacementMode.BottomEdgeAlignedRight => -C_offset,
+                MenuFlyoutExPlacementMode.LeftEdgeAlignedTop or MenuFlyoutExPlacementMode.LeftEdgeAlignedBottom => C_offset,
+                MenuFlyoutExPlacementMode.RightEdgeAlignedTop or MenuFlyoutExPlacementMode.RightEdgeAlignedBottom => -C_offset,
+                MenuFlyoutExPlacementMode.Auto => throw new NotImplementedException($"{MenuFlyoutExPlacementMode.Auto} is not supported in {nameof(MenuFlyoutEx)}"),
+                MenuFlyoutExPlacementMode.AppBarLeft or MenuFlyoutExPlacementMode.AppBarTop => C_offset,
+                MenuFlyoutExPlacementMode.AppBarRight or MenuFlyoutExPlacementMode.AppBarBottom => -C_offset,
+                _ => null
+            };
+        }
+        else
+        {
+            return placement switch
+            {
+                MenuFlyoutExPlacementMode.Left or MenuFlyoutExPlacementMode.Top => C_closeOffset,
+                MenuFlyoutExPlacementMode.Right or MenuFlyoutExPlacementMode.Bottom => -C_closeOffset,
+                MenuFlyoutExPlacementMode.Full => null,
+                MenuFlyoutExPlacementMode.TopEdgeAlignedLeft or MenuFlyoutExPlacementMode.TopEdgeAlignedRight => C_closeOffset,
+                MenuFlyoutExPlacementMode.BottomEdgeAlignedLeft or MenuFlyoutExPlacementMode.BottomEdgeAlignedRight => -C_closeOffset,
+                MenuFlyoutExPlacementMode.LeftEdgeAlignedTop or MenuFlyoutExPlacementMode.LeftEdgeAlignedBottom => C_closeOffset,
+                MenuFlyoutExPlacementMode.RightEdgeAlignedTop or MenuFlyoutExPlacementMode.RightEdgeAlignedBottom => -C_closeOffset,
+                MenuFlyoutExPlacementMode.Auto => throw new NotImplementedException($"{MenuFlyoutExPlacementMode.Auto} is not supported in {nameof(MenuFlyoutEx)}"),
+                MenuFlyoutExPlacementMode.AppBarLeft or MenuFlyoutExPlacementMode.AppBarTop => C_closeOffset,
+                MenuFlyoutExPlacementMode.AppBarRight or MenuFlyoutExPlacementMode.AppBarBottom => -C_closeOffset,
+                _ => null
+            };
+        }
+    }
+
+    private static DependencyProperty GetAnimationProperty(MenuFlyoutExPlacementMode placement)
+    {
+        return placement switch
+        {
+            MenuFlyoutExPlacementMode.Top or MenuFlyoutExPlacementMode.Bottom => TranslateTransform.YProperty,
+            MenuFlyoutExPlacementMode.Left or MenuFlyoutExPlacementMode.Right => TranslateTransform.XProperty,
+            MenuFlyoutExPlacementMode.Full => TranslateTransform.YProperty,
+            MenuFlyoutExPlacementMode.TopEdgeAlignedLeft or MenuFlyoutExPlacementMode.TopEdgeAlignedRight => TranslateTransform.YProperty,
+            MenuFlyoutExPlacementMode.BottomEdgeAlignedLeft or MenuFlyoutExPlacementMode.BottomEdgeAlignedRight => TranslateTransform.YProperty,
+            MenuFlyoutExPlacementMode.LeftEdgeAlignedTop or MenuFlyoutExPlacementMode.LeftEdgeAlignedBottom => TranslateTransform.XProperty,
+            MenuFlyoutExPlacementMode.RightEdgeAlignedTop or MenuFlyoutExPlacementMode.RightEdgeAlignedBottom => TranslateTransform.XProperty,
+            MenuFlyoutExPlacementMode.Auto => TranslateTransform.YProperty,
+            MenuFlyoutExPlacementMode.AppBarTop or MenuFlyoutExPlacementMode.AppBarBottom => TranslateTransform.YProperty,
+            MenuFlyoutExPlacementMode.AppBarLeft or MenuFlyoutExPlacementMode.AppBarRight => TranslateTransform.XProperty,
+            _ => TranslateTransform.YProperty
+        };
+    }
 
     private void HandlePopupMouseButtonEvent(object sender, MouseButtonEventArgs e)
     {
