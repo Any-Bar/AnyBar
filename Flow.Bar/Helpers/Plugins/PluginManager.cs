@@ -20,8 +20,6 @@ public static class PluginManager
 {
     private static readonly string ClassName = nameof(PluginManager);
 
-    public static List<PluginPair> AllPlugins { get; private set; } = [];
-
     private static List<PluginPair> _allLoadedPlugins = null!;
     private static readonly ConcurrentDictionary<string, PluginPair> _allInitializedPlugins = [];
     private static readonly ConcurrentDictionary<string, PluginPair> _initFailedPlugins = [];
