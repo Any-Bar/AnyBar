@@ -23,7 +23,7 @@ public interface IAsyncPlugin
     FrameworkElement CreateBarElement(BarElementContext context);
 
     /// <summary>
-    /// Deletes the bar element with the runtime identifier.
+    /// Delete the bar element with the runtime identifier.
     /// </summary>
     /// <param name="id"></param>
     void DeleteBarElement(string id);

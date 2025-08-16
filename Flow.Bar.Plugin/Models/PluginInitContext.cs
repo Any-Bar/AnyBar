@@ -19,10 +19,10 @@ public sealed class PluginInitContext
     /// <summary>
     /// The metadata of the plugin being initialized.
     /// </summary>
-    public PluginMetadata CurrentPluginMetadata { get; set; }
+    public PluginMetadata CurrentPluginMetadata { get; }
 
     /// <summary>
     /// Public APIs for plugin invocation.
     /// </summary>
-    public IPublicAPI API { get; set; }
+    public IPublicAPI API { get; }
 }
