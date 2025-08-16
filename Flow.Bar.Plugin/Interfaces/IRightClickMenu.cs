@@ -1,8 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 
 namespace Flow.Bar.Plugin;
+
+#pragma warning disable CS0618 // Type or member is obsolete
 
 /// <summary>
 /// Interface for Flow Bar plugins that have right-click context menus with menu items.
@@ -38,8 +41,9 @@ public interface ICustomRightClickMenu : IRightClickMenuBase
 /// </summary>
 /// <remarks>
 /// Do not implement this interface directly.
-/// Use <see cref="ICustomRightClickMenu"/> instead.
+/// Please use <see cref="IRightClickMenu"/> or <see cref="ICustomRightClickMenu"/> instead.
 /// </remarks>
+[Obsolete("Do not implement this interface directly. Please use IRightClickMenu or ICustomRightClickMenu instead.")]
 public interface IRightClickMenuBase
 {
     /// <summary>

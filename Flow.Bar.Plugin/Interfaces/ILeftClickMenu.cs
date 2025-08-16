@@ -1,8 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 
 namespace Flow.Bar.Plugin;
+
+#pragma warning disable CS0618 // Type or member is obsolete
 
 /// <summary>
 /// Interface for Flow Bar plugins that have left-click context menus with menu items.
@@ -38,8 +41,9 @@ public interface ICustomLeftClickMenu : ILeftClickMenuBase
 /// </summary>
 /// <remarks>
 /// Do not implement this interface directly.
-/// Use <see cref="ICustomLeftClickMenu"/> instead.
+/// Please use <see cref="ILeftClickMenu"/> or <see cref="ICustomLeftClickMenu"/> instead.
 /// </remarks>
+[Obsolete("Do not implement this interface directly. Please use ILeftClickMenu or ICustomLeftClickMenu instead.")]
 public interface ILeftClickMenuBase
 {
     /// <summary>
