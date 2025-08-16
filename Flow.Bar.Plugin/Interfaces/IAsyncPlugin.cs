@@ -27,4 +27,10 @@ public interface IAsyncPlugin
     /// </summary>
     /// <param name="id"></param>
     void DeleteBarElement(string id);
+
+    /// <summary>
+    /// Invoked when the bar element context changes.
+    /// </summary>
+    /// <param name="args"></param>
+    void OnBarElementContextChanged(BarElementContextChangedAgrs args);
 }
