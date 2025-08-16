@@ -10,14 +10,16 @@ public interface ILeftClick
     /// <summary>
     /// Invoked when the left mouse button is pressed on the bar element.
     /// </summary>
+    /// <param name="context"></param>
     /// <param name="sender"></param>
     /// <param name="e"></param>
-    void OnMouseLeftButtonDown(object sender, MouseButtonEventArgs e);
+    void OnMouseLeftButtonDown(BarElementContext context, object sender, MouseButtonEventArgs e);
 
     /// <summary>
     /// Invoked when the left mouse button is released on the bar element.
     /// </summary>
+    /// <param name="context"></param>
     /// <param name="sender"></param>
     /// <param name="e"></param>
-    void OnMouseLeftButtonUp(object sender, MouseButtonEventArgs e);
+    void OnMouseLeftButtonUp(BarElementContext context, object sender, MouseButtonEventArgs e);
 }

@@ -10,14 +10,16 @@ public interface IRightClick
     /// <summary>
     /// Invoked when the right mouse button is pressed on the bar element.
     /// </summary>
+    /// <param name="context"></param>
     /// <param name="sender"></param>
     /// <param name="e"></param>
-    void OnMouseRightButtonDown(object sender, MouseButtonEventArgs e);
+    void OnMouseRightButtonDown(BarElementContext context, object sender, MouseButtonEventArgs e);
 
     /// <summary>
     /// Invoked when the right mouse button is released on the bar element.
     /// </summary>
+    /// <param name="context"></param>
     /// <param name="sender"></param>
     /// <param name="e"></param>
-    void OnMouseRightButtonUp(object sender, MouseButtonEventArgs e);
+    void OnMouseRightButtonUp(BarElementContext context, object sender, MouseButtonEventArgs e);
 }
