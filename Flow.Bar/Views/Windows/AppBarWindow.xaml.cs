@@ -578,6 +578,14 @@ public partial class AppBarWindow : Window
         if (e.ClickedItem is not StackViewItem item) return;
         if (item.DataContext is not BarElementModel model) return;
 
+        // Invoke left click event for plugins
+        if (PluginManager.GetLeftClick(model.ID) is ILeftClick leftClick)
+        {
+            leftClick.OnMouseLeftButtonDown(sender, e.OriginalEventArgs);
+        }
+        if (e.OriginalEventArgs.Handled) return;
+
+        // Prepare left click context menu
         App.API.LogVerbose(ClassName, $"Prepare {nameof(StackViewItem)} left click context menu");
         GetLeftClickAppBarMenuFlyoutHelper(item, model)?.MouseButtonDown(sender, e.OriginalEventArgs);
         e.OriginalEventArgs.Handled = true;
@@ -588,6 +596,14 @@ public partial class AppBarWindow : Window
         if (e.ClickedItem is not StackViewItem item) return;
         if (item.DataContext is not BarElementModel model) return;
 
+        // Invoke left click event for plugins
+        if (PluginManager.GetLeftClick(model.ID) is ILeftClick leftClick)
+        {
+            leftClick.OnMouseLeftButtonUp(sender, e.OriginalEventArgs);
+        }
+        if (e.OriginalEventArgs.Handled) return;
+
+        // Show left click context menu
         App.API.LogVerbose(ClassName, $"Show {nameof(StackViewItem)} left click context menu");
         GetLeftClickAppBarMenuFlyoutHelper(item, model)?.MouseButtonUp(sender, e.OriginalEventArgs);
         e.OriginalEventArgs.Handled = true;
@@ -637,6 +653,14 @@ public partial class AppBarWindow : Window
         if (e.ClickedItem is not StackViewItem item) return;
         if (item.DataContext is not BarElementModel model) return;
 
+        // Invoke right click event for plugins
+        if (PluginManager.GetRightClick(model.ID) is IRightClick rightClick)
+        {
+            rightClick.OnMouseRightButtonDown(sender, e.OriginalEventArgs);
+        }
+        if (e.OriginalEventArgs.Handled) return;
+
+        // Prepare right click context menu
         App.API.LogVerbose(ClassName, $"Prepare {nameof(StackViewItem)} right click context menu");
         GetRightClickAppBarMenuFlyoutHelper(item, model)?.MouseButtonDown(sender, e.OriginalEventArgs);
         e.OriginalEventArgs.Handled = true;
@@ -647,6 +671,14 @@ public partial class AppBarWindow : Window
         if (e.ClickedItem is not StackViewItem item) return;
         if (item.DataContext is not BarElementModel model) return;
 
+        // Invoke right click event for plugins
+        if (PluginManager.GetRightClick(model.ID) is IRightClick rightClick)
+        {
+            rightClick.OnMouseRightButtonUp(sender, e.OriginalEventArgs);
+        }
+        if (e.OriginalEventArgs.Handled) return;
+
+        // Show right click context menu
         App.API.LogVerbose(ClassName, $"Show {nameof(StackViewItem)} right click context menu");
         GetRightClickAppBarMenuFlyoutHelper(item, model)?.MouseButtonUp(sender, e.OriginalEventArgs);
         e.OriginalEventArgs.Handled = true;

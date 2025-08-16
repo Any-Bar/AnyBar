@@ -31,6 +31,8 @@ public static class PluginManager
     private static readonly ConcurrentBag<PluginPair> _translationPlugins = [];
     private static readonly ConcurrentDictionary<string, PluginPair> _leftClickMenuPlugins = [];
     private static readonly ConcurrentDictionary<string, PluginPair> _rightClickMenuPlugins = [];
+    private static readonly ConcurrentDictionary<string, PluginPair> _leftClickPlugins = [];
+    private static readonly ConcurrentDictionary<string, PluginPair> _rightClickPlugins = [];
 
     /// <summary>
     /// Directories that will hold Flow Bar plugin directory.
@@ -137,6 +139,14 @@ public static class PluginManager
         if (pair.Plugin is IRightClickMenu || pair.Plugin is ICustomRightClickMenu)
         {
             _rightClickMenuPlugins.TryAdd(pair.Metadata.ID, pair);
+        }
+        if (pair.Plugin is ILeftClick)
+        {
+            _leftClickPlugins.TryAdd(pair.Metadata.ID, pair);
+        }
+        if (pair.Plugin is IRightClick)
+        {
+            _rightClickPlugins.TryAdd(pair.Metadata.ID, pair);
         }
         _allInitializedPlugins.TryAdd(pair.Metadata.ID, pair);
     }
@@ -254,6 +264,29 @@ public static class PluginManager
     }
 
 #pragma warning restore CS0618 // Type or member is obsolete
+
+    #endregion
+
+    #region Left & Right Click
+
+    public static ILeftClick? GetLeftClick(string id)
+    {
+        if (_leftClickPlugins.TryGetValue(id, out var pair))
+        {
+            return (ILeftClick)pair.Plugin;
+        }
+
+        return null;
+    }
+
+    public static IRightClick? GetRightClick(string id)
+    {
+        if (_rightClickPlugins.TryGetValue(id, out var pair))
+        {
+            return (IRightClick)pair.Plugin;
+        }
+        return null;
+    }
 
     #endregion
 
