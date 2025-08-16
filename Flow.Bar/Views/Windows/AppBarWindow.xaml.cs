@@ -47,8 +47,6 @@ public partial class AppBarWindow : Window
     private bool _isInAppBarResize;
     private bool _isMinimized;
 
-    private readonly AppBarMenuFlyoutHelper _menuFlyoutHelper = new(true);
-
     #region Constructor
 
     public AppBarWindow(AppBarModel model)
@@ -63,35 +61,6 @@ public partial class AppBarWindow : Window
         Topmost = true;
         ViewModel.PropertyChanged += ViewModel_PropertyChanged;
         InitializeMenuFlyout();
-    }
-
-    #endregion
-
-    #region Initialization
-
-    private void InitializeMenuFlyout()
-    {
-        var settingItem = new MenuItem
-        {
-            Icon = new FontIcon { Glyph = "\ue713" }
-        };
-        settingItem.SetResourceReference(HeaderedItemsControl.HeaderProperty, nameof(Localize.SettingAppBarWindow_AppBarSettings));
-        settingItem.Click += (o, e) =>
-        {
-            // Setting window is already opened
-            if (WindowTracker.GetActiveWindow<SettingWindow>().Count > 0)
-            {
-                App.API.ShowSettingWindow();
-                _navigationViewService.NavigateTo(SettingPageTag.AppBarSetting, Model);
-            }
-            else
-            {
-                _navigationViewService.SetNextNavigation(SettingPageTag.AppBarSetting, Model);
-                App.API.ShowSettingWindow();
-            }
-        };
-        _menuFlyoutHelper.Items.Add(settingItem);
-        _menuFlyoutHelper.Window = this;
     }
 
     #endregion
@@ -449,7 +418,148 @@ public partial class AppBarWindow : Window
 
     #endregion
 
-    #region Grid Events
+    #region AppBar Helpers
+
+    /// <summary>
+    /// Resets the app bar data, which includes re-registering the app bar.
+    /// </summary>
+    /// <remarks>
+    /// When explorer.exe is restarted, the app bar may not be registered correctly.
+    /// Call this method to reset the app bar data and re-register it.
+    /// </remarks>
+    public void ResetAppBarData()
+    {
+        if (_isAppBarRegistered)
+        {
+            {
+                var abd = GetAppBarData();
+                PInvoke.SHAppBarMessage(PInvoke.ABM_REMOVE, ref abd);
+            }
+            {
+                var abd = GetAppBarData();
+                PInvoke.SHAppBarMessage(PInvoke.ABM_NEW, ref abd);
+            }
+
+            // Set our initial location
+            // Do not check designer properties because it can cause InvalidOperation
+            OnDockLocationChanged(false);
+        }
+    }
+
+    private unsafe APPBARDATA GetAppBarData()
+    {
+        return new APPBARDATA()
+        {
+            cbSize = (uint)sizeof(APPBARDATA),
+            hWnd = _hwnd,
+            uCallbackMessage = AppBarMessageId,
+            uEdge = (uint)ViewModel.DockMode
+        };
+    }
+
+    private static uint _AppBarMessageId;
+    private static uint AppBarMessageId
+    {
+        get
+        {
+            if (_AppBarMessageId == 0)
+            {
+                _AppBarMessageId = PInvoke.RegisterWindowMessage("AppBarMessage_EEDFB5206FC3");
+            }
+
+            return _AppBarMessageId;
+        }
+    }
+
+    private RECT WindowBounds
+    {
+        set
+        {
+            static RECT Inflate(RECT rect, RECT thickness)
+            {
+                return new RECT(
+                    rect.left - thickness.left,
+                    rect.top - thickness.top,
+                    rect.right + thickness.right,
+                    rect.bottom + thickness.bottom
+                );
+            }
+
+            static unsafe RECT GetFrameThickness(HWND hWnd)
+            {
+                if (!PInvoke.GetWindowRect(hWnd, out var clientBounds))
+                {
+                    return default;
+                }
+                RECT frameBounds;
+                if (PInvoke.DwmGetWindowAttribute(
+                    hWnd,
+                    DWMWINDOWATTRIBUTE.DWMWA_EXTENDED_FRAME_BOUNDS,
+                    &frameBounds,
+                    (uint)Marshal.SizeOf<RECT>()) != HRESULT.S_OK)
+                {
+                    return default;
+                }
+                return new RECT(
+                    frameBounds.left - clientBounds.left,
+                    frameBounds.top - clientBounds.top,
+                    clientBounds.right - frameBounds.right,
+                    clientBounds.bottom - frameBounds.bottom);
+            }
+
+            // SetWindowPos accepts the position _with_ the shadow, but we don't know how large the shadow
+            // will be until we are in place.
+            // 
+            // 1. Move to the position using current shadow
+            // 2. Get the actual shadow size
+            // 3. Move to the position using the actual shadow size
+
+            var frameThickness = GetFrameThickness(_hwnd);
+            var actualShadow = Inflate(value, frameThickness);
+            PInvoke.SetWindowPos(_hwnd, HWND.Null, actualShadow.X, actualShadow.Y, actualShadow.Width, actualShadow.Height, 0);
+
+            var newFrameThickness = GetFrameThickness(_hwnd);
+            if (frameThickness.left != newFrameThickness.left ||
+                frameThickness.top != newFrameThickness.top ||
+                frameThickness.right != newFrameThickness.right ||
+                frameThickness.bottom != newFrameThickness.bottom)
+            {
+                var newActualShadow = Inflate(value, frameThickness);
+                PInvoke.SetWindowPos(_hwnd, HWND.Null, newActualShadow.X, newActualShadow.Y, newActualShadow.Width, newFrameThickness.Height, 0);
+            }
+        }
+    }
+
+    #endregion
+
+    #region Menu Flyout
+
+    private readonly AppBarMenuFlyoutHelper _menuFlyoutHelper = new(true);
+
+    private void InitializeMenuFlyout()
+    {
+        var settingItem = new MenuItem
+        {
+            Icon = new FontIcon { Glyph = "\ue713" }
+        };
+        settingItem.SetResourceReference(HeaderedItemsControl.HeaderProperty, nameof(Localize.SettingAppBarWindow_AppBarSettings));
+        settingItem.Click += (o, e) =>
+        {
+            // Setting window is already opened
+            if (WindowTracker.GetActiveWindow<SettingWindow>().Count > 0)
+            {
+                App.API.ShowSettingWindow();
+                _navigationViewService.NavigateTo(SettingPageTag.AppBarSetting, Model);
+            }
+            else
+            {
+                _navigationViewService.SetNextNavigation(SettingPageTag.AppBarSetting, Model);
+                App.API.ShowSettingWindow();
+            }
+        };
+        _menuFlyoutHelper.Items.Add(settingItem);
+        _menuFlyoutHelper.Window = this;
+    }
 
     private void MainGrid_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
     {
@@ -462,10 +572,6 @@ public partial class AppBarWindow : Window
         App.API.LogVerbose(ClassName, $"Show {nameof(MainGrid)} right click context menu");
         _menuFlyoutHelper.MouseButtonUp(sender, e);
     }
-
-    #endregion
-
-    #region StackView Events
 
     private void StackView_ItemMouseLeftButtonDown(object sender, StackViewItemMouseButtonEventArgs e)
     {
@@ -583,120 +689,6 @@ public partial class AppBarWindow : Window
         }
 
         return helper;
-    }
-
-    #endregion
-
-    #region AppBar Helpers
-
-    /// <summary>
-    /// Resets the app bar data, which includes re-registering the app bar.
-    /// </summary>
-    /// <remarks>
-    /// When explorer.exe is restarted, the app bar may not be registered correctly.
-    /// Call this method to reset the app bar data and re-register it.
-    /// </remarks>
-    public void ResetAppBarData()
-    {
-        if (_isAppBarRegistered)
-        {
-            {
-                var abd = GetAppBarData();
-                PInvoke.SHAppBarMessage(PInvoke.ABM_REMOVE, ref abd);
-            }
-            {
-                var abd = GetAppBarData();
-                PInvoke.SHAppBarMessage(PInvoke.ABM_NEW, ref abd);
-            }
-
-            // Set our initial location
-            // Do not check designer properties because it can cause InvalidOperation
-            OnDockLocationChanged(false);
-        }
-    }
-
-    private unsafe APPBARDATA GetAppBarData()
-    {
-        return new APPBARDATA()
-        {
-            cbSize = (uint)sizeof(APPBARDATA),
-            hWnd = _hwnd,
-            uCallbackMessage = AppBarMessageId,
-            uEdge = (uint)ViewModel.DockMode
-        };
-    }
-
-    private static uint _AppBarMessageId;
-    private static uint AppBarMessageId
-    {
-        get
-        {
-            if (_AppBarMessageId == 0)
-            {
-                _AppBarMessageId = PInvoke.RegisterWindowMessage("AppBarMessage_EEDFB5206FC3");
-            }
-
-            return _AppBarMessageId;
-        }
-    }
-
-    private RECT WindowBounds
-    {
-        set
-        {
-            static RECT Inflate(RECT rect, RECT thickness)
-            {
-                return new RECT(
-                    rect.left - thickness.left,
-                    rect.top - thickness.top,
-                    rect.right + thickness.right,
-                    rect.bottom + thickness.bottom
-                );
-            }
-
-            static unsafe RECT GetFrameThickness(HWND hWnd)
-            {
-                if (!PInvoke.GetWindowRect(hWnd, out var clientBounds))
-                {
-                    return default;
-                }
-                RECT frameBounds;
-                if (PInvoke.DwmGetWindowAttribute(
-                    hWnd,
-                    DWMWINDOWATTRIBUTE.DWMWA_EXTENDED_FRAME_BOUNDS,
-                    &frameBounds,
-                    (uint)Marshal.SizeOf<RECT>()) != HRESULT.S_OK)
-                {
-                    return default;
-                }
-                return new RECT(
-                    frameBounds.left - clientBounds.left,
-                    frameBounds.top - clientBounds.top,
-                    clientBounds.right - frameBounds.right,
-                    clientBounds.bottom - frameBounds.bottom);
-            }
-
-            // SetWindowPos accepts the position _with_ the shadow, but we don't know how large the shadow
-            // will be until we are in place.
-            // 
-            // 1. Move to the position using current shadow
-            // 2. Get the actual shadow size
-            // 3. Move to the position using the actual shadow size
-
-            var frameThickness = GetFrameThickness(_hwnd);
-            var actualShadow = Inflate(value, frameThickness);
-            PInvoke.SetWindowPos(_hwnd, HWND.Null, actualShadow.X, actualShadow.Y, actualShadow.Width, actualShadow.Height, 0);
-
-            var newFrameThickness = GetFrameThickness(_hwnd);
-            if (frameThickness.left != newFrameThickness.left ||
-                frameThickness.top != newFrameThickness.top ||
-                frameThickness.right != newFrameThickness.right ||
-                frameThickness.bottom != newFrameThickness.bottom)
-            {
-                var newActualShadow = Inflate(value, frameThickness);
-                PInvoke.SetWindowPos(_hwnd, HWND.Null, newActualShadow.X, newActualShadow.Y, newActualShadow.Width, newFrameThickness.Height, 0);
-            }
-        }
     }
 
     #endregion
