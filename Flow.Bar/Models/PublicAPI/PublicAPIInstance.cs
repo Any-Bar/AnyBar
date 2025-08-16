@@ -15,7 +15,7 @@ using Flow.Bar.Models.UserSettings;
 using Flow.Bar.Plugin;
 using Flow.Bar.Views;
 
-namespace Flow.Bar.Models;
+namespace Flow.Bar.Models.PublicAPI;
 
 public class PublicAPIInstance(Settings settings) : IPublicAPI
 {
