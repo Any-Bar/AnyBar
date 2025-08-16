@@ -16,9 +16,15 @@ public interface IAsyncPlugin
     Task InitAsync(PluginInitContext context);
 
     /// <summary>
-    /// Get the bar element for the specified position.
+    /// Create the bar element for the specified position.
     /// </summary>
     /// <param name="context"></param>
     /// <returns></returns>
-    FrameworkElement GetBarElement(BarElementContext context);
+    FrameworkElement CreateBarElement(BarElementContext context);
+
+    /// <summary>
+    /// Deletes the bar element with the runtime identifier.
+    /// </summary>
+    /// <param name="id"></param>
+    void DeleteBarElement(string id);
 }
