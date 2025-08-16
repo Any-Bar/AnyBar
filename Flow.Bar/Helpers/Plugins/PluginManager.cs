@@ -231,6 +231,8 @@ public static class PluginManager
 
     #region Left & Right Click Menu
 
+#pragma warning disable CS0618 // Type or member is obsolete
+
     public static ILeftClickMenuBase? GetLeftClickMenu(string id)
     {
         if (_leftClickMenuPlugins.TryGetValue(id, out var pair))
@@ -250,6 +252,8 @@ public static class PluginManager
 
         return null;
     }
+
+#pragma warning restore CS0618 // Type or member is obsolete
 
     #endregion
 
