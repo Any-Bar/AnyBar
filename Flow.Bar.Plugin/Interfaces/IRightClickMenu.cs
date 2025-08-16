@@ -15,8 +15,9 @@ public interface IRightClickMenu : IRightClickMenuBase
     /// <summary>
     /// Retrieves a list of menu items for the right-click context menu.
     /// </summary>
+    /// <param name="context"></param>
     /// <returns></returns>
-    IList<MenuItem> GetRightClickMenuItems();
+    IList<MenuItem> GetRightClickMenuItems(BarElementContext context);
 }
 
 /// <summary>
@@ -27,13 +28,16 @@ public interface ICustomRightClickMenu : IRightClickMenuBase
     /// <summary>
     /// Retrieves style for the right-click context menu.
     /// </summary>
+    /// <param name="context"></param>
     /// <returns></returns>
-    Style GetRightClickMenuStyle();
+    Style GetRightClickMenuStyle(BarElementContext context);
 
     /// <summary>
     /// Applies the template to the right-click context menu.
     /// </summary>
-    void OnApplyRightClickMenuTemplate(ContextMenu menu);
+    /// <param name="context"></param>
+    /// <param name="menu"></param>
+    void OnApplyRightClickMenuTemplate(BarElementContext context, ContextMenu menu);
 }
 
 /// <summary>
@@ -49,5 +53,7 @@ public interface IRightClickMenuBase
     /// <summary>
     /// Retrieves the popup mode for the right-click context menu.
     /// </summary>
-    ContextMenuPopupMode RightClickMenuPopupMode { get; }
+    /// <param name="context"></param>
+    /// <returns></returns>
+    ContextMenuPopupMode GetRightClickMenuPopupMode(BarElementContext context);
 }

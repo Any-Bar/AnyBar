@@ -15,8 +15,9 @@ public interface ILeftClickMenu : ILeftClickMenuBase
     /// <summary>
     /// Retrieves a list of menu items for the left-click context menu.
     /// </summary>
+    /// <param name="context"></param>
     /// <returns></returns>
-    IList<MenuItem> GetLeftClickMenuItems();
+    IList<MenuItem> GetLeftClickMenuItems(BarElementContext context);
 }
 
 /// <summary>
@@ -27,13 +28,16 @@ public interface ICustomLeftClickMenu : ILeftClickMenuBase
     /// <summary>
     /// Retrieves style for the left-click context menu.
     /// </summary>
+    /// <param name="context"></param>
     /// <returns></returns>
-    Style GetLeftClickMenuMenuStyle();
+    Style GetLeftClickMenuMenuStyle(BarElementContext context);
 
     /// <summary>
     /// Applies the template to the left-click context menu.
     /// </summary>
-    void OnApplyLeftClickMenuTemplate(ContextMenu menu);
+    /// <param name="context"></param>
+    /// <param name="menu"></param>
+    void OnApplyLeftClickMenuTemplate(BarElementContext context, ContextMenu menu);
 }
 
 /// <summary>
@@ -49,5 +53,7 @@ public interface ILeftClickMenuBase
     /// <summary>
     /// Retrieves the popup mode for the left-click context menu.
     /// </summary>
-    ContextMenuPopupMode LeftClickMenuPopupMode { get; }
+    /// <param name="context"></param>
+    /// <returns></returns>
+    ContextMenuPopupMode GetLeftClickMenuPopupMode(BarElementContext context);
 }
