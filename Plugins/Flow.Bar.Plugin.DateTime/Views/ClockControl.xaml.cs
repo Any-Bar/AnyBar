@@ -37,7 +37,7 @@ public partial class DateTimeControl : UserControl, IPositionChanged
 
     public void OnDockModeChanged(BarElementPosition position)
     {
-        Main.Context.API.LogVerbose(ClassName, "Dock mode changed");
+        Main.Context.API.LogVerbose(ClassName, $"Changed dock mode to {position}");
         switch (position)
         {
             case BarElementPosition.Left:

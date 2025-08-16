@@ -21,6 +21,7 @@ public class Main : IPlugin, IPluginI18n, ICustomLeftClickMenu, IRightClickMenu
 
     public FrameworkElement GetBarElement(BarElementPosition position)
     {
+        Context.API.LogVerbose(ClassName, $"Creating DateTime control for position: {position}");
         return new DateTimeControl(position);
     }
 
