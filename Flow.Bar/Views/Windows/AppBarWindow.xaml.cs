@@ -300,7 +300,7 @@ public partial class AppBarWindow : Window
                         BarElementModelPosition.LeftOrTop => isHorizontal ? BarElementPosition.Left : BarElementPosition.Top,
                         BarElementModelPosition.Center => isHorizontal ? BarElementPosition.HorizontalCenter : BarElementPosition.VerticalCenter,
                         BarElementModelPosition.RightOrBottom => isHorizontal ? BarElementPosition.Right : BarElementPosition.Bottom,
-                        _ => throw new NotSupportedException()
+                        _ => throw new NotImplementedException()
                     };
                     positionChanged.OnDockModeChanged(position);
                 }

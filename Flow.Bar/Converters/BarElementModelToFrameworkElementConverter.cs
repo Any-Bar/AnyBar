@@ -20,7 +20,7 @@ public class BarElementModelToFrameworkElementConverter : IValueConverter
                 BarElementModelPosition.LeftOrTop => isHorizontal ? BarElementPosition.Left : BarElementPosition.Top,
                 BarElementModelPosition.Center => isHorizontal ? BarElementPosition.HorizontalCenter : BarElementPosition.VerticalCenter,
                 BarElementModelPosition.RightOrBottom => isHorizontal ? BarElementPosition.Right : BarElementPosition.Bottom,
-                _ => throw new NotSupportedException()
+                _ => throw new NotImplementedException()
             };
             return PluginManager.GetBarElement(element, position);
         }
@@ -30,6 +30,6 @@ public class BarElementModelToFrameworkElementConverter : IValueConverter
 
     public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
     {
-        throw new NotSupportedException();
+        throw new NotImplementedException();
     }
 }
