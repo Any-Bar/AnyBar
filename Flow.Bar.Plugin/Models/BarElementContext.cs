@@ -6,7 +6,12 @@
 public class BarElementContext
 {
     /// <summary>
-    /// The unique identifier of the bar element.
+    /// Unique identifier of the bar element.
     /// </summary>
-    public string Id { get; }
+    string Id { get; }
+
+    /// <summary>
+    /// Position of bar element.
+    /// </summary>
+    BarElementPosition position { get; }
 }

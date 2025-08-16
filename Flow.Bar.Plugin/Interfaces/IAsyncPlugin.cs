@@ -9,16 +9,16 @@ namespace Flow.Bar.Plugin;
 public interface IAsyncPlugin
 {
     /// <summary>
-    /// Get the bar element for the specified position.
-    /// </summary>
-    /// <param name="position"></param>
-    /// <returns></returns>
-    FrameworkElement GetBarElement(BarElementPosition position);
-
-    /// <summary>
     /// Initializes the plugin with the provided context asynchronously.
     /// </summary>
     /// <param name="context"></param>
     /// <returns></returns>
     Task InitAsync(PluginInitContext context);
+
+    /// <summary>
+    /// Get the bar element for the specified position.
+    /// </summary>
+    /// <param name="context"></param>
+    /// <returns></returns>
+    FrameworkElement GetBarElement(BarElementContext context);
 }
