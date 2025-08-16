@@ -1,6 +1,6 @@
 ﻿using System.Windows.Input;
 
-namespace Flow.Bar.Plugin.Interfaces;
+namespace Flow.Bar.Plugin;
 
 /// <summary>
 /// Interface for Flow Bar plugins that have left-click events.
