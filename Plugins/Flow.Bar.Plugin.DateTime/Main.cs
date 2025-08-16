@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using Flow.Bar.Plugin.DateTime.Views;
 using iNKORE.UI.WPF.Modern.Controls;
 
 namespace Flow.Bar.Plugin.DateTime;
 
-public class Main : IPlugin, IPluginI18n, ICustomLeftClickMenu, IRightClickMenu
+public class Main : IPlugin, IPluginI18n, ICustomLeftClickMenu, IRightClickMenu, ILeftClick, IRightClick
 {
     private static readonly string ClassName = nameof(Main);
 
@@ -77,5 +78,25 @@ public class Main : IPlugin, IPluginI18n, ICustomLeftClickMenu, IRightClickMenu
             Context.API.ShowMsgError(Localize.FlowBarPlugin_DateTime_RightClickMenu_FailToOpenDateTime());
             Context.API.LogFatal(ClassName, "Failed to open Date and Time settings", ex);
         }
+    }
+
+    public void OnMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+    {
+        Context.API.LogVerbose(ClassName, "Left mouse button down event invoked");
+    }
+
+    public void OnMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+    {
+        Context.API.LogVerbose(ClassName, "Left mouse button up event invoked");
+    }
+
+    public void OnMouseRightButtonDown(object sender, MouseButtonEventArgs e)
+    {
+        Context.API.LogVerbose(ClassName, "Right mouse button down event invoked");
+    }
+
+    public void OnMouseRightButtonUp(object sender, MouseButtonEventArgs e)
+    {
+        Context.API.LogVerbose(ClassName, "Right mouse button up event invoked");
     }
 }
