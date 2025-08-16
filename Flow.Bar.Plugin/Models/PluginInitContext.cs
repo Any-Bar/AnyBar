@@ -1,9 +1,9 @@
 ﻿namespace Flow.Bar.Plugin;
 
 /// <summary>
-/// Context for plugin initialization.
+/// Context for Flow Bar plugin initialization.
 /// </summary>
-public class PluginInitContext
+public sealed class PluginInitContext
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="PluginInitContext"/> class.
@@ -19,7 +19,7 @@ public class PluginInitContext
     /// <summary>
     /// The metadata of the plugin being initialized.
     /// </summary>
-    public PluginMetadata CurrentPluginMetadata { get; internal set; }
+    public PluginMetadata CurrentPluginMetadata { get; set; }
 
     /// <summary>
     /// Public APIs for plugin invocation.

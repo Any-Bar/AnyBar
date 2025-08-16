@@ -4,9 +4,9 @@ using System.Text.Json.Serialization;
 namespace Flow.Bar.Plugin;
 
 /// <summary>
-/// Plugin metadata.
+/// Flow Bar plugin metadata.
 /// </summary>
-public class PluginMetadata
+public sealed class PluginMetadata
 {
     /// <summary>
     /// Plugin ID.
