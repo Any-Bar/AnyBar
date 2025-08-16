@@ -2,11 +2,10 @@
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Threading;
-using Flow.Bar.Plugin.Interfaces;
 
 namespace Flow.Bar.Plugin.DateTime.Views;
 
-public partial class DateTimeControl : UserControl, IPositionChanged
+public partial class DateTimeControl : UserControl
 {
     private static readonly string ClassName = nameof(DateTimeControl);
 
