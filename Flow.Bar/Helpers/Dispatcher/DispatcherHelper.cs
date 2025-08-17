@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows.Threading;
+using WpfApplication = System.Windows.Application;
 
 namespace Flow.Bar.Helpers.Dispatcher;
 
@@ -9,9 +10,9 @@ public static class DispatcherHelper
     {
         ArgumentNullException.ThrowIfNull(action);
 
-        if (System.Windows.Application.Current?.Dispatcher.CheckAccess() != true)
+        if (WpfApplication.Current?.Dispatcher.CheckAccess() != true)
         {
-            System.Windows.Application.Current?.Dispatcher.Invoke(action, priority);
+            WpfApplication.Current?.Dispatcher.Invoke(action, priority);
         }
 
         action();
@@ -21,14 +22,14 @@ public static class DispatcherHelper
     {
         ArgumentNullException.ThrowIfNull(action);
 
-        if (System.Windows.Application.Current?.Dispatcher.CheckAccess() != true)
+        if (WpfApplication.Current?.Dispatcher.CheckAccess() != true)
         {
-            if (System.Windows.Application.Current == null)
+            if (WpfApplication.Current == null)
             {
                 return default;
             }
 
-            return System.Windows.Application.Current.Dispatcher.Invoke(action, priority);
+            return WpfApplication.Current.Dispatcher.Invoke(action, priority);
         }
 
         return action();

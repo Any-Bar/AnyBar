@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Windows;
+using WpfApplication = System.Windows.Application;
 
 namespace Flow.Bar.Helpers.Windows;
 
@@ -8,7 +9,7 @@ public static class SingletonWindowOpener
 {
     public static T Open<T>(params object[] args) where T : Window
     {
-        var window = (System.Windows.Application.Current.Windows.OfType<Window>().FirstOrDefault(x => x.GetType() == typeof(T))
+        var window = (WpfApplication.Current.Windows.OfType<Window>().FirstOrDefault(x => x.GetType() == typeof(T))
             ?? (T?)Activator.CreateInstance(typeof(T), args))
             ?? throw new ArgumentNullException(null, $"{nameof(Window)} instance could not be created or found");
 

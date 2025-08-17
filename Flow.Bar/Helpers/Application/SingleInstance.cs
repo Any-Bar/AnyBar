@@ -2,6 +2,7 @@
 using System.IO.Pipes;
 using System.Threading;
 using System.Threading.Tasks;
+using WpfApplication = System.Windows.Application;
 
 // http://blogs.microsoft.co.il/arik/2010/05/28/wpf-single-instance-application/
 // modified to allow single instace restart
@@ -23,7 +24,7 @@ public interface ISingleInstanceApp
 /// running as Administrator, can activate it with command line arguments.
 /// For most apps, this will not be much of an issue.
 /// </remarks>
-public static class SingleInstance<TApplication> where TApplication : System.Windows.Application, ISingleInstanceApp
+public static class SingleInstance<TApplication> where TApplication : WpfApplication, ISingleInstanceApp
 {
     #region Private Fields
 
@@ -99,7 +100,7 @@ public static class SingleInstance<TApplication> where TApplication : System.Win
             await pipeServer.WaitForConnectionAsync();
 
             // Do an asynchronous call to ActivateFirstInstance function
-            System.Windows.Application.Current?.Dispatcher.Invoke(ActivateFirstInstance);
+            WpfApplication.Current?.Dispatcher.Invoke(ActivateFirstInstance);
 
             // Disconect client
             pipeServer.Disconnect();
@@ -129,12 +130,12 @@ public static class SingleInstance<TApplication> where TApplication : System.Win
     private static void ActivateFirstInstance()
     {
         // Set main window state and process command line args
-        if (System.Windows.Application.Current == null)
+        if (WpfApplication.Current == null)
         {
             return;
         }
 
-        ((TApplication)System.Windows.Application.Current).OnSecondAppStarted();
+        ((TApplication)WpfApplication.Current).OnSecondAppStarted();
     }
 
     #endregion

@@ -4,6 +4,7 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using iNKORE.UI.WPF.Modern;
 using WpfDragDrop = GongSolutions.Wpf.DragDrop.DragDrop;
+using WpfApplication = System.Windows.Application;
 
 namespace Flow.Bar.Helpers.DragDrop;
 
@@ -32,7 +33,7 @@ public static class DragDropHelper
         ArgumentNullException.ThrowIfNull(scrollViewer);
 
         WpfDragDrop.SetDropTargetScrollViewer(element, scrollViewer);
-        WpfDragDrop.SetDropTargetAdornerBrush(element, System.Windows.Application.Current.TryFindResource(ThemeKeys.AccentFillColorDefaultBrushKey) as Brush);
+        WpfDragDrop.SetDropTargetAdornerBrush(element, WpfApplication.Current.TryFindResource(ThemeKeys.AccentFillColorDefaultBrushKey) as Brush);
         var horizontalScrollBarEnabled = scrollViewer.HorizontalScrollBarVisibility == ScrollBarVisibility.Visible ||
             scrollViewer.HorizontalScrollBarVisibility == ScrollBarVisibility.Auto;
         var verticalScrollBarEnabled = scrollViewer.VerticalScrollBarVisibility == ScrollBarVisibility.Visible ||
