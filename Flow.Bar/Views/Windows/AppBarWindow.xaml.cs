@@ -260,8 +260,10 @@ public partial class AppBarWindow : Window
         };
         foreach (var item in collection)
         {
-            var pair = PluginManager.GetPluginForId(item.ID);
-            pair?.Plugin.OnBarElementContextChanged(new BarElementContextChangedAgrs(item.Context));
+            if (PluginManager.GetPluginForId(item.ID) is { } pair)
+            {
+                pair.Plugin.OnBarElementContextChanged(new BarElementContextChangedAgrs(item.Context));
+            }
         }
     }
 
