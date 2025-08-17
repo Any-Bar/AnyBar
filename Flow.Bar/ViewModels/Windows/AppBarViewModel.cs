@@ -228,37 +228,37 @@ public partial class AppBarViewModel(AppBarManagementService appBarManagementSer
         }
     }
 
+    private void DeleteBarElements()
+    {
+        void DeleteBarElements(BarElementModelPosition barElementPosition)
+        {
+            var collection = barElementPosition switch
+            {
+                BarElementModelPosition.LeftOrTop => LeftOrTopBarElements,
+                BarElementModelPosition.RightOrBottom => RightOrBottomBarElements,
+                BarElementModelPosition.Center => CenterBarElements,
+                _ => throw new NotImplementedException()
+            };
+
+            foreach (var item in collection)
+            {
+                if (PluginManager.GetPluginForId(item.ID) is { } pair)
+                {
+                    pair.Plugin.DeleteBarElement(item.Context!.Id);
+                }
+            }
+        }
+
+        DeleteBarElements(BarElementModelPosition.LeftOrTop);
+        DeleteBarElements(BarElementModelPosition.Center);
+        DeleteBarElements(BarElementModelPosition.RightOrBottom);
+    }
+
     public void Dispose()
     {
         LeftOrTopBarElements.CollectionChanged -= LeftOrTopBarElements_CollectionChanged;
         RightOrBottomBarElements.CollectionChanged -= RightOrBottomBarElements_CollectionChanged;
         CenterBarElements.CollectionChanged -= CenterBarElements_CollectionChanged;
         DeleteBarElements();
-    }
-
-    private void DeleteBarElements()
-    {
-        DeleteBarElements(BarElementModelPosition.LeftOrTop);
-        DeleteBarElements(BarElementModelPosition.Center);
-        DeleteBarElements(BarElementModelPosition.RightOrBottom);
-    }
-
-    private void DeleteBarElements(BarElementModelPosition barElementPosition)
-    {
-        var collection = barElementPosition switch
-        {
-            BarElementModelPosition.LeftOrTop => LeftOrTopBarElements,
-            BarElementModelPosition.RightOrBottom => RightOrBottomBarElements,
-            BarElementModelPosition.Center => CenterBarElements,
-            _ => throw new NotImplementedException()
-        };
-
-        foreach (var item in collection)
-        {
-            if (PluginManager.GetPluginForId(item.ID) is { } pair)
-            {
-                pair.Plugin.DeleteBarElement(item.Context!.Id);
-            }
-        }
     }
 }
