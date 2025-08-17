@@ -107,15 +107,14 @@ public partial class AppBarWindow : Window
         var abd = GetAppBarData();
         PInvoke.SHAppBarMessage(PInvoke.ABM_NEW, ref abd);
 
-        // set our initial location
+        // Set our initial location
         _isAppBarRegistered = true;
-        OnDockLocationChanged();
+        // Use UpdateDockedWidthOrHeight  call OnDockLocationChanged - It will be called in property changed handler
+        UpdateDockedWidthOrHeight();
     }
 
     private void Window_Loaded(object sender, RoutedEventArgs e)
     {
-        // No need to call OnDockLocationChanged - It will be called in property changed handler
-        UpdateDockedWidthOrHeight();
         OnIsResizableChanged();
         ViewModel.InitializeBarElements();
         _isInitialized = true;
