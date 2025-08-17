@@ -10,10 +10,12 @@ public sealed class BarElementContext
     /// </summary>
     /// <param name="id"></param>
     /// <param name="position"></param>
-    public BarElementContext(string id, BarElementPosition position)
+    /// <param name="dockedHeightOrWidth"></param>
+    public BarElementContext(string id, BarElementPosition position, int dockedHeightOrWidth)
     {
         Id = id;
         Position = position;
+        DockedHeightOrWidth = dockedHeightOrWidth;
     }
 
     /// <summary>
@@ -25,4 +27,9 @@ public sealed class BarElementContext
     /// Position of bar element.
     /// </summary>
     public BarElementPosition Position { get; set; }
+
+    /// <summary>
+    /// Height or width of the bar element when docked.
+    /// </summary>
+    public int DockedHeightOrWidth { get; set; }
 }
