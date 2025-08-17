@@ -57,6 +57,7 @@ public partial class AppBarWindow : Window
         WindowStyle = WindowStyle.None;
         ResizeMode = ResizeMode.NoResize;
         Topmost = true;
+        ShowInTaskbar = false;
         ViewModel.PropertyChanged += ViewModel_PropertyChanged;
         InitializeMenuFlyout();
     }
