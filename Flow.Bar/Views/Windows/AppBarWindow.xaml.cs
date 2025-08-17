@@ -210,11 +210,7 @@ public partial class AppBarWindow : Window
         switch (e.PropertyName)
         {
             case nameof(AppBarViewModel.DockMode):
-                OnDockLocationChanged();
-                if (_isInitialized)
-                {
-                    OnPositionChanged();
-                }
+                OnDockLocationChanged(positionChanged: IsInitialized);
                 break;
             case nameof(AppBarViewModel.ActualMonitor):
                 OnDockLocationChanged();
@@ -231,40 +227,6 @@ public partial class AppBarWindow : Window
             case nameof(AppBarViewModel.ActualDockedWidthOrHeight):
                 OnDockLocationChanged();
                 break;
-        }
-    }
-
-    private void OnPositionChanged()
-    {
-        OnPositionChanged(BarElementModelPosition.LeftOrTop);
-        OnPositionChanged(BarElementModelPosition.Center);
-        OnPositionChanged(BarElementModelPosition.RightOrBottom);
-    }
-
-    private void OnPositionChanged(BarElementModelPosition barElementPosition)
-    {
-        var collection = barElementPosition switch
-        {
-            BarElementModelPosition.LeftOrTop => ViewModel.LeftOrTopBarElements,
-            BarElementModelPosition.RightOrBottom => ViewModel.RightOrBottomBarElements,
-            BarElementModelPosition.Center => ViewModel.CenterBarElements,
-            _ => throw new NotImplementedException()
-        };
-
-        var isHorizontal = ViewModel.DockMode is AppBarDockMode.Top or AppBarDockMode.Bottom;
-        var position = barElementPosition switch
-        {
-            BarElementModelPosition.LeftOrTop => isHorizontal ? BarElementPosition.Left : BarElementPosition.Top,
-            BarElementModelPosition.Center => isHorizontal ? BarElementPosition.HorizontalCenter : BarElementPosition.VerticalCenter,
-            BarElementModelPosition.RightOrBottom => isHorizontal ? BarElementPosition.Right : BarElementPosition.Bottom,
-            _ => throw new NotImplementedException()
-        };
-        foreach (var item in collection)
-        {
-            if (PluginManager.GetPluginForId(item.ID) is { } pair)
-            {
-                pair.Plugin.OnBarElementContextChanged(new BarElementContextChangedAgrs(item.Context));
-            }
         }
     }
 
@@ -345,7 +307,7 @@ public partial class AppBarWindow : Window
         };
     }
 
-    private void OnDockLocationChanged(bool checkDesigner = true)
+    private void OnDockLocationChanged(bool checkDesigner = true, bool positionChanged = false)
     {
         static int WpfDimensionToDesktop(Visual visual, double dim)
         {
@@ -405,6 +367,46 @@ public partial class AppBarWindow : Window
                 _isInAppBarResize = false;
             }
         }
+
+        if (positionChanged)
+        {
+            OnPositionChanged();
+        }
+    }
+
+    private void OnPositionChanged()
+    {
+        OnPositionChanged(BarElementModelPosition.LeftOrTop);
+        OnPositionChanged(BarElementModelPosition.Center);
+        OnPositionChanged(BarElementModelPosition.RightOrBottom);
+    }
+
+    private void OnPositionChanged(BarElementModelPosition barElementPosition)
+    {
+        var collection = barElementPosition switch
+        {
+            BarElementModelPosition.LeftOrTop => ViewModel.LeftOrTopBarElements,
+            BarElementModelPosition.RightOrBottom => ViewModel.RightOrBottomBarElements,
+            BarElementModelPosition.Center => ViewModel.CenterBarElements,
+            _ => throw new NotImplementedException()
+        };
+
+        var isHorizontal = ViewModel.DockMode is AppBarDockMode.Top or AppBarDockMode.Bottom;
+        var position = barElementPosition switch
+        {
+            BarElementModelPosition.LeftOrTop => isHorizontal ? BarElementPosition.Left : BarElementPosition.Top,
+            BarElementModelPosition.Center => isHorizontal ? BarElementPosition.HorizontalCenter : BarElementPosition.VerticalCenter,
+            BarElementModelPosition.RightOrBottom => isHorizontal ? BarElementPosition.Right : BarElementPosition.Bottom,
+            _ => throw new NotImplementedException()
+        };
+        foreach (var item in collection)
+        {
+            if (PluginManager.GetPluginForId(item.ID) is { } pair)
+            {
+                item.Context!.Position = position;
+                pair.Plugin.OnBarElementContextChanged(new BarElementContextChangedAgrs(item.Context));
+            }
+        }
     }
 
     #endregion
@@ -433,7 +435,7 @@ public partial class AppBarWindow : Window
 
             // Set our initial location
             // Do not check designer properties because it can cause InvalidOperation
-            OnDockLocationChanged(false);
+            OnDockLocationChanged(checkDesigner: false);
         }
     }
 

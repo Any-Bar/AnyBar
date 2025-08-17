@@ -24,5 +24,5 @@ public sealed class BarElementContext
     /// <summary>
     /// Position of bar element.
     /// </summary>
-    public BarElementPosition Position { get; }
+    public BarElementPosition Position { get; set; }
 }
