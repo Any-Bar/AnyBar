@@ -206,10 +206,15 @@ public partial class AppBarWindow : Window
 
     private void ViewModel_PropertyChanged(object? sender, PropertyChangedEventArgs e)
     {
+        if (!_isInitialized)
+        {
+            return;
+        }
+
         switch (e.PropertyName)
         {
             case nameof(AppBarViewModel.DockMode):
-                OnDockLocationChanged(positionChanged: _isInitialized);
+                OnDockLocationChanged(contextChanged: true);
                 break;
             case nameof(AppBarViewModel.ActualMonitor):
                 OnDockLocationChanged();
@@ -224,7 +229,7 @@ public partial class AppBarWindow : Window
                 OnDockedWidthOrHeightChanged();
                 break;
             case nameof(AppBarViewModel.ActualDockedWidthOrHeight):
-                OnDockLocationChanged(dockedWidthOrHeightChanged: _isInitialized);
+                OnDockLocationChanged(contextChanged: true);
                 break;
         }
     }
@@ -306,7 +311,7 @@ public partial class AppBarWindow : Window
         };
     }
 
-    private void OnDockLocationChanged(bool checkDesigner = true, bool positionChanged = false, bool dockedWidthOrHeightChanged = false)
+    private void OnDockLocationChanged(bool checkDesigner = true, bool contextChanged = false)
     {
         static int WpfDimensionToDesktop(Visual visual, double dim)
         {
@@ -367,7 +372,7 @@ public partial class AppBarWindow : Window
             }
         }
 
-        if (positionChanged || dockedWidthOrHeightChanged)
+        if (contextChanged)
         {
             OnBarElementContextChanged();
         }
