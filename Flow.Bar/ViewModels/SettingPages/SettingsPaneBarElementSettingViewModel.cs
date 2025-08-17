@@ -198,7 +198,7 @@ public partial class SettingsPaneBarElementSettingViewModel(AppBarManagementServ
         {
             if (e.OldItems == null || e.NewItems == null || e.OldItems.Count == 0 || e.OldItems.Count != e.NewItems.Count)
             {
-                App.API.LogError(ClassName, $"{nameof(NotifyCollectionChangedAction.Move)} action in {nameof(BarElements)} collection changed with different item counts");
+                App.API.LogError(ClassName, $"{nameof(NotifyCollectionChangedAction.Move)} action in {nameof(BarElements)} collection changed with invalid parameters");
                 return;
             }
 
