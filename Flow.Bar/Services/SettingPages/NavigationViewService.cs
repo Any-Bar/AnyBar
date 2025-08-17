@@ -139,7 +139,7 @@ public class NavigationViewService(PageService pageService)
     /// <param name="parameter"></param>
     public bool OnNavigateTo(SettingPageTag pageTag, object? parameter = null)
     {
-        ArgumentNullException.ThrowIfNull(_frame, $"{nameof(Frame)} is not registered in {nameof(RegisterFrameEvents)}");
+        if (_frame == null) return false;
 
         var pageType = _pageService.GetPageType(pageTag);
         if (_frame.Content?.GetType() == pageType && _frame.Content is Page page &&
