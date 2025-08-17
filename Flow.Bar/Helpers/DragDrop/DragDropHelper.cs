@@ -5,12 +5,15 @@ using System.Windows.Media;
 using iNKORE.UI.WPF.Modern;
 using WpfDragDrop = GongSolutions.Wpf.DragDrop.DragDrop;
 using WpfApplication = System.Windows.Application;
+using GongSolutions.Wpf.DragDrop;
+using Flow.Bar.Models.DragDrop;
 
 namespace Flow.Bar.Helpers.DragDrop;
 
 public static class DragDropHelper
 {
     private static readonly DataTemplate _emptyEffectAdornerTemplate = new();
+    private static readonly StackViewDropHandler _stackViewDropHandler = new();
 
     public static void EnableDragDrop(this DependencyObject element)
     {
@@ -42,22 +45,22 @@ public static class DragDropHelper
         {
             if (verticalScrollBarEnabled)
             {
-                WpfDragDrop.SetDropScrollingMode(element, GongSolutions.Wpf.DragDrop.ScrollingMode.Both);
+                WpfDragDrop.SetDropScrollingMode(element, ScrollingMode.Both);
             }
             else
             {
-                WpfDragDrop.SetDropScrollingMode(element, GongSolutions.Wpf.DragDrop.ScrollingMode.HorizontalOnly);
+                WpfDragDrop.SetDropScrollingMode(element, ScrollingMode.HorizontalOnly);
             }
         }
         else
         {
             if (verticalScrollBarEnabled)
             {
-                WpfDragDrop.SetDropScrollingMode(element, GongSolutions.Wpf.DragDrop.ScrollingMode.VerticalOnly);
+                WpfDragDrop.SetDropScrollingMode(element, ScrollingMode.VerticalOnly);
             }
             else
             {
-                WpfDragDrop.SetDropScrollingMode(element, GongSolutions.Wpf.DragDrop.ScrollingMode.None);
+                WpfDragDrop.SetDropScrollingMode(element, ScrollingMode.None);
             }
         }
     }
@@ -68,5 +71,12 @@ public static class DragDropHelper
 
         WpfDragDrop.SetIsDragSource(element, false);
         WpfDragDrop.SetIsDropTarget(element, false);
+    }
+
+    public static void SetStackViewDropHandler(this DependencyObject element)
+    {
+        ArgumentNullException.ThrowIfNull(element);
+
+        WpfDragDrop.SetDropHandler(element, _stackViewDropHandler);
     }
 }

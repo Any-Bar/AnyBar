@@ -56,6 +56,7 @@ public class StackView : StackViewBase
         if ((bool)e.NewValue)
         {
             d.EnableDragDrop();
+            d.SetStackViewDropHandler();
         }
     }
 
