@@ -7,7 +7,7 @@ using Flow.Bar.Helpers.Monitor;
 using Flow.Bar.Helpers.Plugins;
 using Flow.Bar.Models.AppBar;
 using Flow.Bar.Models.Monitor;
-using Flow.Bar.Models.Parameter;
+using Flow.Bar.Models.Parameters;
 using Flow.Bar.Services;
 
 namespace Flow.Bar.ViewModels;
@@ -193,8 +193,14 @@ public partial class AppBarViewModel(AppBarManagementService appBarManagementSer
                     var barElementModel = (BarElementModel)item;
                     var addedItemIndex = collection.IndexOf(barElementModel);
                     var insertOrder = addedItemIndex == 0 ? 0 : collection[addedItemIndex - 1].Order + 1;
+                    _navigationViewService.OnNavigateTo(SettingPageTag.BarElementSetting, new SettingsPaneBarElementSettingInsertParameter()
+                    {
+                        Position = position,
+                        Model = Model,
+                        Order = insertOrder,
+                        BarElement = barElementModel
+                    });
                     _appBarManagementService.InsertBarElement(position, Model, insertOrder, barElementModel, false);
-                    // TODO
                 }
                 break;
             case NotifyCollectionChangedAction.Remove:
@@ -209,9 +215,12 @@ public partial class AppBarViewModel(AppBarManagementService appBarManagementSer
                     var barElementModel = (BarElementModel)item;
                     var removedItemOrder = barElementModel.Order;
                     _appBarManagementService.RemoveBarElement(position, Model, removedItemOrder, false);
-                    PluginManager.GetPluginForId(barElementModel.ID)!.Plugin.DeleteBarElement(barElementModel.Context!.Id);
-                    barElementModel.Context = null;
-                    // TODO
+                    _navigationViewService.OnNavigateTo(SettingPageTag.BarElementSetting, new SettingsPaneBarElementSettingRemoveParameter()
+                    {
+                        Position = position,
+                        Model = Model,
+                        Order = removedItemOrder
+                    });
                 }
                 break;
             default:

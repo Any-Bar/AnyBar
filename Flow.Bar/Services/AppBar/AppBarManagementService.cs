@@ -386,9 +386,11 @@ public class AppBarManagementService(Settings settings)
         lock (_appBarWindowLock)
         {
             var barElements = GetBarElements(position, model);
-            if (barElements.RemoveOrder(order))
+            if (barElements.RemoveOrder(order, out var barElement))
             {
                 _settings.Save();
+                PluginManager.GetPluginForId(barElement.ID)!.Plugin.DeleteBarElement(barElement.Context!.Id);
+                barElement.Context = null;
                 if (changeViewModel)
                 {
                     if (AppBarWindowPairs.TryGetValue(model.Order, out var appBarWindow))

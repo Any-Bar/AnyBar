@@ -1,7 +1,7 @@
 ﻿using Flow.Bar.Enums;
 using Flow.Bar.Models.AppBar;
 
-namespace Flow.Bar.Models.Parameter;
+namespace Flow.Bar.Models.Parameters;
 
 public class SettingsPaneBarElementSettingNavigationParameter
 {

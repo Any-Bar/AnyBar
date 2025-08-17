@@ -7,7 +7,7 @@ using Flow.Bar.Helpers.Monitor;
 using Flow.Bar.Interfaces;
 using Flow.Bar.Models.AppBar;
 using Flow.Bar.Models.Monitor;
-using Flow.Bar.Models.Parameter;
+using Flow.Bar.Models.Parameters;
 using Flow.Bar.Services;
 
 namespace Flow.Bar.ViewModels;

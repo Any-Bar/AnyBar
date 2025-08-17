@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using Flow.Bar.Interfaces;
 
@@ -78,12 +79,13 @@ public static class EnumerableExtension
     /// <param name="list"></param>
     /// <param name="order"></param>
     /// <returns></returns>
-    public static bool RemoveOrder<T>(this List<T> list, int order)
+    public static bool RemoveOrder<T>(this List<T> list, int order, [MaybeNullWhen(false)] out T item)
         where T : class, IOrder
     {
         ArgumentNullException.ThrowIfNull(list);
 
-        if (list.RemoveAll(x => x.Order == order) == 0)
+        item = list.FirstOrDefault(x => x.Order == order);
+        if (item == null || !list.Remove(item))
         {
             return false;
         }

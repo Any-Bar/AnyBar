@@ -16,7 +16,7 @@ using Flow.Bar.Extensions;
 using Flow.Bar.Helpers.MenuFlyout;
 using Flow.Bar.Interfaces;
 using Flow.Bar.Models.AppBar;
-using Flow.Bar.Models.Parameter;
+using Flow.Bar.Models.Parameters;
 using Flow.Bar.Services;
 using Flow.Bar.Views;
 
@@ -140,14 +140,38 @@ public partial class SettingsPaneBarElementSettingViewModel(AppBarManagementServ
         else if (parameter is SettingsPaneBarElementSettingReorderParameter reorder)
         {
             if (reorder.Model == _model && reorder.Position == _position && IsInitialized)
+            {
+                lock (_barElementsLock)
                 {
-                    lock (_barElementsLock)
-                    {
-                        InitializeBarElements();
-                        SortBarElements();
-                    }
+                    InitializeBarElements();
+                    SortBarElements();
                 }
             }
+        }
+        else if (parameter is SettingsPaneBarElementSettingInsertParameter insert)
+        {
+            if (insert.Model == _model && insert.Position == _position && IsInitialized)
+            {
+                lock (_barElementsLock)
+                {
+                    _barElements.Insert(insert.Order, new BarElementViewModel(insert.BarElement));
+                    _barElements = GetSortedBarElements(_barElements);
+                    var insertIndex = _barElements.FindIndex(y => y.Order == insert.BarElement.Order);
+                    BarElements.Insert(insertIndex, _barElements[insertIndex]);
+                }
+            }
+        }
+        else if (parameter is SettingsPaneBarElementSettingRemoveParameter remove)
+        {
+            if (remove.Model == _model && remove.Position == _position && IsInitialized)
+            {
+                lock (_barElementsLock)
+                {
+                    BarElements.Remove(BarElements.First(x => x.Order == remove.Order));
+                    _barElements.RemoveAll(x => x.Order == remove.Order);
+                }
+            }
+        }
         else
         {
             App.API.LogError(ClassName, $"{nameof(parameter)} is not of type {nameof(SettingsPaneBarElementSettingNavigationParameter)} or {nameof(SettingsPaneBarElementSettingReorderParameter)}");
@@ -265,7 +289,7 @@ public partial class SettingsPaneBarElementSettingViewModel(AppBarManagementServ
         lock (_barElementsLock)
         {
             BarElements.Remove(BarElements.First(x => x.Order == oldBarElement.Order));
-            _barElements.Remove(oldBarElement);
+            _barElements.RemoveAll(x => x.Order == oldBarElement.Order);
         }
     }
 
