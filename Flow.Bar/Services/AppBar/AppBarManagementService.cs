@@ -10,6 +10,7 @@ using Flow.Bar.Helpers.Plugins;
 using Flow.Bar.Models.AppBar;
 using Flow.Bar.Models.Explorer;
 using Flow.Bar.Models.Monitor;
+using Flow.Bar.Models.Plugins;
 using Flow.Bar.Models.UserSettings;
 using Flow.Bar.Views;
 
@@ -389,8 +390,10 @@ public class AppBarManagementService(Settings settings)
             if (barElements.RemoveOrder(order, out var barElement))
             {
                 _settings.Save();
-                PluginManager.GetPluginForId(barElement.ID)!.Plugin.DeleteBarElement(barElement.Context!.Id);
-                barElement.Context = null;
+                if (PluginManager.GetPluginForId(barElement.ID) is PluginPair pair)
+                {
+                    pair.Plugin.DeleteBarElement(barElement.Context!.Id);
+                }
                 if (changeViewModel)
                 {
                     if (AppBarWindowPairs.TryGetValue(model.Order, out var appBarWindow))
