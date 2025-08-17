@@ -33,14 +33,12 @@
     <Window.Resources>
         <converters:BarElementModelToFrameworkElementConverter x:Key="BarElementModelToFrameworkElementConverter" />
         <DataTemplate x:Key="StackViewDataTemplate" DataType="models:BarElementModel">
-            <ContentControl
-                x:Name="BarElementContentControl"
-                Background="Transparent">
+            <ContentControl x:Name="BarElementContentControl" Background="Transparent">
                 <ContentControl.Content>
                     <MultiBinding Converter="{StaticResource BarElementModelToFrameworkElementConverter}">
-                        <!-- BarElementModel (the current item) -->
+                        <!--  BarElementModel (the current item)  -->
                         <Binding />
-                        <!-- AppBarViewModel from the parent StackView -->
+                        <!--  AppBarViewModel from the parent StackView  -->
                         <Binding Path="DataContext" RelativeSource="{RelativeSource AncestorType=controls:StackView}" />
                     </MultiBinding>
                 </ContentControl.Content>
