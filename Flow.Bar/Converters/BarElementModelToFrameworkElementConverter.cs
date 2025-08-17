@@ -22,7 +22,7 @@ public class BarElementModelToFrameworkElementConverter : IValueConverter
                 BarElementModelPosition.RightOrBottom => isHorizontal ? BarElementPosition.Right : BarElementPosition.Bottom,
                 _ => throw new NotImplementedException()
             };
-            return PluginManager.GetBarElement(element, position);
+            return PluginManager.CreateBarElement(element, position);
         }
 
         return null;

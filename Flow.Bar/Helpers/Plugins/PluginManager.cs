@@ -222,17 +222,19 @@ public static class PluginManager
         return GetAllInitializedPlugins(false).Any(p => p.Metadata.ID == pluginId);
     }
 
-    public static FrameworkElement? GetBarElement(BarElementModel element, BarElementPosition position)
+    public static FrameworkElement? CreateBarElement(BarElementModel element, BarElementPosition position)
     {
         var pluginId = element.ID;
-        var plugin = GetAllInitializedPlugins(false).FirstOrDefault(p => p.Metadata.ID == pluginId);
-        if (plugin == null)
+        var pair = GetAllInitializedPlugins(false).FirstOrDefault(p => p.Metadata.ID == pluginId);
+        if (pair == null)
         {
             App.API.LogError(ClassName, $"Plugin with ID <{pluginId}> not found");
             return null;
         }
 
-        return plugin.Plugin.GetBarElement(position);
+        var barElementContext = new BarElementContext(Guid.NewGuid().ToString(), position);
+        element.Context = barElementContext;
+        return pair.Plugin.CreateBarElement(barElementContext);
     }
 
     #endregion
