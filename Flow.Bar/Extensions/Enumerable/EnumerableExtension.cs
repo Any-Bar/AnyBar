@@ -100,6 +100,30 @@ public static class EnumerableExtension
         return true;
     }
 
+    /// <summary>
+    /// Insert an item at a specific Order in a dictionary and update the Order property of remaining items.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="list"></param>
+    /// <param name="order"></param>
+    /// <param name="item"></param>
+    /// <returns></returns>
+    public static bool InsertOrder<T>(this List<T> list, int order, T item)
+        where T : class, IOrder
+    {
+        ArgumentNullException.ThrowIfNull(list);
+
+        list.Insert(order, item);
+
+        // Update Order property for remaining items
+        for (var i = order; i < list.Count; i++)
+        {
+            list[i].Order = i;
+        }
+
+        return true;
+    }
+
     public static int RemoveAll<T>(this ObservableCollection<T> collection, Predicate<T> match)
     {
         ArgumentNullException.ThrowIfNull(collection);
