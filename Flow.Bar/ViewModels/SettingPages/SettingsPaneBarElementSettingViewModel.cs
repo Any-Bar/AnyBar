@@ -139,9 +139,7 @@ public partial class SettingsPaneBarElementSettingViewModel(AppBarManagementServ
         }
         else if (parameter is SettingsPaneBarElementSettingReorderParameter reorder)
         {
-            if (reorder.Model == _model || reorder.Position == _position)
-            {
-                if (IsInitialized)
+            if (reorder.Model == _model && reorder.Position == _position && IsInitialized)
                 {
                     lock (_barElementsLock)
                     {
@@ -150,7 +148,6 @@ public partial class SettingsPaneBarElementSettingViewModel(AppBarManagementServ
                     }
                 }
             }
-        }
         else
         {
             App.API.LogError(ClassName, $"{nameof(parameter)} is not of type {nameof(SettingsPaneBarElementSettingNavigationParameter)} or {nameof(SettingsPaneBarElementSettingReorderParameter)}");
