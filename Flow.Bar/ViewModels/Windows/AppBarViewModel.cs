@@ -20,7 +20,11 @@ public partial class AppBarViewModel(AppBarManagementService appBarManagementSer
 
     private readonly NavigationViewService _navigationViewService = navigationViewService;
 
+    private bool _isInitialized = false;
+
     public AppBarModel Model { get; set; } = null!;
+
+    public bool IgnoreCollectionChangedEvents { get; set; } = false;
 
     public ObservableCollection<BarElementModel> LeftOrTopBarElements { get; } = [];
 
@@ -97,33 +101,37 @@ public partial class AppBarViewModel(AppBarManagementService appBarManagementSer
 
     public void InitializeBarElements()
     {
-        LeftOrTopBarElements.Clear();
-        foreach (var element in _appBarManagementService.GetOrderedBarElements(BarElementModelPosition.LeftOrTop, Model))
+        if (!_isInitialized)
         {
-            if (PluginManager.CheckBarElement(element))
+            LeftOrTopBarElements.Clear();
+            foreach (var element in _appBarManagementService.GetOrderedBarElements(BarElementModelPosition.LeftOrTop, Model))
             {
-                LeftOrTopBarElements.Add(element);
+                if (PluginManager.CheckBarElement(element))
+                {
+                    LeftOrTopBarElements.Add(element);
+                }
             }
-        }
-        LeftOrTopBarElements.CollectionChanged += LeftOrTopBarElements_CollectionChanged;
-        RightOrBottomBarElements.Clear();
-        foreach (var element in _appBarManagementService.GetOrderedBarElements(BarElementModelPosition.RightOrBottom, Model))
-        {
-            if (PluginManager.CheckBarElement(element))
+            LeftOrTopBarElements.CollectionChanged += LeftOrTopBarElements_CollectionChanged;
+            RightOrBottomBarElements.Clear();
+            foreach (var element in _appBarManagementService.GetOrderedBarElements(BarElementModelPosition.RightOrBottom, Model))
             {
-                RightOrBottomBarElements.Add(element);
+                if (PluginManager.CheckBarElement(element))
+                {
+                    RightOrBottomBarElements.Add(element);
+                }
             }
-        }
-        RightOrBottomBarElements.CollectionChanged += RightOrBottomBarElements_CollectionChanged;
-        CenterBarElements.Clear();
-        foreach (var element in _appBarManagementService.GetOrderedBarElements(BarElementModelPosition.Center, Model))
-        {
-            if (PluginManager.CheckBarElement(element))
+            RightOrBottomBarElements.CollectionChanged += RightOrBottomBarElements_CollectionChanged;
+            CenterBarElements.Clear();
+            foreach (var element in _appBarManagementService.GetOrderedBarElements(BarElementModelPosition.Center, Model))
             {
-                CenterBarElements.Add(element);
+                if (PluginManager.CheckBarElement(element))
+                {
+                    CenterBarElements.Add(element);
+                }
             }
+            CenterBarElements.CollectionChanged += CenterBarElements_CollectionChanged;
+            _isInitialized = true;
         }
-        CenterBarElements.CollectionChanged += CenterBarElements_CollectionChanged;
     }
 
     private void LeftOrTopBarElements_CollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
@@ -143,45 +151,71 @@ public partial class AppBarViewModel(AppBarManagementService appBarManagementSer
 
     private void BarElements_CollectionChanged(BarElementModelPosition position, NotifyCollectionChangedEventArgs e)
     {
-        if (e.Action == NotifyCollectionChangedAction.Move)
-        {
-            if (e.OldItems == null ||
-                e.NewItems == null ||
-                e.OldItems.Count != e.NewItems.Count)
-            {
-                switch (position)
-                {
-                    case BarElementModelPosition.LeftOrTop:
-                        App.API.LogError(ClassName, $"{nameof(NotifyCollectionChangedAction.Move)} action in {nameof(LeftOrTopBarElements)} collection changed with different item counts");
-                        break;
-                    case BarElementModelPosition.RightOrBottom:
-                        App.API.LogError(ClassName, $"{nameof(NotifyCollectionChangedAction.Move)} action in {nameof(RightOrBottomBarElements)} collection changed with different item counts");
-                        break;
-                    case BarElementModelPosition.Center:
-                        App.API.LogError(ClassName, $"{nameof(NotifyCollectionChangedAction.Move)} action in {nameof(CenterBarElements)} collection changed with different item counts");
-                        break;
-                }
-                return;
-            }
+        if (!_isInitialized || IgnoreCollectionChangedEvents) return;
 
-            var collection = position switch
-            {
-                BarElementModelPosition.LeftOrTop => LeftOrTopBarElements,
-                BarElementModelPosition.RightOrBottom => RightOrBottomBarElements,
-                BarElementModelPosition.Center => CenterBarElements,
-                _ => throw new NotImplementedException()
-            };
-            var oldStartingOrder = collection[e.OldStartingIndex].Order;
-            var newStartingOrder = collection[e.NewStartingIndex].Order;
-            var oldItemMinimalOrder = ((BarElementModel)e.OldItems[0]!).Order;
-            var oldItemMaximalOrder = ((BarElementModel)e.OldItems[^1]!).Order;
-            var itemsCount = oldItemMaximalOrder - oldItemMinimalOrder + 1;
-            _appBarManagementService.ChangeBarElementOrder(position, Model, oldStartingOrder, newStartingOrder, itemsCount, false);
-            _navigationViewService.OnNavigateTo(SettingPageTag.BarElementSetting, new SettingsPaneBarElementSettingReorderParameter()
-            {
-                Position = position,
-                Model = Model
-            });
+        var collection = position switch
+        {
+            BarElementModelPosition.LeftOrTop => LeftOrTopBarElements,
+            BarElementModelPosition.RightOrBottom => RightOrBottomBarElements,
+            BarElementModelPosition.Center => CenterBarElements,
+            _ => throw new NotImplementedException()
+        };
+        switch (e.Action)
+        {
+            case NotifyCollectionChangedAction.Move:
+                if (e.OldItems == null || e.NewItems == null || e.OldItems.Count == 0 || e.OldItems.Count != e.NewItems.Count)
+                {
+                    App.API.LogError(ClassName, $"{nameof(NotifyCollectionChangedAction.Move)} action in {position} collection changed with invalid parameters");
+                    return;
+                }
+
+                var oldStartingOrder = collection[e.OldStartingIndex].Order;
+                var newStartingOrder = collection[e.NewStartingIndex].Order;
+                var oldItemMinimalOrder = ((BarElementModel)e.OldItems[0]!).Order;
+                var oldItemMaximalOrder = ((BarElementModel)e.OldItems[^1]!).Order;
+                var itemsCount = oldItemMaximalOrder - oldItemMinimalOrder + 1;
+                _appBarManagementService.ChangeBarElementOrder(position, Model, oldStartingOrder, newStartingOrder, itemsCount, false);
+                _navigationViewService.OnNavigateTo(SettingPageTag.BarElementSetting, new SettingsPaneBarElementSettingReorderParameter()
+                {
+                    Position = position,
+                    Model = Model
+                });
+                break;
+            case NotifyCollectionChangedAction.Add:
+                if (e.NewItems == null || e.NewItems.Count == 0 || collection.Count == 0)
+                {
+                    App.API.LogError(ClassName, $"{nameof(NotifyCollectionChangedAction.Add)} action in {position} collection changed with invalid parameters");
+                    return;
+                }
+
+                foreach (var item in e.NewItems)
+                {
+                    var barElementModel = (BarElementModel)item;
+                    var addedItemIndex = collection.IndexOf(barElementModel);
+                    var insertOrder = addedItemIndex == 0 ? 0 : collection[addedItemIndex - 1].Order + 1;
+                    _appBarManagementService.InsertBarElement(position, Model, insertOrder, barElementModel, false);
+                    // TODO
+                }
+                break;
+            case NotifyCollectionChangedAction.Remove:
+                if (e.OldItems == null || e.OldItems.Count == 0)
+                {
+                    App.API.LogError(ClassName, $"{nameof(NotifyCollectionChangedAction.Remove)} action in {position} collection changed with invalid parameters");
+                    return;
+                }
+
+                foreach (var item in e.OldItems)
+                {
+                    var barElementModel = (BarElementModel)item;
+                    var removedItemOrder = barElementModel.Order;
+                    _appBarManagementService.RemoveBarElement(position, Model, removedItemOrder, false);
+                    PluginManager.GetPluginForId(barElementModel.ID)!.Plugin.DeleteBarElement(barElementModel.Context!.Id);
+                    barElementModel.Context = null;
+                    // TODO
+                }
+                break;
+            default:
+                throw new NotImplementedException();
         }
     }
 

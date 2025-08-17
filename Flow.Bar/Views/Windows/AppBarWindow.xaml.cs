@@ -16,10 +16,8 @@ using Flow.Bar.Helpers.Plugins;
 using Flow.Bar.Helpers.Windows;
 using Flow.Bar.Models.AppBar;
 using Flow.Bar.Plugin;
-using Flow.Bar.Plugin.Interfaces;
 using Flow.Bar.Services;
 using Flow.Bar.ViewModels;
-using iNKORE.UI.WPF.Helpers;
 using Windows.Win32;
 using Windows.Win32.Foundation;
 using Windows.Win32.Graphics.Dwm;
@@ -244,36 +242,26 @@ public partial class AppBarWindow : Window
 
     private void OnPositionChanged(BarElementModelPosition barElementPosition)
     {
-        var view = barElementPosition switch
+        var collection = barElementPosition switch
         {
-            BarElementModelPosition.LeftOrTop => LeftOrTopStackView,
-            BarElementModelPosition.RightOrBottom => RightOrBottomStackView,
-            BarElementModelPosition.Center => CenterStackView,
+            BarElementModelPosition.LeftOrTop => ViewModel.LeftOrTopBarElements,
+            BarElementModelPosition.RightOrBottom => ViewModel.RightOrBottomBarElements,
+            BarElementModelPosition.Center => ViewModel.CenterBarElements,
             _ => throw new NotImplementedException()
         };
-        var stackPanel = view.FindVisualChild<StackPanel>();
-        var stackViewItems = stackPanel?.Children;
-        if (stackViewItems != null)
+
+        var isHorizontal = ViewModel.DockMode is AppBarDockMode.Top or AppBarDockMode.Bottom;
+        var position = barElementPosition switch
         {
-            foreach (var item in stackViewItems)
-            {
-                if (item is not StackViewItem stackViewItem) return;
-                var contentPresenterEx = stackViewItem.ContentPresenterEx;
-                var contentPresenter = contentPresenterEx.FindVisualChild<ContentPresenter>();
-                var content = contentPresenter?.Content;
-                if (content is IPositionChanged positionChanged)
-                {
-                    var isHorizontal = ViewModel.DockMode is AppBarDockMode.Top or AppBarDockMode.Bottom;
-                    var position = barElementPosition switch
-                    {
-                        BarElementModelPosition.LeftOrTop => isHorizontal ? BarElementPosition.Left : BarElementPosition.Top,
-                        BarElementModelPosition.Center => isHorizontal ? BarElementPosition.HorizontalCenter : BarElementPosition.VerticalCenter,
-                        BarElementModelPosition.RightOrBottom => isHorizontal ? BarElementPosition.Right : BarElementPosition.Bottom,
-                        _ => throw new NotImplementedException()
-                    };
-                    positionChanged.OnDockModeChanged(position);
-                }
-            }
+            BarElementModelPosition.LeftOrTop => isHorizontal ? BarElementPosition.Left : BarElementPosition.Top,
+            BarElementModelPosition.Center => isHorizontal ? BarElementPosition.HorizontalCenter : BarElementPosition.VerticalCenter,
+            BarElementModelPosition.RightOrBottom => isHorizontal ? BarElementPosition.Right : BarElementPosition.Bottom,
+            _ => throw new NotImplementedException()
+        };
+        foreach (var item in collection)
+        {
+            var pair = PluginManager.GetPluginForId(item.ID);
+            pair?.Plugin.OnBarElementContextChanged(new BarElementContextChangedAgrs(item.Context));
         }
     }
 
@@ -581,7 +569,7 @@ public partial class AppBarWindow : Window
         // Invoke left click event for plugins
         if (PluginManager.GetLeftClick(model.ID) is ILeftClick leftClick)
         {
-            leftClick.OnMouseLeftButtonDown(sender, e.OriginalEventArgs);
+            leftClick.OnMouseLeftButtonDown(model.Context, sender, e.OriginalEventArgs);
         }
         if (e.OriginalEventArgs.Handled) return;
 
@@ -599,7 +587,7 @@ public partial class AppBarWindow : Window
         // Invoke left click event for plugins
         if (PluginManager.GetLeftClick(model.ID) is ILeftClick leftClick)
         {
-            leftClick.OnMouseLeftButtonUp(sender, e.OriginalEventArgs);
+            leftClick.OnMouseLeftButtonUp(model.Context, sender, e.OriginalEventArgs);
         }
         if (e.OriginalEventArgs.Handled) return;
 
@@ -621,8 +609,8 @@ public partial class AppBarWindow : Window
         {
             if (menuBase is ILeftClickMenu leftClickMenu)
             {
-                helper = new(false, leftClickMenu.LeftClickMenuPopupMode);
-                foreach (var menuItem in leftClickMenu.GetLeftClickMenuItems())
+                helper = new(false, leftClickMenu.GetLeftClickMenuPopupMode(model.Context));
+                foreach (var menuItem in leftClickMenu.GetLeftClickMenuItems(model.Context))
                 {
                     helper.Items.Add(menuItem);
                 }
@@ -631,8 +619,9 @@ public partial class AppBarWindow : Window
             }
             else if (menuBase is ICustomLeftClickMenu customLeftClickMenu)
             {
-                helper = new(false, customLeftClickMenu.LeftClickMenuPopupMode,
-                    customLeftClickMenu.GetLeftClickMenuMenuStyle(), customLeftClickMenu.OnApplyLeftClickMenuTemplate)
+                helper = new(false, customLeftClickMenu.GetLeftClickMenuPopupMode(model.Context),
+                    customLeftClickMenu.GetLeftClickMenuMenuStyle(model.Context),
+                    (menu) => customLeftClickMenu.OnApplyLeftClickMenuTemplate(model.Context, menu))
                 {
                     Window = this
                 };
@@ -656,7 +645,7 @@ public partial class AppBarWindow : Window
         // Invoke right click event for plugins
         if (PluginManager.GetRightClick(model.ID) is IRightClick rightClick)
         {
-            rightClick.OnMouseRightButtonDown(sender, e.OriginalEventArgs);
+            rightClick.OnMouseRightButtonDown(model.Context, sender, e.OriginalEventArgs);
         }
         if (e.OriginalEventArgs.Handled) return;
 
@@ -674,7 +663,7 @@ public partial class AppBarWindow : Window
         // Invoke right click event for plugins
         if (PluginManager.GetRightClick(model.ID) is IRightClick rightClick)
         {
-            rightClick.OnMouseRightButtonUp(sender, e.OriginalEventArgs);
+            rightClick.OnMouseRightButtonUp(model.Context, sender, e.OriginalEventArgs);
         }
         if (e.OriginalEventArgs.Handled) return;
 
@@ -696,8 +685,8 @@ public partial class AppBarWindow : Window
         {
             if (menuBase is IRightClickMenu rightClickMenu)
             {
-                helper = new(false, rightClickMenu.RightClickMenuPopupMode);
-                foreach (var menuItem in rightClickMenu.GetRightClickMenuItems())
+                helper = new(false, rightClickMenu.GetRightClickMenuPopupMode(model.Context));
+                foreach (var menuItem in rightClickMenu.GetRightClickMenuItems(model.Context))
                 {
                     helper.Items.Add(menuItem);
                 }
@@ -706,8 +695,9 @@ public partial class AppBarWindow : Window
             }
             else if (menuBase is ICustomRightClickMenu customRightClickMenu)
             {
-                helper = new(false, customRightClickMenu.RightClickMenuPopupMode,
-                    customRightClickMenu.GetRightClickMenuStyle(), customRightClickMenu.OnApplyRightClickMenuTemplate)
+                helper = new(false, customRightClickMenu.GetRightClickMenuPopupMode(model.Context),
+                    customRightClickMenu.GetRightClickMenuStyle(model.Context),
+                    (menu) => customRightClickMenu.OnApplyRightClickMenuTemplate(model.Context, menu))
                 {
                     Window = this
                 };

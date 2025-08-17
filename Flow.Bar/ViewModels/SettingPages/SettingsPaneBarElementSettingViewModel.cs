@@ -74,7 +74,7 @@ public partial class SettingsPaneBarElementSettingViewModel(AppBarManagementServ
                     var insertIndex = _barElements.FindIndex(y => y.Order == x.Order);
                     BarElements.Insert(insertIndex, _barElements[insertIndex]);
                 }
-            });
+            }, true);
         }
     }
 
@@ -264,7 +264,7 @@ public partial class SettingsPaneBarElementSettingViewModel(AppBarManagementServ
 
     private void RemoveBarElement(BarElementViewModel oldBarElement)
     {
-        _appBarManagementService.RemoveBarElement(_position, _model, oldBarElement.Order);
+        _appBarManagementService.RemoveBarElement(_position, _model, oldBarElement.Order, true);
         lock (_barElementsLock)
         {
             BarElements.Remove(BarElements.First(x => x.Order == oldBarElement.Order));

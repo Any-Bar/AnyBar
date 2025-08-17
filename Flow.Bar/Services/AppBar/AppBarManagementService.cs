@@ -347,7 +347,7 @@ public class AppBarManagementService(Settings settings)
         }
     }
 
-    public void AddBarElement(BarElementModelPosition position, AppBarModel model, string id, Action<BarElementModel> added)
+    public void AddBarElement(BarElementModelPosition position, AppBarModel model, string id, Action<BarElementModel> added, bool changeViewModel)
     {
         lock (_appBarWindowLock)
         {
@@ -362,15 +362,26 @@ public class AppBarManagementService(Settings settings)
             barElements.Add(barElement);
             added(barElement);
             _settings.Save();
-            if (AppBarWindowPairs.TryGetValue(model.Order, out var appBarWindow))
+            if (changeViewModel)
             {
-                var viewModelBarElements = GetViewModelBarElements(position, appBarWindow);
-                viewModelBarElements.Add(barElement);
+                if (AppBarWindowPairs.TryGetValue(model.Order, out var appBarWindow))
+                {
+                    appBarWindow.ViewModel.IgnoreCollectionChangedEvents = true;
+                    try
+                    {
+                        var viewModelBarElements = GetViewModelBarElements(position, appBarWindow);
+                        viewModelBarElements.Add(barElement);
+                    }
+                    finally
+                    {
+                        appBarWindow.ViewModel.IgnoreCollectionChangedEvents = false;
+                    }
+                }
             }
         }
     }
 
-    public void RemoveBarElement(BarElementModelPosition position, AppBarModel model, int order)
+    public void RemoveBarElement(BarElementModelPosition position, AppBarModel model, int order, bool changeViewModel)
     {
         lock (_appBarWindowLock)
         {
@@ -378,10 +389,21 @@ public class AppBarManagementService(Settings settings)
             if (barElements.RemoveOrder(order))
             {
                 _settings.Save();
-                if (AppBarWindowPairs.TryGetValue(model.Order, out var appBarWindow))
+                if (changeViewModel)
                 {
-                    var viewModelBarElements = GetViewModelBarElements(position, appBarWindow);
-                    viewModelBarElements.RemoveAll(x => x.Order == order);
+                    if (AppBarWindowPairs.TryGetValue(model.Order, out var appBarWindow))
+                    {
+                        appBarWindow.ViewModel.IgnoreCollectionChangedEvents = true;
+                        try
+                        {
+                            var viewModelBarElements = GetViewModelBarElements(position, appBarWindow);
+                            viewModelBarElements.RemoveAll(x => x.Order == order);
+                        }
+                        finally
+                        {
+                            appBarWindow.ViewModel.IgnoreCollectionChangedEvents = false;
+                        }
+                    }
                 }
             }
         }
@@ -395,12 +417,48 @@ public class AppBarManagementService(Settings settings)
             if (barElements.Move(oldIndex, newIndex, itemsCount))
             {
                 _settings.Save();
-                if (AppBarWindowPairs.TryGetValue(model.Order, out var appBarWindow))
+                if (changeViewModel)
                 {
-                    if (changeViewModel)
+                    if (AppBarWindowPairs.TryGetValue(model.Order, out var appBarWindow))
                     {
-                        var viewModelBarElements = GetViewModelBarElements(position, appBarWindow);
-                        viewModelBarElements.Move(oldIndex, newIndex, itemsCount);
+                        appBarWindow.ViewModel.IgnoreCollectionChangedEvents = true;
+                        try
+                        {
+                            var viewModelBarElements = GetViewModelBarElements(position, appBarWindow);
+                            viewModelBarElements.Move(oldIndex, newIndex, itemsCount);
+                        }
+                        finally
+                        {
+                            appBarWindow.ViewModel.IgnoreCollectionChangedEvents = false;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    public void InsertBarElement(BarElementModelPosition position, AppBarModel model, int order, BarElementModel barElement, bool changeViewModel)
+    {
+        lock (_appBarWindowLock)
+        {
+            var barElements = GetBarElements(position, model);
+            if (barElements.InsertOrder(order, barElement))
+            {
+                _settings.Save();
+                if (changeViewModel)
+                {
+                    if (AppBarWindowPairs.TryGetValue(model.Order, out var appBarWindow))
+                    {
+                        appBarWindow.ViewModel.IgnoreCollectionChangedEvents = true;
+                        try
+                        {
+                            var viewModelBarElements = GetViewModelBarElements(position, appBarWindow);
+                            viewModelBarElements.Insert(order, barElement);
+                        }
+                        finally
+                        {
+                            appBarWindow.ViewModel.IgnoreCollectionChangedEvents = false;
+                        }
                     }
                 }
             }
