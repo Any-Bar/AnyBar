@@ -233,7 +233,7 @@ public static class PluginManager
         }
 
         var barElementContext = new BarElementContext(Guid.NewGuid().ToString(), position);
-        element.Context = barElementContext;
+        element.Context ??= barElementContext;
         return pair.Plugin.CreateBarElement(barElementContext);
     }
 
