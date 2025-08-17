@@ -210,7 +210,7 @@ public partial class AppBarWindow : Window
         switch (e.PropertyName)
         {
             case nameof(AppBarViewModel.DockMode):
-                OnDockLocationChanged(positionChanged: IsInitialized);
+                OnDockLocationChanged(positionChanged: _isInitialized);
                 break;
             case nameof(AppBarViewModel.ActualMonitor):
                 OnDockLocationChanged();
@@ -225,7 +225,7 @@ public partial class AppBarWindow : Window
                 OnDockedWidthOrHeightChanged();
                 break;
             case nameof(AppBarViewModel.ActualDockedWidthOrHeight):
-                OnDockLocationChanged(dockedWidthOrHeightChanged: IsInitialized);
+                OnDockLocationChanged(dockedWidthOrHeightChanged: _isInitialized);
                 break;
         }
     }
