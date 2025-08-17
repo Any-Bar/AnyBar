@@ -10,7 +10,6 @@ using Flow.Bar.Helpers.Plugins;
 using Flow.Bar.Models.AppBar;
 using Flow.Bar.Models.Explorer;
 using Flow.Bar.Models.Monitor;
-using Flow.Bar.Models.Plugins;
 using Flow.Bar.Models.UserSettings;
 using Flow.Bar.Views;
 

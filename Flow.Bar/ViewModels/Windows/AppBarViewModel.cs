@@ -8,7 +8,6 @@ using Flow.Bar.Helpers.Plugins;
 using Flow.Bar.Models.AppBar;
 using Flow.Bar.Models.Monitor;
 using Flow.Bar.Models.Parameters;
-using Flow.Bar.Plugin;
 using Flow.Bar.Services;
 
 namespace Flow.Bar.ViewModels;

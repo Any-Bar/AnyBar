@@ -32,7 +32,7 @@ public class Main : IPlugin, IPluginI18n, ICustomLeftClickMenu, IRightClickMenu,
             existingControl.OnDockModeChanged(context.Position);
             return existingControl;
         }
-        
+
         var control = new DateTimeControl(context.Position);
         _runningBarElements.TryAdd(context.Id, control);
 
