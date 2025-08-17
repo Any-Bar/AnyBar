@@ -50,7 +50,7 @@
                 Description="{DynamicResource SettingPaneGeneral_StartOnSystemStartupDescription}"
                 Header="{DynamicResource SettingPaneGeneral_StartOnSystemStartup}">
                 <ui:SettingsExpander.HeaderIcon>
-                    <ui:FontIcon Glyph="&#xe8fc;" />
+                    <ui:FontIcon Glyph="&#xE7B5;" />
                 </ui:SettingsExpander.HeaderIcon>
 
                 <controls:ToggleSwitchEx IsOn="{Binding StartOnSystemStartup, Mode=TwoWay}" />
@@ -61,7 +61,7 @@
                         Description="{DynamicResource SettingPaneGeneral_UseLogonTaskForStartupDescription}"
                         Header="{DynamicResource SettingPaneGeneral_UseLogonTaskForStartup}">
                         <controls:SettingsCardEx.HeaderIcon>
-                            <ui:FontIcon Glyph="&#xed1a;" />
+                            <ui:FontIcon Glyph="&#xE823;" />
                         </controls:SettingsCardEx.HeaderIcon>
 
                         <controls:ToggleSwitchEx IsOn="{Binding UseLogonTaskForStartup, Mode=TwoWay}" />
