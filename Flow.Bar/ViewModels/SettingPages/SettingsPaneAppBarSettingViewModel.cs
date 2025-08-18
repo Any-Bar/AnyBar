@@ -147,6 +147,22 @@ public partial class SettingsPaneAppBarSettingViewModel(AppBarManagementService 
 
     #endregion
 
+    #region Open Bar Element Setting
+
+    [RelayCommand]
+    private void OpenBarElementSetting(BarElementModelPosition elementPosition)
+    {
+        _navigationViewService.NavigateTo(SettingPageTag.BarElementSetting, new SettingsPaneBarElementSettingNavigationParameter
+        {
+            Model = AppBarModel,
+            Position = elementPosition
+        });
+    }
+
+    #endregion
+
+    #region Helper Methods
+
     private void UpdateActualMonitor(string? monitorName)
     {
         var monitor = MonitorInfoHelper.GetMonitorInfoFromName(monitorName);
@@ -170,18 +186,6 @@ public partial class SettingsPaneAppBarSettingViewModel(AppBarManagementService 
         var dockedWidthOrHeight = DockedWidthOrHeight;
         (MinDockedWidthOrHeight, MaxDockedWidthOrHeight, DockedWidthOrHeight) =
             MonitorInfoHelper.GetMinAndMaxDockedWidthOrHeight(dockedWidthOrHeight, DockMode, ActualMonitor);
-    }
-
-    #region Open Bar Element Setting
-
-    [RelayCommand]
-    private void OpenBarElementSetting(BarElementModelPosition elementPosition)
-    {
-        _navigationViewService.NavigateTo(SettingPageTag.BarElementSetting, new SettingsPaneBarElementSettingNavigationParameter
-        {
-            Model = AppBarModel,
-            Position = elementPosition
-        });
     }
 
     #endregion

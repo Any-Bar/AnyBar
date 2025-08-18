@@ -24,13 +24,7 @@ public partial class AppBarViewModel(AppBarManagementService appBarManagementSer
 
     public AppBarModel Model { get; set; } = null!;
 
-    public bool IgnoreCollectionChangedEvents { get; set; } = false;
-
-    public ObservableCollection<BarElementModel> LeftOrTopBarElements { get; } = [];
-
-    public ObservableCollection<BarElementModel> CenterBarElements { get; } = [];
-
-    public ObservableCollection<BarElementModel> RightOrBottomBarElements { get; } = [];
+    #region Dock Mode & Monitor & Docked Width or Height & Follow System Taskbar Width or Height & Resizable
 
     [ObservableProperty]
     private AppBarDockMode _dockMode = AppBarDockMode.Top;
@@ -70,6 +64,10 @@ public partial class AppBarViewModel(AppBarManagementService appBarManagementSer
     [ObservableProperty]
     private bool _isResizable = false;
 
+    #endregion
+
+    #region Initialization
+
     public void Initialize(AppBarModel model)
     {
         Model = model;
@@ -86,18 +84,17 @@ public partial class AppBarViewModel(AppBarManagementService appBarManagementSer
         MonitorInfoHelper.GetMonitorTaskBarWidthOrHeight(ActualMonitor);
     }
 
-    private void UpdateActualMonitor(string? monitorName)
-    {
-        var monitor = MonitorInfoHelper.GetMonitorInfoFromName(monitorName);
-        if (monitor != null)
-        {
-            ActualMonitor = monitor;
-        }
-        else
-        {
-            App.API.LogError(ClassName, $"Monitor not found: {monitorName}");
-        }
-    }
+    #endregion
+
+    #region Bar Elements
+
+    public bool IgnoreCollectionChangedEvents { get; set; } = false;
+
+    public ObservableCollection<BarElementModel> LeftOrTopBarElements { get; } = [];
+
+    public ObservableCollection<BarElementModel> CenterBarElements { get; } = [];
+
+    public ObservableCollection<BarElementModel> RightOrBottomBarElements { get; } = [];
 
     public void InitializeBarElements()
     {
@@ -254,6 +251,27 @@ public partial class AppBarViewModel(AppBarManagementService appBarManagementSer
         DeleteBarElements(BarElementModelPosition.RightOrBottom);
     }
 
+    #endregion
+
+    #region Helper Methods
+
+    private void UpdateActualMonitor(string? monitorName)
+    {
+        var monitor = MonitorInfoHelper.GetMonitorInfoFromName(monitorName);
+        if (monitor != null)
+        {
+            ActualMonitor = monitor;
+        }
+        else
+        {
+            App.API.LogError(ClassName, $"Monitor not found: {monitorName}");
+        }
+    }
+
+    #endregion
+
+    #region IDisposable
+
     public void Dispose()
     {
         LeftOrTopBarElements.CollectionChanged -= LeftOrTopBarElements_CollectionChanged;
@@ -261,4 +279,6 @@ public partial class AppBarViewModel(AppBarManagementService appBarManagementSer
         CenterBarElements.CollectionChanged -= CenterBarElements_CollectionChanged;
         DeleteBarElements();
     }
+
+    #endregion
 }
