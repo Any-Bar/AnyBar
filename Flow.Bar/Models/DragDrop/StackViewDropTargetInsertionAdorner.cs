@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Controls.Primitives;
 using System.Windows.Media;
+using Flow.Bar.Controls;
 using GongSolutions.Wpf.DragDrop;
-using GongSolutions.Wpf.DragDrop.Utilities;
 using WpfDragDrop = GongSolutions.Wpf.DragDrop.DragDrop;
 
 namespace Flow.Bar.Models.DragDrop;
@@ -39,7 +38,7 @@ public class StackViewDropTargetInsertionAdorner(UIElement adornedElement, IDrop
     {
         var dropInfo = DropInfo;
 
-        if (dropInfo.VisualTarget is not ItemsControl itemsControl)
+        if (dropInfo.VisualTarget is not StackView itemsControl)
         {
             return;
         }
@@ -116,23 +115,6 @@ public class StackViewDropTargetInsertionAdorner(UIElement adornedElement, IDrop
                 }
                 else
                 {
-                    if ((itemsControl as ListView)?.View is GridView)
-                    {
-                        var header = itemsControl.GetVisualDescendent<GridViewHeaderRowPresenter>();
-                        if (header != null)
-                        {
-                            itemRect.Y += header.RenderSize.Height;
-                        }
-                    }
-                    else if (itemsControl is DataGrid)
-                    {
-                        var header = itemsControl.GetVisualDescendent<DataGridColumnHeadersPresenter>();
-                        if (header != null)
-                        {
-                            itemRect.Y += header.RenderSize.Height;
-                        }
-                    }
-
                     itemRect.Y += Pen.Thickness;
                 }
             }
