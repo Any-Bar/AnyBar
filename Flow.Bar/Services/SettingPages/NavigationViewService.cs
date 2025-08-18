@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows.Navigation;
+using CommunityToolkit.Mvvm.ComponentModel;
 using Flow.Bar.Controls;
 using Flow.Bar.Enums;
 using Flow.Bar.Interfaces;
@@ -238,7 +239,7 @@ public class NavigationViewService(PageService pageService)
         _navigationView.Header = page.Title;
     }
 
-    private static object? GetPageViewModel(Page page) => page.DataContext as INavigationAware;
+    private static object? GetPageViewModel(Page page) => page.DataContext as ObservableObject;
 
     #endregion
 }
