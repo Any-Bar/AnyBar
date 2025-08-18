@@ -35,6 +35,8 @@ public partial class SettingsPaneBarElementSettingViewModel(AppBarManagementServ
     [ObservableProperty]
     private bool _isInitialized = false;
 
+    #region Add Bar Element
+
     [RelayCommand]
     private async Task AddBarElementAsync(Button button)
     {
@@ -78,6 +80,10 @@ public partial class SettingsPaneBarElementSettingViewModel(AppBarManagementServ
         }
     }
 
+    #endregion
+
+    #region Sort Mode
+
     public List<SettingsPaneBarElementSettingSortModeLocalized> AllSortModes { get; } = SettingsPaneBarElementSettingSortModeLocalized.GetValues();
 
     [ObservableProperty]
@@ -91,11 +97,127 @@ public partial class SettingsPaneBarElementSettingViewModel(AppBarManagementServ
         }
     }
 
+    #endregion
+
+    #region Bar Elements
+
     public ObservableCollection<BarElementViewModel> BarElements { get; } = [];
 
     private List<BarElementViewModel> _barElements = null!;
 
     private readonly Lock _barElementsLock = new();
+
+    private void InitializeBarElements()
+    {
+        _barElements = [.. _appBarManagementService.GetOrderedBarElements(_position, _model).Select(x => new BarElementViewModel(x))];
+    }
+
+    private void SortBarElements()
+    {
+        BarElements.Clear();
+        foreach (var element in GetSortedBarElements(_barElements))
+        {
+            BarElements.Add(element);
+        }
+    }
+
+    private List<BarElementViewModel> GetSortedBarElements(List<BarElementViewModel> allBarElements)
+    {
+        return SortMode switch
+        {
+            SettingsPaneBarElementSettingSortMode.LeftTopToRightBottom => allBarElements,
+            SettingsPaneBarElementSettingSortMode.RightBottomToLeftTop => allBarElements.Reversed(),
+            SettingsPaneBarElementSettingSortMode.Status => [.. allBarElements.OrderBy(x => x.Disabled).ThenBy(x => x.Name)],
+            SettingsPaneBarElementSettingSortMode.Name => [.. allBarElements.OrderBy(x => x.Name)],
+            _ => allBarElements
+        };
+    }
+
+    private void BarElements_CollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
+    {
+        if (e.Action == NotifyCollectionChangedAction.Move)
+        {
+            if (e.OldItems == null || e.NewItems == null || e.OldItems.Count == 0 || e.OldItems.Count != e.NewItems.Count)
+            {
+                App.API.LogError(ClassName, $"{nameof(NotifyCollectionChangedAction.Move)} action in {nameof(BarElements)} collection changed with invalid parameters");
+                return;
+            }
+
+            if (SortMode == SettingsPaneBarElementSettingSortMode.LeftTopToRightBottom)
+            {
+                _appBarManagementService.ChangeBarElementOrder(_position, _model, e.OldStartingIndex, e.NewStartingIndex, e.OldItems.Count, true);
+                lock (_barElementsLock)
+                {
+                    InitializeBarElements();
+                }
+            }
+            else if (SortMode == SettingsPaneBarElementSettingSortMode.RightBottomToLeftTop)
+            {
+                var reversedOldStartingIndex = BarElements.Count - 1 - e.OldStartingIndex;
+                var reversedNewStartingIndex = BarElements.Count - 1 - e.NewStartingIndex;
+                _appBarManagementService.ChangeBarElementOrder(_position, _model, reversedOldStartingIndex, reversedNewStartingIndex, e.OldItems.Count, true);
+                lock (_barElementsLock)
+                {
+                    InitializeBarElements();
+                }
+            }
+            else
+            {
+                App.API.LogError(ClassName, $"Unsupported {nameof(SortMode)}: {SortMode} for {nameof(NotifyCollectionChangedAction.Move)} action in {nameof(BarElements)} collection");
+            }
+        }
+    }
+
+    #endregion
+
+    #region Menu Flyout
+
+    private static readonly double ContextMenuWidth = (double)Application.Current.TryFindResource("CustomContextMenuWidth");
+    private static readonly double SecondaryContextMenuWidth = (double)Application.Current.TryFindResource("SecondaryContextMenuWidth");
+    private static readonly double SecondaryContextMenuHeight = (double)Application.Current.TryFindResource("SecondaryContextMenuHeight");
+    private static readonly Style BarElementRemoveContextMenuStyle = (Style)Application.Current.TryFindResource("BarElementRemoveContextMenuStyle");
+
+    private DoubleMenuFlyoutHelper<BarElementViewModel> _menuFlyoutHelper = null!;
+
+    private void InitializeMenuFlyoutHelper()
+    {
+        _menuFlyoutHelper = new(
+            ContextMenuWidth,
+            SecondaryContextMenuWidth,
+            SecondaryContextMenuHeight,
+            BarElementRemoveContextMenuStyle,
+            "RemoveButton",
+            RemoveBarElement);
+        var removeItem = new MenuItem();
+        removeItem.SetResourceReference(HeaderedItemsControl.HeaderProperty, nameof(Localize.SettingPaneAppBarSetting_Remove));
+        removeItem.Click += RemoveItem_Click;
+        _menuFlyoutHelper.Items.Add(removeItem);
+    }
+
+    [RelayCommand]
+    private void ShowBarElementMoreOptions(FontIconButton button)
+    {
+        _menuFlyoutHelper.ButtonClick(button);
+    }
+
+    private void RemoveItem_Click(object sender, RoutedEventArgs e)
+    {
+        _menuFlyoutHelper.MenuItemClick();
+    }
+
+    private void RemoveBarElement(BarElementViewModel oldBarElement)
+    {
+        _appBarManagementService.RemoveBarElement(_position, _model, oldBarElement.Order, true);
+        lock (_barElementsLock)
+        {
+            BarElements.Remove(BarElements.First(x => x.Order == oldBarElement.Order));
+            _barElements.RemoveAll(x => x.Order == oldBarElement.Order);
+        }
+    }
+
+    #endregion
+
+    #region INavigationAware
 
     public void OnNavigatedTo(object? parameter)
     {
@@ -185,112 +307,6 @@ public partial class SettingsPaneBarElementSettingViewModel(AppBarManagementServ
     {
         IsInitialized = false;
         BarElements.CollectionChanged -= BarElements_CollectionChanged;
-    }
-
-    private void InitializeBarElements()
-    {
-        _barElements = [.. _appBarManagementService.GetOrderedBarElements(_position, _model).Select(x => new BarElementViewModel(x))];
-    }
-
-    private void SortBarElements()
-    {
-        BarElements.Clear();
-        foreach (var element in GetSortedBarElements(_barElements))
-        {
-            BarElements.Add(element);
-        }
-    }
-
-    private List<BarElementViewModel> GetSortedBarElements(List<BarElementViewModel> allBarElements)
-    {
-        return SortMode switch
-        {
-            SettingsPaneBarElementSettingSortMode.LeftTopToRightBottom => allBarElements,
-            SettingsPaneBarElementSettingSortMode.RightBottomToLeftTop => allBarElements.Reversed(),
-            SettingsPaneBarElementSettingSortMode.Status => [.. allBarElements.OrderBy(x => x.Disabled).ThenBy(x => x.Name)],
-            SettingsPaneBarElementSettingSortMode.Name => [.. allBarElements.OrderBy(x => x.Name)],
-            _ => allBarElements
-        };
-    }
-
-    private void BarElements_CollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
-    {
-        if (e.Action == NotifyCollectionChangedAction.Move)
-        {
-            if (e.OldItems == null || e.NewItems == null || e.OldItems.Count == 0 || e.OldItems.Count != e.NewItems.Count)
-            {
-                App.API.LogError(ClassName, $"{nameof(NotifyCollectionChangedAction.Move)} action in {nameof(BarElements)} collection changed with invalid parameters");
-                return;
-            }
-
-            if (SortMode == SettingsPaneBarElementSettingSortMode.LeftTopToRightBottom)
-            {
-                _appBarManagementService.ChangeBarElementOrder(_position, _model, e.OldStartingIndex, e.NewStartingIndex, e.OldItems.Count, true);
-                lock (_barElementsLock)
-                {
-                    InitializeBarElements();
-                }
-            }
-            else if (SortMode == SettingsPaneBarElementSettingSortMode.RightBottomToLeftTop)
-            {
-                var reversedOldStartingIndex = BarElements.Count - 1 - e.OldStartingIndex;
-                var reversedNewStartingIndex = BarElements.Count - 1 - e.NewStartingIndex;
-                _appBarManagementService.ChangeBarElementOrder(_position, _model, reversedOldStartingIndex, reversedNewStartingIndex, e.OldItems.Count, true);
-                lock (_barElementsLock)
-                {
-                    InitializeBarElements();
-                }
-            }
-            else
-            {
-                App.API.LogError(ClassName, $"Unsupported {nameof(SortMode)}: {SortMode} for {nameof(NotifyCollectionChangedAction.Move)} action in {nameof(BarElements)} collection");
-            }
-        }
-    }
-
-    #region Menu Flyout
-
-    private static readonly double ContextMenuWidth = (double)Application.Current.TryFindResource("CustomContextMenuWidth");
-    private static readonly double SecondaryContextMenuWidth = (double)Application.Current.TryFindResource("SecondaryContextMenuWidth");
-    private static readonly double SecondaryContextMenuHeight = (double)Application.Current.TryFindResource("SecondaryContextMenuHeight");
-    private static readonly Style BarElementRemoveContextMenuStyle = (Style)Application.Current.TryFindResource("BarElementRemoveContextMenuStyle");
-
-    private DoubleMenuFlyoutHelper<BarElementViewModel> _menuFlyoutHelper = null!;
-
-    private void InitializeMenuFlyoutHelper()
-    {
-        _menuFlyoutHelper = new(
-            ContextMenuWidth,
-            SecondaryContextMenuWidth,
-            SecondaryContextMenuHeight,
-            BarElementRemoveContextMenuStyle,
-            "RemoveButton",
-            RemoveBarElement);
-        var removeItem = new MenuItem();
-        removeItem.SetResourceReference(HeaderedItemsControl.HeaderProperty, nameof(Localize.SettingPaneAppBarSetting_Remove));
-        removeItem.Click += RemoveItem_Click;
-        _menuFlyoutHelper.Items.Add(removeItem);
-    }
-
-    [RelayCommand]
-    private void ShowBarElementMoreOptions(FontIconButton button)
-    {
-        _menuFlyoutHelper.ButtonClick(button);
-    }
-
-    private void RemoveItem_Click(object sender, RoutedEventArgs e)
-    {
-        _menuFlyoutHelper.MenuItemClick();
-    }
-
-    private void RemoveBarElement(BarElementViewModel oldBarElement)
-    {
-        _appBarManagementService.RemoveBarElement(_position, _model, oldBarElement.Order, true);
-        lock (_barElementsLock)
-        {
-            BarElements.Remove(BarElements.First(x => x.Order == oldBarElement.Order));
-            _barElements.RemoveAll(x => x.Order == oldBarElement.Order);
-        }
     }
 
     #endregion

@@ -30,6 +30,8 @@ public partial class SettingsPaneAppBarViewModel(AppBarManagementService appBarM
     [ObservableProperty]
     private bool _isInitialized = false;
 
+    #region Add AppBar
+
     [RelayCommand]
     private async Task AddAppBarAsync(Button button)
     {
@@ -82,6 +84,10 @@ public partial class SettingsPaneAppBarViewModel(AppBarManagementService appBarM
         }
     }
 
+    #endregion
+
+    #region Sort Mode
+
     public List<SettingsPaneAppBarSortModeLocalized> AllSortModes { get; } = SettingsPaneAppBarSortModeLocalized.GetValues();
 
     [ObservableProperty]
@@ -95,31 +101,15 @@ public partial class SettingsPaneAppBarViewModel(AppBarManagementService appBarM
         }
     }
 
+    #endregion
+
+    #region AppBars
+
     public ObservableCollection<AppBarModel> AppBars { get; } = [];
 
     private List<AppBarModel> _appBars = null!;
 
     private readonly Lock _appBarsLock = new();
-
-    public void OnNavigatedTo(object? parameter)
-    {
-        if (!IsInitialized)
-        {
-            lock (_appBarsLock)
-            {
-                InitializeAppBars();
-                SortAppBars();
-            }
-            AppBars.CollectionChanged += AppBars_CollectionChanged;
-            IsInitialized = true;
-        }
-    }
-
-    public void OnNavigatedFrom()
-    {
-        IsInitialized = false;
-        AppBars.CollectionChanged -= AppBars_CollectionChanged;
-    }
 
     private void InitializeAppBars()
     {
@@ -171,11 +161,19 @@ public partial class SettingsPaneAppBarViewModel(AppBarManagementService appBarM
         }
     }
 
+    #endregion
+
+    #region Open AppBar Setting
+
     [RelayCommand]
     private void OpenAppBarSetting(AppBarModel model)
     {
         _navigationViewService.NavigateTo(SettingPageTag.AppBarSetting, model);
     }
+
+    #endregion
+
+    #region Toggle AppBar Enable
 
     [RelayCommand]
     private void IsEnabledToggleSwitchToggled(ToggleSwitchEx toggleSwitch)
@@ -183,6 +181,32 @@ public partial class SettingsPaneAppBarViewModel(AppBarManagementService appBarM
         if (toggleSwitch.Tag is not AppBarModel model) return;
         _appBarManagementService.SetEnabled(model.Order, toggleSwitch.IsOn);
     }
+
+    #endregion
+
+    #region INavigationAware
+
+    public void OnNavigatedTo(object? parameter)
+    {
+        if (!IsInitialized)
+        {
+            lock (_appBarsLock)
+            {
+                InitializeAppBars();
+                SortAppBars();
+            }
+            AppBars.CollectionChanged += AppBars_CollectionChanged;
+            IsInitialized = true;
+        }
+    }
+
+    public void OnNavigatedFrom()
+    {
+        IsInitialized = false;
+        AppBars.CollectionChanged -= AppBars_CollectionChanged;
+    }
+
+    #endregion
 
     #region INavigationHeader
 

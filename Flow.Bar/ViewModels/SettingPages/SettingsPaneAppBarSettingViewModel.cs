@@ -23,6 +23,11 @@ public partial class SettingsPaneAppBarSettingViewModel(AppBarManagementService 
     private bool _isInitialized = false;
 
     [ObservableProperty]
+    private AppBarModel _appBarModel = null!;
+
+    #region Name
+
+    [ObservableProperty]
     private string _name = string.Empty;
 
     partial void OnNameChanged(string value)
@@ -31,8 +36,9 @@ public partial class SettingsPaneAppBarSettingViewModel(AppBarManagementService 
         _appBarManagementService.SetName(AppBarModel.Order, value);
     }
 
-    [ObservableProperty]
-    private AppBarModel _appBarModel = null!;
+    #endregion
+
+    #region Enabled
 
     [ObservableProperty]
     private bool _isEnabled = true;
@@ -42,6 +48,10 @@ public partial class SettingsPaneAppBarSettingViewModel(AppBarManagementService 
         if (!_isInitialized) return;
         _appBarManagementService.SetEnabled(AppBarModel.Order, value);
     }
+
+    #endregion
+
+    #region Dock Mode
 
     public List<AppBarDockModeLocalized> AllDockModes { get; } = AppBarDockModeLocalized.GetValues();
 
@@ -54,6 +64,10 @@ public partial class SettingsPaneAppBarSettingViewModel(AppBarManagementService 
         if (!_isInitialized) return;
         _appBarManagementService.SetDockMode(AppBarModel.Order, value);
     }
+
+    #endregion
+
+    #region Monitor
 
     public List<MonitorNameLocalized> AllMonitorNames { get; } = appBarManagementService.GetAllMonitorNames(true);
 
@@ -75,6 +89,10 @@ public partial class SettingsPaneAppBarSettingViewModel(AppBarManagementService 
         _appBarManagementService.SetMonitorName(AppBarModel.Order, value);
     }
 
+    #endregion
+
+    #region Follow System Taskbar Width or Height
+
     [ObservableProperty]
     private bool _followSystemTaskbarWidthOrHeight = true;
 
@@ -83,6 +101,10 @@ public partial class SettingsPaneAppBarSettingViewModel(AppBarManagementService 
         if (!_isInitialized) return;
         _appBarManagementService.SetFollowSystemTaskbarWidthOrHeight(AppBarModel.Order, value);
     }
+
+    #endregion
+
+    #region Docked Width or Height
 
     [ObservableProperty]
     private int _minDockedWidthOrHeight = 0;
@@ -99,6 +121,10 @@ public partial class SettingsPaneAppBarSettingViewModel(AppBarManagementService 
         _appBarManagementService.SetDockedWidthOrHeight(AppBarModel.Order, value);
     }
 
+    #endregion
+
+    #region Resizable
+
     [ObservableProperty]
     private bool _isResizable = false;
 
@@ -108,34 +134,9 @@ public partial class SettingsPaneAppBarSettingViewModel(AppBarManagementService 
         _appBarManagementService.SetIsResizable(AppBarModel.Order, value);
     }
 
-    public void OnNavigatedTo(object? parameter)
-    {
-        if (parameter is AppBarModel model)
-        {
-            if (!_isInitialized)
-            {
-                Name = model.Name;
-                AppBarModel = model;
-                IsEnabled = model.IsEnabled;
-                DockMode = model.DockMode;
-                MonitorName = model.MonitorName;
-                FollowSystemTaskbarWidthOrHeight = model.FollowSystemTaskbarWidthOrHeight;
-                DockedWidthOrHeight = model.DockedWidthOrHeight;
-                IsResizable = model.IsResizable;
-                UpdateMinAndMaxDockedWidthOrHeight();
-                _isInitialized = true;
-            }
-        }
-        else
-        {
-            App.API.LogError(ClassName, $"{nameof(parameter)} is not of type {nameof(AppBarModel)}");
-        }
-    }
+    #endregion
 
-    public void OnNavigatedFrom()
-    {
-        _isInitialized = false;
-    }
+    #region Remove AppBar
 
     [RelayCommand]
     private void RemoveAppBar()
@@ -143,6 +144,8 @@ public partial class SettingsPaneAppBarSettingViewModel(AppBarManagementService 
         _appBarManagementService.RemoveAppBar(AppBarModel.Order);
         _navigationViewService.GoBack();
     }
+
+    #endregion
 
     private void UpdateActualMonitor(string? monitorName)
     {
@@ -169,6 +172,8 @@ public partial class SettingsPaneAppBarSettingViewModel(AppBarManagementService 
             MonitorInfoHelper.GetMinAndMaxDockedWidthOrHeight(dockedWidthOrHeight, DockMode, ActualMonitor);
     }
 
+    #region Open Bar Element Setting
+
     [RelayCommand]
     private void OpenBarElementSetting(BarElementModelPosition elementPosition)
     {
@@ -178,6 +183,41 @@ public partial class SettingsPaneAppBarSettingViewModel(AppBarManagementService 
             Position = elementPosition
         });
     }
+
+    #endregion
+
+    #region INavigationAware
+
+    public void OnNavigatedTo(object? parameter)
+    {
+        if (parameter is AppBarModel model)
+        {
+            if (!_isInitialized)
+            {
+                AppBarModel = model;
+                Name = model.Name;
+                IsEnabled = model.IsEnabled;
+                DockMode = model.DockMode;
+                MonitorName = model.MonitorName;
+                FollowSystemTaskbarWidthOrHeight = model.FollowSystemTaskbarWidthOrHeight;
+                DockedWidthOrHeight = model.DockedWidthOrHeight;
+                IsResizable = model.IsResizable;
+                UpdateMinAndMaxDockedWidthOrHeight();
+                _isInitialized = true;
+            }
+        }
+        else
+        {
+            App.API.LogError(ClassName, $"{nameof(parameter)} is not of type {nameof(AppBarModel)}");
+        }
+    }
+
+    public void OnNavigatedFrom()
+    {
+        _isInitialized = false;
+    }
+
+    #endregion
 
     #region INavigationHeader
 

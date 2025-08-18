@@ -20,6 +20,8 @@ public partial class SettingsPanePluginsViewModel : ObservableObject, INavigatio
 {
     private bool _isInitialized = false;
 
+    #region Search Text
+
     [ObservableProperty]
     private string _searchText = string.Empty;
 
@@ -31,6 +33,10 @@ public partial class SettingsPanePluginsViewModel : ObservableObject, INavigatio
             UpdateFilteredPlugins();
         }
     }
+
+    #endregion
+
+    #region Filter Mode
 
     public List<SettingPanePluginsFilterModeLocalized> AllFilterModes { get; } = SettingPanePluginsFilterModeLocalized.GetValues();
 
@@ -46,6 +52,10 @@ public partial class SettingsPanePluginsViewModel : ObservableObject, INavigatio
         }
     }
 
+    #endregion
+
+    #region Sort Mode
+
     public List<SettingPanePluginsSortModeLocalized> AllSortModes { get; } = SettingPanePluginsSortModeLocalized.GetValues();
 
     [ObservableProperty]
@@ -60,6 +70,10 @@ public partial class SettingsPanePluginsViewModel : ObservableObject, INavigatio
         }
     }
 
+    #endregion
+
+    #region All Plugins
+
     public ObservableCollection<PluginViewModel> AllPlugins { get; } = [];
 
     private List<PluginViewModel> _allPlugins = null!;
@@ -67,29 +81,6 @@ public partial class SettingsPanePluginsViewModel : ObservableObject, INavigatio
     private List<PluginViewModel> _sortedPlugins = null!;
 
     private readonly Lock _pluginsLock = new();
-
-    public void OnNavigatedTo(object? parameter)
-    {
-        if (!_isInitialized)
-        {
-            lock (_pluginsLock)
-            {
-                _allPlugins = [.. PluginManager.GetAllLoadedPlugins().Select(plugin => new PluginViewModel(plugin))];
-                UpdateFilteredPlugins();
-                UpdateSortedPlugins();
-                FilterSortedPlugins();
-            }
-            _isInitialized = true;
-        }
-
-        // Only need to initialize once
-        InitializeMenuFlyoutHelper();
-    }
-
-    public void OnNavigatedFrom()
-    {
-        _isInitialized = false;
-    }
 
     private void UpdateFilteredPlugins()
     {
@@ -144,6 +135,8 @@ public partial class SettingsPanePluginsViewModel : ObservableObject, INavigatio
                 FilterMode == SettingPanePluginsFilterMode.UserinstalledPlugins));
     }
 
+    #endregion
+
     #region Menu Flyout
 
     private static readonly double ContextMenuWidth = (double)Application.Current.TryFindResource("CustomContextMenuWidth");
@@ -192,6 +185,33 @@ public partial class SettingsPanePluginsViewModel : ObservableObject, INavigatio
                 _sortedPlugins.Remove(_sortedPlugins.First(x => x.ID == oldPlugin.ID));
             }
         }
+    }
+
+    #endregion
+
+    #region INavigationAware
+
+    public void OnNavigatedTo(object? parameter)
+    {
+        if (!_isInitialized)
+        {
+            lock (_pluginsLock)
+            {
+                _allPlugins = [.. PluginManager.GetAllLoadedPlugins().Select(plugin => new PluginViewModel(plugin))];
+                UpdateFilteredPlugins();
+                UpdateSortedPlugins();
+                FilterSortedPlugins();
+            }
+            _isInitialized = true;
+        }
+
+        // Only need to initialize once
+        InitializeMenuFlyoutHelper();
+    }
+
+    public void OnNavigatedFrom()
+    {
+        _isInitialized = false;
     }
 
     #endregion
