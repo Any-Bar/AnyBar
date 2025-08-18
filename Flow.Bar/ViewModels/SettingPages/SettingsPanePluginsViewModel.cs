@@ -16,7 +16,7 @@ using Flow.Bar.Models.Plugins;
 
 namespace Flow.Bar.ViewModels;
 
-public partial class SettingsPanePluginsViewModel : ObservableObject, INavigationAware
+public partial class SettingsPanePluginsViewModel : ObservableObject, INavigationAware, INavigationHeader
 {
     private bool _isInitialized = false;
 
@@ -192,6 +192,20 @@ public partial class SettingsPanePluginsViewModel : ObservableObject, INavigatio
                 _sortedPlugins.Remove(_sortedPlugins.First(x => x.ID == oldPlugin.ID));
             }
         }
+    }
+
+    #endregion
+
+    #region INavigationHeader
+
+    public string? GetHeaderKey()
+    {
+        return nameof(Localize.SettingWindow_Plugins);
+    }
+
+    public string GetHeaderValue()
+    {
+        throw new NotImplementedException();
     }
 
     #endregion

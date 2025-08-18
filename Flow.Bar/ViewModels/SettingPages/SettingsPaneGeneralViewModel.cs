@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using System.Windows;
 using CommunityToolkit.Mvvm.ComponentModel;
 using Flow.Bar.Helpers.Startup;
+using Flow.Bar.Interfaces;
 using Flow.Bar.Models.Language;
 using Flow.Bar.Models.UserSettings;
 using Windows.Win32;
 
 namespace Flow.Bar.ViewModels;
 
-public partial class SettingsPaneGeneralViewModel(Settings settings, Internationalization translater) : ObservableObject
+public partial class SettingsPaneGeneralViewModel(Settings settings, Internationalization translater) : ObservableObject, INavigationHeader
 {
     private static readonly string ClassName = nameof(SettingsPaneGeneralViewModel);
 
@@ -154,6 +155,20 @@ public partial class SettingsPaneGeneralViewModel(Settings settings, Internation
                 App.API.RestartApp(true);
             }
         }
+    }
+
+    #endregion
+
+    #region INavigationHeader
+
+    public string? GetHeaderKey()
+    {
+        return nameof(Localize.SettingWindow_General);
+    }
+
+    public string GetHeaderValue()
+    {
+        throw new NotImplementedException();
     }
 
     #endregion

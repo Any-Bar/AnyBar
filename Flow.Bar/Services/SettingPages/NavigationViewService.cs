@@ -143,10 +143,9 @@ public class NavigationViewService(PageService pageService)
         if (_frame == null) return false;
 
         var pageType = _pageService.GetPageType(pageTag);
-        if (_frame.Content?.GetType() == pageType && _frame.Content is Page page &&
-            GetPageViewModel(page) is INavigationAware navigationAware)
+        if (_frame.Content?.GetType() == pageType && _frame.Content is Page page)
         {
-            navigationAware.OnNavigatedTo(parameter);
+            OnNavigateTo(NavigationView, page, parameter);
         }
 
         return false;
@@ -197,10 +196,7 @@ public class NavigationViewService(PageService pageService)
         _navigationView!.IsBackEnabled = _frame!.CanGoBack;
         if (sender is not Frame frame) return;
         if (frame.Content is not Page page) return;
-        if (GetPageViewModel(page) is INavigationAware navigationAware)
-        {
-            navigationAware.OnNavigatedTo(_parameterStack.Peek());
-        }
+        OnNavigateTo(NavigationView, page, _parameterStack.Peek());
 
         // Update the selected NavigationViewItem based on the page type
         var currentTag = _pageService.GetPageTag(frame.SourcePageType);
@@ -233,13 +229,52 @@ public class NavigationViewService(PageService pageService)
                 }
             }
         }
-
-        // TODO: Use DynamicResource for Binding
-        // Update the header of the NavigationView
-        _navigationView.Header = page.Title;
     }
 
     private static object? GetPageViewModel(Page page) => page.DataContext as ObservableObject;
+
+    #endregion
+
+    #region Header
+
+    private static void OnNavigateTo(NavigationView? navigationView, Page page, object? parameter)
+    {
+        var viewModel = GetPageViewModel(page);
+        if (viewModel is INavigationAware navigationAware)
+        {
+            navigationAware.OnNavigatedTo(parameter);
+        }
+
+        if (navigationView != null)
+        {
+            if (viewModel is INavigationHeader navigationHeader)
+            {
+                var headerKey = navigationHeader.GetHeaderKey();
+                if (!string.IsNullOrWhiteSpace(headerKey))
+                {
+                    SetHeaderReference(navigationView, headerKey);
+                }
+                else
+                {
+                    SetHeaderValue(navigationView, navigationHeader.GetHeaderValue());
+                }
+            }
+            else
+            {
+                SetHeaderValue(navigationView, string.Empty);
+            }
+        }
+    }
+
+    private static void SetHeaderReference(NavigationView navigationView, string headerKey)
+    {
+        navigationView.SetResourceReference(NavigationView.HeaderProperty, headerKey);
+    }
+
+    private static void SetHeaderValue(NavigationView navigationView, string headerValue)
+    {
+        navigationView.Header = headerValue;
+    }
 
     #endregion
 }

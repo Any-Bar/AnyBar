@@ -19,7 +19,7 @@ using Flow.Bar.Views;
 
 namespace Flow.Bar.ViewModels;
 
-public partial class SettingsPaneAppBarViewModel(AppBarManagementService appBarManagementService, NavigationViewService navigationViewService) : ObservableObject, INavigationAware
+public partial class SettingsPaneAppBarViewModel(AppBarManagementService appBarManagementService, NavigationViewService navigationViewService) : ObservableObject, INavigationAware, INavigationHeader
 {
     private static readonly string ClassName = nameof(SettingsPaneAppBarViewModel);
 
@@ -183,4 +183,18 @@ public partial class SettingsPaneAppBarViewModel(AppBarManagementService appBarM
         if (toggleSwitch.Tag is not AppBarModel model) return;
         _appBarManagementService.SetEnabled(model.Order, toggleSwitch.IsOn);
     }
+
+    #region INavigationHeader
+
+    public string? GetHeaderKey()
+    {
+        return nameof(Localize.SettingWindow_AppBar);
+    }
+
+    public string GetHeaderValue()
+    {
+        throw new NotImplementedException();
+    }
+
+    #endregion
 }

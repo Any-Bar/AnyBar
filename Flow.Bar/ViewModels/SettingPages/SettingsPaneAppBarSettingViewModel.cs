@@ -12,7 +12,7 @@ using Flow.Bar.Services;
 
 namespace Flow.Bar.ViewModels;
 
-public partial class SettingsPaneAppBarSettingViewModel(AppBarManagementService appBarManagementService, NavigationViewService navigationViewService) : ObservableObject, INavigationAware
+public partial class SettingsPaneAppBarSettingViewModel(AppBarManagementService appBarManagementService, NavigationViewService navigationViewService) : ObservableObject, INavigationAware, INavigationHeader
 {
     private static readonly string ClassName = nameof(SettingsPaneAppBarSettingViewModel);
 
@@ -178,4 +178,18 @@ public partial class SettingsPaneAppBarSettingViewModel(AppBarManagementService 
             Position = elementPosition
         });
     }
+
+    #region INavigationHeader
+
+    public string? GetHeaderKey()
+    {
+        return AppBarModel == null ? nameof(Localize.SettingWindow_AppBar) : null;
+    }
+
+    public string GetHeaderValue()
+    {
+        return AppBarModel!.Name;
+    }
+
+    #endregion
 }

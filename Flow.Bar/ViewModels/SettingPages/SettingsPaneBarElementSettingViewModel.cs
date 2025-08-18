@@ -22,7 +22,7 @@ using Flow.Bar.Views;
 
 namespace Flow.Bar.ViewModels;
 
-public partial class SettingsPaneBarElementSettingViewModel(AppBarManagementService appBarManagementService) : ObservableObject, INavigationAware
+public partial class SettingsPaneBarElementSettingViewModel(AppBarManagementService appBarManagementService) : ObservableObject, INavigationAware, INavigationHeader
 {
     private static readonly string ClassName = nameof(SettingsPaneBarElementSettingViewModel);
 
@@ -291,6 +291,43 @@ public partial class SettingsPaneBarElementSettingViewModel(AppBarManagementServ
             BarElements.Remove(BarElements.First(x => x.Order == oldBarElement.Order));
             _barElements.RemoveAll(x => x.Order == oldBarElement.Order);
         }
+    }
+
+    #endregion
+
+    #region INavigationHeader
+
+    public string? GetHeaderKey()
+    {
+        if (_model == null)
+        {
+            return nameof(Localize.SettingPaneAppBarSetting_BarElements);
+        }
+        else
+        {
+            return _position switch
+            {
+                BarElementModelPosition.Center => nameof(Localize.SettingPaneAppBarSetting_CenterBarElements),
+                BarElementModelPosition.LeftOrTop => _model.DockMode switch
+                {
+                    AppBarDockMode.Top or AppBarDockMode.Bottom => nameof(Localize.SettingPaneAppBarSetting_LeftBarElements),
+                    AppBarDockMode.Left or AppBarDockMode.Right => nameof(Localize.SettingPaneAppBarSetting_TopBarElements),
+                    _ => throw new NotImplementedException(),
+                },
+                BarElementModelPosition.RightOrBottom => _model.DockMode switch
+                {
+                    AppBarDockMode.Top or AppBarDockMode.Bottom => nameof(Localize.SettingPaneAppBarSetting_RightBarElements),
+                    AppBarDockMode.Left or AppBarDockMode.Right => nameof(Localize.SettingPaneAppBarSetting_BottomBarElements),
+                    _ => throw new NotImplementedException(),
+                },
+                _ => throw new NotImplementedException(),
+            };
+        }
+    }
+
+    public string GetHeaderValue()
+    {
+        throw new NotImplementedException();
     }
 
     #endregion
