@@ -389,7 +389,7 @@ public class AppBarManagementService(Settings settings)
             if (barElements.RemoveOrder(order, out var barElement))
             {
                 _settings.Save();
-                if (PluginManager.GetPluginForId(barElement.ID) is { } pair)
+                if (barElement.Context != null && PluginManager.GetPluginForId(barElement.ID) is { } pair)
                 {
                     pair.Plugin.DeleteBarElement(barElement.Context!.Id);
                 }
