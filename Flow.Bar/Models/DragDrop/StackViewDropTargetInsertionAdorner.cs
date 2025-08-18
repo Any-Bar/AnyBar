@@ -137,6 +137,16 @@ public class StackViewDropTargetInsertionAdorner(UIElement adornedElement, IDrop
                 }
             }
 
+            // Add an offset to the first item and the last item
+            if (dropInfo.InsertIndex == 0)
+            {
+                itemRect.Y += Pen.Thickness;
+            }
+            else if (dropInfo.InsertIndex == itemsCount)
+            {
+                itemRect.Y -= Pen.Thickness;
+            }
+
             var itemRectRight = Math.Min(itemRect.Right, viewportWidth);
             var itemRectLeft = itemRect.X < 0 ? 0 : itemRect.X;
             point1 = new Point(itemRectLeft, itemRect.Y);
@@ -154,6 +164,16 @@ public class StackViewDropTargetInsertionAdorner(UIElement adornedElement, IDrop
                 {
                     itemRect.X += Pen.Thickness;
                 }
+            }
+
+            // Add an offset to the first item and the last item
+            if (dropInfo.InsertIndex == 0)
+            {
+                itemRect.X += Pen.Thickness;
+            }
+            else if (dropInfo.InsertIndex == itemsCount)
+            {
+                itemRect.X -= Pen.Thickness;
             }
 
             var itemRectTop = itemRect.Y < 0 ? 0 : itemRect.Y;
