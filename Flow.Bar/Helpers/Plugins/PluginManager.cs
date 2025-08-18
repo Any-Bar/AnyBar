@@ -222,7 +222,7 @@ public static class PluginManager
         return GetAllInitializedPlugins(false).Any(p => p.Metadata.ID == pluginId);
     }
 
-    public static FrameworkElement? CreateBarElement(BarElementModel element, BarElementPosition position, int dockedHeightOrWidth)
+    public static FrameworkElement? CreateBarElement(BarElementModel element, BarElementPosition position, int dockedWidthOrHeight)
     {
         var pluginId = element.ID;
         var pair = GetAllInitializedPlugins(false).FirstOrDefault(p => p.Metadata.ID == pluginId);
@@ -232,7 +232,7 @@ public static class PluginManager
             return null;
         }
 
-        var barElementContext = new BarElementContext(Guid.NewGuid().ToString(), position, dockedHeightOrWidth);
+        var barElementContext = new BarElementContext(Guid.NewGuid().ToString(), position, dockedWidthOrHeight);
         element.Context ??= barElementContext;
         return pair.Plugin.CreateBarElement(barElementContext);
     }

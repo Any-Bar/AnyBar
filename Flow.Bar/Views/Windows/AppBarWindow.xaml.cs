@@ -403,7 +403,7 @@ public partial class AppBarWindow : Window
                 if (PluginManager.GetPluginForId(item.ID) is { } pair)
                 {
                     item.Context!.Position = position;
-                    item.Context!.DockedHeightOrWidth = ViewModel.ActualDockedWidthOrHeight;
+                    item.Context!.DockedWidthOrHeight = ViewModel.ActualDockedWidthOrHeight;
                     pair.Plugin.OnBarElementContextChanged(new BarElementContextChangedAgrs(item.Context));
                 }
             }
