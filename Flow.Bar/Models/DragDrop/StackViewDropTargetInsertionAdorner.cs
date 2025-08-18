@@ -4,6 +4,7 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using Flow.Bar.Controls;
 using GongSolutions.Wpf.DragDrop;
+using iNKORE.UI.WPF.Modern;
 using WpfDragDrop = GongSolutions.Wpf.DragDrop.DragDrop;
 
 namespace Flow.Bar.Models.DragDrop;
@@ -37,7 +38,6 @@ public class StackViewDropTargetInsertionAdorner(UIElement adornedElement, IDrop
     protected override void OnRender(DrawingContext drawingContext)
     {
         var dropInfo = DropInfo;
-
         if (dropInfo.VisualTarget is not StackView itemsControl)
         {
             return;
@@ -83,6 +83,9 @@ public class StackViewDropTargetInsertionAdorner(UIElement adornedElement, IDrop
         {
             return;
         }
+
+        // Update pen brush
+        Pen.Brush = (SolidColorBrush)Application.Current.Resources[ThemeKeys.TextFillColorTertiaryBrushKey];
 
         var itemRect = new Rect(itemContainer.TranslatePoint(new Point(), AdornedElement), itemContainer.RenderSize);
         Point point1,
