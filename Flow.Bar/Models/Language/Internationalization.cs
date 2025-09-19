@@ -220,6 +220,7 @@ public class Internationalization(Settings settings)
         {
             dicts.Remove(r);
         }
+        _oldResources.Clear();
     }
 
     private void LoadLanguage(Language language)
