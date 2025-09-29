@@ -8,7 +8,7 @@ using Windows.Win32;
 using Windows.Win32.Foundation;
 using Windows.Win32.UI.WindowsAndMessaging;
 
-namespace Flow.Bar.Helpers.Taskbar;
+namespace Flow.Bar.Models.Taskbar;
 
 /// <summary>
 /// Represents an icon window of Notification Area so-called System Tray.

@@ -12,7 +12,7 @@ using Windows.Win32.UI.WindowsAndMessaging;
 using RoutedEventArgs = System.Windows.RoutedEventArgs;
 using RoutedEventHandler = System.Windows.RoutedEventHandler;
 
-namespace Flow.Bar.Helpers.Taskbar;
+namespace Flow.Bar.Models.Taskbar;
 
 /// <summary>
 /// Represents a tray icon of Notification Area so-called System Tray.
