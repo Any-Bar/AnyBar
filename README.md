@@ -1,3 +1,3 @@
-# Flow.Bar
+﻿# Flow.Bar
 
-Customizable status & tool bar for Windows with community-made plugins
+📟 Customizable status & tool bar for Windows with community-made plugins
