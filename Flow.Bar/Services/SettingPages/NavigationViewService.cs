@@ -20,8 +20,7 @@ public class NavigationViewService(PageService pageService)
 
     private Tuple<SettingPageTag, object?>? _nextNavigation;
 
-    // Due to the limitation of WPF & iNKORE.UI.WPF.Modern framework.
-    // we cannot use a stack for the parameters so that we can go back to the previous parameter.
+    // Use a stack for the parameters so that we can go back to the previous parameter.
     private readonly Stack<object?> _parameterStack = [];
 
     public NavigationView? NavigationView => _navigationView;
