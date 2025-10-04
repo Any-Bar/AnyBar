@@ -93,26 +93,6 @@
                 x:Name="AppearanceTitle"
                 Style="{StaticResource SettingsSectionHeaderTextBlockStyle}"
                 Text="{DynamicResource SettingPaneGeneral_Appearance}" />
-            <controls:SettingsCardEx
-                x:Name="TransparencyEffectsCard"
-                Description="{DynamicResource SettingPaneGeneral_TransparencyEffectsDescription}"
-                Header="{DynamicResource SettingPaneGeneral_TransparencyEffects}">
-                <controls:SettingsCardEx.HeaderIcon>
-                    <ui:FontIcon Glyph="&#xF4A5;" />
-                </controls:SettingsCardEx.HeaderIcon>
-
-                <controls:ToggleSwitchEx IsOn="{Binding Settings.EnableTransparencyEffects, Mode=TwoWay}" />
-            </controls:SettingsCardEx>
-            <controls:SettingsCardEx
-                x:Name="AnimationEffectsCard"
-                Description="{DynamicResource SettingPaneGeneral_AnimationEffectsDescription}"
-                Header="{DynamicResource SettingPaneGeneral_AnimationEffects}">
-                <controls:SettingsCardEx.HeaderIcon>
-                    <ui:FontIcon Glyph="&#xE805;" />
-                </controls:SettingsCardEx.HeaderIcon>
-
-                <controls:ToggleSwitchEx IsOn="{Binding Settings.EnableAnimationEffects, Mode=TwoWay}" />
-            </controls:SettingsCardEx>
         </ikw:SimpleStackPanel>
     </ui:ScrollViewerEx>
 </ui:Page>

@@ -31,10 +31,6 @@
     <system:String x:Key="SettingPaneGeneral_HideSettingWindow">Hide setting window on startup</system:String>
     <system:String x:Key="SettingPaneGeneral_HideSettingWindowDescription">Hide setting window after starting up</system:String>
     <system:String x:Key="SettingPaneGeneral_Appearance">Appearance</system:String>
-    <system:String x:Key="SettingPaneGeneral_TransparencyEffects">Transparency effects</system:String>
-    <system:String x:Key="SettingPaneGeneral_TransparencyEffectsDescription">Make some control background slightly transparent</system:String>
-    <system:String x:Key="SettingPaneGeneral_AnimationEffects">Animation effects</system:String>
-    <system:String x:Key="SettingPaneGeneral_AnimationEffectsDescription">Show animation during some control interaction</system:String>
 
     <!--  Setting Pane AppBar  -->
     <system:String x:Key="SettingPaneAppBar_AddAppBarHeader">Add a new appbar to your system</system:String>
