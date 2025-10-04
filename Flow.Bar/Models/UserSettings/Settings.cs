@@ -35,8 +35,10 @@ public class Settings
 
     public bool HideSettingWindow { get; set; } = false;
 
+    // TODO: Remove this
     public bool EnableTransparencyEffects { get; set; } = true;
 
+    // TODO: Remove this
     public bool EnableAnimationEffects { get; set; } = true;
 
     private Dictionary<int, AppBarModel>? _appBars = null;
