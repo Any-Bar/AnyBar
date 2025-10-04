@@ -45,17 +45,17 @@
                 x:Name="BehaviourTitle"
                 Style="{StaticResource SettingsSectionHeaderTextBlockStyle}"
                 Text="{DynamicResource SettingPaneGeneral_Behaviour}" />
-            <ui:SettingsExpander
+            <controls:SettingsExpanderEx
                 x:Name="StartOnSystemStartupCard"
                 Description="{DynamicResource SettingPaneGeneral_StartOnSystemStartupDescription}"
                 Header="{DynamicResource SettingPaneGeneral_StartOnSystemStartup}">
-                <ui:SettingsExpander.HeaderIcon>
+                <controls:SettingsExpanderEx.HeaderIcon>
                     <ui:FontIcon Glyph="&#xE7B5;" />
-                </ui:SettingsExpander.HeaderIcon>
+                </controls:SettingsExpanderEx.HeaderIcon>
 
                 <controls:ToggleSwitchEx IsOn="{Binding StartOnSystemStartup, Mode=TwoWay}" />
 
-                <ui:SettingsExpander.Items>
+                <controls:SettingsExpanderEx.Items>
                     <controls:SettingsCardEx
                         x:Name="UseLogonTaskForStartupCard"
                         Description="{DynamicResource SettingPaneGeneral_UseLogonTaskForStartupDescription}"
@@ -66,8 +66,8 @@
 
                         <controls:ToggleSwitchEx IsOn="{Binding UseLogonTaskForStartup, Mode=TwoWay}" />
                     </controls:SettingsCardEx>
-                </ui:SettingsExpander.Items>
-            </ui:SettingsExpander>
+                </controls:SettingsExpanderEx.Items>
+            </controls:SettingsExpanderEx>
             <controls:SettingsCardEx
                 x:Name="AlwaysRunAsAdministratorCard"
                 Description="{DynamicResource SettingPaneGeneral_AlwaysRunAsAdministratorDescription}"
