@@ -6,7 +6,6 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using Flow.Bar.Controls;
 using Flow.Bar.Enums;
 using Flow.Bar.Interfaces;
-using iNKORE.UI.WPF.Modern.Media.Animation;
 using Frame = iNKORE.UI.WPF.Modern.Controls.Frame;
 using Page = iNKORE.UI.WPF.Modern.Controls.Page;
 
@@ -91,9 +90,7 @@ public class NavigationViewService(PageService pageService)
 
         if (_frame.CanGoBack)
         {
-            _frame.GoBack(
-                transitionInfoOverride: App.Settings.EnableAnimationEffects ? null : // Default transition animation
-                new SuppressNavigationTransitionInfo()); // Suppress animation if disabled);
+            _frame.GoBack();
             _parameterStack.Pop();
             return true;
         }
@@ -117,10 +114,7 @@ public class NavigationViewService(PageService pageService)
         var pageType = _pageService.GetPageType(pageTag);
         if (_frame.Content?.GetType() != pageType || (parameter != null && parameter != _parameterStack.Peek()))
         {
-            var navigated = _frame.Navigate(pageType,
-                parameter: parameter,
-                infoOverride: App.Settings.EnableAnimationEffects ? null : // Default transition animation
-                new SuppressNavigationTransitionInfo()); // Suppress animation if disabled);
+            var navigated = _frame.Navigate(pageType, parameter: parameter);
             if (navigated)
             {
                 _parameterStack.Push(parameter);

@@ -964,7 +964,7 @@ public class ContentDialog : ContentControl
     private void UpdateVisualStates(bool useTransitions)
     {
         UpdateDialogShowingStates(useTransitions);
-        VisualStateManager.GoToState(this, FullSizeDesired ? FullDialogSizingState : DefaultDialogSizingState, App.Settings.EnableAnimationEffects && useTransitions);
+        VisualStateManager.GoToState(this, FullSizeDesired ? FullDialogSizingState : DefaultDialogSizingState, useTransitions);
         UpdateButtonsVisibilityStates(useTransitions);
         UpdateDefaultButtonStates(useTransitions);
     }
@@ -978,7 +978,7 @@ public class ContentDialog : ContentControl
             stateName = DialogShowingState;
         }
 
-        VisualStateManager.GoToState(this, stateName, App.Settings.EnableAnimationEffects && useTransitions);
+        VisualStateManager.GoToState(this, stateName, useTransitions);
     }
 
     private void UpdateButtonsVisibilityStates(bool useTransitions)
@@ -1026,7 +1026,7 @@ public class ContentDialog : ContentControl
             stateName = AllVisibleState;
         }
 
-        VisualStateManager.GoToState(this, stateName, App.Settings.EnableAnimationEffects && useTransitions);
+        VisualStateManager.GoToState(this, stateName, useTransitions);
     }
 
     private void UpdateDefaultButtonStates(bool useTransitions)
@@ -1046,7 +1046,7 @@ public class ContentDialog : ContentControl
                 break;
         }
 
-        VisualStateManager.GoToState(this, stateName, App.Settings.EnableAnimationEffects && useTransitions);
+        VisualStateManager.GoToState(this, stateName, useTransitions);
     }
 
     private void EnsureAdornerLayer(ContentPresenter contentPresenter)

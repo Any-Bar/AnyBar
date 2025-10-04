@@ -121,14 +121,14 @@ public class MenuFlyoutExPresenter : ContextMenu
                 HookupParentPopup();
             }
 
-            if (App.Settings.EnableAnimationEffects)
+            if (SystemParameters.MenuAnimation)
             {
                 m_asyncShow = Dispatcher.BeginInvoke(DispatcherPriority.Loaded, ApplyOpenAnimation);
             }
         }
         else
         {
-            if (PopupMode == ContextMenuPopupMode.PopupAndFadeAway && App.Settings.EnableAnimationEffects)
+            if (PopupMode == ContextMenuPopupMode.PopupAndFadeAway)
             {
                 m_asyncHide = Dispatcher.BeginInvoke(DispatcherPriority.Loaded, ApplyCloseAnimation);
             }

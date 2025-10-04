@@ -296,7 +296,7 @@ public partial class SplitViewEx : Control
             }
         }
 
-        return VisualStateManager.GoToState(this, stateName, App.Settings.EnableAnimationEffects && useTransitions);
+        return VisualStateManager.GoToState(this, stateName, useTransitions);
     }
 
     private void UpdateOverlayVisibilityState(bool useTransitions = true)
@@ -312,7 +312,7 @@ public partial class SplitViewEx : Control
             stateName = "OverlayNotVisible";
         }
 
-        VisualStateManager.GoToState(this, stateName, App.Settings.EnableAnimationEffects && useTransitions);
+        VisualStateManager.GoToState(this, stateName, useTransitions);
     }
 
     private void UpdateVisualState(bool useTransitions = true)

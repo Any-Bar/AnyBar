@@ -98,7 +98,7 @@ public partial class SettingsCardEx : ButtonBase
 
     private void CheckInitialVisualState(bool useTransitions = true)
     {
-        VisualStateManager.GoToState(this, IsEnabled ? NormalState : DisabledState, App.Settings.EnableAnimationEffects && useTransitions);
+        VisualStateManager.GoToState(this, IsEnabled ? NormalState : DisabledState, useTransitions);
 
         if (GetTemplateChild("ContentAlignmentStates") is VisualStateGroup contentAlignmentStatesGroup)
         {
@@ -173,7 +173,7 @@ public partial class SettingsCardEx : ButtonBase
             }
         }
 
-        VisualStateManager.GoToState(this, state, App.Settings.EnableAnimationEffects);
+        VisualStateManager.GoToState(this, state, true);
     }
 
     private void UpdateContentAlignmentState()
@@ -215,7 +215,7 @@ public partial class SettingsCardEx : ButtonBase
 
         if (state != null)
         {
-            VisualStateManager.GoToState(this, state, App.Settings.EnableAnimationEffects);
+            VisualStateManager.GoToState(this, state, true);
         }
     }
 
@@ -228,7 +228,7 @@ public partial class SettingsCardEx : ButtonBase
             ? nameof(Visibility.Collapsed)
             : nameof(Visibility.Visible);
 
-        VisualStateManager.GoToState(this, state, App.Settings.EnableAnimationEffects);
+        VisualStateManager.GoToState(this, state, true);
     }
 
     /// <summary>
@@ -255,7 +255,7 @@ public partial class SettingsCardEx : ButtonBase
 
     private void OnIsEnabledChanged(object sender, DependencyPropertyChangedEventArgs e)
     {
-        VisualStateManager.GoToState(this, IsEnabled ? NormalState : DisabledState, App.Settings.EnableAnimationEffects);
+        VisualStateManager.GoToState(this, IsEnabled ? NormalState : DisabledState, true);
     }
 
     private void OnActionIconChanged()
@@ -314,11 +314,11 @@ public partial class SettingsCardEx : ButtonBase
 
         if (s != null && (s.Name == RightWrappedState || s.Name == RightWrappedNoIconState || s.Name == VerticalState) && (Content != null) && (!IsNullOrEmptyString(Header) || !IsNullOrEmptyString(Description)))
         {
-            VisualStateManager.GoToState(this, ContentSpacingState, App.Settings.EnableAnimationEffects);
+            VisualStateManager.GoToState(this, ContentSpacingState, true);
         }
         else
         {
-            VisualStateManager.GoToState(this, NoContentSpacingState, App.Settings.EnableAnimationEffects);
+            VisualStateManager.GoToState(this, NoContentSpacingState, true);
         }
     }
 

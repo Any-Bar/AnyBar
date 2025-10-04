@@ -287,13 +287,13 @@ public partial class NavigationViewItem : NavigationViewItemBase
         // update the states for the item itself.
         if (m_navigationViewItemPresenter is { } presenter)
         {
-            VisualStateManager.GoToState(presenter, enabledStateValue, App.Settings.EnableAnimationEffects);
-            VisualStateManager.GoToState(presenter, selectedStateValue, App.Settings.EnableAnimationEffects);
+            VisualStateManager.GoToState(presenter, enabledStateValue, true);
+            VisualStateManager.GoToState(presenter, selectedStateValue, true);
         }
         else
         {
-            VisualStateManager.GoToState(this, enabledStateValue, App.Settings.EnableAnimationEffects);
-            VisualStateManager.GoToState(this, selectedStateValue, App.Settings.EnableAnimationEffects);
+            VisualStateManager.GoToState(this, enabledStateValue, true);
+            VisualStateManager.GoToState(this, selectedStateValue, true);
         }
     }
 
@@ -310,7 +310,7 @@ public partial class NavigationViewItem : NavigationViewItemBase
         if (m_navigationViewItemPresenter is { } presenter)
         {
             // Backward Compatibility with RS4-, new implementation prefer IconOnLeft/IconOnly/ContentOnly
-            VisualStateManager.GoToState(presenter, shouldShowIcon ? "IconVisible" : "IconCollapsed", App.Settings.EnableAnimationEffects && useTransitions);
+            VisualStateManager.GoToState(presenter, shouldShowIcon ? "IconVisible" : "IconCollapsed", useTransitions);
         }
 
         UpdateVisualStateForToolTip();

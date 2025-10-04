@@ -494,7 +494,7 @@ public class ToggleSwitchEx : Control
         {
             stateName = VisualStates.StateNormal;
         }
-        VisualStateManager.GoToState(this, stateName, App.Settings.EnableAnimationEffects && useTransitions);
+        VisualStateManager.GoToState(this, stateName, useTransitions);
 
         if (SwitchThumb != null && SwitchThumb.IsDragging)
         {
@@ -504,9 +504,9 @@ public class ToggleSwitchEx : Control
         {
             stateName = IsOn ? OnState : OffState;
         }
-        VisualStateManager.GoToState(this, stateName, App.Settings.EnableAnimationEffects && useTransitions);
+        VisualStateManager.GoToState(this, stateName, useTransitions);
 
-        VisualStateManager.GoToState(this, IsOn ? OnContentState : OffContentState, App.Settings.EnableAnimationEffects && useTransitions);
+        VisualStateManager.GoToState(this, IsOn ? OnContentState : OffContentState, useTransitions);
     }
 
     internal void Toggle()

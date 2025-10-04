@@ -958,7 +958,7 @@ public partial class NavigationView : ContentControl, IControlProtected
                     if (splitView.DisplayMode == SplitViewDisplayMode.CompactOverlay || splitView.DisplayMode == SplitViewDisplayMode.CompactInline)
                     {
                         // See UpdateIsClosedCompact 'RS3+ animation timing enhancement' for explanation:
-                        VisualStateManager.GoToState(this, "ListSizeCompact", App.Settings.EnableAnimationEffects);
+                        VisualStateManager.GoToState(this, "ListSizeCompact", true);
                     }
                 }
             }
@@ -975,7 +975,7 @@ public partial class NavigationView : ContentControl, IControlProtected
         if (m_leftNavRepeater != null)
         {
             // See UpdateIsClosedCompact 'RS3+ animation timing enhancement' for explanation:
-            VisualStateManager.GoToState(this, "ListSizeFull", App.Settings.EnableAnimationEffects);
+            VisualStateManager.GoToState(this, "ListSizeFull", true);
         }
 
         PaneOpening?.Invoke(this, null);
@@ -988,13 +988,13 @@ public partial class NavigationView : ContentControl, IControlProtected
             // Check if the pane is closed and if the splitview is in either compact mode.
             var splitViewDisplayMode = splitView.DisplayMode;
             m_isClosedCompact = !splitView.IsPaneOpen && (splitViewDisplayMode == SplitViewDisplayMode.CompactOverlay || splitViewDisplayMode == SplitViewDisplayMode.CompactInline);
-            VisualStateManager.GoToState(this, m_isClosedCompact ? "ClosedCompact" : "NotClosedCompact", App.Settings.EnableAnimationEffects);
+            VisualStateManager.GoToState(this, m_isClosedCompact ? "ClosedCompact" : "NotClosedCompact", true);
 
             // Set the initial state of the list size
             if (!m_initialListSizeStateSet)
             {
                 m_initialListSizeStateSet = true;
-                VisualStateManager.GoToState(this, m_isClosedCompact ? "ListSizeCompact" : "ListSizeFull", App.Settings.EnableAnimationEffects);
+                VisualStateManager.GoToState(this, m_isClosedCompact ? "ListSizeCompact" : "ListSizeFull", true);
             }
 
             UpdateTitleBarPadding();
@@ -1129,7 +1129,7 @@ public partial class NavigationView : ContentControl, IControlProtected
             var paneContentGrid = m_paneContentGrid;
 
             if ((prevIndicator != nextIndicator) && paneContentGrid != null && prevIndicator != null && nextIndicator != null &&
-                App.Settings.EnableAnimationEffects && RenderCapability.Tier > 0) // SharedHelpers.IsAnimationsEnabled
+                true && RenderCapability.Tier > 0) // SharedHelpers.IsAnimationsEnabled
             {
                 // Make sure both indicators are visible and in their original locations
                 ResetElementAnimationProperties(prevIndicator, 1.0);
@@ -2050,11 +2050,11 @@ public partial class NavigationView : ContentControl, IControlProtected
         {
             if (IsPaneOpen && (splitView.DisplayMode == SplitViewDisplayMode.CompactOverlay || splitView.DisplayMode == SplitViewDisplayMode.Overlay))
             {
-                VisualStateManager.GoToState(this, "PaneOverlaying", App.Settings.EnableAnimationEffects);
+                VisualStateManager.GoToState(this, "PaneOverlaying", true);
             }
             else
             {
-                VisualStateManager.GoToState(this, "PaneNotOverlaying", App.Settings.EnableAnimationEffects);
+                VisualStateManager.GoToState(this, "PaneNotOverlaying", true);
             }
         }
     }
