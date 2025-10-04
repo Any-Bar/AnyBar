@@ -381,7 +381,7 @@ public partial class NavigationView : ContentControl, IControlProtected
         // has changed.
         if (forceSelectionModelUpdate)
         {
-            m_selectionModelSource![0] = itemsSource;
+            m_selectionModelSource[0] = itemsSource;
         }
 
         m_menuItemsCollectionChangedRevoker?.Revoke();
@@ -417,7 +417,7 @@ public partial class NavigationView : ContentControl, IControlProtected
         {
             var dataSource = new List<object>();
 
-            m_selectionModelSource![1] = dataSource;
+            m_selectionModelSource[1] = dataSource;
         }
     }
 
@@ -2784,7 +2784,7 @@ public partial class NavigationView : ContentControl, IControlProtected
     private bool m_initialListSizeStateSet = false;
 
     private readonly SelectionModel m_selectionModel = new();
-    private readonly List<object>? m_selectionModelSource;
+    private readonly List<object?> m_selectionModelSource;
 
     private ItemsSourceView? m_menuItemsSource = null;
 
