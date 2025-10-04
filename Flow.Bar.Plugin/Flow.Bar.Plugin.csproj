@@ -12,6 +12,7 @@
     <AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
+    <NoWarn>IDE0130;IDE0290</NoWarn>
   </PropertyGroup>
 
   <PropertyGroup>
