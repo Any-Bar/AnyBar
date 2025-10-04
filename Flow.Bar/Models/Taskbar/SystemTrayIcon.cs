@@ -25,8 +25,6 @@ public sealed partial class SystemTrayIcon : IDisposable
 
     // Fields
 
-    private static readonly string ClassName = nameof(SystemTrayIcon);
-
     private static readonly Guid _trayIconGuid = new("FAE04EC0-301F-11D3-BF4B-00C04F79EFBC");
 
     private readonly SystemTrayIconWindow _IconWindow;
@@ -110,7 +108,7 @@ public sealed partial class SystemTrayIcon : IDisposable
             }
 
             NOTIFYICONIDENTIFIER identifier = default;
-            identifier.cbSize = (uint)Marshal.SizeOf(typeof(NOTIFYICONIDENTIFIER));
+            identifier.cbSize = (uint)Marshal.SizeOf<NOTIFYICONIDENTIFIER>();
             identifier.hWnd = _IconWindow.WindowHandle;
             identifier.guidItem = Id;
 
@@ -177,7 +175,7 @@ public sealed partial class SystemTrayIcon : IDisposable
         {
             NOTIFYICONDATAW lpData = default;
 
-            lpData.cbSize = (uint)Marshal.SizeOf(typeof(NOTIFYICONDATAW));
+            lpData.cbSize = (uint)Marshal.SizeOf<NOTIFYICONDATAW>();
             lpData.hWnd = _IconWindow.WindowHandle;
             lpData.uCallbackMessage = WM_FILES_UNIQUE_MESSAGE;
             lpData.hIcon = (Icon != null) ? new HICON(Icon.Handle) : default;
@@ -217,7 +215,7 @@ public sealed partial class SystemTrayIcon : IDisposable
 
             NOTIFYICONDATAW lpData = default;
 
-            lpData.cbSize = (uint)Marshal.SizeOf(typeof(NOTIFYICONDATAW));
+            lpData.cbSize = (uint)Marshal.SizeOf<NOTIFYICONDATAW>();
             lpData.hWnd = _IconWindow.WindowHandle;
             lpData.guidItem = Id;
             lpData.uFlags = NOTIFY_ICON_DATA_FLAGS.NIF_MESSAGE | NOTIFY_ICON_DATA_FLAGS.NIF_ICON | NOTIFY_ICON_DATA_FLAGS.NIF_TIP | NOTIFY_ICON_DATA_FLAGS.NIF_GUID | NOTIFY_ICON_DATA_FLAGS.NIF_SHOWTIP;
@@ -237,13 +235,11 @@ public sealed partial class SystemTrayIcon : IDisposable
                     {
                         case PInvoke.WM_LBUTTONUP:
                             {
-                                App.API.LogVerbose(ClassName, "Left clicked");
                                 LeftClick?.Invoke(this, new RoutedEventArgs());
                                 break;
                             }
                         case PInvoke.WM_RBUTTONUP:
                             {
-                                App.API.LogVerbose(ClassName, "Right clicked");
                                 RightClick?.Invoke(this, new RoutedEventArgs());
                                 break;
                             }
@@ -253,7 +249,6 @@ public sealed partial class SystemTrayIcon : IDisposable
                 }
             case PInvoke.WM_DESTROY:
                 {
-                    App.API.LogVerbose(ClassName, "Window destroyed");
                     DeleteNotifyIcon();
                     break;
                 }
@@ -261,7 +256,6 @@ public sealed partial class SystemTrayIcon : IDisposable
                 {
                     if (uMsg == _taskbarRestartMessageId)
                     {
-                        App.API.LogVerbose(ClassName, "Taskbar restarted");
                         DeleteNotifyIcon();
                         CreateOrModifyNotifyIcon();
                     }

@@ -34,7 +34,7 @@ public sealed partial class SystemTrayIconWindow : IDisposable
         {
             WNDCLASSEXW param = new()
             {
-                cbSize = (uint)Marshal.SizeOf(typeof(WNDCLASSEXW)),
+                cbSize = (uint)Marshal.SizeOf<WNDCLASSEXW>(),
                 style = WNDCLASS_STYLES.CS_DBLCLKS,
                 lpfnWndProc = _windowProcedure,
                 cbClsExtra = 0,
