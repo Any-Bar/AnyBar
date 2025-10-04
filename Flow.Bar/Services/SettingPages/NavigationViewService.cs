@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Navigation;
 using CommunityToolkit.Mvvm.ComponentModel;
 using Flow.Bar.Controls;
@@ -199,14 +200,13 @@ public class NavigationViewService(PageService pageService)
 
         // Update the selected NavigationViewItem based on the page type
         var currentTag = _pageService.GetPageTag(frame.SourcePageType);
-        foreach (var item in _navigationView.MenuItems)
+        foreach (var item in _navigationView.MenuItems.OfType<NavigationViewItem>())
         {
-            if (item is NavigationViewItem newItem &&
-                newItem.Tag is SettingPageTag tag &&
+            if (item.Tag is SettingPageTag tag &&
                 tag == currentTag &&
-                _navigationView.SelectedItem != newItem)
+                _navigationView.SelectedItem != item)
             {
-                _navigationView.SelectedItem = newItem;
+                _navigationView.SelectedItem = item;
             }
         }
 
@@ -214,16 +214,15 @@ public class NavigationViewService(PageService pageService)
         var containedTag = _pageService.GetContainedPageTag(currentTag);
         if (containedTag.HasValue)
         {
-            foreach (var item in _navigationView.MenuItems)
+            foreach (var item in _navigationView.MenuItems.OfType<NavigationViewItem>())
             {
-                if (item is NavigationViewItem newItem &&
-                    newItem.Tag is SettingPageTag tag &&
+                if (item.Tag is SettingPageTag tag &&
                     tag == containedTag.Value &&
-                    _navigationView.SelectedItem != newItem)
+                    _navigationView.SelectedItem != item)
                 {
                     // Temporarily remove and reattach the event handler to prevent navigation
                     _navigationView.ItemInvoked -= NavigationView_ItemInvoked;
-                    _navigationView.SelectedItem = newItem;
+                    _navigationView.SelectedItem = item;
                     _navigationView.ItemInvoked += NavigationView_ItemInvoked;
                 }
             }
