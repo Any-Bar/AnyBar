@@ -15,6 +15,7 @@
                 <!--  Languages  -->
                 <ResourceDictionary Source="/Languages/en.xaml" />
                 <!--  Styles  -->
+                <ResourceDictionary Source="/Styles/CustomControlTemplate.xaml" />
                 <ResourceDictionary Source="/Styles/SettingWindowStyle.xaml" />
                 <ResourceDictionary Source="/Styles/ContentDialogStyle.xaml" />
                 <ResourceDictionary Source="/Styles/ContextMenuStyle.xaml" />
