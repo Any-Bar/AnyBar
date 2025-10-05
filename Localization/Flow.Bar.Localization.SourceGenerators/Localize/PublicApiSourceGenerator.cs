@@ -88,7 +88,7 @@ namespace Flow.Bar.Localization.SourceGenerators.Localize
             sourceBuilder.AppendLine($"{tabString}/// <summary>");
             sourceBuilder.AppendLine($"{tabString}/// Get <see cref=\"Flow.Bar.Plugin.IPublicAPI\"> instance");
             sourceBuilder.AppendLine($"{tabString}/// </summary>");
-            sourceBuilder.AppendLine($"{tabString}internal static Flow.Bar.Plugin.IPublicAPI {Constants.PublicApiInternalPropertyName} =>" +
+            sourceBuilder.AppendLine($"{tabString}internal static Flow.Bar.Plugin.IPublicAPI {Constants.PublicApiInternalPropertyName} => " +
                 $"{Constants.PublicApiPrivatePropertyName} ??= CommunityToolkit.Mvvm.DependencyInjection.Ioc.Default.GetRequiredService<Flow.Bar.Plugin.IPublicAPI>();");
             sourceBuilder.AppendLine($"}}");
 
