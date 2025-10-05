@@ -1,6 +1,21 @@
 {
   "version": 1,
   "dependencies": {
-    "net9.0-windows7.0": {}
+    "net9.0-windows7.0": {
+      "iNKORE.UI.WPF.Modern": {
+        "type": "Direct",
+        "requested": "[0.10.1, )",
+        "resolved": "0.10.1",
+        "contentHash": "nRYmBosiL+42eUpLbHeqP7qJqtp5EpzuIMZTpvq4mFV33VB/JjkFg1y82gk50pjkXlAQWDvRyrfSAmPR5AM+3g==",
+        "dependencies": {
+          "iNKORE.UI.WPF": "1.2.8"
+        }
+      },
+      "iNKORE.UI.WPF": {
+        "type": "Transitive",
+        "resolved": "1.2.8",
+        "contentHash": "7b+z25JFdhGAfyJqlVIF0vLbmgsRvqDZMvhGPTz20gzQigDPMqVUOoCCKB5824GtYsjFCYNilmaowb+4yWATkQ=="
+      }
+    }
   }
 }

@@ -62,12 +62,6 @@
     </Content>
   </ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Include="iNKORE.UI.WPF.Modern" Version="0.10.1">
-      <IncludeAssets>compile</IncludeAssets>
-    </PackageReference>
-  </ItemGroup>
-
   <PropertyGroup>
     <FBLUseDependencyInjection>false</FBLUseDependencyInjection>
   </PropertyGroup>
