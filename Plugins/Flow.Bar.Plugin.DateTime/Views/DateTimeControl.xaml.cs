@@ -40,41 +40,27 @@ public partial class DateTimeControl : UserControl
         switch (position)
         {
             case BarElementPosition.Left:
-                TimeTextBlock.HorizontalAlignment = HorizontalAlignment.Left;
-                TimeTextBlock.VerticalAlignment = VerticalAlignment.Center;
-                DateTextBlock.HorizontalAlignment = HorizontalAlignment.Left;
-                DateTextBlock.VerticalAlignment = VerticalAlignment.Center;
+            case BarElementPosition.HorizontalCenter:
+                SetElementAlignment(HorizontalAlignment.Left, VerticalAlignment.Center);
                 break;
             case BarElementPosition.Right:
-                TimeTextBlock.HorizontalAlignment = HorizontalAlignment.Right;
-                TimeTextBlock.VerticalAlignment = VerticalAlignment.Center;
-                DateTextBlock.HorizontalAlignment = HorizontalAlignment.Right;
-                DateTextBlock.VerticalAlignment = VerticalAlignment.Center;
+                SetElementAlignment(HorizontalAlignment.Right, VerticalAlignment.Center);
                 break;
             case BarElementPosition.Top:
-                TimeTextBlock.HorizontalAlignment = HorizontalAlignment.Left;
-                TimeTextBlock.VerticalAlignment = VerticalAlignment.Top;
-                DateTextBlock.HorizontalAlignment = HorizontalAlignment.Left;
-                DateTextBlock.VerticalAlignment = VerticalAlignment.Top;
+            case BarElementPosition.VerticalCenter:
+                SetElementAlignment(HorizontalAlignment.Left, VerticalAlignment.Top);
                 break;
             case BarElementPosition.Bottom:
-                TimeTextBlock.HorizontalAlignment = HorizontalAlignment.Left;
-                TimeTextBlock.VerticalAlignment = VerticalAlignment.Bottom;
-                DateTextBlock.HorizontalAlignment = HorizontalAlignment.Left;
-                DateTextBlock.VerticalAlignment = VerticalAlignment.Bottom;
-                break;
-            case BarElementPosition.HorizontalCenter:
-                TimeTextBlock.HorizontalAlignment = HorizontalAlignment.Left;
-                TimeTextBlock.VerticalAlignment = VerticalAlignment.Center;
-                DateTextBlock.HorizontalAlignment = HorizontalAlignment.Left;
-                DateTextBlock.VerticalAlignment = VerticalAlignment.Center;
-                break;
-            case BarElementPosition.VerticalCenter:
-                TimeTextBlock.HorizontalAlignment = HorizontalAlignment.Left;
-                TimeTextBlock.VerticalAlignment = VerticalAlignment.Top;
-                DateTextBlock.HorizontalAlignment = HorizontalAlignment.Left;
-                DateTextBlock.VerticalAlignment = VerticalAlignment.Top;
+                SetElementAlignment(HorizontalAlignment.Left, VerticalAlignment.Bottom);
                 break;
         }
+    }
+
+    private void SetElementAlignment(HorizontalAlignment horizontal, VerticalAlignment vertical)
+    {
+        TimeTextBlock.HorizontalAlignment = horizontal;
+        TimeTextBlock.VerticalAlignment = vertical;
+        DateTextBlock.HorizontalAlignment = horizontal;
+        DateTextBlock.VerticalAlignment = vertical;
     }
 }
