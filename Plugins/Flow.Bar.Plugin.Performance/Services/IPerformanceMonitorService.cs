@@ -13,18 +13,13 @@ public interface IPerformanceMonitorService
     PerformanceData GetCurrentPerformanceData();
 }
 
-public class PerformanceDataEventArgs : EventArgs
+public class PerformanceDataEventArgs(PerformanceData data) : EventArgs
 {
-    public PerformanceData Data { get; }
-    
-    public PerformanceDataEventArgs(PerformanceData data)
-    {
-        Data = data;
-    }
+    public PerformanceData Data { get; } = data;
 }
 
 public record PerformanceData(
     double CpuUsage,
-    double MemoryUsage, 
+    double MemoryUsage,
     double? GpuUsage
 );
