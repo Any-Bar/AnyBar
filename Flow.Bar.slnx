@@ -28,6 +28,7 @@
   <Project Path="Flow.Bar.Plugin/Flow.Bar.Plugin.csproj" Id="4aa45bea-4c93-40ba-a2a6-975f3aa3d20f" />
   <Project Path="Flow.Bar/Flow.Bar.csproj">
     <BuildDependency Project="Plugins/Flow.Bar.Plugin.DateTime/Flow.Bar.Plugin.DateTime.csproj" />
+    <BuildDependency Project="Plugins/Flow.Bar.Plugin.Performance/Flow.Bar.Plugin.Performance.csproj" />
     <Platform Project="x64" />
   </Project>
 </Solution>
