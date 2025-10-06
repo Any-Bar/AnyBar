@@ -94,7 +94,7 @@ public partial class NetworkControl : UserControl
         DownloadPanel.Orientation = orientation;
 
         UploadPanel.Margin = orientation == Orientation.Horizontal ? new Thickness(0, 0, 6, 0) : new Thickness(0, 0, 0, 6);
-        UploadImage.Margin = orientation == Orientation.Horizontal ? new Thickness(0, 0, 6, 0) : new Thickness(0, 0, 0, 6);
-        DownloadImage.Margin = orientation == Orientation.Horizontal ? new Thickness(0, 0, 6, 0) : new Thickness(0, 0, 0, 6);
+        UploadImage.Margin = orientation == Orientation.Horizontal ? new Thickness(0, 0, 3, 0) : new Thickness(0, 0, 0, 3);
+        DownloadImage.Margin = orientation == Orientation.Horizontal ? new Thickness(0, 0, 3, 0) : new Thickness(0, 0, 0, 3);
     }
 }

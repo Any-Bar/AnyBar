@@ -94,8 +94,8 @@ public partial class PerformanceControl : UserControl
         MemoryPanel.Orientation = orientation;
 
         GpuPanel.Margin = orientation == Orientation.Horizontal ? new Thickness(6, 0, 6, 0) : new Thickness(0, 6, 0, 6);
-        CpuImage.Margin = orientation == Orientation.Horizontal ? new Thickness(0, 0, 6, 0) : new Thickness(0, 0, 0, 6);
-        GpuImage.Margin = orientation == Orientation.Horizontal ? new Thickness(0, 0, 6, 0) : new Thickness(0, 0, 0, 6);
-        MemoryImage.Margin = orientation == Orientation.Horizontal ? new Thickness(0, 0, 6, 0) : new Thickness(0, 0, 0, 6);
+        CpuImage.Margin = orientation == Orientation.Horizontal ? new Thickness(0, 0, 3, 0) : new Thickness(0, 0, 0, 3);
+        GpuImage.Margin = orientation == Orientation.Horizontal ? new Thickness(0, 0, 3, 0) : new Thickness(0, 0, 0, 3);
+        MemoryImage.Margin = orientation == Orientation.Horizontal ? new Thickness(0, 0, 3, 0) : new Thickness(0, 0, 0, 3);
     }
 }
