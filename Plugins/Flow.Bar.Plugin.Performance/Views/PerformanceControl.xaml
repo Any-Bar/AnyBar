@@ -15,11 +15,11 @@
                 Width="16"
                 Height="16"
                 Margin="0 0 6 0"
-                HorizontalAlignment="Left"
+                HorizontalAlignment="Center"
                 VerticalAlignment="Center" />
             <TextBlock
                 x:Name="CpuTextBlock"
-                HorizontalAlignment="Left"
+                HorizontalAlignment="Center"
                 VerticalAlignment="Center"
                 FontSize="12" />
         </StackPanel>
@@ -33,11 +33,11 @@
                 Width="16"
                 Height="16"
                 Margin="0 0 6 0"
-                HorizontalAlignment="Left"
+                HorizontalAlignment="Center"
                 VerticalAlignment="Center" />
             <TextBlock
                 x:Name="GpuTextBlock"
-                HorizontalAlignment="Left"
+                HorizontalAlignment="Center"
                 VerticalAlignment="Center"
                 FontSize="12" />
         </StackPanel>
@@ -48,11 +48,11 @@
                 Width="16"
                 Height="16"
                 Margin="0 0 6 0"
-                HorizontalAlignment="Left"
+                HorizontalAlignment="Center"
                 VerticalAlignment="Center" />
             <TextBlock
                 x:Name="MemoryTextBlock"
-                HorizontalAlignment="Left"
+                HorizontalAlignment="Center"
                 VerticalAlignment="Center"
                 FontSize="12" />
         </StackPanel>

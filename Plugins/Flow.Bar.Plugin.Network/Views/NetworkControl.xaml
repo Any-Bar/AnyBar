@@ -18,11 +18,11 @@
                 Width="16"
                 Height="16"
                 Margin="0 0 6 0"
-                HorizontalAlignment="Left"
+                HorizontalAlignment="Center"
                 VerticalAlignment="Center" />
             <TextBlock
                 x:Name="UploadTextBlock"
-                HorizontalAlignment="Left"
+                HorizontalAlignment="Center"
                 VerticalAlignment="Center"
                 FontSize="12" />
         </StackPanel>
@@ -33,11 +33,11 @@
                 Width="16"
                 Height="16"
                 Margin="0 0 6 0"
-                HorizontalAlignment="Left"
+                HorizontalAlignment="Center"
                 VerticalAlignment="Center" />
             <TextBlock
                 x:Name="DownloadTextBlock"
-                HorizontalAlignment="Left"
+                HorizontalAlignment="Center"
                 VerticalAlignment="Center"
                 FontSize="12" />
         </StackPanel>

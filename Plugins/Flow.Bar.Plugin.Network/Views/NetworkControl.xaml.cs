@@ -73,34 +73,18 @@ public partial class NetworkControl : UserControl
             case BarElementPosition.Left:
             case BarElementPosition.HorizontalCenter:
                 SetOrientation(Orientation.Horizontal);
-                SetElementAlignment(HorizontalAlignment.Left, VerticalAlignment.Center);
                 break;
             case BarElementPosition.Right:
                 SetOrientation(Orientation.Horizontal);
-                SetElementAlignment(HorizontalAlignment.Right, VerticalAlignment.Center);
                 break;
             case BarElementPosition.Top:
             case BarElementPosition.VerticalCenter:
                 SetOrientation(Orientation.Vertical);
-                SetElementAlignment(HorizontalAlignment.Left, VerticalAlignment.Top);
                 break;
             case BarElementPosition.Bottom:
                 SetOrientation(Orientation.Vertical);
-                SetElementAlignment(HorizontalAlignment.Left, VerticalAlignment.Bottom);
                 break;
         }
-    }
-
-    private void SetElementAlignment(HorizontalAlignment horizontal, VerticalAlignment vertical)
-    {
-        UploadImage.HorizontalAlignment = horizontal;
-        UploadImage.VerticalAlignment = vertical;
-        UploadTextBlock.HorizontalAlignment = horizontal;
-        UploadTextBlock.VerticalAlignment = vertical;
-        DownloadImage.HorizontalAlignment = horizontal;
-        DownloadImage.VerticalAlignment = vertical;
-        DownloadTextBlock.HorizontalAlignment = horizontal;
-        DownloadTextBlock.VerticalAlignment = vertical;
     }
 
     private void SetOrientation(Orientation orientation)
