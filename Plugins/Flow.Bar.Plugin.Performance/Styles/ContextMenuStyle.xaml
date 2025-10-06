@@ -6,7 +6,7 @@
     xmlns:ui="http://schemas.inkore.net/lib/ui/wpf/modern">
 
     <!--  Left-click Context Menu  -->
-    <Style x:Key="FlowBarPlugin_DateTime_LeftClickMenuStyle" TargetType="ContextMenu">
+    <Style x:Key="FlowBarPlugin_Performance_LeftClickMenuStyle" TargetType="ContextMenu">
         <Setter Property="Background" Value="{DynamicResource MenuFlyoutPresenterBackground}" />
         <Setter Property="BorderBrush" Value="{DynamicResource MenuFlyoutPresenterBorderBrush}" />
         <Setter Property="BorderThickness" Value="{DynamicResource MenuFlyoutPresenterBorderThemeThickness}" />
