@@ -11,6 +11,7 @@
   </Folder>
   <Folder Name="/Plugins/">
     <Project Path="Plugins/Flow.Bar.Plugin.DateTime/Flow.Bar.Plugin.DateTime.csproj" />
+    <Project Path="Plugins/Flow.Bar.Plugin.Performance/Flow.Bar.Plugin.Performance.csproj" />
   </Folder>
   <Folder Name="/Solution Items/">
     <File Path=".editorconfig" />
