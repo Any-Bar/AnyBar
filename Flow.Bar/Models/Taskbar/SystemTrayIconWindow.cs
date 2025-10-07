@@ -28,7 +28,7 @@ public sealed partial class SystemTrayIconWindow : IDisposable
     {
         _windowProcedure = WindowProc;
         _trayIcon = icon;
-        var text = "FilesTrayIcon_" + _trayIcon.Id;
+        var text = "FlowBarTrayIcon_" + _trayIcon.Id;
 
         fixed (char* ptr = text)
         {
