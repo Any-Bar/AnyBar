@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
+using System;
 using System.Diagnostics;
 using System.Windows;
 using System.Windows.Automation.Peers;
@@ -77,9 +78,9 @@ public partial class NavigationViewItem : NavigationViewItemBase
 
         if (GetSplitView() is { } splitView)
         {
-            m_splitViewIsPaneOpenChangedRevoker = new(splitView, OnSplitViewPropertyChanged);
-            m_splitViewDisplayModeChangedRevoker = new(splitView, OnSplitViewPropertyChanged);
-            m_splitViewCompactPaneLengthChangedRevoker = new(splitView, OnSplitViewPropertyChanged);
+            m_splitViewIsPaneOpenChangedRevoker = new(splitView, OnSplitViewIsPaneOpenChanged);
+            m_splitViewDisplayModeChangedRevoker = new(splitView, OnSplitViewDisplayModeChanged);
+            m_splitViewCompactPaneLengthChangedRevoker = new(splitView, OnSplitViewCompactPaneLengthChanged);
 
             UpdateCompactPaneLength();
             UpdateIsClosedCompact();
@@ -101,17 +102,19 @@ public partial class NavigationViewItem : NavigationViewItemBase
         return selectIndicator;
     }
 
-    private void OnSplitViewPropertyChanged(DependencyObject sender, DependencyProperty args)
+    private void OnSplitViewIsPaneOpenChanged(object? sender, EventArgs e)
     {
-        if (args == SplitViewEx.CompactPaneLengthProperty)
-        {
-            UpdateCompactPaneLength();
-        }
-        else if (args == SplitViewEx.IsPaneOpenProperty ||
-            args == SplitViewEx.DisplayModeProperty)
-        {
-            UpdateIsClosedCompact();
-        }
+        UpdateCompactPaneLength();
+    }
+
+    private void OnSplitViewDisplayModeChanged(object? sender, EventArgs e)
+    {
+        UpdateIsClosedCompact();
+    }
+
+    private void OnSplitViewCompactPaneLengthChanged(object? sender, EventArgs e)
+    {
+        UpdateCompactPaneLength();
     }
 
     private void UpdateCompactPaneLength()

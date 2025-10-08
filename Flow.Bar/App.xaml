@@ -26,7 +26,6 @@
                 <ResourceDictionary Source="/Controls/MenuFlyout/MenuFlyoutEx.xaml" />
                 <ResourceDictionary Source="/Controls/MessageBox/MessageBoxEx.xaml" />
                 <ResourceDictionary Source="/Controls/NavigationView/NavigationView.xaml" />
-                <ResourceDictionary Source="/Controls/SplitView/SplitViewEx.xaml" />
                 <ResourceDictionary Source="/Controls/StackView/StackView.xaml" />
                 <ResourceDictionary Source="/Controls/ToggleSwitch/ToggleSwitchEx.xaml" />
             </ResourceDictionary.MergedDictionaries>

@@ -108,6 +108,9 @@ public partial class NavigationView : ContentControl, IControlProtected
 
         m_menuItemsCollectionChangedRevoker?.Revoke();
 
+        m_splitViewIsPaneOpenChangedRevoker?.Revoke();
+        m_splitViewDisplayModeChangedRevoker?.Revoke();
+
         if (isFromDestructor)
         {
             m_selectionModel.SelectionChanged -= OnSelectionModelSelectionChanged;
@@ -237,11 +240,11 @@ public partial class NavigationView : ContentControl, IControlProtected
             }
 
             // Get a pointer to the root SplitView
-            if (GetTemplateChild(C_rootSplitViewName) is SplitViewEx splitView)
+            if (GetTemplateChild(C_rootSplitViewName) is SplitView splitView)
             {
                 m_rootSplitView = splitView;
-                splitView.IsPaneOpenChanged += OnSplitViewClosedCompactChanged;
-                splitView.DisplayModeChanged += OnSplitViewClosedCompactChanged;
+                m_splitViewIsPaneOpenChangedRevoker = new(splitView, OnSplitViewIsPaneOpenChanged);
+                m_splitViewDisplayModeChangedRevoker = new(splitView, OnSplitViewDisplayModeChanged);
 
                 // These events are new to RS3/v5 API
                 splitView.PaneClosed += OnSplitViewPaneClosed;
@@ -917,13 +920,14 @@ public partial class NavigationView : ContentControl, IControlProtected
         return false;
     }
 
-    private void OnSplitViewClosedCompactChanged(DependencyObject sender, DependencyProperty args)
+    private void OnSplitViewIsPaneOpenChanged(object? sender, EventArgs e)
     {
-        if (args == SplitViewEx.IsPaneOpenProperty ||
-            args == SplitViewEx.DisplayModeProperty)
-        {
-            UpdateIsClosedCompact();
-        }
+        UpdateIsClosedCompact();
+    }
+
+    private void OnSplitViewDisplayModeChanged(object? sender, EventArgs e)
+    {
+        UpdateIsClosedCompact();
     }
 
     private void OnSplitViewPaneClosed(DependencyObject sender, object? obj)
@@ -1935,7 +1939,7 @@ public partial class NavigationView : ContentControl, IControlProtected
         return null;
     }
 
-    internal SplitViewEx? GetSplitView()
+    internal SplitView? GetSplitView()
     {
         return m_rootSplitView;
     }
@@ -2752,7 +2756,7 @@ public partial class NavigationView : ContentControl, IControlProtected
 
     // Visual components
     private Button? m_paneToggleButton;
-    private SplitViewEx? m_rootSplitView;
+    private SplitView? m_rootSplitView;
     private RowDefinition? m_itemsContainerRow;
     private FrameworkElement? m_menuItemsScrollViewer;
     private UIElement? m_paneContentGrid;
@@ -2777,6 +2781,9 @@ public partial class NavigationView : ContentControl, IControlProtected
     private FrameworkElementSizeChangedRevoker? m_itemsContainerSizeChangedRevoker;
 
     private ItemsSourceView.CollectionChangedRevoker? m_menuItemsCollectionChangedRevoker;
+
+    private SplitViewIsPaneOpenChangedRevoker? m_splitViewIsPaneOpenChangedRevoker;
+    private SplitViewDisplayModeChangedRevoker? m_splitViewDisplayModeChangedRevoker;
 
     private bool m_wasForceClosed = false;
     private bool m_isClosedCompact = false;

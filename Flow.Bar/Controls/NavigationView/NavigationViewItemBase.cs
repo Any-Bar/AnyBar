@@ -5,6 +5,7 @@ using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using iNKORE.UI.WPF.Modern.Controls;
 using iNKORE.UI.WPF.Modern.Controls.Helpers;
 
 namespace Flow.Bar.Controls;
@@ -101,9 +102,9 @@ public class NavigationViewItemBase : ContentControl, IControlProtected
 
     private protected virtual void OnNavigationViewItemBaseIsSelectedChanged() { }
 
-    internal SplitViewEx? GetSplitView()
+    internal SplitView? GetSplitView()
     {
-        SplitViewEx? splitView = null;
+        SplitView? splitView = null;
         var navigationView = GetNavigationView();
         if (navigationView != null)
         {
