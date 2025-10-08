@@ -20,7 +20,6 @@
                 <ResourceDictionary Source="/Styles/ContentDialogStyle.xaml" />
                 <ResourceDictionary Source="/Styles/ContextMenuStyle.xaml" />
                 <!--  Controls  -->
-                <ResourceDictionary Source="/Controls/AutoSuggestBox/AutoSuggestBoxEx.xaml" />
                 <ResourceDictionary Source="/Controls/ContentDialog/ContentDialog.xaml" />
                 <ResourceDictionary Source="/Controls/FontIconButton/FontIconButton.xaml" />
                 <ResourceDictionary Source="/Controls/ListView/ListViewEx.xaml" />

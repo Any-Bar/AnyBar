@@ -33,18 +33,13 @@
     </controls:ContentDialog.Style>
     <controls:ContentDialog.HeaderContent>
         <StackPanel>
-            <controls:AutoSuggestBoxEx
+            <ui:AutoSuggestBox
                 x:Name="SearchPluginTextBox"
                 Margin="{StaticResource ContentDialogHeaderContentMargin}"
                 HorizontalAlignment="Stretch"
                 VerticalAlignment="Top"
-                AllowQuerySubmit="False"
                 PlaceholderText="{DynamicResource SettingPanePlugins_SearchPlugins}"
-                Text="{Binding SearchText, Mode=TwoWay}">
-                <controls:AutoSuggestBoxEx.QueryIcon>
-                    <ui:FontIcon Glyph="&#xE721;" />
-                </controls:AutoSuggestBoxEx.QueryIcon>
-            </controls:AutoSuggestBoxEx>
+                Text="{Binding SearchText, Mode=TwoWay}" />
             <Border
                 Height="1"
                 Background="{ui:ThemeResource {x:Static ui:ThemeKeys.DividerStrokeColorDefaultBrushKey}}"

@@ -5,6 +5,7 @@ using System.Collections;
 using System.Windows;
 using System.Windows.Controls;
 using iNKORE.UI.WPF.Modern.Common;
+using iNKORE.UI.WPF.Modern.Controls;
 using iNKORE.UI.WPF.Modern.Controls.Helpers;
 
 namespace Flow.Bar.Controls;
@@ -354,13 +355,13 @@ public partial class NavigationView
     public static readonly DependencyProperty AutoSuggestBoxProperty =
         DependencyProperty.Register(
             nameof(AutoSuggestBox),
-            typeof(AutoSuggestBoxEx),
+            typeof(AutoSuggestBox),
             typeof(NavigationView),
             new PropertyMetadata(OnAutoSuggestBoxPropertyChanged));
 
-    public AutoSuggestBoxEx AutoSuggestBox
+    public AutoSuggestBox AutoSuggestBox
     {
-        get => (AutoSuggestBoxEx)GetValue(AutoSuggestBoxProperty);
+        get => (AutoSuggestBox)GetValue(AutoSuggestBoxProperty);
         set => SetValue(AutoSuggestBoxProperty, value);
     }
 
