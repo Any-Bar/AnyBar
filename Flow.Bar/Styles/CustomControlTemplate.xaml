@@ -4,7 +4,7 @@
     xmlns:ikw="http://schemas.inkore.net/lib/ui/wpf"
     xmlns:ui="http://schemas.inkore.net/lib/ui/wpf/modern">
 
-    <!--  Custom Context Menu from UI.WPF.Modern to remove tab focus & focus visual  -->
+    <!--  Custom Context Menu from UI.WPF.Modern 0.10.1 to remove tab focus & focus visual  -->
     <Style x:Key="ContextMenuStyleBase" TargetType="ContextMenu">
         <Setter Property="Background" Value="{DynamicResource MenuFlyoutPresenterBackground}" />
         <Setter Property="BorderBrush" Value="{DynamicResource MenuFlyoutPresenterBorderBrush}" />
