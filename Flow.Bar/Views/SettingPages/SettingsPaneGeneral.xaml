@@ -26,68 +26,68 @@
                 x:Name="LanguageTitle"
                 Style="{StaticResource SettingsFirstSectionHeaderTextBlockStyle}"
                 Text="{DynamicResource SettingPaneGeneral_Language}" />
-            <controls:SettingsCardEx
+            <ui:SettingsCard
                 x:Name="LanguageCard"
                 Description="{DynamicResource SettingPaneGeneral_AppDisplayLanguage}"
                 Header="{DynamicResource SettingPaneGeneral_Language}">
-                <controls:SettingsCardEx.HeaderIcon>
+                <ui:SettingsCard.HeaderIcon>
                     <ui:FontIcon Glyph="&#xE8C1;" />
-                </controls:SettingsCardEx.HeaderIcon>
+                </ui:SettingsCard.HeaderIcon>
 
                 <ComboBox
                     DisplayMemberPath="Display"
                     ItemsSource="{Binding Languages, Mode=OneTime}"
                     SelectedValue="{Binding Language, Mode=TwoWay}"
                     SelectedValuePath="LanguageCode" />
-            </controls:SettingsCardEx>
+            </ui:SettingsCard>
 
             <TextBlock
                 x:Name="BehaviourTitle"
                 Style="{StaticResource SettingsSectionHeaderTextBlockStyle}"
                 Text="{DynamicResource SettingPaneGeneral_Behaviour}" />
-            <controls:SettingsExpanderEx
+            <ui:SettingsExpander
                 x:Name="StartOnSystemStartupCard"
                 Description="{DynamicResource SettingPaneGeneral_StartOnSystemStartupDescription}"
                 Header="{DynamicResource SettingPaneGeneral_StartOnSystemStartup}">
-                <controls:SettingsExpanderEx.HeaderIcon>
+                <ui:SettingsExpander.HeaderIcon>
                     <ui:FontIcon Glyph="&#xE7B5;" />
-                </controls:SettingsExpanderEx.HeaderIcon>
+                </ui:SettingsExpander.HeaderIcon>
 
                 <controls:ToggleSwitchEx IsOn="{Binding StartOnSystemStartup, Mode=TwoWay}" />
 
-                <controls:SettingsExpanderEx.Items>
-                    <controls:SettingsCardEx
+                <ui:SettingsExpander.Items>
+                    <ui:SettingsCard
                         x:Name="UseLogonTaskForStartupCard"
                         Description="{DynamicResource SettingPaneGeneral_UseLogonTaskForStartupDescription}"
                         Header="{DynamicResource SettingPaneGeneral_UseLogonTaskForStartup}">
-                        <controls:SettingsCardEx.HeaderIcon>
+                        <ui:SettingsCard.HeaderIcon>
                             <ui:FontIcon Glyph="&#xE823;" />
-                        </controls:SettingsCardEx.HeaderIcon>
+                        </ui:SettingsCard.HeaderIcon>
 
                         <controls:ToggleSwitchEx IsOn="{Binding UseLogonTaskForStartup, Mode=TwoWay}" />
-                    </controls:SettingsCardEx>
-                </controls:SettingsExpanderEx.Items>
-            </controls:SettingsExpanderEx>
-            <controls:SettingsCardEx
+                    </ui:SettingsCard>
+                </ui:SettingsExpander.Items>
+            </ui:SettingsExpander>
+            <ui:SettingsCard
                 x:Name="AlwaysRunAsAdministratorCard"
                 Description="{DynamicResource SettingPaneGeneral_AlwaysRunAsAdministratorDescription}"
                 Header="{DynamicResource SettingPaneGeneral_AlwaysRunAsAdministrator}">
-                <controls:SettingsCardEx.HeaderIcon>
+                <ui:SettingsCard.HeaderIcon>
                     <ui:FontIcon Glyph="&#xE7EF;" />
-                </controls:SettingsCardEx.HeaderIcon>
+                </ui:SettingsCard.HeaderIcon>
 
                 <controls:ToggleSwitchEx IsOn="{Binding AlwaysRunAsAdministrator, Mode=TwoWay}" />
-            </controls:SettingsCardEx>
-            <controls:SettingsCardEx
+            </ui:SettingsCard>
+            <ui:SettingsCard
                 x:Name="HideSettingWindowCard"
                 Description="{DynamicResource SettingPaneGeneral_HideSettingWindowDescription}"
                 Header="{DynamicResource SettingPaneGeneral_HideSettingWindow}">
-                <controls:SettingsCardEx.HeaderIcon>
+                <ui:SettingsCard.HeaderIcon>
                     <ui:FontIcon Glyph="&#xed1a;" />
-                </controls:SettingsCardEx.HeaderIcon>
+                </ui:SettingsCard.HeaderIcon>
 
                 <controls:ToggleSwitchEx IsOn="{Binding Settings.HideSettingWindow, Mode=TwoWay}" />
-            </controls:SettingsCardEx>
+            </ui:SettingsCard>
 
             <TextBlock
                 x:Name="AppearanceTitle"

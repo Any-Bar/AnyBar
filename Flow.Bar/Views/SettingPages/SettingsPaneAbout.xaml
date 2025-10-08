@@ -23,18 +23,18 @@
             Orientation="Vertical"
             Spacing="{StaticResource SettingsCardSpacing}">
             <TextBlock Style="{StaticResource SettingsFirstSectionHeaderTextBlockStyle}" Text="App" />
-            <controls:SettingsCardEx Description="{DynamicResource SettingPaneAbout_Version}" Header="{Binding Version}">
-                <controls:SettingsCardEx.HeaderIcon>
+            <ui:SettingsCard Description="{DynamicResource SettingPaneAbout_Version}" Header="{Binding Version}">
+                <ui:SettingsCard.HeaderIcon>
                     <ui:FontIcon Glyph="&#xe946;" />
-                </controls:SettingsCardEx.HeaderIcon>
-            </controls:SettingsCardEx>
+                </ui:SettingsCard.HeaderIcon>
+            </ui:SettingsCard>
 
             <TextBlock Style="{StaticResource SettingsSectionHeaderTextBlockStyle}" Text="Related" />
-            <controls:SettingsCardEx Header="Click to support">
-                <controls:SettingsCardEx.HeaderIcon>
+            <ui:SettingsCard Header="Click to support">
+                <ui:SettingsCard.HeaderIcon>
                     <ui:FontIcon Glyph="&#xe946;" />
-                </controls:SettingsCardEx.HeaderIcon>
-            </controls:SettingsCardEx>
+                </ui:SettingsCard.HeaderIcon>
+            </ui:SettingsCard>
         </ikw:SimpleStackPanel>
     </ui:ScrollViewerEx>
 </ui:Page>

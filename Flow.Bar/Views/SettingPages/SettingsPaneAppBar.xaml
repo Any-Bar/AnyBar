@@ -30,7 +30,7 @@
             Margin="{StaticResource PageScrollViewerContentMargin}"
             Orientation="Vertical"
             Spacing="{StaticResource SettingsCardSpacing}">
-            <controls:SettingsCardEx x:Name="AddAppBarCard" Header="{DynamicResource SettingPaneAppBar_AddAppBarHeader}">
+            <ui:SettingsCard x:Name="AddAppBarCard" Header="{DynamicResource SettingPaneAppBar_AddAppBarHeader}">
                 <Button
                     x:Name="AddAppBarButton"
                     Command="{Binding AddAppBarCommand, Mode=OneTime}"
@@ -38,7 +38,7 @@
                     Content="{DynamicResource SettingPaneAppBar_AddAppBar}"
                     IsEnabled="{Binding IsInitialized, Mode=OneWay}"
                     Style="{DynamicResource {x:Static ui:ThemeKeys.AccentButtonStyleKey}}" />
-            </controls:SettingsCardEx>
+            </ui:SettingsCard>
 
             <ikw:SimpleStackPanel
                 Margin="{StaticResource SettingsSectionHeaderMargin}"
@@ -100,24 +100,24 @@
                 </controls:ListViewEx.Style>
                 <controls:ListViewEx.ItemTemplate>
                     <DataTemplate DataType="models:AppBarModel">
-                        <controls:SettingsCardEx
+                        <ui:SettingsCard
                             x:Name="AppBarSettingsCard"
                             Command="{Binding DataContext.OpenAppBarSettingCommand, RelativeSource={RelativeSource AncestorType=controls:ListViewEx}, Mode=OneTime}"
                             CommandParameter="{Binding ., Mode=OneTime}"
                             Header="{Binding Name, Mode=OneWay}"
                             IsClickEnabled="True"
                             Tag="{Binding ., Mode=OneTime}">
-                            <controls:SettingsCardEx.HeaderIcon>
+                            <ui:SettingsCard.HeaderIcon>
                                 <Image
                                     Width="16"
                                     Height="16"
                                     RenderOptions.BitmapScalingMode="HighQuality"
                                     Source="{Binding DockMode, Converter={StaticResource DockModeToImageSourceConverter}}" />
-                            </controls:SettingsCardEx.HeaderIcon>
+                            </ui:SettingsCard.HeaderIcon>
 
-                            <controls:SettingsCardEx.ActionIcon>
+                            <ui:SettingsCard.ActionIcon>
                                 <ui:FontIcon Glyph="&#xE76C;" />
-                            </controls:SettingsCardEx.ActionIcon>
+                            </ui:SettingsCard.ActionIcon>
 
                             <controls:ToggleSwitchEx
                                 x:Name="IsEnabledToggleSwitch"
@@ -129,7 +129,7 @@
                                     </i:EventTrigger>
                                 </i:Interaction.Triggers>
                             </controls:ToggleSwitchEx>
-                        </controls:SettingsCardEx>
+                        </ui:SettingsCard>
                     </DataTemplate>
                 </controls:ListViewEx.ItemTemplate>
             </controls:ListViewEx>

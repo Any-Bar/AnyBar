@@ -112,11 +112,11 @@
                 </controls:ListViewEx.Style>
                 <controls:ListViewEx.ItemTemplate>
                     <DataTemplate DataType="models:PluginViewModel">
-                        <controls:SettingsCardEx
+                        <ui:SettingsCard
                             x:Name="PluginSettingsCard"
                             IsClickEnabled="False"
                             ToolTip="{Binding VersionAndAuthor, Mode=OneTime}">
-                            <controls:SettingsCardEx.Header>
+                            <ui:SettingsCard.Header>
                                 <TextBlock
                                     Text="{Binding Name, Mode=OneTime}"
                                     TextTrimming="CharacterEllipsis"
@@ -131,8 +131,8 @@
                                         </Style>
                                     </TextBlock.Style>
                                 </TextBlock>
-                            </controls:SettingsCardEx.Header>
-                            <controls:SettingsCardEx.Description>
+                            </ui:SettingsCard.Header>
+                            <ui:SettingsCard.Description>
                                 <TextBlock
                                     Text="{Binding Description, Mode=OneTime}"
                                     TextTrimming="CharacterEllipsis"
@@ -147,14 +147,14 @@
                                         </Style>
                                     </TextBlock.Style>
                                 </TextBlock>
-                            </controls:SettingsCardEx.Description>
-                            <controls:SettingsCardEx.HeaderIcon>
+                            </ui:SettingsCard.Description>
+                            <ui:SettingsCard.HeaderIcon>
                                 <Image
                                     Width="16"
                                     Height="16"
                                     RenderOptions.BitmapScalingMode="HighQuality"
                                     Source="{Binding Image, Mode=OneWay}" />
-                            </controls:SettingsCardEx.HeaderIcon>
+                            </ui:SettingsCard.HeaderIcon>
 
                             <controls:FontIconButton
                                 x:Name="MoreOptionsButton"
@@ -166,7 +166,7 @@
                                 ToolTip="{DynamicResource SettingPanePlugins_MoreOptions}">
                                 <ui:FontIcon Glyph="&#xE712;" />
                             </controls:FontIconButton>
-                        </controls:SettingsCardEx>
+                        </ui:SettingsCard>
                     </DataTemplate>
                 </controls:ListViewEx.ItemTemplate>
             </controls:ListViewEx>

@@ -26,7 +26,7 @@
             Margin="{StaticResource PageScrollViewerContentMargin}"
             Orientation="Vertical"
             Spacing="{StaticResource SettingsCardSpacing}">
-            <controls:SettingsCardEx x:Name="AddBarElementCard" Header="{DynamicResource SettingPaneBarElementSetting_AddBarElementHeader}">
+            <ui:SettingsCard x:Name="AddBarElementCard" Header="{DynamicResource SettingPaneBarElementSetting_AddBarElementHeader}">
                 <Button
                     x:Name="AddBarElementButton"
                     Command="{Binding AddBarElementCommand, Mode=OneTime}"
@@ -34,7 +34,7 @@
                     Content="{DynamicResource SettingPaneBarElementSetting_AddBarElement}"
                     IsEnabled="{Binding IsInitialized, Mode=OneWay}"
                     Style="{DynamicResource {x:Static ui:ThemeKeys.AccentButtonStyleKey}}" />
-            </controls:SettingsCardEx>
+            </ui:SettingsCard>
 
             <ikw:SimpleStackPanel
                 Margin="{StaticResource SettingsSectionHeaderMargin}"
@@ -100,8 +100,8 @@
                 </controls:ListViewEx.Style>
                 <controls:ListViewEx.ItemTemplate>
                     <DataTemplate DataType="models:BarElementViewModel">
-                        <controls:SettingsCardEx x:Name="BarElementSettingsCard" IsClickEnabled="False">
-                            <controls:SettingsCardEx.Header>
+                        <ui:SettingsCard x:Name="BarElementSettingsCard" IsClickEnabled="False">
+                            <ui:SettingsCard.Header>
                                 <TextBlock
                                     Text="{Binding Name, Mode=OneTime}"
                                     TextTrimming="CharacterEllipsis"
@@ -116,14 +116,14 @@
                                         </Style>
                                     </TextBlock.Style>
                                 </TextBlock>
-                            </controls:SettingsCardEx.Header>
-                            <controls:SettingsCardEx.HeaderIcon>
+                            </ui:SettingsCard.Header>
+                            <ui:SettingsCard.HeaderIcon>
                                 <Image
                                     Width="16"
                                     Height="16"
                                     RenderOptions.BitmapScalingMode="HighQuality"
                                     Source="{Binding Image, Mode=OneWay}" />
-                            </controls:SettingsCardEx.HeaderIcon>
+                            </ui:SettingsCard.HeaderIcon>
 
                             <controls:FontIconButton
                                 x:Name="MoreOptionsButton"
@@ -135,7 +135,7 @@
                                 ToolTip="{DynamicResource SettingPanePlugins_MoreOptions}">
                                 <ui:FontIcon Glyph="&#xE712;" />
                             </controls:FontIconButton>
-                        </controls:SettingsCardEx>
+                        </ui:SettingsCard>
                     </DataTemplate>
                 </controls:ListViewEx.ItemTemplate>
             </controls:ListViewEx>
