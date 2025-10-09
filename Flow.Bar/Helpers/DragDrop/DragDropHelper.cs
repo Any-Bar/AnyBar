@@ -24,7 +24,6 @@ public static class DragDropHelper
 
     private static void OnCanReorderItemsPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
     {
-        var controlType = d.GetType();
         if ((bool)e.OldValue)
         {
             d.DisableDragDrop();
@@ -32,21 +31,23 @@ public static class DragDropHelper
         if ((bool)e.NewValue)
         {
             d.EnableDragDrop();
-            if (controlType == typeof(StackView))
+            if (d.GetType() == typeof(StackView))
             {
                 d.SetStackViewDropHandler();
             }
         }
     }
 
-    public static bool GetCanReorderItems(Control control)
+    [AttachedPropertyBrowsableForType(typeof(UIElement))]
+    public static bool GetCanReorderItems(DependencyObject d)
     {
-        return (bool)control.GetValue(CanReorderItemsProperty);
+        return (bool)d.GetValue(CanReorderItemsProperty);
     }
 
-    public static void SetCanReorderItems(Control control, bool value)
+    [AttachedPropertyBrowsableForType(typeof(UIElement))]
+    public static void SetCanReorderItems(DependencyObject d, bool value)
     {
-        control.SetValue(CanReorderItemsProperty, value);
+        d.SetValue(CanReorderItemsProperty, value);
     }
 
     #endregion
@@ -68,14 +69,16 @@ public static class DragDropHelper
         }
     }
 
-    public static ScrollViewer? GetDropScrollViewer(Control control)
+    [AttachedPropertyBrowsableForType(typeof(UIElement))]
+    public static ScrollViewer? GetDropScrollViewer(DependencyObject d)
     {
-        return control.GetValue(DropScrollViewerProperty) is ScrollViewer sv ? sv : null;
+        return d.GetValue(DropScrollViewerProperty) is ScrollViewer sv ? sv : null;
     }
 
-    public static void SetDropScrollViewer(Control control, ScrollViewer? value)
+    [AttachedPropertyBrowsableForType(typeof(UIElement))]
+    public static void SetDropScrollViewer(DependencyObject d, ScrollViewer value)
     {
-        control.SetValue(DropScrollViewerProperty, value);
+        d.SetValue(DropScrollViewerProperty, value);
     }
 
     #endregion
