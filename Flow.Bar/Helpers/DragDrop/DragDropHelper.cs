@@ -64,7 +64,7 @@ public static class DragDropHelper
     {
         if (e.NewValue is ScrollViewer scrollViewer)
         {
-            d.SetDropScrollViewer(scrollViewer);
+            d.ApplyDropScrollViewerConfiguration(scrollViewer);
         }
     }
 
@@ -99,8 +99,16 @@ public static class DragDropHelper
         WpfDragDrop.SetEffectNoneAdornerTemplate(element, _emptyEffectAdornerTemplate);
         WpfDragDrop.SetEffectScrollAdornerTemplate(element, _emptyEffectAdornerTemplate);
     }
+    
+    private static void DisableDragDrop(this DependencyObject element)
+    {
+        ArgumentNullException.ThrowIfNull(element);
 
-    private static void SetDropScrollViewer(this DependencyObject element, ScrollViewer scrollViewer)
+        WpfDragDrop.SetIsDragSource(element, false);
+        WpfDragDrop.SetIsDropTarget(element, false);
+    }
+
+    private static void ApplyDropScrollViewerConfiguration(this DependencyObject element, ScrollViewer scrollViewer)
     {
         ArgumentNullException.ThrowIfNull(element);
         ArgumentNullException.ThrowIfNull(scrollViewer);
@@ -135,13 +143,7 @@ public static class DragDropHelper
         }
     }
 
-    private static void DisableDragDrop(this DependencyObject element)
-    {
-        ArgumentNullException.ThrowIfNull(element);
-
-        WpfDragDrop.SetIsDragSource(element, false);
-        WpfDragDrop.SetIsDropTarget(element, false);
-    }
+    
 
     private static void SetStackViewDropHandler(this DependencyObject element)
     {
