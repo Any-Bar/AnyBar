@@ -5,6 +5,7 @@
     xmlns:controls="clr-namespace:Flow.Bar.Controls"
     xmlns:converters="clr-namespace:Flow.Bar.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:dragdrop="clr-namespace:Flow.Bar.Helpers.DragDrop"
     xmlns:enums="clr-namespace:Flow.Bar.Enums"
     xmlns:ikw="http://schemas.inkore.net/lib/ui/wpf"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -17,6 +18,9 @@
     d:DesignHeight="450"
     d:DesignWidth="800"
     mc:Ignorable="d">
+    <ui:Page.Resources>
+        <converters:SettingsPaneBarElementSettingSortModeToCanReorderItemsConverter x:Key="SettingsPaneBarElementSettingSortModeToCanReorderItemsConverter" />
+    </ui:Page.Resources>
 
     <ui:ScrollViewerEx
         x:Name="RootPageScrollViewer"
@@ -58,12 +62,12 @@
             </ikw:SimpleStackPanel>
 
             <controls:ListViewEx
-                x:Name="BarElementStackView"
+                x:Name="BarElementListView"
                 Margin="{StaticResource SettingsSectionHeaderMargin}"
                 HorizontalContentAlignment="Stretch"
                 VerticalContentAlignment="Center"
-                CanReorderItems="True"
-                DropScrollViewer="{Binding ElementName=RootPageScrollViewer, Mode=OneTime}"
+                dragdrop:DragDropHelper.CanReorderItems="{Binding SortMode, Converter={StaticResource SettingsPaneBarElementSettingSortModeToCanReorderItemsConverter}, Mode=OneWay}"
+                dragdrop:DragDropHelper.DropScrollViewer="{Binding ElementName=RootPageScrollViewer, Mode=OneTime}"
                 IsHoverEnabled="False"
                 IsItemClickEnabled="False"
                 IsSelectionEnabled="False"
@@ -72,14 +76,7 @@
                 ScrollViewer.VerticalScrollBarVisibility="Disabled">
                 <controls:ListViewEx.Style>
                     <Style BasedOn="{StaticResource DefaultListViewStyle}" TargetType="controls:ListViewEx">
-                        <Setter Property="CanReorderItems" Value="False" />
                         <Style.Triggers>
-                            <DataTrigger Binding="{Binding SortMode}" Value="{x:Static enums:SettingsPaneBarElementSettingSortMode.LeftTopToRightBottom}">
-                                <Setter Property="CanReorderItems" Value="True" />
-                            </DataTrigger>
-                            <DataTrigger Binding="{Binding SortMode}" Value="{x:Static enums:SettingsPaneBarElementSettingSortMode.RightBottomToLeftTop}">
-                                <Setter Property="CanReorderItems" Value="True" />
-                            </DataTrigger>
                             <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=Items.Count}" Value="0">
                                 <Setter Property="Template">
                                     <Setter.Value>

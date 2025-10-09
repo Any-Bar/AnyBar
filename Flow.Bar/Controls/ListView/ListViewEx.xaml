@@ -17,7 +17,6 @@
 
     <Style x:Key="DefaultListViewItemStyle" TargetType="local:ListViewExItem">
         <Setter Property="OverridesDefaultStyle" Value="True" />
-        <Setter Property="IsTabStop" Value="{Binding ItemIsTabStop, RelativeSource={RelativeSource AncestorType={x:Type local:ListViewEx}}}" />
         <Setter Property="FontSize" Value="{DynamicResource ControlContentThemeFontSize}" />
         <Setter Property="Background" Value="{DynamicResource ListViewItemBackground}" />
         <Setter Property="Foreground" Value="{DynamicResource ListViewItemForeground}" />

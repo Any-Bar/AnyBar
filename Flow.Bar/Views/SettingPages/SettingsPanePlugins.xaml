@@ -4,6 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:controls="clr-namespace:Flow.Bar.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:dragdrop="clr-namespace:Flow.Bar.Helpers.DragDrop"
     xmlns:ikw="http://schemas.inkore.net/lib/ui/wpf"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:models="clr-namespace:Flow.Bar.Models.Plugins"
@@ -69,11 +70,10 @@
             </ikw:SimpleStackPanel>
 
             <controls:ListViewEx
-                x:Name="AllPluginsStackView"
+                x:Name="AllPluginsListView"
                 Margin="{StaticResource SettingsSectionHeaderMargin}"
                 HorizontalContentAlignment="Stretch"
                 VerticalContentAlignment="Center"
-                CanReorderItems="False"
                 IsHoverEnabled="False"
                 IsItemClickEnabled="False"
                 IsSelectionEnabled="False"

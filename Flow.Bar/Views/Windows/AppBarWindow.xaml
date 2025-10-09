@@ -5,6 +5,7 @@
     xmlns:controls="clr-namespace:Flow.Bar.Controls"
     xmlns:converters="clr-namespace:Flow.Bar.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:dragdrop="clr-namespace:Flow.Bar.Helpers.DragDrop"
     xmlns:enum="clr-namespace:Flow.Bar.Enums"
     xmlns:ikw="http://schemas.inkore.net/lib/ui/wpf"
     xmlns:local="clr-namespace:Flow.Bar"
@@ -163,7 +164,7 @@
                 LastChildFill="False">
                 <controls:StackView
                     x:Name="LeftOrTopStackView"
-                    CanReorderItems="True"
+                    dragdrop:DragDropHelper.CanReorderItems="True"
                     ItemMouseLeftButtonDown="StackView_ItemMouseLeftButtonDown"
                     ItemMouseLeftButtonUp="StackView_ItemMouseLeftButtonUp"
                     ItemPreviewMouseRightButtonDown="StackView_ItemPreviewMouseRightButtonDown"
@@ -204,7 +205,7 @@
 
                 <controls:StackView
                     x:Name="RightOrBottomStackView"
-                    CanReorderItems="True"
+                    dragdrop:DragDropHelper.CanReorderItems="True"
                     ItemMouseLeftButtonDown="StackView_ItemMouseLeftButtonDown"
                     ItemMouseLeftButtonUp="StackView_ItemMouseLeftButtonUp"
                     ItemPreviewMouseRightButtonDown="StackView_ItemPreviewMouseRightButtonDown"
@@ -246,7 +247,7 @@
 
             <controls:StackView
                 x:Name="CenterStackView"
-                CanReorderItems="True"
+                dragdrop:DragDropHelper.CanReorderItems="True"
                 ItemMouseLeftButtonDown="StackView_ItemMouseLeftButtonDown"
                 ItemMouseLeftButtonUp="StackView_ItemMouseLeftButtonUp"
                 ItemPreviewMouseRightButtonDown="StackView_ItemPreviewMouseRightButtonDown"
