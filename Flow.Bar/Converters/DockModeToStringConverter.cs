@@ -6,6 +6,7 @@ using Flow.Bar.Enums;
 
 namespace Flow.Bar.Converters;
 
+[ValueConversion(typeof(AppBarDockMode), typeof(string))]
 public class DockModeToStringConverter : IValueConverter
 {
     public object? Convert(object value, Type targetType, object parameter, CultureInfo culture)

@@ -8,6 +8,7 @@ using Flow.Bar.Enums;
 
 namespace Flow.Bar.Converters;
 
+[ValueConversion(typeof(AppBarDockMode), typeof(string))]
 public class DockModeToImageSourceConverter : IValueConverter
 {
     private static readonly Dictionary<AppBarDockMode, ImageSource> _cache = [];
