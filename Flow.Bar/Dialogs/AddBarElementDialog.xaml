@@ -67,6 +67,7 @@
                 <Grid
                     x:Name="PluginCardGrid"
                     MinHeight="60"
+                    Margin="12 0 12 0"
                     Background="Transparent"
                     ToolTip="{Binding VersionAndAuthor, Mode=OneTime}">
                     <Grid.ColumnDefinitions>
