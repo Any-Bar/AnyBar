@@ -176,7 +176,7 @@ public partial class SettingsPaneAppBarViewModel(AppBarManagementService appBarM
     #region Toggle AppBar Enable
 
     [RelayCommand]
-    private void IsEnabledToggleSwitchToggled(ToggleSwitchEx toggleSwitch)
+    private void IsEnabledToggleSwitchToggled(iNKORE.UI.WPF.Modern.Controls.ToggleSwitch toggleSwitch)
     {
         if (toggleSwitch.Tag is not AppBarModel model) return;
         _appBarManagementService.SetEnabled(model.Order, toggleSwitch.IsOn);
