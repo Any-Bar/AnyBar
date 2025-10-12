@@ -50,9 +50,9 @@ public static class Constants
 
     public const string SystemLanguageCode = "system";
 
-    public const string AnyBarPluginDateTimePluginId = "3675a0dd-af3b-412f-b257-5e004dea2bd0";
-    public const string AnyBarPluginNetworkPluginId = "ec9fd6ce-b0dd-437f-9138-cdb400c604b1";
-    public const string AnyBarPluginPerformancePluginId = "5f78a5cb-1179-420b-8bbf-b9f3b6523a70";
+    public const string AnyBarPluginDateTimeID = "3675a0dd-af3b-412f-b257-5e004dea2bd0";
+    public const string AnyBarPluginNetworkID = "ec9fd6ce-b0dd-437f-9138-cdb400c604b1";
+    public const string AnyBarPluginPerformanceID = "5f78a5cb-1179-420b-8bbf-b9f3b6523a70";
 
     public const string NeedDeleteMarkFile = ".need_delete";
 }

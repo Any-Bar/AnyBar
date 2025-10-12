@@ -73,7 +73,7 @@ public class Settings
                 new()
                 {
                     Order = 0,
-                    ID = Constants.AnyBarPluginDateTimePluginId,
+                    ID = Constants.AnyBarPluginDateTimeID,
                     Name = "Date and time",
                 }
             ]

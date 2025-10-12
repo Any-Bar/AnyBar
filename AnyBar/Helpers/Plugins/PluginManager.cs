@@ -199,9 +199,9 @@ public static class PluginManager
 
     private static readonly HashSet<string> PreinstalledPluginIds = new(StringComparer.OrdinalIgnoreCase)
     {
-        Constants.AnyBarPluginDateTimePluginId,
-        Constants.AnyBarPluginNetworkPluginId,
-        Constants.AnyBarPluginPerformancePluginId
+        Constants.AnyBarPluginDateTimeID,
+        Constants.AnyBarPluginNetworkID,
+        Constants.AnyBarPluginPerformanceID
     };
 
     public static bool IsPreinstalled(string id)
