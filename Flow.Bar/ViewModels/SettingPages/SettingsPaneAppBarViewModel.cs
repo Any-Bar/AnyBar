@@ -16,6 +16,7 @@ using Flow.Bar.Interfaces;
 using Flow.Bar.Models.AppBar;
 using Flow.Bar.Services;
 using Flow.Bar.Views;
+using iNKORE.UI.WPF.Modern.Controls;
 
 namespace Flow.Bar.ViewModels;
 
@@ -57,7 +58,7 @@ public partial class SettingsPaneAppBarViewModel(AppBarManagementService appBarM
         }
         else
         {
-            App.API.LogError(ClassName, $"Failed to get {nameof(ContentDialog.Owner)} for {nameof(AddAppBarDialog)}");
+            App.API.LogError(ClassName, $"Failed to get {nameof(ContentDialogEx.Owner)} for {nameof(AddAppBarDialog)}");
             return;
         }
         if (result == ContentDialogResult.Primary)
@@ -176,7 +177,7 @@ public partial class SettingsPaneAppBarViewModel(AppBarManagementService appBarM
     #region Toggle AppBar Enable
 
     [RelayCommand]
-    private void IsEnabledToggleSwitchToggled(iNKORE.UI.WPF.Modern.Controls.ToggleSwitch toggleSwitch)
+    private void IsEnabledToggleSwitchToggled(ToggleSwitch toggleSwitch)
     {
         if (toggleSwitch.Tag is not AppBarModel model) return;
         _appBarManagementService.SetEnabled(model.Order, toggleSwitch.IsOn);

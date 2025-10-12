@@ -2,25 +2,25 @@
 
 namespace Flow.Bar.Controls;
 
-public class ContentDialogButtonClickEventArgs : EventArgs
+public class ContentDialogExButtonClickEventArgs : EventArgs
 {
-    private ContentDialogButtonClickDeferral _deferral = null!;
+    private ContentDialogExButtonClickDeferral _deferral = null!;
     private int _deferralCount;
 
-    internal ContentDialogButtonClickEventArgs()
+    internal ContentDialogExButtonClickEventArgs()
     {
     }
 
     public bool Cancel { get; set; }
 
-    public ContentDialogButtonClickDeferral GetDeferral()
+    public ContentDialogExButtonClickDeferral GetDeferral()
     {
         _deferralCount++;
 
-        return new ContentDialogButtonClickDeferral(DecrementDeferralCount);
+        return new ContentDialogExButtonClickDeferral(DecrementDeferralCount);
     }
 
-    internal void SetDeferral(ContentDialogButtonClickDeferral deferral)
+    internal void SetDeferral(ContentDialogExButtonClickDeferral deferral)
     {
         _deferral = deferral;
     }

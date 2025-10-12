@@ -19,6 +19,7 @@ using Flow.Bar.Models.AppBar;
 using Flow.Bar.Models.Parameters;
 using Flow.Bar.Services;
 using Flow.Bar.Views;
+using iNKORE.UI.WPF.Modern.Controls;
 
 namespace Flow.Bar.ViewModels;
 
@@ -62,7 +63,7 @@ public partial class SettingsPaneBarElementSettingViewModel(AppBarManagementServ
         }
         else
         {
-            App.API.LogError(ClassName, $"Failed to get {nameof(ContentDialog.Owner)} for {nameof(AddBarElementDialog)}");
+            App.API.LogError(ClassName, $"Failed to get {nameof(ContentDialogEx.Owner)} for {nameof(AddBarElementDialog)}");
             return;
         }
         if (result == ContentDialogResult.Primary && dialog.Plugin != null)

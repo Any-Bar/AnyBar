@@ -21,7 +21,7 @@
                 <ResourceDictionary Source="/Styles/ContentDialogStyle.xaml" />
                 <ResourceDictionary Source="/Styles/ContextMenuStyle.xaml" />
                 <!--  Controls  -->
-                <ResourceDictionary Source="/Controls/ContentDialog/ContentDialog.xaml" />
+                <ResourceDictionary Source="/Controls/ContentDialog/ContentDialogEx.xaml" />
                 <ResourceDictionary Source="/Controls/MenuFlyout/MenuFlyoutEx.xaml" />
                 <ResourceDictionary Source="/Controls/MessageBox/MessageBoxEx.xaml" />
                 <ResourceDictionary Source="/Controls/NavigationView/NavigationView.xaml" />

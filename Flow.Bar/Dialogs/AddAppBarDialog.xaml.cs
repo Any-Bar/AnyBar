@@ -9,7 +9,7 @@ using Flow.Bar.Models.Monitor;
 namespace Flow.Bar.Dialogs;
 
 [INotifyPropertyChanged]
-public partial class AddAppBarDialog : ContentDialog
+public partial class AddAppBarDialog : ContentDialogEx
 {
     private static readonly string ClassName = nameof(AddAppBarDialog);
 

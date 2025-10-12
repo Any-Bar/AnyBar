@@ -11,7 +11,7 @@ using Flow.Bar.Models.Plugins;
 namespace Flow.Bar.Dialogs;
 
 [INotifyPropertyChanged]
-public partial class AddBarElementDialog : ContentDialog
+public partial class AddBarElementDialog : ContentDialogEx
 {
     [ObservableProperty]
     private string _searchText = string.Empty;

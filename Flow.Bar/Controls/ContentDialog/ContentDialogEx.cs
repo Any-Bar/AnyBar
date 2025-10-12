@@ -10,6 +10,7 @@ using System.Windows.Media;
 using System.Windows.Threading;
 using iNKORE.UI.WPF.Helpers;
 using iNKORE.UI.WPF.Modern.Common;
+using iNKORE.UI.WPF.Modern.Controls;
 using iNKORE.UI.WPF.Modern.Controls.Primitives;
 using Windows.Win32;
 
@@ -42,21 +43,21 @@ namespace Flow.Bar.Controls;
 [StyleTypedProperty(Property = nameof(PrimaryButtonStyle), StyleTargetType = typeof(Button))]
 [StyleTypedProperty(Property = nameof(SecondaryButtonStyle), StyleTargetType = typeof(Button))]
 [StyleTypedProperty(Property = nameof(CloseButtonStyle), StyleTargetType = typeof(Button))]
-public class ContentDialog : ContentControl
+public class ContentDialogEx : ContentControl
 {
     private const string C_defaultContentDialogStyleKey = "DefaultContentDialogStyle";
     private static Style? s_defaultContentDialogStyle;
 
-    static ContentDialog()
+    static ContentDialogEx()
     {
-        DefaultStyleKeyProperty.OverrideMetadata(typeof(ContentDialog),
-            new FrameworkPropertyMetadata(typeof(ContentDialog)));
+        DefaultStyleKeyProperty.OverrideMetadata(typeof(ContentDialogEx),
+            new FrameworkPropertyMetadata(typeof(ContentDialogEx)));
 
         EventManager.RegisterClassHandler(typeof(Window), TitleBar.BackRequestedEvent,
             new EventHandler<BackRequestedEventArgs>(OnBackRequested));
     }
 
-    public ContentDialog()
+    public ContentDialogEx()
     {
         s_defaultContentDialogStyle ??= (Style)Application.Current.Resources[C_defaultContentDialogStyleKey];
 
@@ -77,7 +78,7 @@ public class ContentDialog : ContentControl
         DependencyProperty.Register(
             nameof(Title),
             typeof(object),
-            typeof(ContentDialog),
+            typeof(ContentDialogEx),
             null);
 
     public object Title
@@ -94,7 +95,7 @@ public class ContentDialog : ContentControl
         DependencyProperty.Register(
             nameof(TitleTemplate),
             typeof(DataTemplate),
-            typeof(ContentDialog),
+            typeof(ContentDialogEx),
             null);
 
     public DataTemplate TitleTemplate
@@ -111,7 +112,7 @@ public class ContentDialog : ContentControl
         DependencyProperty.Register(
             nameof(PrimaryButtonText),
             typeof(string),
-            typeof(ContentDialog),
+            typeof(ContentDialogEx),
             new PropertyMetadata(null, OnButtonTextChanged));
 
     public string PrimaryButtonText
@@ -128,7 +129,7 @@ public class ContentDialog : ContentControl
         DependencyProperty.Register(
             nameof(PrimaryButtonCommand),
             typeof(ICommand),
-            typeof(ContentDialog),
+            typeof(ContentDialogEx),
             null);
 
     public ICommand PrimaryButtonCommand
@@ -145,7 +146,7 @@ public class ContentDialog : ContentControl
         DependencyProperty.Register(
             nameof(PrimaryButtonCommandParameter),
             typeof(object),
-            typeof(ContentDialog),
+            typeof(ContentDialogEx),
             null);
 
     public object PrimaryButtonCommandParameter
@@ -162,7 +163,7 @@ public class ContentDialog : ContentControl
         DependencyProperty.Register(
             nameof(PrimaryButtonStyle),
             typeof(Style),
-            typeof(ContentDialog),
+            typeof(ContentDialogEx),
             null);
 
     public Style PrimaryButtonStyle
@@ -179,7 +180,7 @@ public class ContentDialog : ContentControl
         DependencyProperty.Register(
             nameof(IsPrimaryButtonEnabled),
             typeof(bool),
-            typeof(ContentDialog),
+            typeof(ContentDialogEx),
             new PropertyMetadata(true));
 
     public bool IsPrimaryButtonEnabled
@@ -196,7 +197,7 @@ public class ContentDialog : ContentControl
         DependencyProperty.Register(
             nameof(SecondaryButtonText),
             typeof(string),
-            typeof(ContentDialog),
+            typeof(ContentDialogEx),
             new PropertyMetadata(null, OnButtonTextChanged));
 
     public string SecondaryButtonText
@@ -213,7 +214,7 @@ public class ContentDialog : ContentControl
         DependencyProperty.Register(
             nameof(SecondaryButtonCommand),
             typeof(ICommand),
-            typeof(ContentDialog),
+            typeof(ContentDialogEx),
             null);
 
     public ICommand SecondaryButtonCommand
@@ -230,7 +231,7 @@ public class ContentDialog : ContentControl
         DependencyProperty.Register(
             nameof(SecondaryButtonCommandParameter),
             typeof(object),
-            typeof(ContentDialog),
+            typeof(ContentDialogEx),
             null);
 
     public object SecondaryButtonCommandParameter
@@ -247,7 +248,7 @@ public class ContentDialog : ContentControl
         DependencyProperty.Register(
             nameof(SecondaryButtonStyle),
             typeof(Style),
-            typeof(ContentDialog),
+            typeof(ContentDialogEx),
             null);
 
     public Style SecondaryButtonStyle
@@ -264,7 +265,7 @@ public class ContentDialog : ContentControl
         DependencyProperty.Register(
             nameof(IsSecondaryButtonEnabled),
             typeof(bool),
-            typeof(ContentDialog),
+            typeof(ContentDialogEx),
             new PropertyMetadata(true));
 
     public bool IsSecondaryButtonEnabled
@@ -281,7 +282,7 @@ public class ContentDialog : ContentControl
         DependencyProperty.Register(
             nameof(CloseButtonText),
             typeof(string),
-            typeof(ContentDialog),
+            typeof(ContentDialogEx),
             new PropertyMetadata(null, OnButtonTextChanged));
 
     public string CloseButtonText
@@ -298,7 +299,7 @@ public class ContentDialog : ContentControl
         DependencyProperty.Register(
             nameof(CloseButtonCommand),
             typeof(ICommand),
-            typeof(ContentDialog),
+            typeof(ContentDialogEx),
             null);
 
     public ICommand CloseButtonCommand
@@ -315,7 +316,7 @@ public class ContentDialog : ContentControl
         DependencyProperty.Register(
             nameof(CloseButtonCommandParameter),
             typeof(object),
-            typeof(ContentDialog),
+            typeof(ContentDialogEx),
             null);
 
     public object CloseButtonCommandParameter
@@ -332,7 +333,7 @@ public class ContentDialog : ContentControl
         DependencyProperty.Register(
             nameof(CloseButtonStyle),
             typeof(Style),
-            typeof(ContentDialog),
+            typeof(ContentDialogEx),
             null);
 
     public Style CloseButtonStyle
@@ -349,7 +350,7 @@ public class ContentDialog : ContentControl
         DependencyProperty.Register(
             nameof(DefaultButton),
             typeof(ContentDialogButton),
-            typeof(ContentDialog),
+            typeof(ContentDialogEx),
             new PropertyMetadata(OnDefaultButtonChanged));
 
     public ContentDialogButton DefaultButton
@@ -360,7 +361,7 @@ public class ContentDialog : ContentControl
 
     private static void OnDefaultButtonChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
     {
-        ((ContentDialog)d).UpdateDefaultButtonStates(true);
+        ((ContentDialogEx)d).UpdateDefaultButtonStates(true);
     }
 
     #endregion
@@ -371,7 +372,7 @@ public class ContentDialog : ContentControl
         DependencyProperty.Register(
             nameof(FullSizeDesired),
             typeof(bool),
-            typeof(ContentDialog),
+            typeof(ContentDialogEx),
             new PropertyMetadata(OnFullSizeDesiredChanged));
 
     public bool FullSizeDesired
@@ -382,7 +383,7 @@ public class ContentDialog : ContentControl
 
     private static void OnFullSizeDesiredChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
     {
-        ((ContentDialog)d).UpdateVisualStates(true);
+        ((ContentDialogEx)d).UpdateVisualStates(true);
     }
 
     #endregion
@@ -393,7 +394,7 @@ public class ContentDialog : ContentControl
         DependencyProperty.Register(
             nameof(CornerRadius),
             typeof(CornerRadius),
-            typeof(ContentDialog),
+            typeof(ContentDialogEx),
             null);
 
     public CornerRadius CornerRadius
@@ -410,7 +411,7 @@ public class ContentDialog : ContentControl
         DependencyProperty.Register(
             nameof(IsShadowEnabled),
             typeof(bool),
-            typeof(ContentDialog),
+            typeof(ContentDialogEx),
             new FrameworkPropertyMetadata(false));
 
     public bool IsShadowEnabled
@@ -426,15 +427,15 @@ public class ContentDialog : ContentControl
     private static readonly DependencyProperty OpenDialogProperty =
         DependencyProperty.RegisterAttached(
             "OpenDialog",
-            typeof(ContentDialog),
-            typeof(ContentDialog));
+            typeof(ContentDialogEx),
+            typeof(ContentDialogEx));
 
-    public static ContentDialog GetOpenDialog(Window window)
+    public static ContentDialogEx GetOpenDialog(Window window)
     {
-        return (ContentDialog)window.GetValue(OpenDialogProperty);
+        return (ContentDialogEx)window.GetValue(OpenDialogProperty);
     }
 
-    private static void SetOpenDialog(Window window, ContentDialog value)
+    private static void SetOpenDialog(Window window, ContentDialogEx value)
     {
         window.SetValue(OpenDialogProperty, value);
     }
@@ -447,7 +448,7 @@ public class ContentDialog : ContentControl
         DependencyProperty.Register(
             nameof(EnableContentPadding),
             typeof(bool),
-            typeof(ContentDialog),
+            typeof(ContentDialogEx),
             new PropertyMetadata(true));
 
     public bool EnableContentPadding
@@ -464,7 +465,7 @@ public class ContentDialog : ContentControl
         DependencyProperty.Register(
             nameof(HeaderContent),
             typeof(UIElement),
-            typeof(ContentDialog),
+            typeof(ContentDialogEx),
             new PropertyMetadata(null));
 
     public UIElement HeaderContent
@@ -481,7 +482,7 @@ public class ContentDialog : ContentControl
         DependencyProperty.Register(
             nameof(FooterContent),
             typeof(UIElement),
-            typeof(ContentDialog),
+            typeof(ContentDialogEx),
             new PropertyMetadata(null));
 
     public UIElement FooterContent
@@ -498,7 +499,7 @@ public class ContentDialog : ContentControl
         DependencyProperty.Register(
             nameof(ContentWidth),
             typeof(double),
-            typeof(ContentDialog),
+            typeof(ContentDialogEx),
             new PropertyMetadata(double.NaN));
 
     public double ContentWidth
@@ -515,7 +516,7 @@ public class ContentDialog : ContentControl
         DependencyProperty.Register(
             nameof(ContentHeight),
             typeof(double),
-            typeof(ContentDialog),
+            typeof(ContentDialogEx),
             new PropertyMetadata(double.NaN));
 
     public double ContentHeight
@@ -589,17 +590,17 @@ public class ContentDialog : ContentControl
         }
     }
 
-    public event TypedEventHandler<ContentDialog, ContentDialogOpenedEventArgs>? Opened;
+    public event TypedEventHandler<ContentDialogEx, ContentDialogExOpenedEventArgs>? Opened;
 
-    public event TypedEventHandler<ContentDialog, ContentDialogClosingEventArgs>? Closing;
+    public event TypedEventHandler<ContentDialogEx, ContentDialogExClosingEventArgs>? Closing;
 
-    public event TypedEventHandler<ContentDialog, ContentDialogClosedEventArgs>? Closed;
+    public event TypedEventHandler<ContentDialogEx, ContentDialogExClosedEventArgs>? Closed;
 
-    public event TypedEventHandler<ContentDialog, ContentDialogButtonClickEventArgs>? PrimaryButtonClick;
+    public event TypedEventHandler<ContentDialogEx, ContentDialogExButtonClickEventArgs>? PrimaryButtonClick;
 
-    public event TypedEventHandler<ContentDialog, ContentDialogButtonClickEventArgs>? SecondaryButtonClick;
+    public event TypedEventHandler<ContentDialogEx, ContentDialogExButtonClickEventArgs>? SecondaryButtonClick;
 
-    public event TypedEventHandler<ContentDialog, ContentDialogButtonClickEventArgs>? CloseButtonClick;
+    public event TypedEventHandler<ContentDialogEx, ContentDialogExButtonClickEventArgs>? CloseButtonClick;
 
     public async Task<ContentDialogResult> ShowAsync()
     {
@@ -612,7 +613,7 @@ public class ContentDialog : ContentControl
 
         if (owner == null)
         {
-            throw new InvalidOperationException($"Could not find an {nameof(owner)} for this {nameof(ContentDialog)}");
+            throw new InvalidOperationException($"Could not find an {nameof(owner)} for this {nameof(ContentDialogEx)}");
         }
 
         return await ShowAsync(owner);
@@ -757,9 +758,9 @@ public class ContentDialog : ContentControl
             var closing = Closing;
             if (closing != null)
             {
-                var args = new ContentDialogClosingEventArgs(result);
+                var args = new ContentDialogExClosingEventArgs(result);
 
-                var deferral = new ContentDialogClosingDeferral(() =>
+                var deferral = new ContentDialogExClosingDeferral(() =>
                 {
                     if (!args.Cancel)
                     {
@@ -811,7 +812,7 @@ public class ContentDialog : ContentControl
     }
 
     private void HandleButtonClick(
-        TypedEventHandler<ContentDialog, ContentDialogButtonClickEventArgs>? handler,
+        TypedEventHandler<ContentDialogEx, ContentDialogExButtonClickEventArgs>? handler,
         ICommand command,
         object commandParameter,
         ContentDialogResult result)
@@ -823,9 +824,9 @@ public class ContentDialog : ContentControl
 
         if (handler != null)
         {
-            var args = new ContentDialogButtonClickEventArgs();
+            var args = new ContentDialogExButtonClickEventArgs();
 
-            var deferral = new ContentDialogButtonClickDeferral(() =>
+            var deferral = new ContentDialogExButtonClickDeferral(() =>
             {
                 if (!args.Cancel)
                 {
@@ -897,7 +898,7 @@ public class ContentDialog : ContentControl
         if (m_opening)
         {
             m_opening = false;
-            Opened?.Invoke(this, new ContentDialogOpenedEventArgs());
+            Opened?.Invoke(this, new ContentDialogExOpenedEventArgs());
         }
     }
 
@@ -915,7 +916,7 @@ public class ContentDialog : ContentControl
 
         if (m_showTcs != null)
         {
-            Closed?.Invoke(this, new ContentDialogClosedEventArgs(m_result));
+            Closed?.Invoke(this, new ContentDialogExClosedEventArgs(m_result));
             m_showTcs.TrySetResult(m_result);
             m_showTcs = null;
             m_result = ContentDialogResult.None;
@@ -1149,7 +1150,7 @@ public class ContentDialog : ContentControl
 
     private static void OnButtonTextChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
     {
-        ((ContentDialog)d).UpdateButtonsVisibilityStates(true);
+        ((ContentDialogEx)d).UpdateButtonsVisibilityStates(true);
     }
 
     private static void TryExecuteCommand(ICommand command, object parameter)
@@ -1170,7 +1171,7 @@ public class ContentDialog : ContentControl
 
     private static void ThrowAlreadyOpenException()
     {
-        throw new InvalidOperationException($"Only a single {nameof(ContentDialog)} can be open at any time");
+        throw new InvalidOperationException($"Only a single {nameof(ContentDialogEx)} can be open at any time");
     }
 
     private static ContentPresenter? FindContentPresenter(Window window)

@@ -1,14 +1,15 @@
 ﻿using System;
 using System.Diagnostics;
+using iNKORE.UI.WPF.Modern.Controls;
 
 namespace Flow.Bar.Controls;
 
-public sealed class ContentDialogClosingEventArgs : EventArgs
+public sealed class ContentDialogExClosingEventArgs : EventArgs
 {
-    private ContentDialogClosingDeferral _deferral = null!;
+    private ContentDialogExClosingDeferral _deferral = null!;
     private int _deferralCount;
 
-    internal ContentDialogClosingEventArgs(ContentDialogResult result)
+    internal ContentDialogExClosingEventArgs(ContentDialogResult result)
     {
         Result = result;
     }
@@ -17,17 +18,17 @@ public sealed class ContentDialogClosingEventArgs : EventArgs
 
     public ContentDialogResult Result { get; }
 
-    public ContentDialogClosingDeferral GetDeferral()
+    public ContentDialogExClosingDeferral GetDeferral()
     {
         _deferralCount++;
 
-        return new ContentDialogClosingDeferral(() =>
+        return new ContentDialogExClosingDeferral(() =>
         {
             DecrementDeferralCount();
         });
     }
 
-    internal void SetDeferral(ContentDialogClosingDeferral deferral)
+    internal void SetDeferral(ContentDialogExClosingDeferral deferral)
     {
         _deferral = deferral;
     }

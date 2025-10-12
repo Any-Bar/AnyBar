@@ -2,11 +2,11 @@
 
 namespace Flow.Bar.Controls;
 
-public sealed class ContentDialogButtonClickDeferral
+public sealed class ContentDialogExButtonClickDeferral
 {
     private readonly Action? _handler;
 
-    internal ContentDialogButtonClickDeferral(Action? handler)
+    internal ContentDialogExButtonClickDeferral(Action? handler)
     {
         _handler = handler;
     }

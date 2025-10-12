@@ -14,7 +14,7 @@
         </ResourceDictionary>
     </ResourceDictionary.MergedDictionaries>
 
-    <Style x:Key="DefaultContentDialogStyle" TargetType="local:ContentDialog">
+    <Style x:Key="DefaultContentDialogStyle" TargetType="local:ContentDialogEx">
         <Setter Property="OverridesDefaultStyle" Value="True" />
         <Setter Property="Foreground" Value="{DynamicResource ContentDialogForeground}" />
         <Setter Property="Background" Value="{DynamicResource ContentDialogBackground}" />
@@ -31,7 +31,7 @@
         <Setter Property="IsShadowEnabled" Value="{DynamicResource {x:Static SystemParameters.DropShadowKey}}" />
         <Setter Property="Template">
             <Setter.Value>
-                <ControlTemplate TargetType="local:ContentDialog">
+                <ControlTemplate TargetType="local:ContentDialogEx">
                     <Border x:Name="Container">
                         <VisualStateManager.CustomVisualStateManager>
                             <ui:SimpleVisualStateManager />
@@ -427,7 +427,7 @@
                                 <Condition Property="SecondaryButtonText" Value="{x:Null}" />
                                 <Condition Property="CloseButtonText" Value="{x:Null}" />
                             </MultiTrigger.Conditions>
-                            <Setter TargetName="BaseBorder" Property="CornerRadius" Value="{Binding CornerRadius, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:ContentDialog}}" />
+                            <Setter TargetName="BaseBorder" Property="CornerRadius" Value="{Binding CornerRadius, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:ContentDialogEx}}" />
                         </MultiTrigger>
                         <Trigger Property="IsShadowEnabled" Value="False">
                             <Setter TargetName="Shdw" Property="Visibility" Value="Collapsed" />

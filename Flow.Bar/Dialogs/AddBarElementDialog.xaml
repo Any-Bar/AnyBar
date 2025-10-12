@@ -1,4 +1,4 @@
-﻿<controls:ContentDialog
+﻿<controls:ContentDialogEx
     x:Class="Flow.Bar.Dialogs.AddBarElementDialog"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -22,16 +22,16 @@
     ScrollViewer.HorizontalScrollBarVisibility="Disabled"
     ScrollViewer.VerticalScrollBarVisibility="Auto"
     mc:Ignorable="d">
-    <controls:ContentDialog.Style>
-        <Style BasedOn="{StaticResource DefaultContentDialogStyle}" TargetType="controls:ContentDialog">
+    <controls:ContentDialogEx.Style>
+        <Style BasedOn="{StaticResource DefaultContentDialogStyle}" TargetType="controls:ContentDialogEx">
             <Style.Triggers>
                 <DataTrigger Binding="{Binding Plugin}" Value="{x:Null}">
                     <Setter Property="IsPrimaryButtonEnabled" Value="False" />
                 </DataTrigger>
             </Style.Triggers>
         </Style>
-    </controls:ContentDialog.Style>
-    <controls:ContentDialog.HeaderContent>
+    </controls:ContentDialogEx.Style>
+    <controls:ContentDialogEx.HeaderContent>
         <StackPanel>
             <ui:AutoSuggestBox
                 x:Name="SearchPluginTextBox"
@@ -45,14 +45,14 @@
                 Background="{ui:ThemeResource {x:Static ui:ThemeKeys.DividerStrokeColorDefaultBrushKey}}"
                 BorderThickness="0" />
         </StackPanel>
-    </controls:ContentDialog.HeaderContent>
-    <controls:ContentDialog.FooterContent>
+    </controls:ContentDialogEx.HeaderContent>
+    <controls:ContentDialogEx.FooterContent>
         <Border
             Height="1"
             Margin="{StaticResource ContentDialogFooterContentMargin}"
             Background="{ui:ThemeResource {x:Static ui:ThemeKeys.DividerStrokeColorDefaultBrushKey}}"
             BorderThickness="0" />
-    </controls:ContentDialog.FooterContent>
+    </controls:ContentDialogEx.FooterContent>
 
     <ui:ListView
         x:Name="AllPluginsListView"
@@ -107,4 +107,4 @@
             </DataTemplate>
         </ui:ListView.ItemTemplate>
     </ui:ListView>
-</controls:ContentDialog>
+</controls:ContentDialogEx>

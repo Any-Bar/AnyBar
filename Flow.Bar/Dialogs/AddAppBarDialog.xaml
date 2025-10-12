@@ -1,4 +1,4 @@
-﻿<controls:ContentDialog
+﻿<controls:ContentDialogEx
     x:Class="Flow.Bar.Dialogs.AddAppBarDialog"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -87,4 +87,4 @@
             Content="{DynamicResource SettingPaneAppBarSetting_Resizable}"
             IsChecked="{Binding IsResizable, Mode=TwoWay}" />
     </ikw:SimpleStackPanel>
-</controls:ContentDialog>
+</controls:ContentDialogEx>

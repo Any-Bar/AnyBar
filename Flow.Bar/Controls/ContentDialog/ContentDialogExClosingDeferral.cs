@@ -2,11 +2,11 @@
 
 namespace Flow.Bar.Controls;
 
-public sealed class ContentDialogClosingDeferral
+public sealed class ContentDialogExClosingDeferral
 {
     private readonly Action _handler;
 
-    internal ContentDialogClosingDeferral(Action handler)
+    internal ContentDialogExClosingDeferral(Action handler)
     {
         _handler = handler ?? throw new ArgumentNullException(nameof(handler));
     }
