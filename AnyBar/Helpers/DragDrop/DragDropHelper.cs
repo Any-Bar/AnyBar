@@ -102,7 +102,7 @@ public static class DragDropHelper
         WpfDragDrop.SetEffectNoneAdornerTemplate(element, _emptyEffectAdornerTemplate);
         WpfDragDrop.SetEffectScrollAdornerTemplate(element, _emptyEffectAdornerTemplate);
     }
-    
+
     private static void DisableDragDrop(this DependencyObject element)
     {
         ArgumentNullException.ThrowIfNull(element);
@@ -146,7 +146,7 @@ public static class DragDropHelper
         }
     }
 
-    
+
 
     private static void SetStackViewDropHandler(this DependencyObject element)
     {

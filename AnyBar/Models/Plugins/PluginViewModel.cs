@@ -1,8 +1,8 @@
 ﻿using System.Threading.Tasks;
 using System.Windows.Media;
-using CommunityToolkit.Mvvm.ComponentModel;
 using AnyBar.Helpers.Image;
 using AnyBar.Helpers.Plugins;
+using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace AnyBar.Models.Plugins;
 

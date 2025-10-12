@@ -5,13 +5,13 @@ using System.Linq;
 using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
-using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Input;
 using AnyBar.Enums;
 using AnyBar.Helpers.MenuFlyout;
 using AnyBar.Helpers.Plugins;
 using AnyBar.Interfaces;
 using AnyBar.Models.Plugins;
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 
 namespace AnyBar.ViewModels;
 

@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Navigation;
-using CommunityToolkit.Mvvm.ComponentModel;
 using AnyBar.Controls;
 using AnyBar.Enums;
 using AnyBar.Interfaces;
+using CommunityToolkit.Mvvm.ComponentModel;
 using Frame = iNKORE.UI.WPF.Modern.Controls.Frame;
 using Page = iNKORE.UI.WPF.Modern.Controls.Page;
 

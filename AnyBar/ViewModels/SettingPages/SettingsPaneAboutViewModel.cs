@@ -1,6 +1,6 @@
 ﻿using System;
-using CommunityToolkit.Mvvm.ComponentModel;
 using AnyBar.Interfaces;
+using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace AnyBar.ViewModels;
 

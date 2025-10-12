@@ -1,8 +1,8 @@
 ﻿using System.Windows;
 using System.Windows.Shell;
-using CommunityToolkit.Mvvm.DependencyInjection;
 using AnyBar.Helpers.Windows;
 using AnyBar.ViewModels;
+using CommunityToolkit.Mvvm.DependencyInjection;
 
 namespace AnyBar.Views;
 

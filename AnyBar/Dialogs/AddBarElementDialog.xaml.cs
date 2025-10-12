@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading;
-using CommunityToolkit.Mvvm.ComponentModel;
 using AnyBar.Controls;
 using AnyBar.Helpers.Plugins;
 using AnyBar.Models.Plugins;
+using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace AnyBar.Dialogs;
 

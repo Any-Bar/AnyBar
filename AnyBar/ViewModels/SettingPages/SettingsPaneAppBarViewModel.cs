@@ -7,8 +7,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Input;
 using AnyBar.Controls;
 using AnyBar.Dialogs;
 using AnyBar.Enums;
@@ -16,6 +14,8 @@ using AnyBar.Interfaces;
 using AnyBar.Models.AppBar;
 using AnyBar.Services;
 using AnyBar.Views;
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using iNKORE.UI.WPF.Modern.Controls;
 
 namespace AnyBar.ViewModels;

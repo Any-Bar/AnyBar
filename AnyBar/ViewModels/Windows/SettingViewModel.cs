@@ -1,7 +1,7 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Input;
-using AnyBar.Controls;
+﻿using AnyBar.Controls;
 using AnyBar.Services;
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using Frame = iNKORE.UI.WPF.Modern.Controls.Frame;
 
 namespace AnyBar.ViewModels;

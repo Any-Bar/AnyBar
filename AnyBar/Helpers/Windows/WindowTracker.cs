@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Windows;
-using CommunityToolkit.Mvvm.DependencyInjection;
 using AnyBar.Models.UserSettings;
+using CommunityToolkit.Mvvm.DependencyInjection;
 
 namespace AnyBar.Helpers.Windows;
 

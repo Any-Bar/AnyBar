@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Input;
 using AnyBar.Enums;
 using AnyBar.Helpers.Monitor;
 using AnyBar.Interfaces;
@@ -9,6 +7,8 @@ using AnyBar.Models.AppBar;
 using AnyBar.Models.Monitor;
 using AnyBar.Models.Parameters;
 using AnyBar.Services;
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 
 namespace AnyBar.ViewModels;
 

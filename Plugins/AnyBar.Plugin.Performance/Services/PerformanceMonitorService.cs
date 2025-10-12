@@ -1,9 +1,9 @@
-﻿using System.Runtime.InteropServices;
-using Windows.Win32;
+﻿using System;
+using System.Runtime.InteropServices;
 using System.Runtime.InteropServices.ComTypes;
-using Windows.Win32.System.SystemInformation;
-using System;
 using System.Threading;
+using Windows.Win32;
+using Windows.Win32.System.SystemInformation;
 
 namespace AnyBar.Plugin.Performance.Services;
 

@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using CommunityToolkit.Mvvm.ComponentModel;
 using AnyBar.Controls;
 using AnyBar.Enums;
 using AnyBar.Helpers.Monitor;
 using AnyBar.Models.Monitor;
+using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace AnyBar.Dialogs;
 

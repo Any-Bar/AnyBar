@@ -1,6 +1,6 @@
 ﻿using System.Windows.Navigation;
-using CommunityToolkit.Mvvm.DependencyInjection;
 using AnyBar.ViewModels;
+using CommunityToolkit.Mvvm.DependencyInjection;
 using iNKORE.UI.WPF.Modern.Controls;
 
 namespace AnyBar.Views;

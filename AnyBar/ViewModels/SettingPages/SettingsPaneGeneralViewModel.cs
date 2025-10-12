@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows;
-using CommunityToolkit.Mvvm.ComponentModel;
 using AnyBar.Enums;
 using AnyBar.Helpers.Startup;
 using AnyBar.Helpers.Windows;
 using AnyBar.Interfaces;
 using AnyBar.Models.Language;
 using AnyBar.Models.UserSettings;
+using CommunityToolkit.Mvvm.ComponentModel;
 using Windows.Win32;
 
 namespace AnyBar.ViewModels;
