@@ -197,9 +197,16 @@ public static class PluginManager
 
     #region Check Plugin
 
+    private static readonly HashSet<string> PreinstalledPluginIds = new(StringComparer.OrdinalIgnoreCase)
+    {
+        Constants.AnyBarPluginDateTimePluginId,
+        Constants.AnyBarPluginNetworkPluginId,
+        Constants.AnyBarPluginPerformancePluginId
+    };
+
     public static bool IsPreinstalled(string id)
     {
-        return id == Constants.AnyBarPluginDateTimePluginId;
+        return PreinstalledPluginIds.Contains(id);
     }
 
     public static bool IsInitialized(string id)
