@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Windows;
 using CommunityToolkit.Mvvm.ComponentModel;
+using Flow.Bar.Enums;
 using Flow.Bar.Helpers.Startup;
+using Flow.Bar.Helpers.Windows;
 using Flow.Bar.Interfaces;
 using Flow.Bar.Models.Language;
 using Flow.Bar.Models.UserSettings;
@@ -25,7 +27,16 @@ public partial class SettingsPaneGeneralViewModel(Settings settings, Internation
     public string Language
     {
         get => Settings.Language;
-        set => _translater.ChangeLanguage(value);
+        set
+        {
+            _translater.ChangeLanguage(value);
+            UpdateTranslations();
+        }
+    }
+
+    private void UpdateTranslations()
+    {
+        WindowBackdropTypeLocalized.UpdateLabels(AllWindowBackdropTypes);
     }
 
     #endregion
@@ -155,6 +166,30 @@ public partial class SettingsPaneGeneralViewModel(Settings settings, Internation
                 App.API.RestartApp(true);
             }
         }
+    }
+
+    #endregion
+
+    #region Window Backdrop Type
+
+    public List<WindowBackdropTypeLocalized> AllWindowBackdropTypes { get; } = WindowBackdropTypeLocalized.GetValues();
+
+    public WindowBackdropType WindowBackdropType
+    {
+        get => Settings.WindowBackdropType;
+        set
+        {
+            if (Settings.WindowBackdropType != value)
+            {
+                Settings.WindowBackdropType = value;
+                UpdateWindowBackdropType(value);
+            }
+        }
+    }
+
+    private static void UpdateWindowBackdropType(WindowBackdropType type)
+    {
+        WindowBackdropHelper.SetWindowBackdrop(type, WindowTracker.GetActiveWindow());
     }
 
     #endregion

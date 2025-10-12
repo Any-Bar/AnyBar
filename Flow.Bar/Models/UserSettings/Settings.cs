@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 using Flow.Bar.Enums;
 using Flow.Bar.Helpers.Http;
 using Flow.Bar.Helpers.Monitor;
@@ -82,4 +83,7 @@ public class Settings
 #pragma warning restore CS0618 // Type or member is obsolete
 
     public HttpProxy Proxy { get; set; } = new HttpProxy();
+
+    [JsonConverter(typeof(JsonStringEnumConverter))]
+    public WindowBackdropType WindowBackdropType { get; set; } = WindowBackdropType.Mica;
 }

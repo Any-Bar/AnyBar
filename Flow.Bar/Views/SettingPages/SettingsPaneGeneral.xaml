@@ -105,6 +105,20 @@
                 x:Name="AppearanceTitle"
                 Style="{StaticResource SettingsSectionHeaderTextBlockStyle}"
                 Text="{DynamicResource SettingPaneGeneral_Appearance}" />
+            <ui:SettingsCard
+                x:Name="WindowBackdropTypeCard"
+                Description="{DynamicResource SettingPaneGeneral_WindowBackdropTypeDescription}"
+                Header="{DynamicResource SettingPaneGeneral_WindowBackdropType}">
+                <ui:SettingsCard.HeaderIcon>
+                    <ui:FontIcon Glyph="&#xEF1F;" />
+                </ui:SettingsCard.HeaderIcon>
+
+                <ComboBox
+                    DisplayMemberPath="Display"
+                    ItemsSource="{Binding AllWindowBackdropTypes, Mode=OneTime}"
+                    SelectedValue="{Binding WindowBackdropType, Mode=TwoWay}"
+                    SelectedValuePath="Value" />
+            </ui:SettingsCard>
         </ikw:SimpleStackPanel>
     </ui:ScrollViewerEx>
 </ui:Page>

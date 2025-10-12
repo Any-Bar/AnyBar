@@ -31,6 +31,8 @@
     <system:String x:Key="SettingPaneGeneral_HideSettingWindow">Hide setting window on startup</system:String>
     <system:String x:Key="SettingPaneGeneral_HideSettingWindowDescription">Hide setting window after starting up</system:String>
     <system:String x:Key="SettingPaneGeneral_Appearance">Appearance</system:String>
+    <system:String x:Key="SettingPaneGeneral_WindowBackdropType">Window backdrop type</system:String>
+    <system:String x:Key="SettingPaneGeneral_WindowBackdropTypeDescription">Backdrop type of all windows including appbars</system:String>
 
     <!--  Setting Pane AppBar  -->
     <system:String x:Key="SettingPaneAppBar_AddAppBarHeader">Add a new appbar to your system</system:String>
@@ -127,6 +129,10 @@
     <system:String x:Key="SettingsPaneBarElementSettingSortMode_RightToLeft">Right to left</system:String>
     <system:String x:Key="SettingsPaneBarElementSettingSortMode_TopToBottom">Top to bottom</system:String>
     <system:String x:Key="SettingsPaneBarElementSettingSortMode_BottomToTop">Bottom to top</system:String>
+
+    <system:String x:Key="WindowBackdropType_None">None</system:String>
+    <system:String x:Key="WindowBackdropType_Mica">Mica</system:String>
+    <system:String x:Key="WindowBackdropType_Acrylic">Acrylic</system:String>
 
     <!--  Plugin Loader  -->
     <system:String x:Key="PluginLoader_PluginHasErrored">The following plugin has errored and cannot be loaded:</system:String>

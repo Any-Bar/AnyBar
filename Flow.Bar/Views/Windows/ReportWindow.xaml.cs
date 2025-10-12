@@ -8,6 +8,7 @@ using System.Windows.Documents;
 using Flow.Bar.Extensions;
 using Flow.Bar.Helpers.Logging;
 using Flow.Bar.Helpers.Web;
+using Flow.Bar.Helpers.Windows;
 
 namespace Flow.Bar.Views.Windows;
 
@@ -16,6 +17,7 @@ public partial class ReportWindow : Window
     public ReportWindow(Exception exception)
     {
         InitializeComponent();
+        WindowTracker.TrackWindow(this);
         SetException(exception);
     }
 
