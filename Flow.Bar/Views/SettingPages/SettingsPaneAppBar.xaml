@@ -119,8 +119,8 @@
                             <ui:ToggleSwitch
                                 x:Name="IsEnabledToggleSwitch"
                                 IsOn="{Binding IsEnabled, Mode=TwoWay}"
-                                OffContent="{DynamicResource ToggleSwitchEx_OffContent}"
-                                OnContent="{DynamicResource ToggleSwitchEx_OnContent}"
+                                OffContent="{DynamicResource ToggleSwitch_OffContent}"
+                                OnContent="{DynamicResource ToggleSwitch_OnContent}"
                                 Tag="{Binding ., Mode=OneTime}">
                                 <i:Interaction.Triggers>
                                     <i:EventTrigger EventName="Toggled">
