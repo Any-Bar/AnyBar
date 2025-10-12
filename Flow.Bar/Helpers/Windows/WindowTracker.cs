@@ -24,12 +24,12 @@ public static class WindowTracker
         }
     }
 
-    public static List<Window> GetActiveWindow()
+    public static List<Window> GetActiveWindows()
     {
         return [.. _activeWindows];
     }
 
-    public static List<T> GetActiveWindow<T>() where T : Window
+    public static List<T> GetActiveWindows<T>() where T : Window
     {
         var result = new List<T>();
         foreach (var window in _activeWindows)

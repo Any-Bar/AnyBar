@@ -189,7 +189,7 @@ public partial class SettingsPaneGeneralViewModel(Settings settings, Internation
 
     private static void UpdateWindowBackdropType(WindowBackdropType type)
     {
-        WindowBackdropHelper.SetWindowBackdrop(type, WindowTracker.GetActiveWindow());
+        WindowBackdropHelper.SetWindowBackdrop(type, WindowTracker.GetActiveWindows());
     }
 
     #endregion

@@ -26,7 +26,7 @@ public class PublicAPIInstance(Settings settings) : IPublicAPI
     public void RestartApp(bool admin)
     {
         // Hide all active windows
-        foreach (var window in WindowTracker.GetActiveWindow<Window>())
+        foreach (var window in WindowTracker.GetActiveWindows<Window>())
         {
             window.Hide();
         }

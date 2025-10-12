@@ -544,7 +544,7 @@ public partial class AppBarWindow : Window
         settingItem.Click += (o, e) =>
         {
             // Setting window is already opened
-            if (WindowTracker.GetActiveWindow<SettingWindow>().Count > 0)
+            if (WindowTracker.GetActiveWindows<SettingWindow>().Count > 0)
             {
                 App.API.ShowSettingWindow();
                 _navigationViewService.NavigateTo(SettingPageTag.AppBarSetting, Model);
