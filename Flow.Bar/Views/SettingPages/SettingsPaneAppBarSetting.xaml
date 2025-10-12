@@ -86,7 +86,10 @@
             </ui:SettingsCard>
 
             <ui:SettingsCard Header="{Binding DockMode, Converter={StaticResource DockModeToStringConverter}, ConverterParameter={x:Static enum:DockModeToStringType.FollowSystemTaskbarWidthOrHeight}}">
-                <controls:ToggleSwitchEx IsOn="{Binding FollowSystemTaskbarWidthOrHeight, Mode=TwoWay}" />
+                <ui:ToggleSwitch
+                    IsOn="{Binding FollowSystemTaskbarWidthOrHeight, Mode=TwoWay}"
+                    OffContent="{DynamicResource ToggleSwitchEx_OffContent}"
+                    OnContent="{DynamicResource ToggleSwitchEx_OnContent}" />
             </ui:SettingsCard>
 
             <ui:SettingsCard Header="{Binding DockMode, Converter={StaticResource DockModeToStringConverter}, ConverterParameter={x:Static enum:DockModeToStringType.DockedWidthOrHeight}}">
@@ -101,7 +104,10 @@
             </ui:SettingsCard>
 
             <ui:SettingsCard Header="{DynamicResource SettingPaneAppBarSetting_Resizable}">
-                <controls:ToggleSwitchEx IsOn="{Binding IsResizable, Mode=TwoWay}" />
+                <ui:ToggleSwitch
+                    IsOn="{Binding IsResizable, Mode=TwoWay}"
+                    OffContent="{DynamicResource ToggleSwitchEx_OffContent}"
+                    OnContent="{DynamicResource ToggleSwitchEx_OnContent}" />
             </ui:SettingsCard>
 
             <TextBlock

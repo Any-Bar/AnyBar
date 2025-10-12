@@ -117,16 +117,18 @@
                                 <ui:FontIcon Glyph="&#xE76C;" />
                             </ui:SettingsCard.ActionIcon>
 
-                            <controls:ToggleSwitchEx
+                            <ui:ToggleSwitch
                                 x:Name="IsEnabledToggleSwitch"
                                 IsOn="{Binding IsEnabled, Mode=TwoWay}"
+                                OffContent="{DynamicResource ToggleSwitchEx_OffContent}"
+                                OnContent="{DynamicResource ToggleSwitchEx_OnContent}"
                                 Tag="{Binding ., Mode=OneTime}">
                                 <i:Interaction.Triggers>
                                     <i:EventTrigger EventName="Toggled">
                                         <i:InvokeCommandAction Command="{Binding DataContext.IsEnabledToggleSwitchToggledCommand, RelativeSource={RelativeSource AncestorType=controls:ListViewEx}, Mode=OneTime}" CommandParameter="{Binding ElementName=IsEnabledToggleSwitch}" />
                                     </i:EventTrigger>
                                 </i:Interaction.Triggers>
-                            </controls:ToggleSwitchEx>
+                            </ui:ToggleSwitch>
                         </ui:SettingsCard>
                     </DataTemplate>
                 </controls:ListViewEx.ItemTemplate>
