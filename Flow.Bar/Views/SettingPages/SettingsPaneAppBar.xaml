@@ -63,20 +63,19 @@
                     SelectedValuePath="Value" />
             </ikw:SimpleStackPanel>
 
-            <controls:ListViewEx
+            <ui:ListView
                 x:Name="AppBarListView"
                 Margin="{StaticResource SettingsSectionHeaderMargin}"
                 HorizontalContentAlignment="Stretch"
                 VerticalContentAlignment="Center"
                 dragdrop:DragDropHelper.CanReorderItems="{Binding SortMode, Converter={StaticResource SettingsPaneAppBarSortModeToCanReorderItemsConverter}, Mode=OneWay}"
                 dragdrop:DragDropHelper.DropScrollViewer="{Binding ElementName=RootPageScrollViewer, Mode=OneTime}"
-                IsHoverEnabled="False"
                 IsSelectionEnabled="False"
                 ItemsSource="{Binding AppBars, Mode=OneTime}"
                 ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                 ScrollViewer.VerticalScrollBarVisibility="Disabled">
-                <controls:ListViewEx.Style>
-                    <Style BasedOn="{StaticResource DefaultListViewStyle}" TargetType="controls:ListViewEx">
+                <ui:ListView.Style>
+                    <Style TargetType="ui:ListView">
                         <Style.Triggers>
                             <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=Items.Count}" Value="0">
                                 <Setter Property="Template">
@@ -95,12 +94,12 @@
                             </DataTrigger>
                         </Style.Triggers>
                     </Style>
-                </controls:ListViewEx.Style>
-                <controls:ListViewEx.ItemTemplate>
+                </ui:ListView.Style>
+                <ui:ListView.ItemTemplate>
                     <DataTemplate DataType="models:AppBarModel">
                         <ui:SettingsCard
                             x:Name="AppBarSettingsCard"
-                            Command="{Binding DataContext.OpenAppBarSettingCommand, RelativeSource={RelativeSource AncestorType=controls:ListViewEx}, Mode=OneTime}"
+                            Command="{Binding DataContext.OpenAppBarSettingCommand, RelativeSource={RelativeSource AncestorType=ui:ListView}, Mode=OneTime}"
                             CommandParameter="{Binding ., Mode=OneTime}"
                             Header="{Binding Name, Mode=OneWay}"
                             IsClickEnabled="True"
@@ -125,14 +124,14 @@
                                 Tag="{Binding ., Mode=OneTime}">
                                 <i:Interaction.Triggers>
                                     <i:EventTrigger EventName="Toggled">
-                                        <i:InvokeCommandAction Command="{Binding DataContext.IsEnabledToggleSwitchToggledCommand, RelativeSource={RelativeSource AncestorType=controls:ListViewEx}, Mode=OneTime}" CommandParameter="{Binding ElementName=IsEnabledToggleSwitch}" />
+                                        <i:InvokeCommandAction Command="{Binding DataContext.IsEnabledToggleSwitchToggledCommand, RelativeSource={RelativeSource AncestorType=ui:ListView}, Mode=OneTime}" CommandParameter="{Binding ElementName=IsEnabledToggleSwitch}" />
                                     </i:EventTrigger>
                                 </i:Interaction.Triggers>
                             </ui:ToggleSwitch>
                         </ui:SettingsCard>
                     </DataTemplate>
-                </controls:ListViewEx.ItemTemplate>
-            </controls:ListViewEx>
+                </ui:ListView.ItemTemplate>
+            </ui:ListView>
         </ikw:SimpleStackPanel>
     </ui:ScrollViewerEx>
 </ui:Page>

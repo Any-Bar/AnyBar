@@ -111,4 +111,9 @@
 
     <Style BasedOn="{StaticResource DefaultMenuItemStyle}" TargetType="MenuItem" />
 
+    <!--  Custom List View Item from UI.WPF.Modern 0.10.1 to remove unnecessary Padding  -->
+    <Style TargetType="ui:ListViewItem">
+        <Setter Property="Padding" Value="0 0 0 0" />
+    </Style>
+
 </ResourceDictionary>

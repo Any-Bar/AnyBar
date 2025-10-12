@@ -61,21 +61,20 @@
                     SelectedValuePath="Value" />
             </ikw:SimpleStackPanel>
 
-            <controls:ListViewEx
+            <ui:ListView
                 x:Name="BarElementListView"
                 Margin="{StaticResource SettingsSectionHeaderMargin}"
                 HorizontalContentAlignment="Stretch"
                 VerticalContentAlignment="Center"
                 dragdrop:DragDropHelper.CanReorderItems="{Binding SortMode, Converter={StaticResource SettingsPaneBarElementSettingSortModeToCanReorderItemsConverter}, Mode=OneWay}"
                 dragdrop:DragDropHelper.DropScrollViewer="{Binding ElementName=RootPageScrollViewer, Mode=OneTime}"
-                IsHoverEnabled="False"
                 IsItemClickEnabled="False"
                 IsSelectionEnabled="False"
                 ItemsSource="{Binding BarElements, Mode=OneTime}"
                 ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                 ScrollViewer.VerticalScrollBarVisibility="Disabled">
-                <controls:ListViewEx.Style>
-                    <Style BasedOn="{StaticResource DefaultListViewStyle}" TargetType="controls:ListViewEx">
+                <ui:ListView.Style>
+                    <Style TargetType="ui:ListView">
                         <Style.Triggers>
                             <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=Items.Count}" Value="0">
                                 <Setter Property="Template">
@@ -94,8 +93,8 @@
                             </DataTrigger>
                         </Style.Triggers>
                     </Style>
-                </controls:ListViewEx.Style>
-                <controls:ListViewEx.ItemTemplate>
+                </ui:ListView.Style>
+                <ui:ListView.ItemTemplate>
                     <DataTemplate DataType="models:BarElementViewModel">
                         <ui:SettingsCard x:Name="BarElementSettingsCard" IsClickEnabled="False">
                             <ui:SettingsCard.Header>
@@ -126,7 +125,7 @@
                                 x:Name="MoreOptionsButton"
                                 Width="28"
                                 Height="35"
-                                Command="{Binding DataContext.ShowBarElementMoreOptionsCommand, RelativeSource={RelativeSource AncestorType=controls:ListViewEx}}"
+                                Command="{Binding DataContext.ShowBarElementMoreOptionsCommand, RelativeSource={RelativeSource AncestorType=ui:ListView}}"
                                 CommandParameter="{Binding RelativeSource={RelativeSource Self}}"
                                 Tag="{Binding ., Mode=OneTime}"
                                 ToolTip="{DynamicResource SettingPanePlugins_MoreOptions}">
@@ -134,8 +133,8 @@
                             </controls:FontIconButton>
                         </ui:SettingsCard>
                     </DataTemplate>
-                </controls:ListViewEx.ItemTemplate>
-            </controls:ListViewEx>
+                </ui:ListView.ItemTemplate>
+            </ui:ListView>
         </ikw:SimpleStackPanel>
     </ui:ScrollViewerEx>
 </ui:Page>
