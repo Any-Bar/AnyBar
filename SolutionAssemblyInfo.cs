@@ -4,14 +4,14 @@ using System.Runtime.Versioning;
 
 #if DEBUG
 [assembly: AssemblyConfiguration("Debug")]
-[assembly: AssemblyDescription("Debug build, https://github.com/Flow-Bar/Flow.Bar")]
+[assembly: AssemblyDescription("Debug build, https://github.com/Any-Bar/AnyBar")]
 #else
 [assembly: AssemblyConfiguration("Release")]
-[assembly: AssemblyDescription("Release build, https://github.com/Flow-Bar/Flow.Bar")]
+[assembly: AssemblyDescription("Release build, https://github.com/Any-Bar/AnyBar")]
 #endif
 
-[assembly: AssemblyCompany("Flow Bar")]
-[assembly: AssemblyProduct("Flow Bar")]
+[assembly: AssemblyCompany("AnyBar Team")]
+[assembly: AssemblyProduct("AnyBar")]
 [assembly: AssemblyCopyright("The MIT License (MIT)")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

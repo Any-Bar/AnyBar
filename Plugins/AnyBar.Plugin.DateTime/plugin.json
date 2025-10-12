@@ -1,0 +1,10 @@
+{
+  "ID": "3675a0dd-af3b-412f-b257-5e004dea2bd0",
+  "Name": "Date and time",
+  "Description": "Display date and time",
+  "Author": "Jack Ye",
+  "Version": "1.0.0",
+  "Website": "https://github.com/Any-Bar/AnyBar",
+  "ExecuteFileName": "AnyBar.Plugin.DateTime.dll",
+  "IcoPath": "Images\\icon.png"
+}

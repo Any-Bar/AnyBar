@@ -285,7 +285,7 @@ paket-files/
 # New to Visual Studio
 *.VC.db
 
-## Flow Bar specific
+## AnyBar specific
 Output/*
 Thumbs.db
 RELEASES

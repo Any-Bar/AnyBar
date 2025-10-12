@@ -1,0 +1,36 @@
+<Solution>
+  <Configurations>
+    <Platform Name="x64" />
+  </Configurations>
+  <Folder Name="/Localization/">
+    <Project Path="Localization/AnyBar.Localization.Analyzers/AnyBar.Localization.Analyzers.csproj" />
+    <Project Path="Localization/AnyBar.Localization.Attributes/AnyBar.Localization.Attributes.csproj" />
+    <Project Path="Localization/AnyBar.Localization.Shared/AnyBar.Localization.Shared.csproj" />
+    <Project Path="Localization/AnyBar.Localization.SourceGenerators/AnyBar.Localization.SourceGenerators.csproj" />
+    <Project Path="Localization/AnyBar.Localization/AnyBar.Localization.csproj" />
+  </Folder>
+  <Folder Name="/Plugins/">
+    <Project Path="Plugins/AnyBar.Plugin.DateTime/AnyBar.Plugin.DateTime.csproj" />
+    <Project Path="Plugins/AnyBar.Plugin.Network/AnyBar.Plugin.Network.csproj" />
+    <Project Path="Plugins/AnyBar.Plugin.Performance/AnyBar.Plugin.Performance.csproj" />
+  </Folder>
+  <Folder Name="/Solution Items/">
+    <File Path=".editorconfig" />
+    <File Path=".gitattributes" />
+    <File Path=".gitignore" />
+    <File Path="Directory.Build.props" />
+    <File Path="Directory.Build.targets" />
+    <File Path="global.json" />
+    <File Path="LICENSE" />
+    <File Path="README.md" />
+    <File Path="Settings.XamlStyler" />
+    <File Path="SolutionAssemblyInfo.cs" />
+  </Folder>
+  <Project Path="AnyBar.Plugin/AnyBar.Plugin.csproj" Id="4aa45bea-4c93-40ba-a2a6-975f3aa3d20f" />
+  <Project Path="AnyBar/AnyBar.csproj">
+    <BuildDependency Project="Plugins/AnyBar.Plugin.DateTime/AnyBar.Plugin.DateTime.csproj" />
+    <BuildDependency Project="Plugins/AnyBar.Plugin.Network/AnyBar.Plugin.Network.csproj" />
+    <BuildDependency Project="Plugins/AnyBar.Plugin.Performance/AnyBar.Plugin.Performance.csproj" />
+    <Platform Project="x64" />
+  </Project>
+</Solution>

@@ -1,0 +1,124 @@
+﻿<ui:Page
+    x:Class="AnyBar.Views.SettingsPaneGeneral"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="clr-namespace:AnyBar.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:ikw="http://schemas.inkore.net/lib/ui/wpf"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:ui="http://schemas.inkore.net/lib/ui/wpf/modern"
+    xmlns:viewmodels="clr-namespace:AnyBar.ViewModels"
+    Title="{DynamicResource SettingWindow_General}"
+    d:DataContext="{d:DesignInstance Type=viewmodels:SettingsPaneGeneralViewModel}"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    mc:Ignorable="d">
+
+    <ui:ScrollViewerEx
+        x:Name="RootPageScrollViewer"
+        HorizontalScrollBarVisibility="Disabled"
+        VerticalScrollBarVisibility="Auto">
+        <ikw:SimpleStackPanel
+            Margin="{StaticResource PageScrollViewerContentMargin}"
+            Orientation="Vertical"
+            Spacing="{StaticResource SettingsCardSpacing}">
+            <TextBlock
+                x:Name="LanguageTitle"
+                Style="{StaticResource SettingsFirstSectionHeaderTextBlockStyle}"
+                Text="{DynamicResource SettingPaneGeneral_Language}" />
+            <ui:SettingsCard
+                x:Name="LanguageCard"
+                Description="{DynamicResource SettingPaneGeneral_AppDisplayLanguage}"
+                Header="{DynamicResource SettingPaneGeneral_Language}">
+                <ui:SettingsCard.HeaderIcon>
+                    <ui:FontIcon Glyph="&#xE8C1;" />
+                </ui:SettingsCard.HeaderIcon>
+
+                <ComboBox
+                    DisplayMemberPath="Display"
+                    ItemsSource="{Binding Languages, Mode=OneTime}"
+                    SelectedValue="{Binding Language, Mode=TwoWay}"
+                    SelectedValuePath="LanguageCode" />
+            </ui:SettingsCard>
+
+            <TextBlock
+                x:Name="BehaviourTitle"
+                Style="{StaticResource SettingsSectionHeaderTextBlockStyle}"
+                Text="{DynamicResource SettingPaneGeneral_Behaviour}" />
+            <ui:SettingsExpander
+                x:Name="StartOnSystemStartupCard"
+                Description="{DynamicResource SettingPaneGeneral_StartOnSystemStartupDescription}"
+                Header="{DynamicResource SettingPaneGeneral_StartOnSystemStartup}">
+                <ui:SettingsExpander.HeaderIcon>
+                    <ui:FontIcon Glyph="&#xE7B5;" />
+                </ui:SettingsExpander.HeaderIcon>
+
+                <ui:ToggleSwitch
+                    IsOn="{Binding StartOnSystemStartup, Mode=TwoWay}"
+                    OffContent="{DynamicResource ToggleSwitch_OffContent}"
+                    OnContent="{DynamicResource ToggleSwitch_OnContent}" />
+
+                <ui:SettingsExpander.Items>
+                    <ui:SettingsCard
+                        x:Name="UseLogonTaskForStartupCard"
+                        Description="{DynamicResource SettingPaneGeneral_UseLogonTaskForStartupDescription}"
+                        Header="{DynamicResource SettingPaneGeneral_UseLogonTaskForStartup}">
+                        <ui:SettingsCard.HeaderIcon>
+                            <ui:FontIcon Glyph="&#xE823;" />
+                        </ui:SettingsCard.HeaderIcon>
+
+                        <ui:ToggleSwitch
+                            IsOn="{Binding UseLogonTaskForStartup, Mode=TwoWay}"
+                            OffContent="{DynamicResource ToggleSwitch_OffContent}"
+                            OnContent="{DynamicResource ToggleSwitch_OnContent}" />
+                    </ui:SettingsCard>
+                </ui:SettingsExpander.Items>
+            </ui:SettingsExpander>
+            <ui:SettingsCard
+                x:Name="AlwaysRunAsAdministratorCard"
+                Description="{DynamicResource SettingPaneGeneral_AlwaysRunAsAdministratorDescription}"
+                Header="{DynamicResource SettingPaneGeneral_AlwaysRunAsAdministrator}">
+                <ui:SettingsCard.HeaderIcon>
+                    <ui:FontIcon Glyph="&#xE7EF;" />
+                </ui:SettingsCard.HeaderIcon>
+
+                <ui:ToggleSwitch
+                    IsOn="{Binding AlwaysRunAsAdministrator, Mode=TwoWay}"
+                    OffContent="{DynamicResource ToggleSwitch_OffContent}"
+                    OnContent="{DynamicResource ToggleSwitch_OnContent}" />
+            </ui:SettingsCard>
+            <ui:SettingsCard
+                x:Name="HideSettingWindowCard"
+                Description="{DynamicResource SettingPaneGeneral_HideSettingWindowDescription}"
+                Header="{DynamicResource SettingPaneGeneral_HideSettingWindow}">
+                <ui:SettingsCard.HeaderIcon>
+                    <ui:FontIcon Glyph="&#xed1a;" />
+                </ui:SettingsCard.HeaderIcon>
+
+                <ui:ToggleSwitch
+                    IsOn="{Binding Settings.HideSettingWindow, Mode=TwoWay}"
+                    OffContent="{DynamicResource ToggleSwitch_OffContent}"
+                    OnContent="{DynamicResource ToggleSwitch_OnContent}" />
+            </ui:SettingsCard>
+
+            <TextBlock
+                x:Name="AppearanceTitle"
+                Style="{StaticResource SettingsSectionHeaderTextBlockStyle}"
+                Text="{DynamicResource SettingPaneGeneral_Appearance}" />
+            <ui:SettingsCard
+                x:Name="WindowBackdropTypeCard"
+                Description="{DynamicResource SettingPaneGeneral_WindowBackdropTypeDescription}"
+                Header="{DynamicResource SettingPaneGeneral_WindowBackdropType}">
+                <ui:SettingsCard.HeaderIcon>
+                    <ui:FontIcon Glyph="&#xEF1F;" />
+                </ui:SettingsCard.HeaderIcon>
+
+                <ComboBox
+                    DisplayMemberPath="Display"
+                    ItemsSource="{Binding AllWindowBackdropTypes, Mode=OneTime}"
+                    SelectedValue="{Binding WindowBackdropType, Mode=TwoWay}"
+                    SelectedValuePath="Value" />
+            </ui:SettingsCard>
+        </ikw:SimpleStackPanel>
+    </ui:ScrollViewerEx>
+</ui:Page>

@@ -1,0 +1,155 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:system="clr-namespace:System;assembly=mscorlib">
+
+    <!--  Application  -->
+    <system:String x:Key="App_FailedToSetAutoStartup">Failed to set automatical startup</system:String>
+
+    <!--  Tray Icon  -->
+    <system:String x:Key="TrayIcon_Exit">Exit</system:String>
+
+    <!--  Setting Window  -->
+    <system:String x:Key="SettingWindow_Title">Settings</system:String>
+    <system:String x:Key="SettingWindow_General">General</system:String>
+    <system:String x:Key="SettingWindow_AppBar">Appbar</system:String>
+    <system:String x:Key="SettingWindow_Plugins">Plugins</system:String>
+    <system:String x:Key="SettingWindow_About">About</system:String>
+
+    <!--  Setting Pane General  -->
+    <system:String x:Key="SettingPaneGeneral_Language">Language</system:String>
+    <system:String x:Key="SettingPaneGeneral_AppDisplayLanguage">App display language</system:String>
+    <system:String x:Key="SettingPaneGeneral_Behaviour">Behaviour</system:String>
+    <system:String x:Key="SettingPaneGeneral_StartOnSystemStartup">Start app on system startup</system:String>
+    <system:String x:Key="SettingPaneGeneral_StartOnSystemStartupDescription">Start app automatically after system starting up</system:String>
+    <system:String x:Key="SettingPaneGeneral_UseLogonTaskForStartup">Use logon task instead of startup entry</system:String>
+    <system:String x:Key="SettingPaneGeneral_UseLogonTaskForStartupDescription">Use logon task instead of startup entry for faster startup experience</system:String>
+    <system:String x:Key="SettingPaneGeneral_AlwaysRunAsAdministrator">Always run as administrator</system:String>
+    <system:String x:Key="SettingPaneGeneral_AlwaysRunAsAdministratorDescription">Run app as administrator after starting up</system:String>
+    <system:String x:Key="SettingPaneGeneral_RestartToApplyChange">Restart app to apply change</system:String>
+    <system:String x:Key="SettingPaneGeneral_RestartToApplyChangeDescription">Do you want to restart app as administrator to apply change of Always run as administrator? Or you need to run app as administrator during next start manually</system:String>
+    <system:String x:Key="SettingPaneGeneral_HideSettingWindow">Hide setting window on startup</system:String>
+    <system:String x:Key="SettingPaneGeneral_HideSettingWindowDescription">Hide setting window after starting up</system:String>
+    <system:String x:Key="SettingPaneGeneral_Appearance">Appearance</system:String>
+    <system:String x:Key="SettingPaneGeneral_WindowBackdropType">Window backdrop type</system:String>
+    <system:String x:Key="SettingPaneGeneral_WindowBackdropTypeDescription">Backdrop type of all windows including appbars</system:String>
+
+    <!--  Setting Pane AppBar  -->
+    <system:String x:Key="SettingPaneAppBar_AddAppBarHeader">Add a new appbar to your system</system:String>
+    <system:String x:Key="SettingPaneAppBar_AddAppBar">Add apppar</system:String>
+    <system:String x:Key="SettingPaneAppBar_NoAppBarsYet">You have not added any appbars yet.</system:String>
+
+    <!--  Setting Pane AppBar Setting  -->
+    <system:String x:Key="SettingPaneAppBarSetting_Remove">Remove</system:String>
+    <system:String x:Key="SettingPaneAppBarSetting_Name">Name</system:String>
+    <system:String x:Key="SettingPaneAppBarSetting_BarBehaviour">Bar behaviour</system:String>
+    <system:String x:Key="SettingPaneAppBarSetting_DockMode">Dock mode</system:String>
+    <system:String x:Key="SettingPaneAppBarSetting_Monitor">Monitor</system:String>
+    <system:String x:Key="SettingPaneAppBarSetting_MonitorPrimary">Primary monitor</system:String>
+    <system:String x:Key="SettingPaneAppBarSetting_FollowSystemTaskbarWidth">Follow system taskbar width</system:String>
+    <system:String x:Key="SettingPaneAppBarSetting_FollowSystemTaskbarHeight">Follow system taskbar height</system:String>
+    <system:String x:Key="SettingPaneAppBarSetting_DockedWidth">Docked width</system:String>
+    <system:String x:Key="SettingPaneAppBarSetting_DockedHeight">Docked height</system:String>
+    <system:String x:Key="SettingPaneAppBarSetting_Resizable">Resizable</system:String>
+    <system:String x:Key="SettingPaneAppBarSetting_BarElements">Bar elements</system:String>
+    <system:String x:Key="SettingPaneAppBarSetting_LeftBarElements">Left bar elements</system:String>
+    <system:String x:Key="SettingPaneAppBarSetting_TopBarElements">Top bar elements</system:String>
+    <system:String x:Key="SettingPaneAppBarSetting_CenterBarElements">Center bar elements</system:String>
+    <system:String x:Key="SettingPaneAppBarSetting_RightBarElements">Right bar elements</system:String>
+    <system:String x:Key="SettingPaneAppBarSetting_BottomBarElements">Bottom bar elements</system:String>
+
+    <!--  Setting Pane Bar Element Setting  -->
+    <system:String x:Key="SettingPaneBarElementSetting_AddBarElementHeader">Add a new bar element to your appbar</system:String>
+    <system:String x:Key="SettingPaneBarElementSetting_AddBarElement">Add bar element</system:String>
+    <system:String x:Key="SettingPaneBarElementSetting_NoBarElementsYet">You have not added any bar elements yet.</system:String>
+    <system:String x:Key="SettingPaneBarElementSetting_BarElementRemove">This bar element will be removed.</system:String>
+
+    <!--  Setting Pane Plugin  -->
+    <system:String x:Key="SettingPanePlugins_SearchPlugins">Search plugins</system:String>
+    <system:String x:Key="SettingPanePlugins_FilterBy">Filter by:</system:String>
+    <system:String x:Key="SettingPanePlugins_SortBy">Sort by:</system:String>
+    <!-- <param index="0" name="version" type="string" />-->
+    <!-- <param index="0" name="author" type="string" />-->
+    <system:String x:Key="SettingPanePlugins_VersionAndAuthor">{0} | {1}</system:String>
+    <system:String x:Key="SettingPanePlugins_NoPluginsYet">You have not added any plugins yet.</system:String>
+    <system:String x:Key="SettingPanePlugins_NothingToShow">We could't find anything to show here. Double check your search criteria.</system:String>
+    <system:String x:Key="SettingPanePlugins_MoreOptions">More options</system:String>
+    <system:String x:Key="SettingPanePlugins_Uninstall">Uninstall</system:String>
+    <system:String x:Key="SettingPanePlugins_PluginUninstall">This plugin will be uninstalled.</system:String>
+
+    <!--  Setting Pane About  -->
+    <system:String x:Key="SettingPaneAbout_Version">Version</system:String>
+
+    <!--  AppBar Window  -->
+    <system:String x:Key="SettingAppBarWindow_AppBarSettings">Appbar settings</system:String>
+
+    <!--  Report Window  -->
+    <system:String x:Key="ReportWindow_AppGotError">App got an error</system:String>
+    <system:String x:Key="ReportWindow_PleaseOpenIssue">Please open a new issue in</system:String>
+    <!-- <param index="0" name="logPath" type="string" />-->
+    <system:String x:Key="ReportWindow_UploadLog">1. Upload this log file: {0}</system:String>
+    <system:String x:Key="ReportWindow_CopyBelow">2. Copy exception messages below</system:String>
+
+    <!--  Navigation View  -->
+    <system:String x:Key="NavigationView_Back">Back</system:String>
+    <system:String x:Key="NavigationView_CloseNavigation">Close navigation</system:String>
+    <system:String x:Key="NavigationView_OpenNavigation">Open navigation</system:String>
+
+    <!--  Toggle Switch  -->
+    <system:String x:Key="ToggleSwitch_OnContent">On</system:String>
+    <system:String x:Key="ToggleSwitch_OffContent">Off</system:String>
+
+    <!--  Add AppBar Content Dialog  -->
+    <system:String x:Key="AddAppBarContentDialog_Add">Add</system:String>
+
+    <!--  Message Box  -->
+    <system:String x:Key="MessageBoxEx_Ok">Ok</system:String>
+    <system:String x:Key="MessageBoxEx_Yes">Yes</system:String>
+    <system:String x:Key="MessageBoxEx_No">No</system:String>
+    <system:String x:Key="MessageBoxEx_Cancel">Cancel</system:String>
+
+    <!--  Enums  -->
+    <system:String x:Key="AppBarDockMode_Left">Left</system:String>
+    <system:String x:Key="AppBarDockMode_Top">Top</system:String>
+    <system:String x:Key="AppBarDockMode_Right">Right</system:String>
+    <system:String x:Key="AppBarDockMode_Bottom">Bottom</system:String>
+
+    <system:String x:Key="SettingPanePluginsFilterMode_AllPlugins">All plugins</system:String>
+    <system:String x:Key="SettingPanePluginsFilterMode_PreinstalledPlugins">Pre-installed plugins</system:String>
+    <system:String x:Key="SettingPanePluginsFilterMode_UserinstalledPlugins">User-installed plugins</system:String>
+
+    <system:String x:Key="SettingPanePluginsSortMode_NameAToZ">Name (A to Z)</system:String>
+    <system:String x:Key="SettingPanePluginsSortMode_NameZToA">Name (Z to A)</system:String>
+    <system:String x:Key="SettingPanePluginsSortMode_Status">Status</system:String>
+
+    <system:String x:Key="SettingsPaneAppBarSortMode_Order">Order</system:String>
+    <system:String x:Key="SettingsPaneAppBarSortMode_Name">Name</system:String>
+
+    <system:String x:Key="SettingsPaneBarElementSettingSortMode_LeftToRight">Left to right</system:String>
+    <system:String x:Key="SettingsPaneBarElementSettingSortMode_RightToLeft">Right to left</system:String>
+    <system:String x:Key="SettingsPaneBarElementSettingSortMode_TopToBottom">Top to bottom</system:String>
+    <system:String x:Key="SettingsPaneBarElementSettingSortMode_BottomToTop">Bottom to top</system:String>
+
+    <system:String x:Key="WindowBackdropType_None">None</system:String>
+    <system:String x:Key="WindowBackdropType_Mica">Mica</system:String>
+    <system:String x:Key="WindowBackdropType_Acrylic">Acrylic</system:String>
+
+    <!--  Plugin Loader  -->
+    <system:String x:Key="PluginLoader_PluginHasErrored">The following plugin has errored and cannot be loaded:</system:String>
+    <system:String x:Key="PluginLoader_PluginsHaveErrored">The following plugins have errored and cannot be loaded:</system:String>
+    <system:String x:Key="PluginLoader_ReferToLogs">Please refer to the logs for more information</system:String>
+
+    <!--  Plugin Manager  -->
+    <system:String x:Key="PluginManager_FailedToInitializePluginsTitle">Fail to initialize plugins</system:String>
+    <!-- <param index="0" name="plugins" type="string" />-->
+    <system:String x:Key="PluginManager_FailedToInitializePluginsMessage">Plugins: {0} - fail to load and would be disabled, please contact plugin creator for help</system:String>
+
+    <!--  Http Helper  -->
+    <system:String x:Key="HTTPHelper_PleaseTryAgain">Please try again</system:String>
+    <system:String x:Key="HTTPHelper_ParseProxyFailed">Failed to parse Http Proxy</system:String>
+
+    <!--  Plugin Installer  -->
+    <!-- <param index="0" name="oldPlugin" type="AnyBar.Plugin.PluginMetadata" />-->
+    <system:String x:Key="PluginInstaller_FailedToUninstall">Failed to uninstall {0}</system:String>
+
+</ResourceDictionary>

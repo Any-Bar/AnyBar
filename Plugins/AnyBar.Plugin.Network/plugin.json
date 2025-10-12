@@ -1,0 +1,10 @@
+{
+  "ID": "ec9fd6ce-b0dd-437f-9138-cdb400c604b1",
+  "Name": "Network",
+  "Description": "Display network upload and download speed",
+  "Author": "Jack Ye",
+  "Version": "1.0.0",
+  "Website": "https://github.com/Any-Bar/AnyBar",
+  "ExecuteFileName": "AnyBar.Plugin.Network.dll",
+  "IcoPath": "Images\\icon.png"
+}

@@ -1,0 +1,11 @@
+﻿namespace AnyBar.Enums;
+
+public enum SettingPageTag
+{
+    General,
+    AppBar,
+    AppBarSetting,
+    Plugins,
+    About,
+    BarElementSetting
+}

@@ -1,3 +1,3 @@
-# Flow Bar Localization Toolkit
+# AnyBar Localization Toolkit
 
-Localization toolkit for Flow Bar and its plugins.
+Localization toolkit for AnyBar and its plugins.

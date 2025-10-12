@@ -2,7 +2,7 @@ The Localization Toolkit helps Flow Bar C# plugin developers make the localizati
 
 ## Getting Started
 
-For C# plugins, install and reference [Flow.Bar.Localization](www.nuget.org/packages/Flow.Bar.Localization) via NuGet.
+For C# plugins, install and reference [AnyBar.Localization](www.nuget.org/packages/AnyBar.Localization) via NuGet.
 
 ## Build Properties
 
@@ -17,18 +17,18 @@ These are properties you can configure in your `.csproj` file to customize the l
 ### `FLLUseDependencyInjection`
 
 This flag specifies whether to use dependency injection to obtain an `IPublicAPI` instance. The default is `false`.
-- If set to `false`, the Main class (which must implement **[IPlugin](/API-Reference/Flow.Bar.Plugin/IPlugin.md)** or **[IAsyncPlugin](/API-Reference/Flow.Bar.Plugin/IAsyncPlugin.md)**)
-  must have a [PluginInitContext](/API-Reference/Flow.Bar.Plugin/PluginInitContext.md) property that is at least `internal static`.
-- If set to `true`, you can access the `IPublicAPI` instance via `PublicApi.Instance` using dependency injection, and the Main class does not need to include a [PluginInitContext](/API-Reference/Flow.Bar.Plugin/PluginInitContext.md) property.
+- If set to `false`, the Main class (which must implement **[IPlugin](/API-Reference/AnyBar.Plugin/IPlugin.md)** or **[IAsyncPlugin](/API-Reference/AnyBar.Plugin/IAsyncPlugin.md)**)
+  must have a [PluginInitContext](/API-Reference/AnyBar.Plugin/PluginInitContext.md) property that is at least `internal static`.
+- If set to `true`, you can access the `IPublicAPI` instance via `PublicApi.Instance` using dependency injection, and the Main class does not need to include a [PluginInitContext](/API-Reference/AnyBar.Plugin/PluginInitContext.md) property.
   (Note: This approach is not recommended for plugin projects at the moment since it limits compatibility to Flow Launcher 1.20.0 or later.)
 
 ## Usage
 
 ### Main Class
 
-The Main class must implement [IPluginI18n](/API-Reference/Flow.Bar.Plugin/IPluginI18n.md).
+The Main class must implement [IPluginI18n](/API-Reference/AnyBar.Plugin/IPluginI18n.md).
 
-If `FLLUseDependencyInjection` is `false`, include a [PluginInitContext](/API-Reference/Flow.Bar.Plugin/PluginInitContext.md) property, for example:
+If `FLLUseDependencyInjection` is `false`, include a [PluginInitContext](/API-Reference/AnyBar.Plugin/PluginInitContext.md) property, for example:
 
 ```csharp
  // Must implement IPluginI18n

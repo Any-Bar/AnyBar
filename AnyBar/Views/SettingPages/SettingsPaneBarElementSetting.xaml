@@ -1,0 +1,142 @@
+﻿<ui:Page
+    x:Class="AnyBar.Views.SettingsPaneBarElementSetting"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="clr-namespace:AnyBar.Controls"
+    xmlns:converters="clr-namespace:AnyBar.Converters"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:dragdrop="clr-namespace:AnyBar.Helpers.DragDrop"
+    xmlns:enums="clr-namespace:AnyBar.Enums"
+    xmlns:ikw="http://schemas.inkore.net/lib/ui/wpf"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:models="clr-namespace:AnyBar.Models.AppBar"
+    xmlns:sys="clr-namespace:System;assembly=mscorlib"
+    xmlns:ui="http://schemas.inkore.net/lib/ui/wpf/modern"
+    xmlns:viewmodels="clr-namespace:AnyBar.ViewModels"
+    Title="{DynamicResource SettingWindow_AppBar}"
+    d:DataContext="{d:DesignInstance viewmodels:SettingsPaneBarElementSettingViewModel}"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    mc:Ignorable="d">
+    <ui:Page.Resources>
+        <converters:SettingsPaneBarElementSettingSortModeToCanReorderItemsConverter x:Key="SettingsPaneBarElementSettingSortModeToCanReorderItemsConverter" />
+    </ui:Page.Resources>
+
+    <ui:ScrollViewerEx
+        x:Name="RootPageScrollViewer"
+        HorizontalScrollBarVisibility="Disabled"
+        VerticalScrollBarVisibility="Auto">
+        <ikw:SimpleStackPanel
+            Margin="{StaticResource PageScrollViewerContentMargin}"
+            Orientation="Vertical"
+            Spacing="{StaticResource SettingsCardSpacing}">
+            <ui:SettingsCard x:Name="AddBarElementCard" Header="{DynamicResource SettingPaneBarElementSetting_AddBarElementHeader}">
+                <Button
+                    x:Name="AddBarElementButton"
+                    Command="{Binding AddBarElementCommand, Mode=OneTime}"
+                    CommandParameter="{Binding RelativeSource={RelativeSource Self}}"
+                    Content="{DynamicResource SettingPaneBarElementSetting_AddBarElement}"
+                    IsEnabled="{Binding IsInitialized, Mode=OneWay}"
+                    Style="{DynamicResource {x:Static ui:ThemeKeys.AccentButtonStyleKey}}" />
+            </ui:SettingsCard>
+
+            <ikw:SimpleStackPanel
+                Margin="{StaticResource SettingsSectionHeaderMargin}"
+                Orientation="Horizontal"
+                Spacing="{StaticResource SettingsElementsSpacing}">
+                <ui:FontIcon
+                    VerticalAlignment="Center"
+                    FontSize="{StaticResource BodyFontIconFontSize}"
+                    Foreground="{StaticResource {x:Static ui:ThemeKeys.TextFillColorSecondaryBrushKey}}"
+                    Glyph="&#xE8CB;" />
+                <TextBlock
+                    VerticalAlignment="Center"
+                    Foreground="{StaticResource {x:Static ui:ThemeKeys.TextFillColorSecondaryBrushKey}}"
+                    Text="{DynamicResource SettingPanePlugins_SortBy}" />
+                <ComboBox
+                    VerticalAlignment="Center"
+                    DisplayMemberPath="Display"
+                    ItemsSource="{Binding AllSortModes, Mode=OneTime}"
+                    SelectedValue="{Binding SortMode, Mode=TwoWay}"
+                    SelectedValuePath="Value" />
+            </ikw:SimpleStackPanel>
+
+            <ui:ListView
+                x:Name="BarElementListView"
+                Margin="{StaticResource SettingsSectionHeaderMargin}"
+                HorizontalContentAlignment="Stretch"
+                VerticalContentAlignment="Center"
+                dragdrop:DragDropHelper.CanReorderItems="{Binding SortMode, Converter={StaticResource SettingsPaneBarElementSettingSortModeToCanReorderItemsConverter}, Mode=OneWay}"
+                dragdrop:DragDropHelper.DropScrollViewer="{Binding ElementName=RootPageScrollViewer, Mode=OneTime}"
+                IsItemClickEnabled="False"
+                IsSelectionEnabled="False"
+                ItemContainerStyle="{StaticResource NoHoverListViewItemStyle}"
+                ItemsSource="{Binding BarElements, Mode=OneTime}"
+                ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                ScrollViewer.VerticalScrollBarVisibility="Disabled">
+                <ui:ListView.Style>
+                    <Style TargetType="ui:ListView">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=Items.Count}" Value="0">
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate>
+                                            <TextBlock
+                                                x:Name="NoBarElementsYetTextBlock"
+                                                Width="{StaticResource ListViewEmptyTextWidth}"
+                                                HorizontalAlignment="Left"
+                                                Style="{StaticResource {x:Static ui:ThemeKeys.BodyTextBlockStyleKey}}"
+                                                Text="{DynamicResource SettingPaneBarElementSetting_NoBarElementsYet}"
+                                                TextWrapping="Wrap" />
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </ui:ListView.Style>
+                <ui:ListView.ItemTemplate>
+                    <DataTemplate DataType="models:BarElementViewModel">
+                        <ui:SettingsCard x:Name="BarElementSettingsCard" IsClickEnabled="False">
+                            <ui:SettingsCard.Header>
+                                <TextBlock
+                                    Text="{Binding Name, Mode=OneTime}"
+                                    TextTrimming="CharacterEllipsis"
+                                    TextWrapping="NoWrap">
+                                    <TextBlock.Style>
+                                        <Style TargetType="TextBlock">
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding Disabled, Mode=OneTime}" Value="True">
+                                                    <Setter Property="Foreground" Value="{DynamicResource SettingsCardForegroundDisabled}" />
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </TextBlock.Style>
+                                </TextBlock>
+                            </ui:SettingsCard.Header>
+                            <ui:SettingsCard.HeaderIcon>
+                                <Image
+                                    Width="16"
+                                    Height="16"
+                                    RenderOptions.BitmapScalingMode="HighQuality"
+                                    Source="{Binding Image, Mode=OneWay}" />
+                            </ui:SettingsCard.HeaderIcon>
+
+                            <Button
+                                x:Name="MoreOptionsButton"
+                                Width="28"
+                                Height="35"
+                                Command="{Binding DataContext.ShowBarElementMoreOptionsCommand, RelativeSource={RelativeSource AncestorType=ui:ListView}}"
+                                CommandParameter="{Binding RelativeSource={RelativeSource Self}}"
+                                Style="{StaticResource DefaultFontIconButtonStyle}"
+                                Tag="{Binding ., Mode=OneTime}"
+                                ToolTip="{DynamicResource SettingPanePlugins_MoreOptions}">
+                                <ui:FontIcon Margin="-6" Glyph="&#xE712;" />
+                            </Button>
+                        </ui:SettingsCard>
+                    </DataTemplate>
+                </ui:ListView.ItemTemplate>
+            </ui:ListView>
+        </ikw:SimpleStackPanel>
+    </ui:ScrollViewerEx>
+</ui:Page>

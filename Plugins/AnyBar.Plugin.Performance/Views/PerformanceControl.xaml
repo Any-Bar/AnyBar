@@ -1,0 +1,60 @@
+﻿<UserControl
+    x:Class="AnyBar.Plugin.Performance.Views.PerformanceControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:AnyBar.Plugin.Performance.Views"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    mc:Ignorable="d">
+    <StackPanel x:Name="MainPanel" Orientation="Horizontal">
+        <StackPanel x:Name="CpuPanel" Orientation="Horizontal">
+            <Image
+                x:Name="CpuImage"
+                Width="16"
+                Height="16"
+                Margin="0 0 3 0"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center" />
+            <TextBlock
+                x:Name="CpuTextBlock"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                FontSize="12" />
+        </StackPanel>
+
+        <StackPanel
+            x:Name="GpuPanel"
+            Margin="6 0 6 0"
+            Orientation="Horizontal">
+            <Image
+                x:Name="GpuImage"
+                Width="16"
+                Height="16"
+                Margin="0 0 3 0"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center" />
+            <TextBlock
+                x:Name="GpuTextBlock"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                FontSize="12" />
+        </StackPanel>
+
+        <StackPanel x:Name="MemoryPanel" Orientation="Horizontal">
+            <Image
+                x:Name="MemoryImage"
+                Width="16"
+                Height="16"
+                Margin="0 0 3 0"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center" />
+            <TextBlock
+                x:Name="MemoryTextBlock"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                FontSize="12" />
+        </StackPanel>
+    </StackPanel>
+</UserControl>
