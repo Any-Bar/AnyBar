@@ -70,6 +70,7 @@
                 dragdrop:DragDropHelper.DropScrollViewer="{Binding ElementName=RootPageScrollViewer, Mode=OneTime}"
                 IsItemClickEnabled="False"
                 IsSelectionEnabled="False"
+                ItemContainerStyle="{StaticResource NoHoverListViewItemStyle}"
                 ItemsSource="{Binding BarElements, Mode=OneTime}"
                 ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                 ScrollViewer.VerticalScrollBarVisibility="Disabled">

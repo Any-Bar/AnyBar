@@ -76,6 +76,7 @@
                 VerticalContentAlignment="Center"
                 IsItemClickEnabled="False"
                 IsSelectionEnabled="False"
+                ItemContainerStyle="{StaticResource NoHoverListViewItemStyle}"
                 ItemsSource="{Binding AllPlugins, Mode=OneTime}"
                 ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                 ScrollViewer.VerticalScrollBarVisibility="Disabled">

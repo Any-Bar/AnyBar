@@ -71,6 +71,7 @@
                 dragdrop:DragDropHelper.CanReorderItems="{Binding SortMode, Converter={StaticResource SettingsPaneAppBarSortModeToCanReorderItemsConverter}, Mode=OneWay}"
                 dragdrop:DragDropHelper.DropScrollViewer="{Binding ElementName=RootPageScrollViewer, Mode=OneTime}"
                 IsSelectionEnabled="False"
+                ItemContainerStyle="{StaticResource NoHoverListViewItemStyle}"
                 ItemsSource="{Binding AppBars, Mode=OneTime}"
                 ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                 ScrollViewer.VerticalScrollBarVisibility="Disabled">
