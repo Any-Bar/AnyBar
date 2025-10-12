@@ -18,6 +18,9 @@ using iNKORE.UI.WPF.Modern.Helpers.Styles;
 
 namespace Flow.Bar.Controls;
 
+/// <summary>
+/// Custom MessageBox from UI.WPF.Modern 0.10.1 with colorful icon support & layout fixes.
+/// </summary>
 public partial class MessageBoxEx : Window
 {
     private MessageBoxResult? _result;

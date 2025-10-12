@@ -32,6 +32,9 @@ internal enum NavigationRecommendedTransitionDirection
     Default // Currently it's mapping to EntranceNavigationTransitionInfo and is subject to change.
 }
 
+/// <summary>
+/// Custom NavigationView from UI.WPF.Modern 0.10.1 with modifications.
+/// </summary>
 public partial class NavigationView : ContentControl, IControlProtected
 {
     // General items
