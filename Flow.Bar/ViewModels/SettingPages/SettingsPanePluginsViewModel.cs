@@ -7,7 +7,6 @@ using System.Windows;
 using System.Windows.Controls;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using Flow.Bar.Controls;
 using Flow.Bar.Enums;
 using Flow.Bar.Helpers.MenuFlyout;
 using Flow.Bar.Helpers.Plugins;
@@ -162,7 +161,7 @@ public partial class SettingsPanePluginsViewModel : ObservableObject, INavigatio
     }
 
     [RelayCommand]
-    private void ShowPluginMoreOptions(FontIconButton button)
+    private void ShowPluginMoreOptions(Button button)
     {
         _menuFlyoutHelper.ButtonClick(button);
     }

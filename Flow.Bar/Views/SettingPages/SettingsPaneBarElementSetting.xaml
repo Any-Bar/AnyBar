@@ -122,16 +122,17 @@
                                     Source="{Binding Image, Mode=OneWay}" />
                             </ui:SettingsCard.HeaderIcon>
 
-                            <controls:FontIconButton
+                            <Button
                                 x:Name="MoreOptionsButton"
                                 Width="28"
                                 Height="35"
                                 Command="{Binding DataContext.ShowBarElementMoreOptionsCommand, RelativeSource={RelativeSource AncestorType=ui:ListView}}"
                                 CommandParameter="{Binding RelativeSource={RelativeSource Self}}"
+                                Style="{StaticResource DefaultFontIconButtonStyle}"
                                 Tag="{Binding ., Mode=OneTime}"
                                 ToolTip="{DynamicResource SettingPanePlugins_MoreOptions}">
-                                <ui:FontIcon Glyph="&#xE712;" />
-                            </controls:FontIconButton>
+                                <ui:FontIcon Margin="-6" Glyph="&#xE712;" />
+                            </Button>
                         </ui:SettingsCard>
                     </DataTemplate>
                 </ui:ListView.ItemTemplate>

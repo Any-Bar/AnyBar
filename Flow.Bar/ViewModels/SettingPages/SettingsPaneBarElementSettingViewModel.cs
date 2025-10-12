@@ -195,7 +195,7 @@ public partial class SettingsPaneBarElementSettingViewModel(AppBarManagementServ
     }
 
     [RelayCommand]
-    private void ShowBarElementMoreOptions(FontIconButton button)
+    private void ShowBarElementMoreOptions(Button button)
     {
         _menuFlyoutHelper.ButtonClick(button);
     }
