@@ -19,6 +19,7 @@
     <RuntimeIdentifier>win-x64</RuntimeIdentifier>
     <Platforms>x64</Platforms>
     <PlatformTarget>x64</PlatformTarget>
+    <NoWarn>ABSG0007</NoWarn>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -32,7 +33,6 @@
     <WarningLevel>4</WarningLevel>
     <UseVSHostingProcess>true</UseVSHostingProcess>
     <Prefer32Bit>false</Prefer32Bit>
-    <NoWarn>FLSG0007</NoWarn>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -44,7 +44,6 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
-    <NoWarn>FLSG0007</NoWarn>
   </PropertyGroup>
 
   <ItemGroup>
@@ -77,6 +76,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="AnyBar.Localization" Version="0.0.2" />
     <PackageReference Include="BitFaster.Caching" Version="2.5.4" />
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
     <PackageReference Include="gong-wpf-dragdrop" Version="4.0.0" />
@@ -103,17 +103,11 @@
 
   <ItemGroup>
     <ProjectReference Include="..\AnyBar.Plugin\AnyBar.Plugin.csproj" />
-    <ProjectReference Include="..\Localization\AnyBar.Localization.Analyzers\AnyBar.Localization.Analyzers.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
-    <ProjectReference Include="..\Localization\AnyBar.Localization.Attributes\AnyBar.Localization.Attributes.csproj" OutputItemType="Analyzer" />
-    <ProjectReference Include="..\Localization\AnyBar.Localization.Shared\AnyBar.Localization.Shared.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
-    <ProjectReference Include="..\Localization\AnyBar.Localization.SourceGenerators\AnyBar.Localization.SourceGenerators.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
   </ItemGroup>
 
   <PropertyGroup>
-    <FBLUseDependencyInjection>true</FBLUseDependencyInjection>
+    <AnyBarUseDependencyInjection>true</AnyBarUseDependencyInjection>
   </PropertyGroup>
-
-  <Import Project="..\Localization\AnyBar.Localization\build\AnyBar.Localization.props" />
 
   <ItemGroup>
     <None Update="appsettings.json">

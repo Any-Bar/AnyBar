@@ -2,13 +2,6 @@
   <Configurations>
     <Platform Name="x64" />
   </Configurations>
-  <Folder Name="/Localization/">
-    <Project Path="Localization/AnyBar.Localization.Analyzers/AnyBar.Localization.Analyzers.csproj" />
-    <Project Path="Localization/AnyBar.Localization.Attributes/AnyBar.Localization.Attributes.csproj" />
-    <Project Path="Localization/AnyBar.Localization.Shared/AnyBar.Localization.Shared.csproj" />
-    <Project Path="Localization/AnyBar.Localization.SourceGenerators/AnyBar.Localization.SourceGenerators.csproj" />
-    <Project Path="Localization/AnyBar.Localization/AnyBar.Localization.csproj" />
-  </Folder>
   <Folder Name="/Plugins/">
     <Project Path="Plugins/AnyBar.Plugin.DateTime/AnyBar.Plugin.DateTime.csproj" />
     <Project Path="Plugins/AnyBar.Plugin.Network/AnyBar.Plugin.Network.csproj" />

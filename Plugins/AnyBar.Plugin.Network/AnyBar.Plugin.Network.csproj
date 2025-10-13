@@ -11,7 +11,7 @@
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
     <AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
     <SatelliteResourceLanguages>en</SatelliteResourceLanguages>
-    <NoWarn>FLSG0007</NoWarn>
+    <NoWarn>ABSG0007</NoWarn>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
 
@@ -44,10 +44,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\AnyBar.Plugin\AnyBar.Plugin.csproj" />
-    <ProjectReference Include="..\..\Localization\AnyBar.Localization.Analyzers\AnyBar.Localization.Analyzers.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
-    <ProjectReference Include="..\..\Localization\AnyBar.Localization.Attributes\AnyBar.Localization.Attributes.csproj" OutputItemType="Analyzer" />
-    <ProjectReference Include="..\..\Localization\AnyBar.Localization.Shared\AnyBar.Localization.Shared.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
-    <ProjectReference Include="..\..\Localization\AnyBar.Localization.SourceGenerators\AnyBar.Localization.SourceGenerators.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
   </ItemGroup>
 
   <ItemGroup>
@@ -62,10 +58,8 @@
     </Content>
   </ItemGroup>
 
-  <PropertyGroup>
-    <FBLUseDependencyInjection>false</FBLUseDependencyInjection>
-  </PropertyGroup>
-
-  <Import Project="..\..\Localization\AnyBar.Localization\build\AnyBar.Localization.props" />
+  <ItemGroup>
+    <PackageReference Include="AnyBar.Localization" Version="0.0.2" />
+  </ItemGroup>
 
 </Project>

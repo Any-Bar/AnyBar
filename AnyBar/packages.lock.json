@@ -2,6 +2,12 @@
   "version": 1,
   "dependencies": {
     "net9.0-windows10.0.19041": {
+      "AnyBar.Localization": {
+        "type": "Direct",
+        "requested": "[0.0.2, )",
+        "resolved": "0.0.2",
+        "contentHash": "UGDSLBX9K4nZFPuPBZYXcxSVn/HVMO96slgengHDEiZateEJQVA9FLvQ3FnwPORR5qZZstd7M7GDZj8b9z1erg=="
+      },
       "BitFaster.Caching": {
         "type": "Direct",
         "requested": "[2.5.4, )",
@@ -519,10 +525,7 @@
         "resolved": "4.5.0",
         "contentHash": "okurQJO6NRE/apDIP23ajJ0hpiNmJ+f0BwOlB/cSqTLQlw5upkf+5+96+iG2Jw40G1fCVCyPz/FhIABUjMR+RQ=="
       },
-      "AnyBar.localization.attributes": {
-        "type": "Project"
-      },
-      "AnyBar.plugin": {
+      "anybar.plugin": {
         "type": "Project",
         "dependencies": {
           "iNKORE.UI.WPF.Modern": "[0.10.1, )"
