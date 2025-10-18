@@ -39,10 +39,10 @@ public partial class App : Application, IDisposable, ISingleInstanceApp
 
     private static readonly string ClassName = nameof(App);
 
-    private static bool _disposed;
-
     private SystemTrayIcon _notifyIcon = null!;
     private readonly ContextMenu _contextMenu = new();
+
+    private static bool _disposed;
 
     // To prevent two disposals running at the same time.
     private static readonly Lock _disposingLock = new();
