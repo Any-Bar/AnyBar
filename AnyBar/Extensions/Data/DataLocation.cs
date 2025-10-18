@@ -13,7 +13,7 @@ public static class DataLocation
         PortableDataLocationInUse() ? PortableDataPath : RoamingDataPath;
 
     public static bool PortableDataLocationInUse() =>
-        Directory.Exists(PortableDataPath) && !File.Exists(DeletionIndicatorFile);
+        Directory.Exists(PortableDataPath) && !File.Exists(Path.Combine(PortableDataPath, DeletionIndicatorFile));
 
     public static string VersionLogDirectory => Path.Combine(LogDirectory, Constants.Version);
     public static string LogDirectory => Path.Combine(DataDirectory(), Constants.Logs);
