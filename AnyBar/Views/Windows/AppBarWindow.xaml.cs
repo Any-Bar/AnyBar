@@ -57,7 +57,7 @@ public partial class AppBarWindow : Window
         WindowStyle = WindowStyle.None;
         ResizeMode = ResizeMode.NoResize;
         // Set to false so that it will not on the topper of those fullscreen windows
-        Topmost = false;
+        Topmost = !PInvokeHelper.IsForegroundWindowFullscreen();
         ShowInTaskbar = false;
         ViewModel.PropertyChanged += ViewModel_PropertyChanged;
         InitializeMenuFlyout();

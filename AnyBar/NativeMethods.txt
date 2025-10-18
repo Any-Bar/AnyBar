@@ -55,3 +55,9 @@ GetModuleHandle
 RegisterClassEx
 CreateWindowEx
 DestroyWindow
+
+GetShellWindow
+GetDesktopWindow
+GetForegroundWindow
+GetClassName
+FindWindowEx

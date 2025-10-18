@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows;
 using AnyBar.Enums;
 using AnyBar.Extensions;
 using AnyBar.Helpers.Plugins;
@@ -27,6 +28,8 @@ public class AppBarManagementService(Settings settings)
     private readonly ExplorerWatcher _explorerWatcher = new();
     private bool _isExplorerRestarting = false;
 
+    private readonly FullScreenWindowWatcher _fullScreenWindowWatcher = new();
+
     #region Initialization & Disposal
 
     public void InitializeAllAppBarWindows()
@@ -36,6 +39,7 @@ public class AppBarManagementService(Settings settings)
             StartAppBars([.. _settings.AppBars.Values]);
         }
         InitializaExplorerWatcher();
+        InitializeFullScreenWatcher();
     }
 
     private void InitializaExplorerWatcher()
@@ -60,9 +64,33 @@ public class AppBarManagementService(Settings settings)
         _explorerWatcher.Start();
     }
 
+    private void InitializeFullScreenWatcher()
+    {
+        _fullScreenWindowWatcher.FullScreenEventInvoked += (isFullScreen) =>
+        {
+            Application.Current?.Dispatcher.Invoke(() =>
+            {
+                try
+                {
+                    foreach (var appbarWindow in AppBarWindowPairs.Values)
+                    {
+                        appbarWindow.Topmost = !isFullScreen;
+                    }
+                }
+                catch (Exception e)
+                {
+                    // Log the exception but do not throw it, as we are in a background thread
+                    App.API.LogError(nameof(AppBarManagementService), "Error while setting AppBarWindow Topmost", e);
+                }
+            });
+        };
+        _fullScreenWindowWatcher.Start();
+    }
+
     public void Dispose()
     {
         _explorerWatcher.Dispose();
+        _fullScreenWindowWatcher.Dispose();
         lock (_appBarWindowLock)
         {
             foreach (var appBarWindow in AppBarWindowPairs.Values)
