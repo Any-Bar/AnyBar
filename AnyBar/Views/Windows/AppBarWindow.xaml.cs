@@ -56,7 +56,8 @@ public partial class AppBarWindow : Window
         WindowTracker.TrackWindow(this);
         WindowStyle = WindowStyle.None;
         ResizeMode = ResizeMode.NoResize;
-        Topmost = true;
+        // Set to false so that it will not on the topper of those fullscreen windows
+        Topmost = false;
         ShowInTaskbar = false;
         ViewModel.PropertyChanged += ViewModel_PropertyChanged;
         InitializeMenuFlyout();
