@@ -9,6 +9,8 @@ namespace Windows.Win32;
 
 internal static class PInvokeHelper
 {
+    #region Foreground Window
+
     public static bool SetForegroundWindow(Window window)
     {
         return PInvoke.SetForegroundWindow(GetWindowHandle(window));
@@ -29,6 +31,10 @@ internal static class PInvokeHelper
         return new(windowHelper.Handle);
     }
 
+    #endregion
+
+    #region Active Window
+
     public static Window? GetActiveWindow()
     {
         var activeWindow = GetActiveWindowHandle();
@@ -44,6 +50,10 @@ internal static class PInvokeHelper
         return PInvoke.GetActiveWindow();
     }
 
+    #endregion
+
+    #region Cursor Position
+
     public static Point GetCursorPos()
     {
         if (!PInvoke.GetCursorPos(out var pt))
@@ -53,10 +63,16 @@ internal static class PInvokeHelper
         return pt;
     }
 
+    #endregion
+
+    #region Administrator Mode
+
     public static bool IsAdministrator()
     {
         var identity = WindowsIdentity.GetCurrent();
         var principal = new WindowsPrincipal(identity);
         return principal.IsInRole(WindowsBuiltInRole.Administrator);
     }
+
+    #endregion
 }
