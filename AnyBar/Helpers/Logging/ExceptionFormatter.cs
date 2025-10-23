@@ -9,7 +9,7 @@ namespace AnyBar.Helpers.Logging;
 
 public static class ExceptionFormatter
 {
-    public static string FormatExcpetion(Exception exception)
+    public static string FormatException(Exception exception)
     {
         return CreateExceptionReport(exception);
     }
