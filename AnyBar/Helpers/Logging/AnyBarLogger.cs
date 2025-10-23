@@ -8,7 +8,7 @@ using Serilog;
 
 namespace AnyBar.Helpers.Logging;
 
-public static class FBLogger
+public static class AnyBarLogger
 {
     private const string SourceContext = "SourceContext";
 

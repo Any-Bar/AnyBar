@@ -12,7 +12,7 @@ public static class ErrorReporting
 
     private static void Report(Exception e, bool silent = false, [CallerMemberName] string methodName = "UnHandledException")
     {
-        FBLogger.Fatal(ClassName, ExceptionFormatter.FormatExcpetion(e), e, methodName);
+        AnyBarLogger.Fatal(ClassName, ExceptionFormatter.FormatExcpetion(e), e, methodName);
         if (silent) return;
         var reportWindow = new ReportWindow(e);
         reportWindow.Show();

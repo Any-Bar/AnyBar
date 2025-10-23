@@ -85,32 +85,32 @@ public class PublicAPIInstance(Settings settings) : IPublicAPI
 
     public void LogVerbose(string className, string message, [CallerMemberName] string methodName = "")
     {
-        FBLogger.Verbose(className, message, methodName);
+        AnyBarLogger.Verbose(className, message, methodName);
     }
 
     public void LogDebug(string className, string message, [CallerMemberName] string methodName = "")
     {
-        FBLogger.Debug(className, message, methodName);
+        AnyBarLogger.Debug(className, message, methodName);
     }
 
     public void LogInfo(string className, string message, [CallerMemberName] string methodName = "")
     {
-        FBLogger.Information(className, message, methodName);
+        AnyBarLogger.Information(className, message, methodName);
     }
 
     public void LogWarning(string className, string message, [CallerMemberName] string methodName = "")
     {
-        FBLogger.Warning(className, message, methodName);
+        AnyBarLogger.Warning(className, message, methodName);
     }
 
     public void LogError(string className, string message, Exception? e = null, [CallerMemberName] string methodName = "")
     {
-        FBLogger.Error(className, message, e, methodName);
+        AnyBarLogger.Error(className, message, e, methodName);
     }
 
     public void LogFatal(string className, string message, Exception? e = null, [CallerMemberName] string methodName = "")
     {
-        FBLogger.Fatal(className, message, e, methodName);
+        AnyBarLogger.Fatal(className, message, e, methodName);
     }
 
     public long StopwatchLogDebug(string className, string message, Action action, [CallerMemberName] string methodName = "")

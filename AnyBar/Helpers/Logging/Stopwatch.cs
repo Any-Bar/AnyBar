@@ -16,7 +16,7 @@ public static class Stopwatch
         action();
         stopWatch.Stop();
         var milliseconds = stopWatch.ElapsedMilliseconds;
-        FBLogger.Debug(className, $"{message} <{milliseconds}ms>", methodName);
+        AnyBarLogger.Debug(className, $"{message} <{milliseconds}ms>", methodName);
         return milliseconds;
     }
 
@@ -30,7 +30,7 @@ public static class Stopwatch
         await action();
         stopWatch.Stop();
         var milliseconds = stopWatch.ElapsedMilliseconds;
-        FBLogger.Debug(className, $"{message} <{milliseconds}ms>", methodName);
+        AnyBarLogger.Debug(className, $"{message} <{milliseconds}ms>", methodName);
         return milliseconds;
     }
 
@@ -41,7 +41,7 @@ public static class Stopwatch
         action();
         stopWatch.Stop();
         var milliseconds = stopWatch.ElapsedMilliseconds;
-        FBLogger.Information(className, $"{message} <{milliseconds}ms>", methodName);
+        AnyBarLogger.Information(className, $"{message} <{milliseconds}ms>", methodName);
         return milliseconds;
     }
 
@@ -52,7 +52,7 @@ public static class Stopwatch
         await action();
         stopWatch.Stop();
         var milliseconds = stopWatch.ElapsedMilliseconds;
-        FBLogger.Information(className, $"{message} <{milliseconds}ms>", methodName);
+        AnyBarLogger.Information(className, $"{message} <{milliseconds}ms>", methodName);
         return milliseconds;
     }
 }

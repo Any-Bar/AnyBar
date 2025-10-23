@@ -78,14 +78,14 @@ public partial class App : Application, IDisposable, ISingleInstanceApp
         if (SingleInstance<App>.InitializeAsFirstInstance())
         {
             // Set up Logging
-            FBLogger.Initialize();
+            AnyBarLogger.Initialize();
 
             using var application = new App();
             application.InitializeComponent();
             application.Run();
 
             // Close and flush the logger
-            FBLogger.Close();
+            AnyBarLogger.Close();
         }
     }
 
@@ -328,7 +328,7 @@ public partial class App : Application, IDisposable, ISingleInstanceApp
             }
 
             // Close the log
-            FBLogger.Close();
+            AnyBarLogger.Close();
 
             // Kill the current process
             Process.GetCurrentProcess().Kill();
