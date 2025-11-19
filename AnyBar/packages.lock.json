@@ -528,7 +528,7 @@
       "anybar.plugin": {
         "type": "Project",
         "dependencies": {
-          "iNKORE.UI.WPF.Modern": "[0.10.1, )"
+          "iNKORE.UI.WPF.Modern": "[0.10.2.1, )"
         }
       }
     },
