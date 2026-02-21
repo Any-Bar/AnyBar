@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net9.0-windows</TargetFramework>
+    <TargetFramework>net10.0-windows10.0.19041.0</TargetFramework>
     <ProjectGuid>{4AA45BEA-4C93-40BA-A2A6-975F3AA3D20F}</ProjectGuid>
     <UseWPF>true</UseWPF>
     <OutputType>Library</OutputType>
