@@ -14,6 +14,8 @@ AnyBar is a customizable, extensible desktop utility for Windows that allows you
   - 📈 **Performance**: Monitor system resources (CPU, Memory, etc.).
   - 🌐 **Network**: Keep track of your network status and usage.
 
+![screenshot1](images/screenshot1.png)
+
 ## Requirements
 
 - Windows 10 (19041) or later
