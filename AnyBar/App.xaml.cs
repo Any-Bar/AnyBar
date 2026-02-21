@@ -6,7 +6,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Interop;
 using AnyBar.Helpers.Application;
 using AnyBar.Helpers.Image;
 using AnyBar.Helpers.Logging;
@@ -15,7 +14,6 @@ using AnyBar.Helpers.Startup;
 using AnyBar.Models.Language;
 using AnyBar.Models.PublicAPI;
 using AnyBar.Models.Storage;
-using AnyBar.Models.Taskbar;
 using AnyBar.Models.UserSettings;
 using AnyBar.Plugin;
 using AnyBar.Services;
@@ -27,6 +25,7 @@ using iNKORE.UI.WPF.Modern.Controls;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Toolkit.Uwp.Notifications;
+using U5BFA.Libraries;
 using Windows.Win32;
 using MessageBox = System.Windows.MessageBox;
 
@@ -362,22 +361,17 @@ public partial class App : Application, IDisposable, ISingleInstanceApp
         };
         _contextMenu.Items.Add(settingItem);
         _contextMenu.Items.Add(exitItem);
-        _notifyIcon = new SystemTrayIcon
-        {
-            Tooltip = Constants.AnyBarFullName,
-            Icon = new(Constants.AppIcon)
-        };
-        _notifyIcon.RightClick += (o, e) =>
-        {
-            _contextMenu.IsOpen = true;
-            // Get context menu handle and bring it to the foreground at the topmost
-            if (PresentationSource.FromVisual(_contextMenu) is HwndSource hwndSource)
-            {
-                PInvokeHelper.SetForegroundWindow(hwndSource.Handle);
-            }
-            _contextMenu.Focus();
-        };
+        _notifyIcon = new SystemTrayIcon(
+            new("FAE04EC0-301F-11D3-BF4B-00C04F79EFBC"),
+            new(Constants.AppIcon),
+            Constants.AnyBarFullName);
+        _notifyIcon.RightClicked += NotifyIcon_RightClicked;
         _notifyIcon.Show();
+    }
+
+    private void NotifyIcon_RightClicked(object? sender, MouseEventReceivedEventArgs e)
+    {
+        _contextMenu.IsOpen = true;
     }
 
     #endregion
@@ -410,6 +404,7 @@ public partial class App : Application, IDisposable, ISingleInstanceApp
             {
                 // Dispose needs to be called on the main Windows thread,
                 // since some resources owned by the thread need to be disposed.
+                _notifyIcon.RightClicked -= NotifyIcon_RightClicked;
                 _notifyIcon.Hide();
                 _notifyIcon.Dispose();
                 Ioc.Default.GetRequiredService<AppBarManagementService>().Dispose();
