@@ -35,6 +35,16 @@
           "iNKORE.UI.WPF": "1.2.8"
         }
       },
+      "Jack251970.TrayIconFlyout.Wpf": {
+        "type": "Direct",
+        "requested": "[1.0.2, )",
+        "resolved": "1.0.2",
+        "contentHash": "8H10hW3bm9pIWV7t4gM0cAlzFZej546OqOay0KVAFJnB/qmJcVmRS/uIiyOn0FBxQOAdxJmbl6We1YJNgPzwcA==",
+        "dependencies": {
+          "CommunityToolkit.Mvvm": "8.4.0",
+          "System.Drawing.Common": "10.0.3"
+        }
+      },
       "MemoryPack": {
         "type": "Direct",
         "requested": "[1.21.4, )",
@@ -98,13 +108,13 @@
       },
       "Microsoft.Windows.CsWin32": {
         "type": "Direct",
-        "requested": "[0.3.183, )",
-        "resolved": "0.3.183",
-        "contentHash": "Ze3aE2y7xgzKxEWtNb4SH0CExXpCHr3sbmwnvMiWMzJhWDX/G4Rs5wgg2UNs3VN+qVHh/DkDWLCPaVQv/b//Nw==",
+        "requested": "[0.3.269, )",
+        "resolved": "0.3.269",
+        "contentHash": "O4GVJ0ymxcoFRGS07VcoEClj7A9PIciHIjWDrPymzonhYlOfM7V0ZqGBUK19cUH3BPca9MfSOH0KLK/9JzQ8+Q==",
         "dependencies": {
           "Microsoft.Windows.SDK.Win32Docs": "0.1.42-alpha",
-          "Microsoft.Windows.SDK.Win32Metadata": "61.0.15-preview",
-          "Microsoft.Windows.WDK.Win32Metadata": "0.12.8-experimental"
+          "Microsoft.Windows.SDK.Win32Metadata": "69.0.7-preview",
+          "Microsoft.Windows.WDK.Win32Metadata": "0.13.25-experimental"
         }
       },
       "Microsoft.Xaml.Behaviors.Wpf": {
@@ -451,11 +461,6 @@
         "resolved": "9.0.8",
         "contentHash": "tizSIOEsIgSNSSh+hKeUVPK7xmTIjR8s+mJWOu1KXV3htvNQiPMFRMO17OdI1y/4ZApdBVk49u/08QGC9yvLug=="
       },
-      "Microsoft.NETCore.Platforms": {
-        "type": "Transitive",
-        "resolved": "3.1.0",
-        "contentHash": "z7aeg8oHln2CuNulfhiLYxCVMPEwBl3rzicjvIX+4sUuCwvXw5oXQEtbiU2c0z4qYL5L3Kmx0mMA/+t/SbY67w=="
-      },
       "Microsoft.Win32.Registry": {
         "type": "Transitive",
         "resolved": "5.0.0",
@@ -467,11 +472,8 @@
       },
       "Microsoft.Win32.SystemEvents": {
         "type": "Transitive",
-        "resolved": "4.7.0",
-        "contentHash": "mtVirZr++rq+XCDITMUdnETD59XoeMxSpLRIII7JRI6Yj0LEDiO1pPn0ktlnIj12Ix8bfvQqQDMMIF9wC98oCA==",
-        "dependencies": {
-          "Microsoft.NETCore.Platforms": "3.1.0"
-        }
+        "resolved": "10.0.3",
+        "contentHash": "gYpwz5Gl0rs9pEFHBKctLbSi7SUGR4L1uRjXkU488nizWd2hvo2JP2+ATUsv0th7v6LDiXfdlUsnTbvC2MauFA=="
       },
       "Microsoft.Windows.SDK.Win32Docs": {
         "type": "Transitive",
@@ -480,15 +482,15 @@
       },
       "Microsoft.Windows.SDK.Win32Metadata": {
         "type": "Transitive",
-        "resolved": "61.0.15-preview",
-        "contentHash": "cysex3dazKtCPALCluC2XX3f5Aedy9H2pw5jb+TW5uas2rkem1Z7FRnbUrg2vKx0pk0Qz+4EJNr37HdYTEcvEQ=="
+        "resolved": "69.0.7-preview",
+        "contentHash": "RJoNjQJVCIDNLPbvYuaygCFknTyAxOUE45of1voj0jjOgJa9MB2m1/G8L8F3IYc+2EFG5aqa/9y8PEx7Tk2tLQ=="
       },
       "Microsoft.Windows.WDK.Win32Metadata": {
         "type": "Transitive",
-        "resolved": "0.12.8-experimental",
-        "contentHash": "3n8R44/Z96Ly+ty4eYVJfESqbzvpw96lRLs3zOzyDmr1x1Kw7FNn5CyE416q+bZQV3e1HRuMUvyegMeRE/WedA==",
+        "resolved": "0.13.25-experimental",
+        "contentHash": "IM50tb/+UIwBr9FMr6ZKcZjCMW+Axo6NjGqKxgjUfyCY8dRnYUfrJEXxAaXoWtYP4X8EmASmC1Jtwh4XucseZg==",
         "dependencies": {
-          "Microsoft.Windows.SDK.Win32Metadata": "61.0.15-preview"
+          "Microsoft.Windows.SDK.Win32Metadata": "63.0.31-preview"
         }
       },
       "System.Diagnostics.EventLog": {
@@ -498,11 +500,10 @@
       },
       "System.Drawing.Common": {
         "type": "Transitive",
-        "resolved": "4.7.0",
-        "contentHash": "v+XbyYHaZjDfn0ENmJEV1VYLgGgCTx1gnfOBcppowbpOAriglYgGCvFCPr2EEZyBvXlpxbEsTwkOlInl107ahA==",
+        "resolved": "10.0.3",
+        "contentHash": "bJlT89G7EqMpiLCvIPmb7BHpcSxjVeFsahRyQk3/mrUt5YgHKiFcEv88db97gKcpRn5opxfBwI0ohUmJlxuGJg==",
         "dependencies": {
-          "Microsoft.NETCore.Platforms": "3.1.0",
-          "Microsoft.Win32.SystemEvents": "4.7.0"
+          "Microsoft.Win32.SystemEvents": "10.0.3"
         }
       },
       "System.Reflection.Emit": {
@@ -544,25 +545,13 @@
       },
       "Microsoft.Win32.SystemEvents": {
         "type": "Transitive",
-        "resolved": "4.7.0",
-        "contentHash": "mtVirZr++rq+XCDITMUdnETD59XoeMxSpLRIII7JRI6Yj0LEDiO1pPn0ktlnIj12Ix8bfvQqQDMMIF9wC98oCA==",
-        "dependencies": {
-          "Microsoft.NETCore.Platforms": "3.1.0"
-        }
+        "resolved": "10.0.3",
+        "contentHash": "gYpwz5Gl0rs9pEFHBKctLbSi7SUGR4L1uRjXkU488nizWd2hvo2JP2+ATUsv0th7v6LDiXfdlUsnTbvC2MauFA=="
       },
       "System.Diagnostics.EventLog": {
         "type": "Transitive",
         "resolved": "9.0.8",
         "contentHash": "gebRF3JLLJ76jz1CQpvwezNapZUjFq20JQsaGHzBH0DzlkHBLpdhwkOei9usiOkIGMwU/L0ALWpNe1JE+5/itw=="
-      },
-      "System.Drawing.Common": {
-        "type": "Transitive",
-        "resolved": "4.7.0",
-        "contentHash": "v+XbyYHaZjDfn0ENmJEV1VYLgGgCTx1gnfOBcppowbpOAriglYgGCvFCPr2EEZyBvXlpxbEsTwkOlInl107ahA==",
-        "dependencies": {
-          "Microsoft.NETCore.Platforms": "3.1.0",
-          "Microsoft.Win32.SystemEvents": "4.7.0"
-        }
       },
       "System.Security.AccessControl": {
         "type": "Transitive",
